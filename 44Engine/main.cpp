@@ -4,12 +4,22 @@
 #include "framework.h"
 #include "44Engine.h"
 
+#ifdef __DEBUG
+#pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.Lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\Lib\\Engine_SOURCE.Lib")
+#endif
+
+#include "Engine_SOURCE/yaApplication.h"
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+
+ya::Application application;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -59,6 +69,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 여기서 게임 실행 로직이 들어가야 한다.
+            
 
             // 라이브러리
             // 하나 이상의 서브 루틴이나 함수의 집합 파일
