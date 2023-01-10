@@ -153,11 +153,16 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="yaApplication.h" />
     <ClInclude Include="yaGraphicDevice_DX11.h" />
+    <ClInclude Include="yaMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine_SOURCE.cpp" />
     <ClCompile Include="yaApplication.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp" />
+    <ClCompile Include="yaMath.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="yaMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

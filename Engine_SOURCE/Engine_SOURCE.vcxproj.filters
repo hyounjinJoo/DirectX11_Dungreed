@@ -10,11 +10,16 @@
     <ClCompile Include="Engine_SOURCE.cpp" />
     <ClCompile Include="yaGraphicDevice_DX11.cpp" />
     <ClCompile Include="yaApplication.cpp" />
+    <ClCompile Include="yaMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="yaGraphicDevice_DX11.h" />
     <ClInclude Include="yaApplication.h" />
+    <ClInclude Include="yaMath.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="yaMath.inl" />
   </ItemGroup>
 </Project>
