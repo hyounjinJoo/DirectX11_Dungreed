@@ -3,13 +3,13 @@
 
 #include "framework.h"
 #include "44Engine.h"
+#include "hjApplication.h"
 
-//#include "..\x64\Debug\Lib\Engine_SOURCE.Lib";
-
-#pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib") 
-
-#include "Engine_SOURCE/hjApplication.h"
-
+#ifdef __DEBUG
+#pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\Lib\\Engine_SOURCE.lib")
+#endif
 
 #define MAX_LOADSTRING 100
 
@@ -69,7 +69,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 여기서 게임 실행 로직이 들어가야 한다.
-
+            application.Run();
             // 라이브러리
             // 하나이상의 서브루틴이나 함수의 집합파일
 
@@ -152,6 +152,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     {
         return FALSE;
     }
+
+    // 그래픽 장치 생성 및 윈도우 크기 설정
+    application.SetWindow(hWnd, 1600, 900);
 
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);

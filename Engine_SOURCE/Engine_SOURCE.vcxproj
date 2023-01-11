@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="hjEntity.h" />
+    <ClInclude Include="hjGraphics.h" />
     <ClInclude Include="hjInput.h" />
     <ClInclude Include="hjResource.h" />
     <ClInclude Include="hjResources.h" />
