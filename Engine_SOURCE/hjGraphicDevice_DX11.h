@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ya
+namespace hj
 {
 	class GraphicDevice_DX11
 	{

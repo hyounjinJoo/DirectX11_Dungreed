@@ -4,7 +4,6 @@
 #include <cmath>
 #include <algorithm>
 #include <limits>
-#include <Windows.h>
 
 
 #if __has_include("DirectXMath.h")
@@ -21,7 +20,7 @@
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
-namespace ya::math
+namespace hj::math
 {
     struct Vector2;
     struct Vector4;
@@ -977,5 +976,5 @@ namespace ya::math
         static RECT __cdecl ComputeTitleSafeArea(UINT backBufferWidth, UINT backBufferHeight) noexcept;
     };
 
-#include "yaMath.inl"
+#include "hjMath.inl"
 }

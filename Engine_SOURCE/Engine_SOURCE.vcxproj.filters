@@ -1,25 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Common">
+      <UniqueIdentifier>{dda1a3e5-1800-4f55-8013-0cac70060ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{2cbdf1d2-e148-4cc3-be28-9111ce6a6095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="High Level Interface">
+      <UniqueIdentifier>{e3950d4b-7872-475f-8b7e-15e37152e330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{60614e9a-d737-4192-b505-5a47b8414f7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{2c8c89c3-d876-4d23-bb07-3fc79b8b3de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{7e048bb0-ec5f-4725-bf4c-0eb9d2b03648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Math">
+      <UniqueIdentifier>{3e380e92-ce52-4355-bc83-6ce783775ce2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine_SOURCE.cpp" />
-    <ClCompile Include="yaGraphicDevice_DX11.cpp" />
-    <ClCompile Include="yaApplication.cpp" />
-    <ClCompile Include="yaMath.cpp" />
+    <ClCompile Include="hjMath.cpp">
+      <Filter>Common\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="hjEntity.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="hjGraphicDevice_DX11.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="hjApplication.cpp">
+      <Filter>High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTime.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="hjResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="hjResources.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="hjInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="CommonInclude.h" />
-    <ClInclude Include="yaGraphicDevice_DX11.h" />
-    <ClInclude Include="yaApplication.h" />
-    <ClInclude Include="yaMath.h" />
+    <ClInclude Include="hjMath.h">
+      <Filter>Common\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonInclude.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="hjEntity.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="hjGraphicDevice_DX11.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="hjApplication.h">
+      <Filter>High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTime.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="hjResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="hjResources.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="hjInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="yaMath.inl" />
+    <None Include="hjMath.inl">
+      <Filter>Common\Math</Filter>
+    </None>
   </ItemGroup>
 </Project>

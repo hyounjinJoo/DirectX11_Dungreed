@@ -150,19 +150,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="yaApplication.h" />
-    <ClInclude Include="yaGraphicDevice_DX11.h" />
-    <ClInclude Include="yaMath.h" />
+    <ClInclude Include="hjEntity.h" />
+    <ClInclude Include="hjInput.h" />
+    <ClInclude Include="hjResource.h" />
+    <ClInclude Include="hjResources.h" />
+    <ClInclude Include="hjTime.h" />
+    <ClInclude Include="hjApplication.h" />
+    <ClInclude Include="hjGraphicDevice_DX11.h" />
+    <ClInclude Include="hjMath.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine_SOURCE.cpp" />
-    <ClCompile Include="yaApplication.cpp" />
-    <ClCompile Include="yaGraphicDevice_DX11.cpp" />
-    <ClCompile Include="yaMath.cpp" />
+    <ClCompile Include="hjEntity.cpp" />
+    <ClCompile Include="hjInput.cpp" />
+    <ClCompile Include="hjResource.cpp" />
+    <ClCompile Include="hjResources.cpp" />
+    <ClCompile Include="hjTime.cpp" />
+    <ClCompile Include="hjApplication.cpp" />
+    <ClCompile Include="hjGraphicDevice_DX11.cpp" />
+    <ClCompile Include="hjMath.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="yaMath.inl" />
+    <None Include="hjMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
