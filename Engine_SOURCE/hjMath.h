@@ -1,11 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
 
-#include <cmath>
-#include <algorithm>
-#include <limits>
-
-
 #if __has_include("DirectXMath.h")
 // In this case, DirectXMath is coming from Windows SDK.
 //	It is better to use this on Windows as some Windows libraries could depend on the same 

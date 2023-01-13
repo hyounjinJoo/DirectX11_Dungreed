@@ -15,6 +15,5 @@
 #include <algorithm>
 #include <limits>
 #include <memory>
-#include <wrl.h>
 
 //#include "hjMath.h"

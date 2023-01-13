@@ -15,6 +15,9 @@ namespace hj
     // Running main engine loop
     void Application::Run()
     {
+        Update();
+        FixedUpdate();
+        Render();
     }
     
     // 초기화
@@ -35,6 +38,7 @@ namespace hj
     // 렌더링 수행
     void Application::Render()
     {
+        graphicDevice->Draw();
     }
     
     void Application::SetWindow(HWND hwnd, UINT width, UINT height)

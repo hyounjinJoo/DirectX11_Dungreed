@@ -1,33 +1,42 @@
 #pragma once
 #include "hjGraphics.h"
 
-// 다이렉트X11을 사용하기 위한 헤더
-#include <d3d11.h>
-// 다이렉트X11을 사용한 것을 컴파일 해주는 컴파일러 헤더
-#include <d3dcompiler.h>
-
 namespace hj::graphics
 {
 	class GraphicDevice_DX11
 	{
 	public:
-		GraphicDevice_DX11();
+		// DirectX11 초기화를 수행
+		GraphicDevice_DX11(ValidationMode validationMode = ValidationMode::Disabled);
 		~GraphicDevice_DX11();
 
-#pragma region DirectX11 Member Variable
+#pragma region Create Function
+		bool CreateSwapChain(DXGI_SWAP_CHAIN_DESC* desc);
+		bool CreateTexture(D3D11_TEXTURE2D_DESC* desc, ID3D11Texture2D** ppTexture2D);
+
+		void Draw();
+#pragma endregion
+
+#pragma region Member Variable( DirectX11 Graphic Device )
 	private:
-		// GPU 객체 생성
-		ID3D11Device* mDevice;
-		// GPU Read Write
-		ID3D11DeviceContext* mDeviceContext;
-		ID3D11Texture2D* mRenderTarget;
-		ID3D11RenderTargetView* mRenderTargetView;
+		// GPU 객체(그래픽 카드와 연결되는 기본적인 객체) 생성
+		Microsoft::WRL::ComPtr <ID3D11Device>			mDevice;
+		// GPU Read Write 용도. 디바이스에 직접 접근하지 않고 이 객체를 통해서 GPU에 명령을 내린다.
+		Microsoft::WRL::ComPtr <ID3D11DeviceContext>	mContext;
 
-		ID3D11Texture2D* mDepthStencilBuffer;
-		ID3D11DepthStencilView* mDepthStencilView;
+		// 최종적으로 그려지는 도화지 역할
+		Microsoft::WRL::ComPtr <ID3D11Texture2D>		mRenderTarget;
+		Microsoft::WRL::ComPtr <ID3D11RenderTargetView> mRenderTargetView;
 
-		IDXGISwapChain* mSwapChain;
-		ID3D11SamplerState* mSampler;
+		Microsoft::WRL::ComPtr <ID3D11Texture2D>		mDepthStencilBuffer;
+		Microsoft::WRL::ComPtr <ID3D11DepthStencilView> mDepthStencilView;
+
+		// 화면에 최종적으로 그려지는 백버퍼(== Frame Buffer)를 관리하고,
+		// 실제로 화면에 렌더링하는 역할을 담당하는 객체
+		Microsoft::WRL::ComPtr <IDXGISwapChain>			mSwapChain;
+
+		// 텍스처를 로딩할 때 사용된다.
+		Microsoft::WRL::ComPtr <ID3D11SamplerState>		mSampler;
 #pragma endregion
 
 	};

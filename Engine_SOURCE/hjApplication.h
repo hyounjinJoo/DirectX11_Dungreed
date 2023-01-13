@@ -30,12 +30,13 @@ namespace hj
 
 #pragma region Setter
 		void SetWindow(HWND hwnd, UINT width, UINT height);
-
 		void SetHwnd(HWND hwnd) { mHwnd = hwnd; }
 #pragma endregion
 
 #pragma region Getter
 		HWND GetHwnd() { return mHwnd; }
+		UINT GetWidth() { return mWidth; }
+		UINT GetHeight() { return mHeight; }
 #pragma endregion;
 
 #pragma region MemberVariable
