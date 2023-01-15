@@ -150,6 +150,24 @@ namespace hj::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer)
+	{
+		// System -> GPU
+		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
+			return false;
+
+
+
+
+		return true;
+	}
+
+	bool GraphicDevice_DX11::CreateShader()
+	{
+
+		return true;
+	}
+
 	void GraphicDevice_DX11::Draw()
 	{
 		// 렌더 타겟 뷰를 지정된 색상으로 클리어 시켜준다.

@@ -155,7 +155,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     // 그래픽 장치 생성 및 윈도우 크기 설정
     application.SetWindow(hWnd, 1600, 900);
-
+    application.Initialize();
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 

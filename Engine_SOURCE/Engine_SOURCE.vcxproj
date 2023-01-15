@@ -153,6 +153,7 @@
     <ClInclude Include="hjEntity.h" />
     <ClInclude Include="hjGraphics.h" />
     <ClInclude Include="hjInput.h" />
+    <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
     <ClInclude Include="hjResources.h" />
     <ClInclude Include="hjTime.h" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="hjEntity.cpp" />
     <ClCompile Include="hjInput.cpp" />
+    <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />
     <ClCompile Include="hjResources.cpp" />
     <ClCompile Include="hjTime.cpp" />

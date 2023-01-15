@@ -48,6 +48,9 @@
     <ClCompile Include="hjInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="hjRenderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -78,6 +81,9 @@
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="hjGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="hjRenderer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>

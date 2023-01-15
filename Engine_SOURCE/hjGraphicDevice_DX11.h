@@ -13,6 +13,8 @@ namespace hj::graphics
 #pragma region Create Function
 		bool CreateSwapChain(DXGI_SWAP_CHAIN_DESC* desc);
 		bool CreateTexture(D3D11_TEXTURE2D_DESC* desc, ID3D11Texture2D** ppTexture2D);
+		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
+		bool CreateShader();
 
 		void Draw();
 #pragma endregion
@@ -40,5 +42,11 @@ namespace hj::graphics
 #pragma endregion
 
 	};
+
+	inline GraphicDevice_DX11*& GetDevice()
+	{
+		static GraphicDevice_DX11* device = nullptr;
+		return device;
+	}
 }
 

@@ -1,4 +1,5 @@
 #include "hjApplication.h"
+#include "hjRenderer.h"
 
 namespace hj
 {
@@ -23,6 +24,7 @@ namespace hj
     // 초기화
     void Application::Initialize()
     {
+        renderer::Initialize();
     }
 
     // 게임 로직 캐릭터 이동 등등의 CPU Update
@@ -52,6 +54,7 @@ namespace hj
 
             ValidationMode validationMode = ValidationMode::Disabled;
             graphicDevice = std::make_unique<GraphicDevice_DX11>();
+            graphics::GetDevice() = graphicDevice.get();
         }
 
         // 윈도우 크기 조정
