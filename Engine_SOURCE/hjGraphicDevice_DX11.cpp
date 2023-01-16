@@ -1,5 +1,6 @@
 #include "hjGraphicDevice_DX11.h"
 #include "hjApplication.h"
+#include "hjRenderer.h"
 
 extern hj::Application application;
 
@@ -44,6 +45,7 @@ namespace hj::graphics
 		swapChainDesc.OutputWindow	= hwnd;
 		swapChainDesc.Windowed		= TRUE;
 		swapChainDesc.BufferCount	= static_cast<UINT>(2);
+		swapChainDesc.SwapEffect	= DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 		swapChainDesc.BufferUsage	= DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
 		/*
@@ -61,8 +63,10 @@ namespace hj::graphics
 		swapChainDesc.BufferDesc.Format						= DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
 		swapChainDesc.BufferDesc.RefreshRate.Numerator		= static_cast<UINT>(240);
 		swapChainDesc.BufferDesc.RefreshRate.Denominator	= static_cast<UINT>(1);
+
 		swapChainDesc.BufferDesc.ScanlineOrdering			= DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 		swapChainDesc.BufferDesc.Scaling					= DXGI_MODE_SCALING_UNSPECIFIED;
+
 		swapChainDesc.SampleDesc.Count						= static_cast<UINT>(1);
 		swapChainDesc.SampleDesc.Quality					= static_cast<UINT>(0);
 
@@ -102,7 +106,7 @@ namespace hj::graphics
 		depthBuffer.ArraySize			= static_cast<UINT>(1);
 		depthBuffer.SampleDesc.Count	= static_cast<UINT>(1);
 		depthBuffer.SampleDesc.Quality	= static_cast<UINT>(0);
-		depthBuffer.MipLevels			= static_cast<UINT>(1);
+		depthBuffer.MipLevels			= static_cast<UINT>(0);
 		depthBuffer.MiscFlags			= static_cast<UINT>(0);
 
 		if (!CreateTexture(&depthBuffer, mDepthStencilBuffer.GetAddressOf()))
@@ -110,6 +114,20 @@ namespace hj::graphics
 
 		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
 			return;
+
+		// 뷰포트 좌표계 설정
+		// (0 , 0)             (right - left , 0)
+		// |------------------------------------|
+		// |                                    |
+		// |------------------------------------|
+		// (0 , bottom - top)                   (right - left, bottom - top)
+		RECT winRect;
+		GetClientRect(application.GetHwnd(), &winRect);
+		mViewPort = { 0.f, 0.f, FLOAT(winRect.right - winRect.left), FLOAT(winRect.bottom - winRect.top), 0.f, 1.f };
+		// ViewPort를 바인딩
+		BindViewports(&mViewPort);
+		// Output-Merger에 렌더 타겟 설정
+		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	}
 
 	GraphicDevice_DX11::~GraphicDevice_DX11()
@@ -150,32 +168,113 @@ namespace hj::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* desc, UINT NumElements, const void* byteCode, SIZE_T bytecodeLength, ID3D11InputLayout** ppInputLayout)
+	{
+		if (FAILED(mDevice->CreateInputLayout(desc, NumElements, byteCode, bytecodeLength, ppInputLayout)))
+			return false;
+
+		return true;
+	}
+
 	bool GraphicDevice_DX11::CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer)
 	{
 		// System -> GPU
 		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
 			return false;
 
-
-
-
 		return true;
 	}
 
 	bool GraphicDevice_DX11::CreateShader()
 	{
+		// 쉐이더 생성 시 발생할 수 있는 Error 정보를 담을 ID3DBlob 객체
+		ID3DBlob* errorBlob = nullptr;
+
+		// Vertex Shader 컴파일 및 생성
+		std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
+		shaderPath += "\\SHADER_SOURCE\\";
+
+		std::wstring vsPath(shaderPath.c_str());
+		vsPath += L"TriangleVS.hlsl";
+		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+							, "VS_Test", "vs_5_0", 0, 0, &renderer::triangleVSBlob, &errorBlob);
+
+		if (errorBlob)
+		{
+			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+			errorBlob->Release();
+			errorBlob = nullptr;
+
+			return false;
+		}
+
+		mDevice->CreateVertexShader(renderer::triangleVSBlob->GetBufferPointer()
+									, renderer::triangleVSBlob->GetBufferSize()
+									, nullptr, &renderer::triangleVS);
+
+		// Pixel Shader 컴파일 및 생성
+		std::wstring psPath(shaderPath.c_str());
+		psPath += L"TrianglePS.hlsl";
+		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+							, "PS_Test", "ps_5_0", 0, 0, &renderer::trianglePSBlob, &errorBlob);
+
+		if (errorBlob)
+		{
+			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+			errorBlob->Release();
+			errorBlob = nullptr;
+
+			return false;
+		}
+
+		mDevice->CreatePixelShader(renderer::trianglePSBlob->GetBufferPointer()
+									, renderer::trianglePSBlob->GetBufferSize()
+									, nullptr, &renderer::trianglePS);
 
 		return true;
 	}
 
+	void GraphicDevice_DX11::BindViewports(D3D11_VIEWPORT* viewPort)
+	{
+		mContext->RSSetViewports(1, viewPort);
+	}
+
 	void GraphicDevice_DX11::Draw()
 	{
+		// 리소스 바인딩
+		D3D11_MAPPED_SUBRESOURCE sub = {};
+		mContext->Map(renderer::triangleBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
+		memcpy(sub.pData, renderer::vertexes, sizeof(renderer::Vertex) * 3);
+		mContext->Unmap(renderer::triangleBuffer, 0);
+
 		// 렌더 타겟 뷰를 지정된 색상으로 클리어 시켜준다.
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
+		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 
-		// 렌더링 된 이미지를 사용자에게 제공한다.
-		mSwapChain->Present(1, 0);
+		// ViewPort, RenderTarget 갱신
+		RECT winRect;
+		GetClientRect(application.GetHwnd(), &winRect);
+		mViewPort = { 0.f, 0.f, FLOAT(winRect.right - winRect.left), FLOAT(winRect.bottom - winRect.top), 0.f, 1.f };
+		BindViewports(&mViewPort);
+		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+
+		// Input Assembler 단계에 버텍스 버퍼 정보 지정
+		UINT vertexSize = sizeof(renderer::Vertex);
+		UINT offset = 0;
+		mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexSize, &offset);
+		mContext->IASetInputLayout(renderer::triangleLayout);
+		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// 생성한 쉐이더 세팅
+		mContext->VSSetShader(renderer::triangleVS, 0, 0);
+		mContext->PSSetShader(renderer::trianglePS, 0, 0);
+
+		// 정점을 그려준다.
+		mContext->Draw(3, 0);
+
+		// 렌더링 된 이미지를 백버퍼에 그려준다.
+		mSwapChain->Present(0, 0);
 	}
 
 }

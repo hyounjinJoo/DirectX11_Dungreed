@@ -1,5 +1,5 @@
 #pragma once
-#include "CommonInclude.h"
+#include "hjEngine.h"
 #include "hjGraphics.h"
 #include "hjGraphicDevice_DX11.h"
 

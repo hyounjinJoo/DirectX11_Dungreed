@@ -1,5 +1,5 @@
 #pragma once
-#include "CommonInclude.h"
+#include "hjEngine.h"
 
 #if __has_include("DirectXMath.h")
 // In this case, DirectXMath is coming from Windows SDK.

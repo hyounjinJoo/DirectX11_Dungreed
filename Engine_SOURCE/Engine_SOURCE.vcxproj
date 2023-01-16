@@ -150,7 +150,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="hjEngine.h" />
     <ClInclude Include="hjEntity.h" />
+    <ClInclude Include="hjEnums.h" />
     <ClInclude Include="hjGraphics.h" />
     <ClInclude Include="hjInput.h" />
     <ClInclude Include="hjRenderer.h" />

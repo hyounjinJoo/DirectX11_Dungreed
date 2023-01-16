@@ -22,6 +22,9 @@
     <Filter Include="Common\Math">
       <UniqueIdentifier>{3e380e92-ce52-4355-bc83-6ce783775ce2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{72517f84-8c2b-4b30-a4bb-d99bbe23c36e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -49,7 +52,7 @@
       <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="hjRenderer.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +87,13 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="hjRenderer.h">
-      <Filter>Graphics</Filter>
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjEngine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="hjEnums.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
