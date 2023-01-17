@@ -20,10 +20,14 @@ namespace hj::graphics
 		GPU,
 	};
 
-	enum class eShaderState
+	enum class eShaderStage
 	{
 		VS,
+		HS,
+		DS,
+		GS,
 		PS,
+		CS,
 		Count,
 	};
 

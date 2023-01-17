@@ -9,7 +9,7 @@ namespace hj
 		static __forceinline float DeltaTime() { return mDeltaTime; }
 
 		static void Initialize();
-		static void Tick();
+		static void Update();
 		static void Render(HDC hdc);
 
 	private:

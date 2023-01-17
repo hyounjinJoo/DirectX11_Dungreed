@@ -18,6 +18,8 @@ namespace hj::graphics
 		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
 		bool CreateShader();
 		void BindViewports(D3D11_VIEWPORT* viewPort);
+		void BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
+		void SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 
 		void Draw();
 #pragma endregion

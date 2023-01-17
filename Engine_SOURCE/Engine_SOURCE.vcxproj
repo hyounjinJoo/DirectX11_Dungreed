@@ -150,25 +150,37 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="hjComponent.h" />
     <ClInclude Include="hjEngine.h" />
     <ClInclude Include="hjEntity.h" />
     <ClInclude Include="hjEnums.h" />
+    <ClInclude Include="hjGameObject.h" />
     <ClInclude Include="hjGraphics.h" />
     <ClInclude Include="hjInput.h" />
+    <ClInclude Include="hjLayer.h" />
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
     <ClInclude Include="hjResources.h" />
+    <ClInclude Include="hjScene.h" />
+    <ClInclude Include="hjSceneManager.h" />
+    <ClInclude Include="hjShader.h" />
     <ClInclude Include="hjTime.h" />
     <ClInclude Include="hjApplication.h" />
     <ClInclude Include="hjGraphicDevice_DX11.h" />
     <ClInclude Include="hjMath.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjComponent.cpp" />
     <ClCompile Include="hjEntity.cpp" />
+    <ClCompile Include="hjGameObject.cpp" />
     <ClCompile Include="hjInput.cpp" />
+    <ClCompile Include="hjLayer.cpp" />
     <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />
     <ClCompile Include="hjResources.cpp" />
+    <ClCompile Include="hjScene.cpp" />
+    <ClCompile Include="hjSceneManager.cpp" />
+    <ClCompile Include="hjShader.cpp" />
     <ClCompile Include="hjTime.cpp" />
     <ClCompile Include="hjApplication.cpp" />
     <ClCompile Include="hjGraphicDevice_DX11.cpp" />

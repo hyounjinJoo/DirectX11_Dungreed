@@ -20,7 +20,7 @@ namespace hj
         QueryPerformanceCounter(&mPrevFrequency);
     }
 
-    void Time::Tick()
+    void Time::Update()
     {
         QueryPerformanceCounter(&mCurFrequency);
 

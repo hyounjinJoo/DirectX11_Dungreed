@@ -28,7 +28,6 @@ namespace hj::graphics
 									, mContext.GetAddressOf());
 
 		// Swap Chain 생성
-		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 		/*
 			DXGI_SWAP_CHAIN_DESC
 
@@ -41,6 +40,7 @@ namespace hj::graphics
 			DXGI_SWAP_EFFECT	SwapEffect;
 			UINT				Flags;
 		*/
+		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
 		swapChainDesc.OutputWindow	= hwnd;
 		swapChainDesc.Windowed		= TRUE;
@@ -81,7 +81,6 @@ namespace hj::graphics
 		hr = mDevice->CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
 
 		// Create Depth Stencil Buffer, Depth Stencil View
-		D3D11_TEXTURE2D_DESC depthBuffer = {};
 		/*
 			D3D11_TEXTURE2D_DESC
 
@@ -96,6 +95,7 @@ namespace hj::graphics
 			UINT CPUAccessFlags;
 			UINT MiscFlags;
 		*/
+		D3D11_TEXTURE2D_DESC depthBuffer = {};
 
 		depthBuffer.BindFlags			= D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
 		depthBuffer.Format				= DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -132,6 +132,7 @@ namespace hj::graphics
 
 	GraphicDevice_DX11::~GraphicDevice_DX11()
 	{
+		renderer::Release();
 	}
 
 	bool GraphicDevice_DX11::CreateSwapChain(DXGI_SWAP_CHAIN_DESC* desc)
@@ -239,18 +240,56 @@ namespace hj::graphics
 		mContext->RSSetViewports(1, viewPort);
 	}
 
+	void GraphicDevice_DX11::BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	{
+		D3D11_MAPPED_SUBRESOURCE sub = {};
+		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
+		memcpy(sub.pData, data, size);
+		mContext->Unmap(buffer, 0);
+	}
+
+	void GraphicDevice_DX11::SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
+	{
+		switch (stage)
+		{
+		case hj::graphics::eShaderStage::VS:
+			mContext->VSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case hj::graphics::eShaderStage::HS:
+			mContext->HSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case hj::graphics::eShaderStage::DS:
+			mContext->DSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case hj::graphics::eShaderStage::GS:
+			mContext->GSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case hj::graphics::eShaderStage::PS:
+			mContext->PSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case hj::graphics::eShaderStage::CS:
+			mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case hj::graphics::eShaderStage::Count:
+			break;
+		}
+	}
+
 	void GraphicDevice_DX11::Draw()
 	{
 		// 리소스 바인딩
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(renderer::triangleBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
-		memcpy(sub.pData, renderer::vertexes, sizeof(renderer::Vertex) * 3);
+		memcpy(sub.pData, renderer::vertexes, sizeof(renderer::Vertex) * 4);
 		mContext->Unmap(renderer::triangleBuffer, 0);
 
 		// 렌더 타겟 뷰를 지정된 색상으로 클리어 시켜준다.
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+
+		// 상수버퍼를 쉐이더에 세팅
+		SetConstantBuffer(eShaderStage::VS, eCBType::Transform, renderer::triangleConstantBuffer);
 
 		// ViewPort, RenderTarget 갱신
 		RECT winRect;
@@ -259,10 +298,12 @@ namespace hj::graphics
 		BindViewports(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 
-		// Input Assembler 단계에 버텍스 버퍼 정보 지정
+		// Input Assembler 단계에 버텍스 버퍼, 인덱스 버퍼 정보 지정
 		UINT vertexSize = sizeof(renderer::Vertex);
 		UINT offset = 0;
 		mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexSize, &offset);
+		mContext->IASetIndexBuffer(renderer::triangleIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
 		mContext->IASetInputLayout(renderer::triangleLayout);
 		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -271,7 +312,7 @@ namespace hj::graphics
 		mContext->PSSetShader(renderer::trianglePS, 0, 0);
 
 		// 정점을 그려준다.
-		mContext->Draw(3, 0);
+		mContext->DrawIndexed(6, 0, 0);
 
 		// 렌더링 된 이미지를 백버퍼에 그려준다.
 		mSwapChain->Present(0, 0);

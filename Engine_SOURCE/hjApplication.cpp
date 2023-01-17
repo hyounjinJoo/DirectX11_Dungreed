@@ -1,5 +1,7 @@
 #include "hjApplication.h"
 #include "hjRenderer.h"
+#include "hjTime.h"
+#include "hjInput.h"
 
 namespace hj
 {
@@ -24,12 +26,17 @@ namespace hj
     // 초기화
     void Application::Initialize()
     {
+        Time::Initialize();
+        Input::Initialize();
+
         renderer::Initialize();
     }
 
     // 게임 로직 캐릭터 이동 등등의 CPU Update
     void Application::Update()
     {
+        Time::Update();
+        Input::Update();
     }
 
     // CPU Update 된 정보들을 GPU에 Update
@@ -40,6 +47,7 @@ namespace hj
     // 렌더링 수행
     void Application::Render()
     {
+        Time::Render(mHdc);
         graphicDevice->Draw();
     }
     
@@ -49,6 +57,7 @@ namespace hj
         if (graphicDevice == nullptr)
         {
             mHwnd = hwnd;
+            mHdc = GetDC(mHwnd);
             mWidth = width;
             mHeight = height;
 

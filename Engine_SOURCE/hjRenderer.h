@@ -9,7 +9,6 @@ using namespace hj::graphics;
 
 namespace hj::renderer
 {
-
 	struct Vertex
 	{
 		Vector3 pos;
@@ -18,11 +17,13 @@ namespace hj::renderer
 
 #pragma region extern Variables
 	// 정점 데이터
-	extern Vertex vertexes[3];
+	extern Vertex vertexes[4];
 
 	// 버텍스 버퍼
 	extern ID3D11Buffer* triangleBuffer;
 	extern ID3DBlob* errorBlob;
+	extern ID3D11Buffer* triangleIndexBuffer;
+	extern ID3D11Buffer* triangleConstantBuffer;
 
 	// 버텍스 쉐이더
 	extern ID3DBlob* triangleVSBlob;

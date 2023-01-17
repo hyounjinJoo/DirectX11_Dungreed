@@ -41,12 +41,13 @@ namespace hj
 
 #pragma region MemberVariable
 	private:
-		bool initialized = false;
+		bool	initialized = false;
 		std::unique_ptr<graphics::GraphicDevice_DX11> graphicDevice;
 
-		HWND mHwnd;
-		UINT mHeight;
-		UINT mWidth;
+		HWND	mHwnd;
+		HDC		mHdc;
+		UINT	mHeight;
+		UINT	mWidth;
 #pragma endregion
 
 	};

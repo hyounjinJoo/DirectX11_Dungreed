@@ -43,7 +43,7 @@ namespace hj
 		}
 	}
 
-	void hj::Input::Tick()
+	void hj::Input::Update()
 	{
 		if (GetFocus())
 		{

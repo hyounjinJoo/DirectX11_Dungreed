@@ -50,7 +50,7 @@ namespace hj
 
 #pragma region MemberFunction
 		static void Initialize();
-		static void Tick();
+		static void Update();
 #pragma endregion
 
 #pragma region Getter
