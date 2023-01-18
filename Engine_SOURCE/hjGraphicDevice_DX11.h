@@ -17,11 +17,21 @@ namespace hj::graphics
 		bool CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* desc, UINT NumElements, const void* byteCode, SIZE_T bytecodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
 		bool CreateShader();
+
+		void BindVertexBuffer(UINT StartSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets);
+		void BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset);
 		void BindViewports(D3D11_VIEWPORT* viewPort);
 		void BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		void SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 
+		void Clear();
+		void AdjustViewPorts();
+
 		void Draw();
+		void DrawIndexed(UINT indexCount, UINT startIndexLocation, UINT baseVertexLocation);
+
+		void Present();
+		void Render();
 #pragma endregion
 
 #pragma region Member Variable( DirectX11 Graphic Device )

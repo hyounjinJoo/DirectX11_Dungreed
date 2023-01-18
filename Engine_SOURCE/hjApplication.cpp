@@ -8,6 +8,10 @@ namespace hj
     using namespace graphics;
 
     Application::Application()
+        : mHwnd(nullptr)
+        , mHdc(nullptr)
+        , mHeight(1600)
+        , mWidth(900)
     {
     }
 
@@ -48,7 +52,7 @@ namespace hj
     void Application::Render()
     {
         Time::Render(mHdc);
-        graphicDevice->Draw();
+        graphicDevice->Render();
     }
     
     void Application::SetWindow(HWND hwnd, UINT width, UINT height)

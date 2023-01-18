@@ -9,7 +9,7 @@ namespace hj
 	{
 	public:
 		Scene();
-		~Scene();
+		virtual ~Scene();
 
 		virtual void Initialize();
 		virtual void Update();

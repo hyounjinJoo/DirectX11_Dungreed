@@ -8,7 +8,7 @@ namespace hj
 	{
 	public:
 		Layer();
-		~Layer();
+		virtual ~Layer();
 
 		virtual void Initialize();
 		virtual void Update();

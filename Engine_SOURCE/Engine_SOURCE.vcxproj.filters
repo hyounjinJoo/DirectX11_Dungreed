@@ -28,11 +28,23 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{df5027df-e362-4aab-9810-17f8a5749fe5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\GameObject">
+    <Filter Include="Component">
+      <UniqueIdentifier>{d48e4a74-76df-4904-a732-d8470f2a1a02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
       <UniqueIdentifier>{6144ef2e-cb34-4bc2-bce6-f374e0354390}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Component">
-      <UniqueIdentifier>{d48e4a74-76df-4904-a732-d8470f2a1a02}</UniqueIdentifier>
+    <Filter Include="Resource\Manager">
+      <UniqueIdentifier>{b720ba89-57c8-4b68-8da1-5b84cf81f058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{eb383d44-e968-4aba-9ba6-71adafbe306d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{164a76e6-731d-411e-9613-df16b3865af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader">
+      <UniqueIdentifier>{d6da0964-3cc3-4ff7-a87c-8b7d42ec8672}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,17 +66,11 @@
     <ClCompile Include="hjResource.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="hjResources.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
     <ClCompile Include="hjInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="hjRenderer.cpp">
       <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="hjShader.cpp">
-      <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="hjLayer.cpp">
       <Filter>Scene</Filter>
@@ -76,10 +82,25 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="hjGameObject.cpp">
-      <Filter>Scene\GameObject</Filter>
+      <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="hjComponent.cpp">
-      <Filter>Scene\Component</Filter>
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMeshRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="hjResources.cpp">
+      <Filter>Resource\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="hjShader.cpp">
+      <Filter>Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +125,6 @@
     <ClInclude Include="hjResource.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="hjResources.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="hjInput.h">
       <Filter>Input</Filter>
     </ClInclude>
@@ -122,9 +140,6 @@
     <ClInclude Include="hjEnums.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="hjShader.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="hjSceneManager.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -135,10 +150,25 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="hjGameObject.h">
-      <Filter>Scene\GameObject</Filter>
+      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="hjComponent.h">
-      <Filter>Scene\Component</Filter>
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="hjMeshRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjResources.h">
+      <Filter>Resource\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="hjMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="hjShader.h">
+      <Filter>Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="hjMesh.h">
+      <Filter>Resource\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

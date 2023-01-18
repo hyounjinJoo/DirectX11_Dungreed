@@ -1,6 +1,8 @@
+
 #include "hjGraphicDevice_DX11.h"
 #include "hjApplication.h"
 #include "hjRenderer.h"
+#include "hjMesh.h"
 
 extern hj::Application application;
 
@@ -198,7 +200,7 @@ namespace hj::graphics
 		std::wstring vsPath(shaderPath.c_str());
 		vsPath += L"TriangleVS.hlsl";
 		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-							, "VS_Test", "vs_5_0", 0, 0, &renderer::triangleVSBlob, &errorBlob);
+							, "VS_Test", "vs_5_0", 0, 0, renderer::triangleVSBlob.GetAddressOf(), &errorBlob);
 
 		if (errorBlob)
 		{
@@ -211,13 +213,13 @@ namespace hj::graphics
 
 		mDevice->CreateVertexShader(renderer::triangleVSBlob->GetBufferPointer()
 									, renderer::triangleVSBlob->GetBufferSize()
-									, nullptr, &renderer::triangleVS);
+									, nullptr, renderer::triangleVS.GetAddressOf());
 
 		// Pixel Shader 컴파일 및 생성
 		std::wstring psPath(shaderPath.c_str());
 		psPath += L"TrianglePS.hlsl";
 		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-							, "PS_Test", "ps_5_0", 0, 0, &renderer::trianglePSBlob, &errorBlob);
+							, "PS_Test", "ps_5_0", 0, 0, renderer::trianglePSBlob.GetAddressOf(), &errorBlob);
 
 		if (errorBlob)
 		{
@@ -230,9 +232,23 @@ namespace hj::graphics
 
 		mDevice->CreatePixelShader(renderer::trianglePSBlob->GetBufferPointer()
 									, renderer::trianglePSBlob->GetBufferSize()
-									, nullptr, &renderer::trianglePS);
+									, nullptr, renderer::trianglePS.GetAddressOf());
 
 		return true;
+	}
+
+	void GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot
+		, UINT NumBuffers
+		, ID3D11Buffer* const* ppVertexBuffers
+		, const UINT* pStrides
+		, const UINT* pOffsets)
+	{		
+		mContext->IASetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets);
+	}
+
+	void GraphicDevice_DX11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset)
+	{		
+		mContext->IASetIndexBuffer(pIndexBuffer, Format, Offset);
 	}
 
 	void GraphicDevice_DX11::BindViewports(D3D11_VIEWPORT* viewPort)
@@ -275,47 +291,61 @@ namespace hj::graphics
 		}
 	}
 
-	void GraphicDevice_DX11::Draw()
+	void GraphicDevice_DX11::Clear()
 	{
-		// 리소스 바인딩
-		D3D11_MAPPED_SUBRESOURCE sub = {};
-		mContext->Map(renderer::triangleBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
-		memcpy(sub.pData, renderer::vertexes, sizeof(renderer::Vertex) * 4);
-		mContext->Unmap(renderer::triangleBuffer, 0);
-
 		// 렌더 타겟 뷰를 지정된 색상으로 클리어 시켜준다.
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+	}
 
-		// 상수버퍼를 쉐이더에 세팅
-		SetConstantBuffer(eShaderStage::VS, eCBType::Transform, renderer::triangleConstantBuffer);
-
+	void GraphicDevice_DX11::AdjustViewPorts()
+	{
 		// ViewPort, RenderTarget 갱신
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
 		mViewPort = { 0.f, 0.f, FLOAT(winRect.right - winRect.left), FLOAT(winRect.bottom - winRect.top), 0.f, 1.f };
 		BindViewports(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+	}
 
-		// Input Assembler 단계에 버텍스 버퍼, 인덱스 버퍼 정보 지정
-		UINT vertexSize = sizeof(renderer::Vertex);
-		UINT offset = 0;
-		mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexSize, &offset);
-		mContext->IASetIndexBuffer(renderer::triangleIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	void GraphicDevice_DX11::Draw()
+	{
+		mContext->Draw(0, 0);
+	}
 
-		mContext->IASetInputLayout(renderer::triangleLayout);
+	void GraphicDevice_DX11::DrawIndexed(UINT indexCount, UINT startIndexLocation, UINT baseVertexLocation)
+	{
+		// 정점을 그려준다.
+		mContext->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
+	}
+
+	void GraphicDevice_DX11::Present()
+	{
+		// 렌더링 된 이미지를 백버퍼에 그려준다.
+		mSwapChain->Present(0, 0);
+	}
+
+	void GraphicDevice_DX11::Render()
+	{
+		Clear();
+
+		// 상수버퍼를 쉐이더에 세팅
+		SetConstantBuffer(eShaderStage::VS, eCBType::Transform, renderer::triangleConstantBuffer.Get());
+
+		AdjustViewPorts();
+
+		renderer::mesh->BindBuffer();
+
+		mContext->IASetInputLayout(renderer::triangleLayout.Get());
 		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		// 생성한 쉐이더 세팅
-		mContext->VSSetShader(renderer::triangleVS, 0, 0);
-		mContext->PSSetShader(renderer::trianglePS, 0, 0);
+		mContext->VSSetShader(renderer::triangleVS.Get(), 0, 0);
+		mContext->PSSetShader(renderer::trianglePS.Get(), 0, 0);
 
-		// 정점을 그려준다.
-		mContext->DrawIndexed(6, 0, 0);
-
-		// 렌더링 된 이미지를 백버퍼에 그려준다.
-		mSwapChain->Present(0, 0);
+		renderer::mesh->Render();
+		Present();
 	}
 
 }

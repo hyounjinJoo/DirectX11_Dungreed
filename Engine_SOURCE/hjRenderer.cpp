@@ -1,4 +1,6 @@
+
 #include "hjRenderer.h"
+#include "hjResources.h"
 
 namespace hj::renderer
 {
@@ -6,21 +8,20 @@ namespace hj::renderer
 	Vertex vertexes[4] = {};
 
 	// 버퍼
-	ID3D11Buffer* triangleBuffer = nullptr;
-	ID3DBlob* errorBlob = nullptr;
-	ID3D11Buffer* triangleIndexBuffer = nullptr;
-	ID3D11Buffer* triangleConstantBuffer = nullptr;
+	Mesh* mesh = nullptr;
+	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> triangleConstantBuffer = nullptr;
 
 	// 버텍스 쉐이더
-	ID3DBlob* triangleVSBlob = nullptr;
-	ID3D11VertexShader* triangleVS = nullptr;
+	Microsoft::WRL::ComPtr<ID3DBlob> triangleVSBlob = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> triangleVS = nullptr;
 
 	// 픽셀 쉐이더
-	ID3DBlob* trianglePSBlob = nullptr;
-	ID3D11PixelShader* trianglePS = nullptr;
+	Microsoft::WRL::ComPtr<ID3DBlob> trianglePSBlob = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> trianglePS = nullptr;
 
 	// 인풋 레이아웃 ( 정점 정보 )
-	ID3D11InputLayout* triangleLayout = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> triangleLayout = nullptr;
 
 	void SetUpState()
 	{
@@ -49,20 +50,14 @@ namespace hj::renderer
 
 	void LoadBuffer()
 	{
-		// 버텍스 버퍼
-		D3D11_BUFFER_DESC triangleDesc = {};
+		// 메시 생성
+		mesh = new Mesh();
+		Resources::Insert<Mesh>(L"RectMesh", mesh);
 
-		triangleDesc.ByteWidth = sizeof(Vertex) * 4;
-		triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
-		triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
+		// 버텍스 버퍼 생성
+		mesh->CreateVertexBuffer(vertexes, 4);
 
-		D3D11_SUBRESOURCE_DATA triangleData = {};
-		triangleData.pSysMem = vertexes;
-		
-		GetDevice()->CreateBuffer(&triangleDesc, &triangleData, &triangleBuffer);
-
-		// 인덱스 버퍼
+		// 인덱스 정보 생성
 		std::vector<UINT> indexes;
 
 		indexes.push_back(0);
@@ -73,17 +68,8 @@ namespace hj::renderer
 		indexes.push_back(2);
 		indexes.push_back(3);
 
-		D3D11_BUFFER_DESC idxDesc = {};
-
-		idxDesc.ByteWidth = indexes.size() * sizeof(UINT);
-		idxDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
-		idxDesc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
-		idxDesc.CPUAccessFlags = 0;
-
-		D3D11_SUBRESOURCE_DATA idxData = {};
-		idxData.pSysMem = indexes.data();
-
-		GetDevice()->CreateBuffer(&idxDesc, &idxData, &triangleIndexBuffer);
+		// 인덱스 버퍼 생성
+		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 
 		// 상수 버퍼
 		D3D11_BUFFER_DESC csDesc = {};
@@ -92,10 +78,10 @@ namespace hj::renderer
 		csDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 		csDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-		GetDevice()->CreateBuffer(&csDesc, nullptr, &triangleConstantBuffer);
+		GetDevice()->CreateBuffer(&csDesc, nullptr, triangleConstantBuffer.GetAddressOf());
 
 		Vector4 pos(0.2f, 0.2f, 0.f, 0.f);
-		GetDevice()->BindConstantBuffer(triangleConstantBuffer, &pos, sizeof(Vector4));
+		GetDevice()->BindConstantBuffer(triangleConstantBuffer.Get(), &pos, sizeof(Vector4));
 	}
 
 	void LoadShader()
@@ -121,30 +107,11 @@ namespace hj::renderer
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
-
-		// 리소스 바인딩
-		D3D11_MAPPED_SUBRESOURCE sub = {};
-		mContext->Map(renderer::triangleBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
-		memcpy(sub.pData, renderer::vertexes, sizeof(renderer::Vertex) * 4);
-		mContext->Unmap(renderer::triangleBuffer, 0);
 	}
 
 	void Release()
 	{
-		// 버퍼 해제
-		triangleBuffer->Release();
-		triangleIndexBuffer->Release();
-		triangleConstantBuffer->Release();
-
-		// 버텍스 쉐이더 해제
-		triangleVSBlob->Release();
-		triangleVS->Release();
-
-		// 픽셀 쉐이더 해제
-		trianglePSBlob->Release();
-		trianglePS->Release();
-
-		// 인풋 레이아웃 ( 정점 정보 ) 해제
-		triangleLayout->Release();
+		delete mesh;
+		mesh = nullptr;
 	}
 }
