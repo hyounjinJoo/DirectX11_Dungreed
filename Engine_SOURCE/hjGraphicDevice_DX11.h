@@ -1,6 +1,7 @@
 #pragma once
 #include "hjGraphics.h"
 
+using namespace hj::enums;
 namespace hj::graphics
 {
 	class GraphicDevice_DX11
@@ -10,20 +11,30 @@ namespace hj::graphics
 		GraphicDevice_DX11(ValidationMode validationMode = ValidationMode::Disabled);
 		~GraphicDevice_DX11();
 
-#pragma region Create Function
+#pragma region Member Function
+	#pragma region Create Function
 		bool CreateSwapChain(DXGI_SWAP_CHAIN_DESC* desc);
 		bool CreateTexture(D3D11_TEXTURE2D_DESC* desc, ID3D11Texture2D** ppTexture2D);
 
 		bool CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* desc, UINT NumElements, const void* byteCode, SIZE_T bytecodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer);
-		bool CreateShader();
-
+		bool CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11VertexShader** ppVertexShader);
+		bool CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader);
+	#pragma endregion 
+		
+	#pragma region Bind Function
+		void BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
+		void BindInputLayout(ID3D11InputLayout* pInputLayout);
 		void BindVertexBuffer(UINT StartSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets);
 		void BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset);
+		void BindVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances);
+		void BindPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances);
 		void BindViewports(D3D11_VIEWPORT* viewPort);
 		void BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		void SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
+	#pragma endregion
 
+	#pragma region Render Function
 		void Clear();
 		void AdjustViewPorts();
 
@@ -32,6 +43,7 @@ namespace hj::graphics
 
 		void Present();
 		void Render();
+	#pragma endregion
 #pragma endregion
 
 #pragma region Member Variable( DirectX11 Graphic Device )

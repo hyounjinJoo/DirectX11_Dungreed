@@ -102,6 +102,9 @@
     <ClCompile Include="hjMesh.cpp">
       <Filter>Resource\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="hjTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="hjMesh.h">
       <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTransform.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

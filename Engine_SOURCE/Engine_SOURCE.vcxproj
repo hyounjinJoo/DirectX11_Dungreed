@@ -171,6 +171,7 @@
     <ClInclude Include="hjApplication.h" />
     <ClInclude Include="hjGraphicDevice_DX11.h" />
     <ClInclude Include="hjMath.h" />
+    <ClInclude Include="hjTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjComponent.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="hjApplication.cpp" />
     <ClCompile Include="hjGraphicDevice_DX11.cpp" />
     <ClCompile Include="hjMath.cpp" />
+    <ClCompile Include="hjTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hjMath.inl" />

@@ -4,7 +4,8 @@
 
 namespace hj
 {
-	class MeshRenderer : public Component
+	class Transform : public Component
 	{
 	};
 }
+

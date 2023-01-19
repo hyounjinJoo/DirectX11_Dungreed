@@ -9,19 +9,21 @@ namespace hj::renderer
 
 	// πˆ∆€
 	Mesh* mesh = nullptr;
-	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
+	//Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> triangleConstantBuffer = nullptr;
 
+	Shader* shader = nullptr;
+
 	// πˆ≈ÿΩ∫ Ω¶¿Ã¥ı
-	Microsoft::WRL::ComPtr<ID3DBlob> triangleVSBlob = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> triangleVS = nullptr;
+	//Microsoft::WRL::ComPtr<ID3DBlob> triangleVSBlob = nullptr;
+	//Microsoft::WRL::ComPtr<ID3D11VertexShader> triangleVS = nullptr;
 
 	// «»ºø Ω¶¿Ã¥ı
-	Microsoft::WRL::ComPtr<ID3DBlob> trianglePSBlob = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> trianglePS = nullptr;
+	//Microsoft::WRL::ComPtr<ID3DBlob> trianglePSBlob = nullptr;
+	//Microsoft::WRL::ComPtr<ID3D11PixelShader> trianglePS = nullptr;
 
 	// ¿Œ«≤ ∑π¿Ãæ∆øÙ ( ¡§¡° ¡§∫∏ )
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> triangleLayout = nullptr;
+	//Microsoft::WRL::ComPtr<ID3D11InputLayout> triangleLayout = nullptr;
 
 	void SetUpState()
 	{
@@ -43,9 +45,9 @@ namespace hj::renderer
 		arrLayoutDesc[1].SemanticIndex = 0;
 
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
-			, triangleVSBlob->GetBufferPointer()
-			, triangleVSBlob->GetBufferSize()
-			, &triangleLayout);
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
 	}
 
 	void LoadBuffer()
@@ -86,7 +88,11 @@ namespace hj::renderer
 
 	void LoadShader()
 	{
-		GetDevice()->CreateShader();
+		//GetDevice()->CreateShader();
+
+		shader = new Shader();
+		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
+		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
 	}
 
 	void Initialize()
@@ -113,5 +119,8 @@ namespace hj::renderer
 	{
 		delete mesh;
 		mesh = nullptr;
+
+		delete shader;
+		shader = nullptr;
 	}
 }

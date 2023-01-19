@@ -188,53 +188,79 @@ namespace hj::graphics
 		return true;
 	}
 
-	bool GraphicDevice_DX11::CreateShader()
+	//bool GraphicDevice_DX11::CreateShader()
+	//{
+	//	// 쉐이더 생성 시 발생할 수 있는 Error 정보를 담을 ID3DBlob 객체
+	//	ID3DBlob* errorBlob = nullptr;
+	//
+	//	// Vertex Shader 컴파일 및 생성
+	//	std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
+	//	shaderPath += "\\SHADER_SOURCE\\";
+	//
+	//	std::wstring vsPath(shaderPath.c_str());
+	//	vsPath += L"TriangleVS.hlsl";
+	//	D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+	//						, "VS_Test", "vs_5_0", 0, 0, renderer::triangleVSBlob.GetAddressOf(), &errorBlob);
+	//
+	//	if (errorBlob)
+	//	{
+	//		OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+	//		errorBlob->Release();
+	//		errorBlob = nullptr;
+	//
+	//		return false;
+	//	}
+	//
+	//	mDevice->CreateVertexShader(renderer::triangleVSBlob->GetBufferPointer()
+	//								, renderer::triangleVSBlob->GetBufferSize()
+	//								, nullptr, renderer::triangleVS.GetAddressOf());
+	//
+	//	// Pixel Shader 컴파일 및 생성
+	//	std::wstring psPath(shaderPath.c_str());
+	//	psPath += L"TrianglePS.hlsl";
+	//	D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+	//						, "PS_Test", "ps_5_0", 0, 0, renderer::trianglePSBlob.GetAddressOf(), &errorBlob);
+	//
+	//	if (errorBlob)
+	//	{
+	//		OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+	//		errorBlob->Release();
+	//		errorBlob = nullptr;
+	//
+	//		return false;
+	//	}
+	//
+	//	mDevice->CreatePixelShader(renderer::trianglePSBlob->GetBufferPointer()
+	//								, renderer::trianglePSBlob->GetBufferSize()
+	//								, nullptr, renderer::trianglePS.GetAddressOf());
+	//
+	//	return true;
+	//}
+	
+	bool GraphicDevice_DX11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11VertexShader** ppVertexShader)
 	{
-		// 쉐이더 생성 시 발생할 수 있는 Error 정보를 담을 ID3DBlob 객체
-		ID3DBlob* errorBlob = nullptr;
-
-		// Vertex Shader 컴파일 및 생성
-		std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
-		shaderPath += "\\SHADER_SOURCE\\";
-
-		std::wstring vsPath(shaderPath.c_str());
-		vsPath += L"TriangleVS.hlsl";
-		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-							, "VS_Test", "vs_5_0", 0, 0, renderer::triangleVSBlob.GetAddressOf(), &errorBlob);
-
-		if (errorBlob)
-		{
-			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-			errorBlob->Release();
-			errorBlob = nullptr;
-
+		if (FAILED(mDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader)))
 			return false;
-		}
-
-		mDevice->CreateVertexShader(renderer::triangleVSBlob->GetBufferPointer()
-									, renderer::triangleVSBlob->GetBufferSize()
-									, nullptr, renderer::triangleVS.GetAddressOf());
-
-		// Pixel Shader 컴파일 및 생성
-		std::wstring psPath(shaderPath.c_str());
-		psPath += L"TrianglePS.hlsl";
-		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-							, "PS_Test", "ps_5_0", 0, 0, renderer::trianglePSBlob.GetAddressOf(), &errorBlob);
-
-		if (errorBlob)
-		{
-			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-			errorBlob->Release();
-			errorBlob = nullptr;
-
-			return false;
-		}
-
-		mDevice->CreatePixelShader(renderer::trianglePSBlob->GetBufferPointer()
-									, renderer::trianglePSBlob->GetBufferSize()
-									, nullptr, renderer::trianglePS.GetAddressOf());
 
 		return true;
+	}
+
+	bool GraphicDevice_DX11::CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader)
+	{
+		if (FAILED(mDevice->CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader)))
+			return false;
+
+		return true;
+	}
+
+	void GraphicDevice_DX11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
+	{
+		mContext->IASetPrimitiveTopology(topology);
+	}
+
+	void GraphicDevice_DX11::BindInputLayout(ID3D11InputLayout* pInputLayout)
+	{
+		mContext->IASetInputLayout(pInputLayout);
 	}
 
 	void GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot
@@ -249,6 +275,16 @@ namespace hj::graphics
 	void GraphicDevice_DX11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset)
 	{		
 		mContext->IASetIndexBuffer(pIndexBuffer, Format, Offset);
+	}
+
+	void GraphicDevice_DX11::BindVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances)
+	{
+		mContext->VSSetShader(pVertexShader, ppClassInstances, NumClassInstances);
+	}
+
+	void GraphicDevice_DX11::BindPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances)
+	{
+		mContext->PSSetShader(pPixelShader, ppClassInstances, NumClassInstances);
 	}
 
 	void GraphicDevice_DX11::BindViewports(D3D11_VIEWPORT* viewPort)
@@ -337,12 +373,15 @@ namespace hj::graphics
 
 		renderer::mesh->BindBuffer();
 
-		mContext->IASetInputLayout(renderer::triangleLayout.Get());
-		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		renderer::shader->Binds();
+
+		//mContext->IASetInputLayout(renderer::triangleLayout.Get());
+		//mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 
 		// 생성한 쉐이더 세팅
-		mContext->VSSetShader(renderer::triangleVS.Get(), 0, 0);
-		mContext->PSSetShader(renderer::trianglePS.Get(), 0, 0);
+		//mContext->VSSetShader(renderer::triangleVS.Get(), 0, 0);
+		//mContext->PSSetShader(renderer::trianglePS.Get(), 0, 0);
 
 		renderer::mesh->Render();
 		Present();

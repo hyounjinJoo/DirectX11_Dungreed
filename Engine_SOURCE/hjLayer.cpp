@@ -25,4 +25,7 @@ namespace hj
 	void Layer::Render()
 	{
 	}
+	void Layer::AddGameObject(const GameObject* gameObject)
+	{
+	}
 }

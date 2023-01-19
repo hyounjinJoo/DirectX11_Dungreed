@@ -5,6 +5,7 @@
 
 namespace hj
 {
+	using namespace hj::enums;
 	class Scene : public Entity
 	{
 	public:
@@ -15,6 +16,8 @@ namespace hj
 		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
+
+		void AddGameObject(const GameObject* gameObject, const eLayerType type);
 
 	private:
 		std::vector<Layer> mLayers;

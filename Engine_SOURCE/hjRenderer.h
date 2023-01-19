@@ -5,6 +5,7 @@
 #include "hjGraphicDevice_DX11.h"
 
 #include "hjMesh.h"
+#include "hjShader.h"
 
 using namespace hj::math;
 using namespace hj::graphics;
@@ -24,20 +25,21 @@ namespace hj::renderer
 	// 메시
 	extern Mesh* mesh;
 
-	// 버텍스 버퍼
-	extern Microsoft::WRL::ComPtr<ID3DBlob> errorBlob;
+	// 상수 버퍼
+	//extern Microsoft::WRL::ComPtr<ID3DBlob> errorBlob;
 	extern Microsoft::WRL::ComPtr<ID3D11Buffer> triangleConstantBuffer;
 
+	extern Shader* shader;
 	// 버텍스 쉐이더
-	extern Microsoft::WRL::ComPtr<ID3DBlob> triangleVSBlob;
-	extern Microsoft::WRL::ComPtr<ID3D11VertexShader> triangleVS;
+	//extern Microsoft::WRL::ComPtr<ID3DBlob> triangleVSBlob;
+	//extern Microsoft::WRL::ComPtr<ID3D11VertexShader> triangleVS;
 
 	// 픽셀 쉐이더
-	extern Microsoft::WRL::ComPtr<ID3DBlob> trianglePSBlob;
-	extern Microsoft::WRL::ComPtr<ID3D11PixelShader> trianglePS;
+	//extern Microsoft::WRL::ComPtr<ID3DBlob> trianglePSBlob;
+	//extern Microsoft::WRL::ComPtr<ID3D11PixelShader> trianglePS;
 
 	// 인풋 레이아웃 ( 정점 정보 )
-	extern Microsoft::WRL::ComPtr<ID3D11InputLayout> triangleLayout;
+	//extern Microsoft::WRL::ComPtr<ID3D11InputLayout> triangleLayout;
 #pragma endregion
 
 	void Initialize();

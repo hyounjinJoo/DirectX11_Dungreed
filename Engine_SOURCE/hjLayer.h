@@ -15,6 +15,8 @@ namespace hj
 		virtual void FixedUpdate();
 		virtual void Render();
 
+		void AddGameObject(const GameObject* gameObject);
+
 	private:
 		std::vector<GameObject*> mGameObjects;
 	};

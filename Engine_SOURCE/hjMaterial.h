@@ -1,5 +1,8 @@
 #pragma once
-class Material
-{
-};
 
+namespace hj
+{
+	class Material
+	{
+	};
+}
