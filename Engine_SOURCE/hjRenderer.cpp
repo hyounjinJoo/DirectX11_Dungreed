@@ -4,26 +4,11 @@
 
 namespace hj::renderer
 {
-	// 정점 데이터
 	Vertex vertexes[4] = {};
 
-	// 버퍼
 	Mesh* mesh = nullptr;
-	//Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> triangleConstantBuffer = nullptr;
-
+	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 	Shader* shader = nullptr;
-
-	// 버텍스 쉐이더
-	//Microsoft::WRL::ComPtr<ID3DBlob> triangleVSBlob = nullptr;
-	//Microsoft::WRL::ComPtr<ID3D11VertexShader> triangleVS = nullptr;
-
-	// 픽셀 쉐이더
-	//Microsoft::WRL::ComPtr<ID3DBlob> trianglePSBlob = nullptr;
-	//Microsoft::WRL::ComPtr<ID3D11PixelShader> trianglePS = nullptr;
-
-	// 인풋 레이아웃 ( 정점 정보 )
-	//Microsoft::WRL::ComPtr<ID3D11InputLayout> triangleLayout = nullptr;
 
 	void SetUpState()
 	{
@@ -56,12 +41,9 @@ namespace hj::renderer
 		mesh = new Mesh();
 		Resources::Insert<Mesh>(L"RectMesh", mesh);
 
-		// 버텍스 버퍼 생성
 		mesh->CreateVertexBuffer(vertexes, 4);
 
-		// 인덱스 정보 생성
 		std::vector<UINT> indexes;
-
 		indexes.push_back(0);
 		indexes.push_back(1);
 		indexes.push_back(2);
@@ -70,26 +52,16 @@ namespace hj::renderer
 		indexes.push_back(2);
 		indexes.push_back(3);
 
-		// 인덱스 버퍼 생성
 		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 
-		// 상수 버퍼
-		D3D11_BUFFER_DESC csDesc = {};
-		csDesc.ByteWidth = sizeof(Vector4);
-		csDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-		csDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		csDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-		GetDevice()->CreateBuffer(&csDesc, nullptr, triangleConstantBuffer.GetAddressOf());
-
 		Vector4 pos(0.2f, 0.2f, 0.f, 0.f);
-		GetDevice()->BindConstantBuffer(triangleConstantBuffer.Get(), &pos, sizeof(Vector4));
+		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer();
+		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(Vector4));
+		constantBuffers[(UINT)eCBType::Transform]->Bind(&pos);
 	}
 
 	void LoadShader()
 	{
-		//GetDevice()->CreateShader();
-
 		shader = new Shader();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
@@ -122,5 +94,11 @@ namespace hj::renderer
 
 		delete shader;
 		shader = nullptr;
+
+		for (size_t i = 0; i < (UINT)eCBType::End; ++i)
+		{
+			delete constantBuffers[i];
+			constantBuffers[i] = nullptr;
+		}
 	}
 }

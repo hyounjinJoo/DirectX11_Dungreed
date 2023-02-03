@@ -2,6 +2,7 @@
 #include "hjGraphicDevice_DX11.h"
 #include "hjApplication.h"
 #include "hjRenderer.h"
+#include "hjConstantBuffer.h"
 #include "hjMesh.h"
 
 extern hj::Application application;
@@ -181,62 +182,12 @@ namespace hj::graphics
 
 	bool GraphicDevice_DX11::CreateBuffer(D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data, ID3D11Buffer** buffer)
 	{
-		// System -> GPU
 		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
 			return false;
 
 		return true;
 	}
 
-	//bool GraphicDevice_DX11::CreateShader()
-	//{
-	//	// 쉐이더 생성 시 발생할 수 있는 Error 정보를 담을 ID3DBlob 객체
-	//	ID3DBlob* errorBlob = nullptr;
-	//
-	//	// Vertex Shader 컴파일 및 생성
-	//	std::filesystem::path shaderPath = std::filesystem::current_path().parent_path();
-	//	shaderPath += "\\SHADER_SOURCE\\";
-	//
-	//	std::wstring vsPath(shaderPath.c_str());
-	//	vsPath += L"TriangleVS.hlsl";
-	//	D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-	//						, "VS_Test", "vs_5_0", 0, 0, renderer::triangleVSBlob.GetAddressOf(), &errorBlob);
-	//
-	//	if (errorBlob)
-	//	{
-	//		OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-	//		errorBlob->Release();
-	//		errorBlob = nullptr;
-	//
-	//		return false;
-	//	}
-	//
-	//	mDevice->CreateVertexShader(renderer::triangleVSBlob->GetBufferPointer()
-	//								, renderer::triangleVSBlob->GetBufferSize()
-	//								, nullptr, renderer::triangleVS.GetAddressOf());
-	//
-	//	// Pixel Shader 컴파일 및 생성
-	//	std::wstring psPath(shaderPath.c_str());
-	//	psPath += L"TrianglePS.hlsl";
-	//	D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-	//						, "PS_Test", "ps_5_0", 0, 0, renderer::trianglePSBlob.GetAddressOf(), &errorBlob);
-	//
-	//	if (errorBlob)
-	//	{
-	//		OutputDebugStringA((char*)errorBlob->GetBufferPointer());
-	//		errorBlob->Release();
-	//		errorBlob = nullptr;
-	//
-	//		return false;
-	//	}
-	//
-	//	mDevice->CreatePixelShader(renderer::trianglePSBlob->GetBufferPointer()
-	//								, renderer::trianglePSBlob->GetBufferSize()
-	//								, nullptr, renderer::trianglePS.GetAddressOf());
-	//
-	//	return true;
-	//}
-	
 	bool GraphicDevice_DX11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11VertexShader** ppVertexShader)
 	{
 		if (FAILED(mDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader)))
@@ -358,7 +309,6 @@ namespace hj::graphics
 
 	void GraphicDevice_DX11::Present()
 	{
-		// 렌더링 된 이미지를 백버퍼에 그려준다.
 		mSwapChain->Present(0, 0);
 	}
 
@@ -366,8 +316,7 @@ namespace hj::graphics
 	{
 		Clear();
 
-		// 상수버퍼를 쉐이더에 세팅
-		SetConstantBuffer(eShaderStage::VS, eCBType::Transform, renderer::triangleConstantBuffer.Get());
+		//renderer::constantBuffers[(UINT)eCBType::Transform]->SetPipeline(eShaderStage::VS);
 
 		AdjustViewPorts();
 
@@ -375,16 +324,8 @@ namespace hj::graphics
 
 		renderer::shader->Binds();
 
-		//mContext->IASetInputLayout(renderer::triangleLayout.Get());
-		//mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-
-		// 생성한 쉐이더 세팅
-		//mContext->VSSetShader(renderer::triangleVS.Get(), 0, 0);
-		//mContext->PSSetShader(renderer::trianglePS.Get(), 0, 0);
-
 		renderer::mesh->Render();
+
 		Present();
 	}
-
 }

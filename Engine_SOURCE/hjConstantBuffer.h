@@ -1,0 +1,21 @@
+#pragma once
+#include "hjGraphics.h"
+
+using namespace hj::enums;
+
+namespace hj::graphics
+{
+	class ConstantBuffer : GpuBuffer
+	{
+	public:
+		ConstantBuffer();
+		virtual ~ConstantBuffer();
+
+		bool Create(size_t size);
+		void Bind(void* data);
+		void SetPipeline(eShaderStage stage);
+
+	private:
+		const eCBType mType;
+	};
+}

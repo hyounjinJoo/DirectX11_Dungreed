@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="hjComponent.h" />
+    <ClInclude Include="hjConstantBuffer.h" />
     <ClInclude Include="hjEngine.h" />
     <ClInclude Include="hjEntity.h" />
     <ClInclude Include="hjEnums.h" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjComponent.cpp" />
+    <ClCompile Include="hjConstantBuffer.cpp" />
     <ClCompile Include="hjEntity.cpp" />
     <ClCompile Include="hjGameObject.cpp" />
     <ClCompile Include="hjInput.cpp" />

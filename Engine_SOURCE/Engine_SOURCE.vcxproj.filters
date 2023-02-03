@@ -87,9 +87,6 @@
     <ClCompile Include="hjComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="hjMeshRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="hjResources.cpp">
       <Filter>Resource\Manager</Filter>
     </ClCompile>
@@ -105,6 +102,10 @@
     <ClCompile Include="hjTransform.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="hjMeshRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="hjConstantBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -158,9 +159,6 @@
     <ClInclude Include="hjComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="hjMeshRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="hjResources.h">
       <Filter>Resource\Manager</Filter>
     </ClInclude>
@@ -176,6 +174,10 @@
     <ClInclude Include="hjTransform.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="hjMeshRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjConstantBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hjMath.inl">
