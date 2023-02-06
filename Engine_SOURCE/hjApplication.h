@@ -15,16 +15,9 @@ namespace hj
 		// Running main engine loop
 		void Run();
 
-		// 초기화
 		virtual void Initialize();
-
-		// 게임 로직 캐릭터 이동 등등의 CPU Update
 		virtual void Update();
-
-		// CPU Update 된 정보들을 GPU에 Update
 		virtual void FixedUpdate();
-
-		// 렌더링 수행
 		virtual void Render();
 #pragma endregion
 

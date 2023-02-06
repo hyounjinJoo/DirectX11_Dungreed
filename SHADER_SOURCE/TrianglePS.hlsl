@@ -8,7 +8,7 @@ struct VTX_OUT
 
 float4 PS_Test(VTX_OUT _in) : SV_Target
 {
-    //return _in.vColor;
+    return _in.vColor;
     
-    return float4(1.f, 0.f, 1.f, 1.f);
+    //return float4(1.f, 0.f, 1.f, 1.f);
 }

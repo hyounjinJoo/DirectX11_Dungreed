@@ -2,6 +2,7 @@
 #include "hjRenderer.h"
 #include "hjTime.h"
 #include "hjInput.h"
+#include "hjSceneManager.h"
 
 namespace hj
 {
@@ -34,6 +35,7 @@ namespace hj
         Input::Initialize();
 
         renderer::Initialize();
+        SceneManager::Initialize();
     }
 
     // 게임 로직 캐릭터 이동 등등의 CPU Update
@@ -41,17 +43,22 @@ namespace hj
     {
         Time::Update();
         Input::Update();
+
+        SceneManager::Update();
     }
 
     // CPU Update 된 정보들을 GPU에 Update
     void Application::FixedUpdate()
     {
+        SceneManager::FixedUpdate();
     }
 
     // 렌더링 수행
     void Application::Render()
     {
         Time::Render(mHdc);
+        SceneManager::Render();
+
         graphicDevice->Render();
     }
     

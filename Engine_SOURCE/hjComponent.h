@@ -1,38 +1,30 @@
 #pragma once
 
+#include "hjMath.h"
 #include "hjEntity.h"
 
+using namespace hj::enums;
 namespace hj
 {
 	class GameObject;
-	class Component
+	class Component : public Entity
 	{
 	public:
-		enum class eType
-		{
-			None,
-			Transform,
-			Camera,
-
-			// Render
-			Mesh,
-			SkyBox,
-			Decal,
-
-			Script,
-			End,
-		};
-
-		Component();
+		Component(eComponentType type);
 		virtual ~Component();
 
-		virtual void Initialize();
-		virtual void Update();
-		virtual void FixedUpdate();
-		virtual void Render();
+		virtual void Initialize() = 0;
+		virtual void Update() = 0;
+		virtual void FixedUpdate() = 0;
+		virtual void Render() = 0;
+
+		UINT GetOrder() { return (UINT)mType; }
+
+		GameObject* GetOwner() { return mOwner; }
+		void SetOwner(GameObject* owner) { mOwner = owner; }
 
 	private:
-		const eType mType;
+		const eComponentType mType;
 		GameObject* mOwner;
 	};
 }

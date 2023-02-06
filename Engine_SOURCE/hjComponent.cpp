@@ -1,24 +1,13 @@
 #include "hjComponent.h"
 
 namespace hj
-{
-    Component::Component()
-        : mType(eType::None)
+{   
+    Component::Component(eComponentType type)
+        : mType(type)
+        , mOwner(nullptr)
     {
     }
     Component::~Component()
-    {
-    }
-    void Component::Initialize()
-    {
-    }
-    void Component::Update()
-    {
-    }
-    void Component::FixedUpdate()
-    {
-    }
-    void Component::Render()
     {
     }
 }

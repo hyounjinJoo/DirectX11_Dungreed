@@ -10,7 +10,22 @@ namespace hj::enums
 
 	enum class eLayerType
 	{
+		None = 0,
+		Monster,
+		Player,
+		End = 16,
+	};
+
+	enum class eComponentType
+	{
 		None,
-		ENd,
+		Transform,	// 위치 데이터를 수정하는 컴포넌트
+		Camera,
+		Mesh,
+		Collider,
+		//Collider2,
+		UI,
+		Script,
+		End,
 	};
 }
