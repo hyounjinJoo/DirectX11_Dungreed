@@ -1,6 +1,7 @@
 #include "hjSceneManager.h"
 #include "hjTransform.h"
 #include "hjMeshRenderer.h"
+#include "hjRenderer.h"
 
 namespace hj
 {
@@ -15,6 +16,12 @@ namespace hj
 		Transform* tr = new Transform();
 		tr->SetPosition(Vector3(0.2f, 0.2f, 0.2f));
 		obj->AddComponent(tr);
+
+		MeshRenderer* mr = new MeshRenderer();
+		obj->AddComponent(mr);
+
+		mr->SetShader(renderer::shader);
+		mr->SetMesh(renderer::mesh);
 
 		//MeshRenderer* meshRenderer = new MeshRenderer();
 		//obj->AddComponent(meshRenderer);
