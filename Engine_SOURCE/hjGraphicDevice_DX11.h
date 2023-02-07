@@ -43,7 +43,6 @@ namespace hj::graphics
 		void DrawIndexed(UINT indexCount, UINT startIndexLocation, UINT baseVertexLocation);
 
 		void Present();
-		void Render();
 	#pragma endregion
 
 	#pragma region Getter

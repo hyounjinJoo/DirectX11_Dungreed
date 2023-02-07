@@ -22,8 +22,6 @@ namespace hj::renderer
 
 #pragma region extern Variables
 	extern Vertex vertexes[4];
-	extern Mesh* mesh;
-	extern Shader* shader;
 	extern ConstantBuffer* constantBuffers[];
 #pragma endregion
 

@@ -7,10 +7,6 @@ namespace hj::renderer
 	Vertex vertexes[4] = {};
 	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 
-	// Resource
-	Mesh* mesh = nullptr;
-	Shader* shader = nullptr;
-
 	void SetUpState()
 	{
 		// Input Layout ( 정점 구조 정보 )
@@ -37,6 +33,7 @@ namespace hj::renderer
 		arrLayoutDesc[2].SemanticName = "TEXCOORD";
 		arrLayoutDesc[2].SemanticIndex = 0;
 
+		Shader* shader = Resources::Find<Shader>(L"RectShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
@@ -46,7 +43,7 @@ namespace hj::renderer
 	void LoadBuffer()
 	{
 		// 메시 생성
-		mesh = new Mesh();
+		Mesh* mesh = new Mesh();
 		Resources::Insert<Mesh>(L"RectMesh", mesh);
 
 		mesh->CreateVertexBuffer(vertexes, 4);
@@ -70,9 +67,11 @@ namespace hj::renderer
 
 	void LoadShader()
 	{
-		shader = new Shader();
+		Shader* shader = new Shader();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
+
+		Resources::Insert<Shader>(L"RectShader", shader);
 	}
 
 	void Initialize()
@@ -105,12 +104,6 @@ namespace hj::renderer
 
 	void Release()
 	{
-		delete mesh;
-		mesh = nullptr;
-
-		delete shader;
-		shader = nullptr;
-
 		for (size_t i = 0; i < (UINT)eCBType::End; ++i)
 		{
 			delete constantBuffers[i];

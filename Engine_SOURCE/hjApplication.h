@@ -12,13 +12,14 @@ namespace hj
 		~Application();
 
 #pragma region Main Application Logic
-		// Running main engine loop
-		void Run();
-
 		virtual void Initialize();
 		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
+
+		// Running main engine loop
+		void Run();
+		void Release();
 #pragma endregion
 
 #pragma region Setter

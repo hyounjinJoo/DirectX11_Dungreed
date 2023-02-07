@@ -3,6 +3,7 @@
 #include "hjTime.h"
 #include "hjInput.h"
 #include "hjSceneManager.h"
+#include "hjResources.h"
 
 namespace hj
 {
@@ -19,15 +20,6 @@ namespace hj
     Application::~Application()
     {
     }
-    
-    // Running main engine loop
-    void Application::Run()
-    {
-        Update();
-        FixedUpdate();
-        Render();
-    }
-    
     // 초기화
     void Application::Initialize()
     {
@@ -67,6 +59,19 @@ namespace hj
         graphicDevice->Present();
     }
     
+    // Running main engine loop
+    void Application::Run()
+    {
+        Update();
+        FixedUpdate();
+        Render();
+    }
+
+    void Application::Release()
+    {
+        Resources::Release();
+    }
+        
     void Application::SetWindow(HWND hwnd, UINT width, UINT height)
     {
         // 그래픽 장치가 존재하지 않으면 메모리에 할당 수행

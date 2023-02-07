@@ -53,7 +53,15 @@ namespace hj
 			mResources.insert(make_pair(key, dynamic_cast<Resource*>(resource)));
 		}
 
-		static void Release();
+		static void Release()
+		{
+			std::map<std::wstring, Resource*>::iterator iter = mResources.begin();
+			for (; iter != mResources.end(); ++iter)
+			{
+				delete iter->second;
+				iter->second = nullptr;
+			}
+		}
 
 	private:
 		Resources() = delete;
