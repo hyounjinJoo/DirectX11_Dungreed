@@ -23,6 +23,7 @@ namespace hj::renderer
 #pragma region extern Variables
 	extern Vertex vertexes[4];
 	extern ConstantBuffer* constantBuffers[];
+	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[];
 #pragma endregion
 
 	void Initialize();

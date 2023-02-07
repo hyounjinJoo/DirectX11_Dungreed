@@ -31,18 +31,6 @@ namespace hj::graphics
 									, mContext.GetAddressOf());
 
 		// Swap Chain 생성
-		/*
-			DXGI_SWAP_CHAIN_DESC
-
-			DXGI_MODE_DESC		BufferDesc;
-			DXGI_SAMPLE_DESC	SampleDesc;
-			DXGI_USAGE			BufferUsage;
-			UINT				BufferCount;
-			HWND				OutputWindow;
-			BOOL				Windowed;
-			DXGI_SWAP_EFFECT	SwapEffect;
-			UINT				Flags;
-		*/
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
 		swapChainDesc.OutputWindow	= hwnd;
@@ -51,29 +39,17 @@ namespace hj::graphics
 		swapChainDesc.SwapEffect	= DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 		swapChainDesc.BufferUsage	= DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
-		/*
-			DXGI_MODE_DESC
-
-		    UINT Width;
-		    UINT Height;
-		    DXGI_RATIONAL RefreshRate;
-		    DXGI_FORMAT Format;
-		    DXGI_MODE_SCANLINE_ORDER ScanlineOrdering;
-		    DXGI_MODE_SCALING Scaling;
-		*/
 		swapChainDesc.BufferDesc.Width						= application.GetWidth();
 		swapChainDesc.BufferDesc.Height						= application.GetHeight();
 		swapChainDesc.BufferDesc.Format						= DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
 		swapChainDesc.BufferDesc.RefreshRate.Numerator		= static_cast<UINT>(240);
 		swapChainDesc.BufferDesc.RefreshRate.Denominator	= static_cast<UINT>(1);
-
 		swapChainDesc.BufferDesc.ScanlineOrdering			= DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 		swapChainDesc.BufferDesc.Scaling					= DXGI_MODE_SCALING_UNSPECIFIED;
 
 		swapChainDesc.SampleDesc.Count						= static_cast<UINT>(1);
 		swapChainDesc.SampleDesc.Quality					= static_cast<UINT>(0);
 
-		// 실패 시 종료
 		if (!CreateSwapChain(&swapChainDesc))
 			return;
 
@@ -83,21 +59,6 @@ namespace hj::graphics
 		// Create RenderTarget View
 		hr = mDevice->CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
 
-		// Create Depth Stencil Buffer, Depth Stencil View
-		/*
-			D3D11_TEXTURE2D_DESC
-
-			UINT Width;
-			UINT Height;
-			UINT MipLevels;
-			UINT ArraySize;
-			DXGI_FORMAT Format;
-			DXGI_SAMPLE_DESC SampleDesc;
-			D3D11_USAGE Usage;
-			UINT BindFlags;
-			UINT CPUAccessFlags;
-			UINT MiscFlags;
-		*/
 		D3D11_TEXTURE2D_DESC depthBuffer = {};
 
 		depthBuffer.BindFlags			= D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
@@ -107,14 +68,18 @@ namespace hj::graphics
 		depthBuffer.Width				= application.GetWidth();
 		depthBuffer.Height				= application.GetHeight();
 		depthBuffer.ArraySize			= static_cast<UINT>(1);
+
 		depthBuffer.SampleDesc.Count	= static_cast<UINT>(1);
 		depthBuffer.SampleDesc.Quality	= static_cast<UINT>(0);
+
 		depthBuffer.MipLevels			= static_cast<UINT>(0);
 		depthBuffer.MiscFlags			= static_cast<UINT>(0);
 
+		// Create Depth Stencil Buffer
 		if (!CreateTexture(&depthBuffer, mDepthStencilBuffer.GetAddressOf()))
 			return;
 
+		// Create Depth Stencil View
 		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
 			return;
 
@@ -127,9 +92,7 @@ namespace hj::graphics
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
 		mViewPort = { 0.f, 0.f, FLOAT(winRect.right - winRect.left), FLOAT(winRect.bottom - winRect.top), 0.f, 1.f };
-		// ViewPort를 바인딩
 		BindViewports(&mViewPort);
-		// Output-Merger에 렌더 타겟 설정
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
 	}
 
@@ -204,6 +167,14 @@ namespace hj::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
+	{
+		if (FAILED(mDevice->CreateSamplerState(pSamplerDesc, ppSamplerState)))
+			return false;
+
+		return true;
+	}
+
 	void GraphicDevice_DX11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
 	{
 		mContext->IASetPrimitiveTopology(topology);
@@ -273,7 +244,7 @@ namespace hj::graphics
 		case hj::graphics::eShaderStage::CS:
 			mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
 			break;
-		case hj::graphics::eShaderStage::Count:
+		default:
 			break;
 		}
 	}
@@ -301,9 +272,45 @@ namespace hj::graphics
 		case hj::graphics::eShaderStage::CS:
 			mContext->CSSetShaderResources(slot, 1, ppShaderResourceViews);
 			break;
-		case hj::graphics::eShaderStage::Count:
+		default:
 			break;
 		}
+	}
+
+	void GraphicDevice_DX11::BindSamplers(eShaderStage stage, UINT slot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
+	{
+		switch (stage)
+		{
+		case hj::graphics::eShaderStage::VS:
+			mContext->VSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case hj::graphics::eShaderStage::HS:
+			mContext->HSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case hj::graphics::eShaderStage::DS:
+			mContext->DSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case hj::graphics::eShaderStage::GS:
+			mContext->GSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case hj::graphics::eShaderStage::PS:
+			mContext->PSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		case hj::graphics::eShaderStage::CS:
+			mContext->CSSetSamplers(slot, NumSamplers, ppSamplers);
+			break;
+		default:
+			break;
+		}
+	}
+
+	void GraphicDevice_DX11::BindsSamplers(UINT slot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
+	{
+		mContext->VSSetSamplers(slot, NumSamplers, ppSamplers);
+		mContext->HSSetSamplers(slot, NumSamplers, ppSamplers);
+		mContext->DSSetSamplers(slot, NumSamplers, ppSamplers);
+		mContext->GSSetSamplers(slot, NumSamplers, ppSamplers);
+		mContext->PSSetSamplers(slot, NumSamplers, ppSamplers);
 	}
 
 	void GraphicDevice_DX11::Clear()
