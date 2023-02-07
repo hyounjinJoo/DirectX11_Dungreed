@@ -5,9 +5,10 @@
 namespace hj::renderer
 {
 	Vertex vertexes[4] = {};
-
-	Mesh* mesh = nullptr;
 	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
+
+	// Resource
+	Mesh* mesh = nullptr;
 	Shader* shader = nullptr;
 
 	void SetUpState()

@@ -32,7 +32,8 @@ namespace hj::graphics
 		void BindViewports(D3D11_VIEWPORT* viewPort);
 		void BindConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		void SetConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
-	#pragma endregion
+		void SetShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews);
+#pragma endregion
 
 	#pragma region Render Function
 		void Clear();
@@ -43,6 +44,10 @@ namespace hj::graphics
 
 		void Present();
 		void Render();
+	#pragma endregion
+
+	#pragma region Getter
+		ID3D11Device* GetID3D11Device() { return mDevice.Get(); }
 	#pragma endregion
 #pragma endregion
 

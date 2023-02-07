@@ -46,6 +46,9 @@
     <Filter Include="Resource\Shader">
       <UniqueIdentifier>{d6da0964-3cc3-4ff7-a87c-8b7d42ec8672}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{13eaca58-38d7-4606-acf8-bd45bc66ea10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -105,6 +108,9 @@
     <ClCompile Include="hjConstantBuffer.cpp" />
     <ClCompile Include="hjMeshRenderer.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTexture.cpp">
+      <Filter>Resource\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +183,9 @@
     <ClInclude Include="hjConstantBuffer.h" />
     <ClInclude Include="hjMeshRenderer.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTexture.h">
+      <Filter>Resource\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

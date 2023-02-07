@@ -278,6 +278,34 @@ namespace hj::graphics
 		}
 	}
 
+	void GraphicDevice_DX11::SetShaderResource(eShaderStage stage, UINT slot
+		, ID3D11ShaderResourceView* const* ppShaderResourceViews)
+	{
+		switch (stage)
+		{
+		case hj::graphics::eShaderStage::VS:
+			mContext->VSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case hj::graphics::eShaderStage::HS:
+			mContext->HSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case hj::graphics::eShaderStage::DS:
+			mContext->DSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case hj::graphics::eShaderStage::GS:
+			mContext->GSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case hj::graphics::eShaderStage::PS:
+			mContext->PSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case hj::graphics::eShaderStage::CS:
+			mContext->CSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case hj::graphics::eShaderStage::Count:
+			break;
+		}
+	}
+
 	void GraphicDevice_DX11::Clear()
 	{
 		// 렌더 타겟 뷰를 지정된 색상으로 클리어 시켜준다.

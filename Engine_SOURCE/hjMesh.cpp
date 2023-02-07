@@ -6,7 +6,8 @@
 namespace hj
 {
 	Mesh::Mesh()
-		: mVBDesc{}
+		: Resource(eResourceType::Mesh)
+		, mVBDesc{}
 		, mIBDesc{}
 		, mIndexCount(0)
 	{

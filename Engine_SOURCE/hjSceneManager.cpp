@@ -23,9 +23,6 @@ namespace hj
 		mr->SetShader(renderer::shader);
 		mr->SetMesh(renderer::mesh);
 
-		//MeshRenderer* meshRenderer = new MeshRenderer();
-		//obj->AddComponent(meshRenderer);
-
 		mPlayScene->AddGameObject(obj, eLayerType::Player);
 	}
 

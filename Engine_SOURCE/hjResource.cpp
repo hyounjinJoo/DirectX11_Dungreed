@@ -2,7 +2,8 @@
 
 namespace hj
 {
-	Resource::Resource()
+	Resource::Resource(eResourceType type)
+		: mType(type)
 	{
 	}
 	Resource::~Resource()
