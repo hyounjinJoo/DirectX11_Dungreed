@@ -2,6 +2,8 @@
 #include "hjTransform.h"
 #include "hjMeshRenderer.h"
 #include "hjRenderer.h"
+#include "hjResources.h"
+#include "hjTexture.h"
 
 namespace hj
 {
@@ -22,6 +24,9 @@ namespace hj
 
 		mr->SetShader(renderer::shader);
 		mr->SetMesh(renderer::mesh);
+
+		Texture* texture = Resources::Load<Texture>(L"DungeonEatFrame08", L"DungeonEat08.png");
+		texture->BindShader(eShaderStage::PS, 0);
 
 		mPlayScene->AddGameObject(obj, eLayerType::Player);
 	}

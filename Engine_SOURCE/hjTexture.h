@@ -20,7 +20,7 @@ namespace hj::graphics
 		Texture();
 		virtual ~Texture();
 
-		virtual HRESULT Load(const std::wstring& path) override;
+		virtual HRESULT Load(const std::wstring& name) override;
 		void BindShader(eShaderStage stage, UINT slot);
 
 	private:

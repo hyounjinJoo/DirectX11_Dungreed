@@ -14,7 +14,7 @@ namespace hj::renderer
 	void SetUpState()
 	{
 		// Input Layout ( 정점 구조 정보 )
-		D3D11_INPUT_ELEMENT_DESC arrLayoutDesc[2] = {};
+		D3D11_INPUT_ELEMENT_DESC arrLayoutDesc[3] = {};
 
 		arrLayoutDesc[0].AlignedByteOffset = 0;
 		arrLayoutDesc[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -30,7 +30,14 @@ namespace hj::renderer
 		arrLayoutDesc[1].SemanticName = "COLOR";
 		arrLayoutDesc[1].SemanticIndex = 0;
 
-		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
+		arrLayoutDesc[2].AlignedByteOffset = 28;
+		arrLayoutDesc[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+		arrLayoutDesc[2].InputSlot = 0;
+		arrLayoutDesc[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		arrLayoutDesc[2].SemanticName = "TEXCOORD";
+		arrLayoutDesc[2].SemanticIndex = 0;
+
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
@@ -71,17 +78,25 @@ namespace hj::renderer
 	void Initialize()
 	{
 		// RECT
+		// 0-----1
+		// |     |
+		// 3-----2
+
 		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.f);
 		vertexes[0].color = Vector4(1.f, 0.f, 0.f, 1.f);
+		vertexes[0].uv = Vector2(0.f, 0.f);
 
 		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.f);
 		vertexes[1].color = Vector4(0.f, 1.0f, 0.f, 1.f);
+		vertexes[1].uv = Vector2(1.f, 0.f);
 
 		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.f);
 		vertexes[2].color = Vector4(0.f, 0.f, 1.f, 1.f);
+		vertexes[2].uv = Vector2(1.f, 1.f);
 
 		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.f);
 		vertexes[3].color = Vector4(1.f, 1.f, 1.f, 1.f);
+		vertexes[3].uv = Vector2(0.f, 1.f);
 
 		LoadShader();
 		SetUpState();

@@ -17,6 +17,7 @@ namespace hj::renderer
 	{
 		Vector3 pos;
 		Vector4 color;
+		Vector2 uv;
 	};
 
 #pragma region extern Variables

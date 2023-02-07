@@ -3,12 +3,20 @@ struct VTX_OUT
 {
     float4 vPos : SV_Position;
     float4 vColor : COLOR;
+    float2 vUV : TEXCOORD;
 };
 
+Texture2D defaultTexture : register(t0);
+SamplerState samplerState : register(s0);
 
 float4 PS_Test(VTX_OUT _in) : SV_Target
 {
-    return _in.vColor;
+    float4 color = (float) 0.f;
     
-    //return float4(1.f, 0.f, 1.f, 1.f);
+    color = defaultTexture.Sample(samplerState, _in.vUV);
+    
+    if (color.a == 0.f)
+        discard;
+    
+    return color;
 }
