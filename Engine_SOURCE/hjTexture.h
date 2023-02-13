@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "hjResource.h"
 #include "..\External\DirectXTex\Include\DirectXTex.h"
+#include "hjResource.h"
 #include "hjGraphicDevice_DX11.h"
 
 

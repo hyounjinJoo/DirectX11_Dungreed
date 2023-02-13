@@ -2,7 +2,7 @@
 
 #include "hjComponent.h"
 #include "hjMesh.h"
-#include "hjShader.h"
+#include "hjMaterial.h"
 
 using namespace hj::graphics;
 namespace hj
@@ -19,10 +19,10 @@ namespace hj
 		virtual void Render() override;
 
 		void SetMesh(Mesh* mesh) { mMesh = mesh; }
-		void SetShader(Shader* shader) { mShader = shader; }
+		void SetMaterial(Material* material) { mMaterial = material; }
 
 	private:
 		Mesh* mMesh;
-		Shader* mShader;
+		Material* mMaterial;
 	};
 }

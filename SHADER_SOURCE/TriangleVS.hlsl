@@ -1,7 +1,7 @@
 
 struct VTX_IN
 {
-    float3 vPos : POSITION;
+    float4 vPos : POSITION;
     float4 vColor : COLOR;
     float2 vUV : TEXCOORD;
 };
@@ -15,7 +15,17 @@ struct VTX_OUT
 
 cbuffer Transform : register(b0)
 {
-    float3 cbPos;
+    float4 cbPos;
+}
+
+cbuffer MaterialData : register(b1)
+{
+    int iData;
+    float fData;
+    float2 xy;
+    float3 xyz;
+    float4 xyzw;
+    matrix mat;
 }
 
 SamplerState pointSampler : register(s0);
@@ -26,7 +36,7 @@ VTX_OUT VS_Test(VTX_IN _in)
 {
     VTX_OUT output = (VTX_OUT) 0.f;
     
-    output.vPos = float4(_in.vPos + cbPos.xyz, 1.f);
+    output.vPos = float4(_in.vPos + cbPos);
     output.vColor = _in.vColor;
     output.vUV = _in.vUV;
     
