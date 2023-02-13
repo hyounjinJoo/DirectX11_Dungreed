@@ -4,6 +4,7 @@
 #include "hjRenderer.h"
 #include "hjResources.h"
 #include "hjTexture.h"
+#include "hjPlayerScript.h"
 
 namespace hj
 {
@@ -27,6 +28,9 @@ namespace hj
 
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
+
+		PlayerScript* script = new PlayerScript();
+		obj->AddComponent(script);
 
 		Texture* texture = Resources::Load<Texture>(L"DungeonEatFrame08", L"DungeonEat08.png");
 		texture->BindShader(eShaderStage::PS, 0);

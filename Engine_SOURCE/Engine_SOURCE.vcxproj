@@ -162,11 +162,13 @@
     <ClInclude Include="hjMaterial.h" />
     <ClInclude Include="hjMesh.h" />
     <ClInclude Include="hjMeshRenderer.h" />
+    <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
     <ClInclude Include="hjResources.h" />
     <ClInclude Include="hjScene.h" />
     <ClInclude Include="hjSceneManager.h" />
+    <ClInclude Include="hjScript.h" />
     <ClInclude Include="hjShader.h" />
     <ClInclude Include="hjTexture.h" />
     <ClInclude Include="hjTime.h" />
@@ -185,11 +187,13 @@
     <ClCompile Include="hjMaterial.cpp" />
     <ClCompile Include="hjMesh.cpp" />
     <ClCompile Include="hjMeshRenderer.cpp" />
+    <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />
     <ClCompile Include="hjResources.cpp" />
     <ClCompile Include="hjScene.cpp" />
     <ClCompile Include="hjSceneManager.cpp" />
+    <ClCompile Include="hjScript.cpp" />
     <ClCompile Include="hjShader.cpp" />
     <ClCompile Include="hjTexture.cpp" />
     <ClCompile Include="hjTime.cpp" />

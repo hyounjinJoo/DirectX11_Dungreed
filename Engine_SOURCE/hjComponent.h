@@ -18,7 +18,7 @@ namespace hj
 		virtual void FixedUpdate() = 0;
 		virtual void Render() = 0;
 
-		UINT GetOrder() { return (UINT)mType; }
+		eComponentType GetOrder() { return mType; }
 
 		GameObject* GetOwner() { return mOwner; }
 		void SetOwner(GameObject* owner) { mOwner = owner; }

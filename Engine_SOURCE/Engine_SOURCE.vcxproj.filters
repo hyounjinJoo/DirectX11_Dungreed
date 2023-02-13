@@ -49,6 +49,18 @@
     <Filter Include="Resource\Texture">
       <UniqueIdentifier>{13eaca58-38d7-4606-acf8-bd45bc66ea10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer">
+      <UniqueIdentifier>{e515d0e3-4746-4b27-8999-fe89003ddd24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script">
+      <UniqueIdentifier>{52a42885-19a5-4c7c-b038-45be43e24fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{3c5c903b-628d-4ce8-b9dc-cf4577ec961d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Contents">
+      <UniqueIdentifier>{7707c55d-e516-4f40-9999-38ae1d4352a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -102,15 +114,21 @@
     <ClCompile Include="hjMesh.cpp">
       <Filter>Resource\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="hjTransform.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="hjConstantBuffer.cpp" />
-    <ClCompile Include="hjMeshRenderer.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="hjTexture.cpp">
       <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMeshRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="hjScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTransform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,15 +195,21 @@
     <ClInclude Include="hjMesh.h">
       <Filter>Resource\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="hjTransform.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="hjConstantBuffer.h" />
-    <ClInclude Include="hjMeshRenderer.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="hjTexture.h">
       <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="hjScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTransform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="hjMeshRenderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPlayerScript.h">
+      <Filter>Component\Script\Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

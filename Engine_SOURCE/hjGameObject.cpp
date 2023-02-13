@@ -21,6 +21,14 @@ namespace hj
 
 			comp->Initialize();
 		}
+
+		for (Component* script : mScripts)
+		{
+			if (script == nullptr)
+				continue;
+
+			script->Initialize();
+		}
 	}
 	void GameObject::Update()
 	{
@@ -30,6 +38,14 @@ namespace hj
 				continue;
 
 			comp->Update();
+		}
+
+		for (Component* script : mScripts)
+		{
+			if (script == nullptr)
+				continue;
+
+			script->Update();
 		}
 	}
 	void GameObject::FixedUpdate()
@@ -41,6 +57,14 @@ namespace hj
 
 			comp->FixedUpdate();
 		}
+
+		for (Component* script : mScripts)
+		{
+			if (script == nullptr)
+				continue;
+
+			script->FixedUpdate();
+		}
 	}
 	void GameObject::Render()
 	{
@@ -51,11 +75,29 @@ namespace hj
 
 			comp->Render();
 		}
+
+		for (Component* script : mScripts)
+		{
+			if (script == nullptr)
+				continue;
+
+			script->Render();
+		}
 	}
+
 	void GameObject::AddComponent(Component* comp)
 	{
-		int order = comp->GetOrder();
-		mComponents[order] = comp;
-		mComponents[order]->SetOwner(this);
+		eComponentType order = comp->GetOrder();
+
+		if (order != eComponentType::Script)
+		{
+			mComponents[(UINT)order] = comp;
+			mComponents[(UINT)order]->SetOwner(this);
+		}
+		else
+		{
+			mScripts.push_back(comp);
+			comp->SetOwner(this);
+		}
 	}
 }
