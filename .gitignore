@@ -26,6 +26,12 @@
 *.a
 *.lib
 
+# Log files
+*.tlog
+*.log
+
+*.ilk
+
 # Executables
 *.exe
 *.out

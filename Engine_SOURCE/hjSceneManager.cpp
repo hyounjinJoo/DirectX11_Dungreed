@@ -23,16 +23,16 @@ namespace hj
 		MeshRenderer* mr = new MeshRenderer();
 		obj->AddComponent(mr);
 
-		Mesh* mesh = Resources::Find<Mesh>(L"RectMesh");
-		Material* material = Resources::Find<Material>(L"RectMaterial");
+		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> material = Resources::Find<Material>(L"RectMaterial");
 
-		mr->SetMaterial(material);
-		mr->SetMesh(mesh);
+		mr->SetMaterial(material.get());
+		mr->SetMesh(mesh.get());
 
 		PlayerScript* script = new PlayerScript();
 		obj->AddComponent(script);
 
-		Texture* texture = Resources::Load<Texture>(L"DungeonEatFrame08", L"DungeonEat08.png");
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"DungeonEatFrame08", L"DungeonEat08.png");
 		texture->BindShader(eShaderStage::PS, 0);
 
 		mPlayScene->AddGameObject(obj, eLayerType::Player);

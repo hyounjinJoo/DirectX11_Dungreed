@@ -35,7 +35,7 @@ namespace hj::renderer
 		arrLayoutDesc[2].SemanticName = "TEXCOORD";
 		arrLayoutDesc[2].SemanticIndex = 0;
 
-		Shader* shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
@@ -83,7 +83,7 @@ namespace hj::renderer
 	void LoadBuffer()
 	{
 		// 메시 생성
-		Mesh* mesh = new Mesh();
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"RectMesh", mesh);
 
 		mesh->CreateVertexBuffer(vertexes, 4);
@@ -108,7 +108,7 @@ namespace hj::renderer
 
 	void LoadShader()
 	{
-		Shader* shader = new Shader();
+		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
 
@@ -117,10 +117,10 @@ namespace hj::renderer
 
 	void LoadMaterial()
 	{
-		Shader* shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 
-		Material* material = new Material();
-		material->SetShader(shader);
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(shader.get());
 
 		Resources::Insert<Material>(L"RectMaterial", material);
 	}
