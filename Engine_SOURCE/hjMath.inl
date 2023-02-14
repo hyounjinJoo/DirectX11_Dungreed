@@ -2577,7 +2577,7 @@ inline Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, float angle) noex
     return R;
 }
 
-inline Matrix Matrix::CreatePerspectiveFieldOfView(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept
+inline Matrix Matrix::CreatePerspectiveFieldOfViewRH(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept
 {
     using namespace DirectX;
     Matrix R;
@@ -2585,7 +2585,7 @@ inline Matrix Matrix::CreatePerspectiveFieldOfView(float fov, float aspectRatio,
     return R;
 }
 
-inline Matrix Matrix::CreatePerspective(float width, float height, float nearPlane, float farPlane) noexcept
+inline Matrix Matrix::CreatePerspectiveRH(float width, float height, float nearPlane, float farPlane) noexcept
 {
     using namespace DirectX;
     Matrix R;
@@ -2593,7 +2593,7 @@ inline Matrix Matrix::CreatePerspective(float width, float height, float nearPla
     return R;
 }
 
-inline Matrix Matrix::CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept
+inline Matrix Matrix::CreatePerspectiveOffCenterRH(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept
 {
     using namespace DirectX;
     Matrix R;
@@ -2601,7 +2601,7 @@ inline Matrix Matrix::CreatePerspectiveOffCenter(float left, float right, float 
     return R;
 }
 
-inline Matrix Matrix::CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane) noexcept
+inline Matrix Matrix::CreateOrthographicRH(float width, float height, float zNearPlane, float zFarPlane) noexcept
 {
     using namespace DirectX;
     Matrix R;
@@ -2609,12 +2609,52 @@ inline Matrix Matrix::CreateOrthographic(float width, float height, float zNearP
     return R;
 }
 
-inline Matrix Matrix::CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept
+inline Matrix Matrix::CreateOrthographicOffCenterRH(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept
 {
     using namespace DirectX;
     Matrix R;
     XMStoreFloat4x4(&R, XMMatrixOrthographicOffCenterRH(left, right, bottom, top, zNearPlane, zFarPlane));
     return R;
+}
+
+inline Matrix Matrix::CreatePerspectiveFieldOfViewLH(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept
+{
+    using namespace DirectX;
+    Matrix L;
+    XMStoreFloat4x4(&L, XMMatrixPerspectiveFovLH(fov, aspectRatio, nearPlane, farPlane));
+    return L;
+}
+
+inline Matrix Matrix::CreatePerspectiveLH(float width, float height, float nearPlane, float farPlane) noexcept
+{
+    using namespace DirectX;
+    Matrix L;
+    XMStoreFloat4x4(&L, XMMatrixPerspectiveLH(width, height, nearPlane, farPlane));
+    return L;
+}
+
+inline Matrix Matrix::CreatePerspectiveOffCenterLH(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept
+{
+    using namespace DirectX;
+    Matrix L;
+    XMStoreFloat4x4(&L, XMMatrixPerspectiveOffCenterLH(left, right, bottom, top, nearPlane, farPlane));
+    return L;
+}
+
+inline Matrix Matrix::CreateOrthographicLH(float width, float height, float zNearPlane, float zFarPlane) noexcept
+{
+    using namespace DirectX;
+    Matrix L;
+    XMStoreFloat4x4(&L, XMMatrixOrthographicLH(width, height, zNearPlane, zFarPlane));
+    return L;
+}
+
+inline Matrix Matrix::CreateOrthographicOffCenterLH(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept
+{
+    using namespace DirectX;
+    Matrix L;
+    XMStoreFloat4x4(&L, XMMatrixOrthographicOffCenterLH(left, right, bottom, top, zNearPlane, zFarPlane));
+    return L;
 }
 
 inline Matrix Matrix::CreateLookAt(const Vector3& eye, const Vector3& target, const Vector3& up) noexcept

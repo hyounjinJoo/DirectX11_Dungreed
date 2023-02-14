@@ -562,11 +562,17 @@ namespace hj::math
 
         static Matrix CreateFromAxisAngle(const Vector3& axis, float angle) noexcept;
 
-        static Matrix CreatePerspectiveFieldOfView(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept;
-        static Matrix CreatePerspective(float width, float height, float nearPlane, float farPlane) noexcept;
-        static Matrix CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept;
-        static Matrix CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane) noexcept;
-        static Matrix CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept;
+        static Matrix CreatePerspectiveFieldOfViewRH(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept;
+        static Matrix CreatePerspectiveRH(float width, float height, float nearPlane, float farPlane) noexcept;
+        static Matrix CreatePerspectiveOffCenterRH(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept;
+        static Matrix CreateOrthographicRH(float width, float height, float zNearPlane, float zFarPlane) noexcept;
+        static Matrix CreateOrthographicOffCenterRH(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept;
+        
+        static Matrix CreatePerspectiveFieldOfViewLH(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept;
+        static Matrix CreatePerspectiveLH(float width, float height, float nearPlane, float farPlane) noexcept;
+        static Matrix CreatePerspectiveOffCenterLH(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept;
+        static Matrix CreateOrthographicLH(float width, float height, float zNearPlane, float zFarPlane) noexcept;
+        static Matrix CreateOrthographicOffCenterLH(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept;
 
         static Matrix CreateLookAt(const Vector3& position, const Vector3& target, const Vector3& up) noexcept;
         static Matrix CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up) noexcept;
