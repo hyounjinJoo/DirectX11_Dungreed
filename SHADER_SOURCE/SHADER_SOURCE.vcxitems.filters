@@ -16,4 +16,7 @@
       <Filter>PS</Filter>
     </FxCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
+  </ItemGroup>
 </Project>

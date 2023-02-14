@@ -25,11 +25,21 @@ namespace hj
 		void SetPosition(Vector3 position) { mPosition = position; }
 		void SetRotation(Vector3 rotation) { mRotation = rotation; }
 		void SetScale(Vector3 scale) { mScale = scale; }
+		
+		Vector3 Forward() { return mForward; }
+		Vector3 Right() { return mRight; }
+		Vector3 Up() { return mUp; }
 
 	private:
+		Vector3 mForward;
+		Vector3 mRight;
+		Vector3 mUp;
+
 		Vector3 mPosition;
 		Vector3 mRotation;
 		Vector3 mScale;
+
+		Matrix mWorld;
 	};
 }
 

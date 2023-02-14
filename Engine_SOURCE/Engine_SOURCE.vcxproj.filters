@@ -61,6 +61,9 @@
     <Filter Include="Component\Script\Contents">
       <UniqueIdentifier>{7707c55d-e516-4f40-9999-38ae1d4352a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{6e119388-00d6-4490-9f27-19794c7deb27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -129,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="hjPlayerScript.cpp">
       <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="hjCamera.cpp">
+      <Filter>Component\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="hjPlayerScript.h">
       <Filter>Component\Script\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="hjCamera.h">
+      <Filter>Component\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

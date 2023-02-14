@@ -22,7 +22,9 @@ namespace hj::renderer
 
 	CBUFFER(TransformCB, CBSLOT_TRANSFORM)
 	{
-		Vector4 pos;
+		Matrix world;
+		Matrix view;
+		Matrix projection;
 	};
 
 	CBUFFER(MaterialCB, CBSLOT_MATERIAL)

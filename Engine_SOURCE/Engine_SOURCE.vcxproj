@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="hjCamera.h" />
     <ClInclude Include="hjComponent.h" />
     <ClInclude Include="hjConstantBuffer.h" />
     <ClInclude Include="hjEngine.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="hjTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjCamera.cpp" />
     <ClCompile Include="hjComponent.cpp" />
     <ClCompile Include="hjConstantBuffer.cpp" />
     <ClCompile Include="hjEntity.cpp" />

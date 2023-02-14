@@ -5,6 +5,7 @@
 #include "hjResources.h"
 #include "hjTexture.h"
 #include "hjPlayerScript.h"
+#include "hjCamera.h"
 
 namespace hj
 {
@@ -15,9 +16,20 @@ namespace hj
 		mPlayScene = new Scene();
 		mPlayScene->Initialize();
 
+		// Camera Game Object
+		GameObject* cameraObj = new GameObject();
+		Transform* cameraTr = new Transform();
+		cameraTr->SetPosition(Vector3(0.f, 0.f, 0.f));
+		cameraObj->AddComponent(cameraTr);
+		Camera* cameraComp = new Camera();
+		cameraObj->AddComponent(cameraComp);
+
+		mPlayScene->AddGameObject(cameraObj, eLayerType::Camera);
+
+		// Test Object
 		GameObject* obj = new GameObject();
 		Transform* tr = new Transform();
-		tr->SetPosition(Vector3(0.f, 0.f, 0.f));
+		tr->SetPosition(Vector3(0.f, 0.f, 20.f));
 		obj->AddComponent(tr);
 
 		MeshRenderer* mr = new MeshRenderer();

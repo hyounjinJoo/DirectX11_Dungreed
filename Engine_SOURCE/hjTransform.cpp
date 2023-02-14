@@ -1,10 +1,17 @@
 #include "hjTransform.h"
 #include "hjRenderer.h"
+#include "hjCamera.h"
 
 namespace hj
 {
 	Transform::Transform()
 		: Component(eComponentType::Transform)
+		, mForward(Vector3::Forward)
+		, mRight(Vector3::Right)
+		, mUp(Vector3::Up)
+		, mScale(Vector3::One)
+		, mRotation(Vector3::Zero)
+		, mPosition(Vector3::One)
 	{
 	}
 
@@ -22,7 +29,29 @@ namespace hj
 
 	void Transform::FixedUpdate()
 	{
-		SetConstantBuffer();
+		// 렌더링에 사용될 위치값을 업데이트.
+
+		// 1. 월드 행렬 생성
+		// - 크기 변환 행렬
+		Matrix scale = Matrix::CreateScale(mScale);
+
+		// - 회전 변환 행렬
+		Matrix rotation;
+		rotation = Matrix::CreateRotationX(mRotation.x);
+		rotation *= Matrix::CreateRotationY(mRotation.y);
+		rotation *= Matrix::CreateRotationZ(mRotation.z);
+
+		// - 이동 변환 행렬
+		Matrix position;
+		position.Translation(mPosition);
+
+		// - 월드 행렬 계산
+		mWorld = scale * rotation * position;
+
+		// - 기저 벡터 계산
+		mForward = Vector3::TransformNormal(Vector3::Forward, rotation);
+		mRight = Vector3::TransformNormal(Vector3::Right, rotation);
+		mUp = Vector3::TransformNormal(Vector3::Up, rotation);
 	}
 
 	void Transform::Render()
@@ -31,13 +60,13 @@ namespace hj
 
 	void Transform::SetConstantBuffer()
 	{
-		// 상수 버퍼를 가져와서 해당 상수버퍼에
-		// SetConstantBuffer(eShaderStage::VS, eCBType::Transform, renderer::triangleConstantBuffer.Get());
-		// 예시처럼 값을 세팅해주어야 한다.	
-		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
+		renderer::TransformCB trCb = {};
+		trCb.world = mWorld;
+		trCb.view = Camera::GetViewMatrix();
+		trCb.projection = Camera::GetProjectionMatrix();
 
-		Vector4 pos(mPosition.x, mPosition.y, mPosition.z, 0.f);
-		cb->Bind(&pos);
+		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
+		cb->Bind(&trCb);
 		cb->SetPipeline(eShaderStage::VS);
 	}
 }
