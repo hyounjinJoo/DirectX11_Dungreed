@@ -136,6 +136,9 @@
     <ClCompile Include="hjCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="hjCameraScript.cpp">
+      <Filter>Component\Script\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -219,6 +222,9 @@
     </ClInclude>
     <ClInclude Include="hjCamera.h">
       <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="hjCameraScript.h">
+      <Filter>Component\Script\Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

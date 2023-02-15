@@ -6,6 +6,7 @@
 #include "hjTexture.h"
 #include "hjPlayerScript.h"
 #include "hjCamera.h"
+#include "hjCameraScript.h"
 
 namespace hj
 {
@@ -23,6 +24,8 @@ namespace hj
 		cameraObj->AddComponent(cameraTr);
 		Camera* cameraComp = new Camera();
 		cameraObj->AddComponent(cameraComp);
+		CameraScript* cameraScript = new CameraScript();
+		cameraObj->AddComponent(cameraScript);
 
 		mPlayScene->AddGameObject(cameraObj, eLayerType::Camera);
 
