@@ -175,6 +175,30 @@ namespace hj::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState)
+	{
+		if (FAILED(mDevice->CreateRasterizerState(pRasterizerDesc, ppRasterizerState)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_DX11::CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState)
+	{
+		if (FAILED(mDevice->CreateDepthStencilState(pDepthStencilDesc, ppDepthStencilState)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_DX11::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc, ID3D11BlendState** ppBlendState)
+	{
+		if (FAILED(mDevice->CreateBlendState(pBlendStateDesc, ppBlendState)))
+			return false;
+
+		return true;
+	}
+
 	void GraphicDevice_DX11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
 	{
 		mContext->IASetPrimitiveTopology(topology);
@@ -311,6 +335,21 @@ namespace hj::graphics
 		mContext->DSSetSamplers(slot, NumSamplers, ppSamplers);
 		mContext->GSSetSamplers(slot, NumSamplers, ppSamplers);
 		mContext->PSSetSamplers(slot, NumSamplers, ppSamplers);
+	}
+
+	void GraphicDevice_DX11::BindRasterizerState(ID3D11RasterizerState* pRasterizerState)
+	{
+		mContext->RSSetState(pRasterizerState);
+	}
+
+	void GraphicDevice_DX11::BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState)
+	{
+		mContext->OMSetDepthStencilState(pDepthStencilState, 0);
+	}
+
+	void GraphicDevice_DX11::BindBlendState(ID3D11BlendState* pBlendState)
+	{
+		mContext->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
 	}
 
 	void GraphicDevice_DX11::Clear()

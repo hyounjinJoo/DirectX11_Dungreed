@@ -35,7 +35,7 @@ namespace hj
 #pragma region Test Object(Transform / MeshRenderer / PlayerScript)
 		GameObject* obj = new GameObject();
 		Transform* tr = new Transform();
-		tr->SetPosition(Vector3(0.f, 0.f, 10.f));
+		tr->SetPosition(Vector3(0.f, 0.f, 11.f));
 		obj->AddComponent(tr);
 
 		MeshRenderer* mr = new MeshRenderer();
@@ -55,7 +55,8 @@ namespace hj
 #pragma region Sprite Object
 		GameObject* spriteObj = new GameObject();
 		Transform* spriteTr = new Transform();
-		spriteTr->SetPosition(Vector3(0.f, 0.f, 20.f));
+		spriteTr->SetPosition(Vector3(0.f, 0.f, 10.f));
+		spriteTr->SetScale(Vector3(5.f, 5.f, 1.f));
 		spriteObj->AddComponent(spriteTr);
 
 		SpriteRenderer* sr = new SpriteRenderer();

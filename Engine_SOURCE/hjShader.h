@@ -5,6 +5,7 @@
 
 namespace hj
 {
+	using namespace graphics;
 	class Shader : public Resource
 	{
 	public:
@@ -13,7 +14,7 @@ namespace hj
 
 		virtual HRESULT Load(const std::wstring& path) override;
 
-		void Create(graphics::eShaderStage stage, const std::wstring& file, const std::string& funcName);
+		void Create(eShaderStage stage, const std::wstring& file, const std::string& funcName);
 		void Binds();
 
 		ID3D11InputLayout* GetInputLayout() { return mInputLayout.Get(); }
@@ -24,6 +25,10 @@ namespace hj
 
 		inline void PrintErrorBlobMessage();
 		inline void ReleaseErrorBlob();
+
+		void SetRSState(eRSType state) { mRSType = state; }
+		void SetDSState(eDSType state) { mDSType = state; }
+		void SetBSState(eBSType state) { mBSType = state; }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
@@ -41,6 +46,10 @@ namespace hj
 		Microsoft::WRL::ComPtr<ID3D11DomainShader>		mDS;
 		Microsoft::WRL::ComPtr<ID3D11GeometryShader>	mGS;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader>		mPS;
+
+		eRSType mRSType;
+		eDSType mDSType;
+		eBSType mBSType;
 
 		Microsoft::WRL::ComPtr<ID3DBlob> mErrorBlob;
 	};
