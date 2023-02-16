@@ -1,4 +1,3 @@
-
 #include "globals.hlsli"
 
 VSOut main(VSIn In)
@@ -13,5 +12,5 @@ VSOut main(VSIn In)
     Out.Color = In.Color;
     Out.UV = In.UV;
     
-	return Out;
+    return Out;
 }

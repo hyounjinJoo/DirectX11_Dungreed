@@ -1,15 +1,15 @@
-struct VTX_IN
+struct VSIn
 {
-    float4 vPos : POSITION;
-    float4 vColor : COLOR;
-    float2 vUV : TEXCOORD;
+    float4 Pos : POSITION;
+    float4 Color : COLOR;
+    float2 UV : TEXCOORD;
 };
 
-struct VTX_OUT
+struct VSOut
 {
-    float4 vPos : SV_Position;
-    float4 vColor : COLOR;
-    float2 vUV : TEXCOORD;
+    float4 Pos : SV_Position;
+    float4 Color : COLOR;
+    float2 UV : TEXCOORD;
 };
 
 cbuffer Transform : register(b0)
@@ -34,3 +34,5 @@ SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);
 
 Texture2D defaultTexture : register(t0);
+//Texture2D defaultTexture2 : register(t1);
+//Texture2D defaultTexture3 : register(t2);

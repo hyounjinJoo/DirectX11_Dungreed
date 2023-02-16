@@ -1,17 +1,15 @@
 #pragma once
-
 #include "hjComponent.h"
 #include "hjMesh.h"
 #include "hjMaterial.h"
 
-using namespace hj::graphics;
 namespace hj
 {
-	class MeshRenderer : public Component
+	class SpriteRenderer : public Component
 	{
 	public:
-		MeshRenderer();
-		virtual ~MeshRenderer();
+		SpriteRenderer();
+		virtual ~SpriteRenderer();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -19,7 +17,7 @@ namespace hj
 		virtual void Render() override;
 
 		void SetMesh(std::shared_ptr<Mesh> mesh) { mMesh = mesh; }
-		void SetMaterial(std::shared_ptr<Material> material) { mMaterial = material; }
+		void SetMaterial(std::shared_ptr<Material> shader) { mMaterial = shader; }
 
 	private:
 		std::shared_ptr<Mesh> mMesh;

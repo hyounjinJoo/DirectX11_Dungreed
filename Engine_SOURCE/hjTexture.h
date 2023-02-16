@@ -22,6 +22,7 @@ namespace hj::graphics
 
 		virtual HRESULT Load(const std::wstring& name) override;
 		void BindShader(eShaderStage stage, UINT slot);
+		void Clear();
 
 	private:
 		ScratchImage mImage;

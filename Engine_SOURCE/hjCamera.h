@@ -13,8 +13,8 @@ namespace hj
 			Orthographic,
 		};
 
-		__forceinline static Matrix& GetViewMatrix() { return mView; }
-		__forceinline static Matrix& GetProjectionMatrix() { return mProjection; }
+		__forceinline static Matrix& GetViewMatrix() { return View; }
+		__forceinline static Matrix& GetProjectionMatrix() { return Projection; }
 
 		Camera();
 		virtual ~Camera();
@@ -28,8 +28,12 @@ namespace hj
 		void CreateProjectionMatrix();
 
 	private:
-		static Matrix mView;
-		static Matrix mProjection;
+		static Matrix View;
+		static Matrix Projection;
+
+		// 다중 카메라 지원을 위해 멤버 변수로 뷰, 투영행렬을 추가로 관리
+		Matrix mView;
+		Matrix mProjection;
 
 		eProjectionType mType;
 		float mAspectRatio;

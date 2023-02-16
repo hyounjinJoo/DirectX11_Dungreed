@@ -19,7 +19,9 @@ namespace hj
 
     Application::~Application()
     {
+        SceneManager::Release();
     }
+
     // √ ±‚»≠
     void Application::Initialize()
     {
@@ -69,7 +71,7 @@ namespace hj
 
     void Application::Release()
     {
-        //Resources::Release();
+        Resources::deleteTest();
     }
         
     void Application::SetWindow(HWND hwnd, UINT width, UINT height)

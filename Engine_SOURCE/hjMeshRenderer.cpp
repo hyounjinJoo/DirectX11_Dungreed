@@ -5,7 +5,7 @@
 namespace hj
 {
 	MeshRenderer::MeshRenderer()
-		: Component(eComponentType::Mesh)
+		: Component(eComponentType::MeshRenderer)
 	{
 	}
 	MeshRenderer::~MeshRenderer()
@@ -28,5 +28,7 @@ namespace hj
 		mMesh->BindBuffer();
 
 		mMesh->Render();
+
+		mMaterial->Clear();
 	}
 }

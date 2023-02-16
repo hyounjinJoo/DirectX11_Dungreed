@@ -10,6 +10,23 @@ namespace hj
 
 	GameObject::~GameObject()
 	{
+		for (Component* comp : mComponents)
+		{
+			if (comp == nullptr)
+				continue;
+
+			delete comp;
+			comp = nullptr;
+		}
+
+		for (Component* scrComp : mScripts)
+		{
+			if (scrComp == nullptr)
+				continue;
+
+			delete scrComp;
+			scrComp = nullptr;
+		}
 	}
 
 	void GameObject::Initialize()
