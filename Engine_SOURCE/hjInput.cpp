@@ -76,8 +76,8 @@ namespace hj
 			POINT mousePos = {};
 			GetCursorPos(&mousePos);
 			ScreenToClient(application.GetHwnd(), &mousePos);
-			mMousePosition.x = mousePos.x;
-			mMousePosition.y = mousePos.y;
+			mMousePosition.x = static_cast<float>(mousePos.x);
+			mMousePosition.y = static_cast<float>(mousePos.y);
 		}
 		else
 		{
