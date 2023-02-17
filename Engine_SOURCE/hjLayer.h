@@ -16,8 +16,11 @@ namespace hj
 		virtual void Render();
 
 		void AddGameObject(GameObject* gameObject);
+		const std::vector<GameObject*>& GetGameObejcts() { return mGameObjects; }
 
 	private:
 		std::vector<GameObject*> mGameObjects;
 	};
+
+	typedef const std::vector<GameObject*>& GameObjects;
 }

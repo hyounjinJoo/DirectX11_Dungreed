@@ -142,6 +142,9 @@
     <ClCompile Include="hjSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="hjBaseRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -230,6 +233,9 @@
       <Filter>Component\Script\Contents</Filter>
     </ClInclude>
     <ClInclude Include="hjSpriteRenderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBaseRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
   </ItemGroup>

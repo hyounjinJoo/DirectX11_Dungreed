@@ -56,7 +56,7 @@ namespace hj::graphics
 
 	enum class eDSType
 	{
-		Less,
+		LessEqual,
 		Greater,
 		NoWrite,
 		None,
@@ -68,6 +68,14 @@ namespace hj::graphics
 		Default,
 		AlphaBlend,
 		OneOne,
+		End,
+	};
+
+	enum class eRenderingMode
+	{
+		Opaque,
+		Cutout,
+		Transparent,
 		End,
 	};
 

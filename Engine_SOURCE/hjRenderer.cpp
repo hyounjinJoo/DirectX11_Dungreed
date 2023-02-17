@@ -12,6 +12,8 @@ namespace hj::renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 	
+	std::vector<Camera*> cameras;
+
 	void SetUpState()
 	{
 #pragma region Input Layout
@@ -117,12 +119,12 @@ namespace hj::renderer
 #pragma region Depth Stencil State
 		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
 		dsDesc.DepthEnable = true;
-		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
 		dsDesc.StencilEnable = false;
 
 		GetDevice()->CreateDepthStencilState(&dsDesc
-			, depthstencilStates[(UINT)eDSType::Less].GetAddressOf());
+			, depthstencilStates[(UINT)eDSType::LessEqual].GetAddressOf());
 
 		dsDesc.DepthEnable = true;
 		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_GREATER;
@@ -224,23 +226,24 @@ namespace hj::renderer
 
 	void LoadMaterial()
 	{
+		// Default
 		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"DungeonEatFrame08", L"DungeonEat08.png");
 
-		// Default
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(texture);
 		Resources::Insert<Material>(L"RectMaterial", material);
 
+		// Sprite
 		//std::shared_ptr<Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"DefaultSprite.png");
 		std::shared_ptr<Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 
-		// Sprite
 		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 		spriteMaterial->SetShader(spriteShader);
 		spriteMaterial->SetTexture(spriteTexture);
+		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
 	}
 
@@ -271,6 +274,19 @@ namespace hj::renderer
 		SetUpState();
 		LoadBuffer();
 		LoadMaterial();
+	}
+
+	void Render()
+	{
+		for (Camera* cam : cameras)
+		{
+			if (cam == nullptr)
+				continue;
+
+			cam->Render();
+		}
+
+		cameras.clear();
 	}
 
 	void Release()

@@ -4,6 +4,7 @@ namespace hj::graphics
 {
 	Material::Material()
 		: Resource(eResourceType::Material)
+		, mMode(eRenderingMode::Opaque)
 	{
 	}
 

@@ -2,10 +2,11 @@
 
 #include "hjComponent.h"
 #include "hjScript.h"
+#include "hjEntity.h"
 
 namespace hj
 {
-	class GameObject
+	class GameObject : public Entity
 	{
 	public:
 		enum eState

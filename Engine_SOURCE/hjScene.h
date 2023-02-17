@@ -18,6 +18,7 @@ namespace hj
 		virtual void Render();
 
 		void AddGameObject(GameObject* gameObject, const eLayerType type);
+		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 
 	private:
 		std::vector<Layer> mLayers;

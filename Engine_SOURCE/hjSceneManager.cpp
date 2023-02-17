@@ -11,12 +11,12 @@
 
 namespace hj
 {
-	Scene* SceneManager::mPlayScene = nullptr;
+	Scene* SceneManager::mActiveScene = nullptr;
 
 	void SceneManager::Initialize()
 	{
-		mPlayScene = new Scene();
-		mPlayScene->Initialize();
+		mActiveScene = new Scene();
+		mActiveScene->Initialize();
 
 #pragma region Camera Game Object
 		GameObject* cameraObj = new GameObject();
@@ -30,18 +30,40 @@ namespace hj
 		CameraScript* cameraScript = new CameraScript();
 		cameraObj->AddComponent(cameraScript);
 		
-		mPlayScene->AddGameObject(cameraObj, eLayerType::Camera);
+		mActiveScene->AddGameObject(cameraObj, eLayerType::Camera);
+#pragma endregion
+#pragma region Sprite Object
+		GameObject* spriteObj = new GameObject();
+		Transform* spriteTr = new Transform();
+		spriteObj->SetName(L"Sprite Obj");
+
+		spriteTr->SetPosition(Vector3(0.f, 0.f, 10.f));
+		spriteTr->SetScale(Vector3(5.f, 5.f, 1.f));
+		spriteObj->AddComponent(spriteTr);
+
+		SpriteRenderer* sr = new SpriteRenderer();
+		spriteObj->AddComponent(sr);
+
+		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+		std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
+
+		sr->SetMaterial(spriteMaterial);
+		sr->SetMesh(mesh);
+
+		mActiveScene->AddGameObject(spriteObj, eLayerType::Player);
 #pragma endregion
 #pragma region Test Object(Transform / MeshRenderer / PlayerScript)
 		GameObject* obj = new GameObject();
+		obj->SetName(L"Test Obj");
+
 		Transform* tr = new Transform();
-		tr->SetPosition(Vector3(0.f, 0.f, 11.f));
+		tr->SetPosition(Vector3(0.f, 0.f, 10.f));
+		tr->SetScale(Vector3(5.f, 5.f, 1.f));
 		obj->AddComponent(tr);
 
 		MeshRenderer* mr = new MeshRenderer();
 		obj->AddComponent(mr);
-
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+				
 		std::shared_ptr<Material> material = Resources::Find<Material>(L"RectMaterial");
 
 		Vector2 vec2(1.f, 1.f);
@@ -50,44 +72,30 @@ namespace hj
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
 
-		mPlayScene->AddGameObject(obj, eLayerType::Player);
+		mActiveScene->AddGameObject(obj, eLayerType::Player);
 #pragma endregion
-#pragma region Sprite Object
-		GameObject* spriteObj = new GameObject();
-		Transform* spriteTr = new Transform();
-		spriteTr->SetPosition(Vector3(0.f, 0.f, 10.f));
-		spriteTr->SetScale(Vector3(5.f, 5.f, 1.f));
-		spriteObj->AddComponent(spriteTr);
 
-		SpriteRenderer* sr = new SpriteRenderer();
-		spriteObj->AddComponent(sr);
-
-		std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
-
-		sr->SetMaterial(spriteMaterial);
-		sr->SetMesh(mesh);
-
-		mPlayScene->AddGameObject(spriteObj, eLayerType::Player);
-#pragma endregion
+		mActiveScene->Initialize();
 	}
 
 	void SceneManager::Update()
 	{
-		mPlayScene->Update();
+		mActiveScene->Update();
 	}
 
 	void SceneManager::FixedUpdate()
 	{
-		mPlayScene->FixedUpdate();
+		mActiveScene->FixedUpdate();
 	}
 
 	void SceneManager::Render()
 	{
-		mPlayScene->Render();
+		mActiveScene->Render();
 	}
+
 	void SceneManager::Release()
 	{
-		delete mPlayScene;
-		mPlayScene = nullptr;
+		delete mActiveScene;
+		mActiveScene = nullptr;
 	}
 }

@@ -2,6 +2,11 @@
 #include "hjTransform.h"
 #include "hjGameObject.h"
 #include "hjApplication.h"
+#include "hjRenderer.h"
+#include "hjScene.h"
+#include "hjSceneManager.h"
+#include "hjMaterial.h"
+#include "hjBaseRenderer.h"
 
 extern hj::Application application;
 
@@ -26,6 +31,7 @@ namespace hj
 
 	void Camera::Initialize()
 	{
+		EnableLayerMask();
 	}
 	
 	void Camera::Update()
@@ -36,10 +42,20 @@ namespace hj
 	{
 		CreateViewMatrix();
 		CreateProjectionMatrix();
+
+		RegisterCameraInRenderer();
 	}
 	
 	void Camera::Render()
 	{
+		View = mView;
+		Projection = mProjection;
+
+		sortGameObjects();
+
+		renderOpaque();
+		renderCutout();
+		renderTransparent();
 	}
 
 	void Camera::CreateViewMatrix()
@@ -48,8 +64,8 @@ namespace hj
 		Vector3 cameraPos = tr->GetPosition();
 
 		// Create Translation View Matrix
-		View = Matrix::Identity;
-		View *= Matrix::CreateTranslation(-cameraPos);
+		mView = Matrix::Identity;
+		mView *= Matrix::CreateTranslation(-cameraPos);
 
 		// Rotation Info
 		Vector3 up = tr->Up();
@@ -61,7 +77,7 @@ namespace hj
 		viewRotation._21 = right.y;	viewRotation._22 = up.y; viewRotation._33 = forward.y;
 		viewRotation._31 = right.z;	viewRotation._32 = up.z; viewRotation._33 = forward.z;
 
-		View *= viewRotation;
+		mView *= viewRotation;
 	}
 
 	void Camera::CreateProjectionMatrix()
@@ -75,7 +91,7 @@ namespace hj
 
 		if (mType == eProjectionType::Perspective)
 		{
-			Projection = Matrix::CreatePerspectiveFieldOfViewLH
+			mProjection = Matrix::CreatePerspectiveFieldOfViewLH
 			(
 				XM_2PI / 6.f
 				, mAspectRatio
@@ -85,7 +101,101 @@ namespace hj
 		}
 		else
 		{
-			Projection = Matrix::CreateOrthographicLH(width / 100.f, height / 100.f, mNear, mFar);
+			mProjection = Matrix::CreateOrthographicLH(width / 100.f, height / 100.f, mNear, mFar);
+		}
+	}
+
+	void Camera::RegisterCameraInRenderer()
+	{
+		renderer::cameras.push_back(this);
+	}
+	
+	void Camera::TurnLayerMask(eLayerType layer, bool enable)
+	{
+		mLayerMasks.set((UINT)layer, enable);
+	}
+	
+	void Camera::sortGameObjects()
+	{
+		mOpaqueGameObjects.clear();
+		mCutoutGameObjects.clear();
+		mTransparentGameObjects.clear();
+
+		Scene* scene = SceneManager::GetActiveScene();
+		for (size_t i = 0; i < (UINT)eLayerType::End; ++i)
+		{
+			if (mLayerMasks[i] == true)
+			{
+				Layer& layer = scene->GetLayer((eLayerType)i);
+				GameObjects gameObjects = layer.GetGameObejcts();
+				if (gameObjects.size() == 0)
+					continue;
+
+				for (GameObject* obj : gameObjects)
+				{
+					pushGameObjectToRenderingModes(obj);
+				}
+			}
+		}
+
+	}
+	
+	void Camera::renderOpaque()
+	{
+		for (GameObject* obj : mOpaqueGameObjects)
+		{
+			if (obj == nullptr)
+				continue;
+
+			obj->Render();
+		}
+	}
+	
+	void Camera::renderCutout()
+	{
+		for (GameObject* obj : mCutoutGameObjects)
+		{
+			if (obj == nullptr)
+				continue;
+
+			obj->Render();
+		}
+	}
+	
+	void Camera::renderTransparent()
+	{
+		for (GameObject* obj : mTransparentGameObjects)
+		{
+			if (obj == nullptr)
+				continue;
+
+			obj->Render();
+		}
+	}
+	
+	void Camera::pushGameObjectToRenderingModes(GameObject* gameObj)
+	{
+		BaseRenderer* renderer
+			= gameObj->GetComponent<BaseRenderer>();
+		if (renderer == nullptr)
+			return;
+
+		std::shared_ptr<Material> material = renderer->GetMaterial();
+		eRenderingMode mode = material->GetRenderingMode();
+
+		switch (mode)
+		{
+		case eRenderingMode::Opaque:
+			mOpaqueGameObjects.push_back(gameObj);
+			break;
+		case eRenderingMode::Cutout:
+			mCutoutGameObjects.push_back(gameObj);
+			break;
+		case eRenderingMode::Transparent:
+			mTransparentGameObjects.push_back(gameObj);
+			break;
+		default:
+			break;
 		}
 	}
 }
