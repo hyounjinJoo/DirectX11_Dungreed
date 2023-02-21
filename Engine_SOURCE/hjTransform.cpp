@@ -12,6 +12,8 @@ namespace hj
 		, mScale(Vector3::One)
 		, mRotation(Vector3::Zero)
 		, mPosition(Vector3::One)
+		, mParent(nullptr)
+		, mInheritParentTransform(false)
 	{
 	}
 
@@ -52,6 +54,11 @@ namespace hj
 		mForward = Vector3::TransformNormal(Vector3::Forward, rotation);
 		mRight = Vector3::TransformNormal(Vector3::Right, rotation);
 		mUp = Vector3::TransformNormal(Vector3::Up, rotation);
+
+		if (mParent && mInheritParentTransform)
+		{
+			mWorld *= mParent->mWorld;
+		}
 	}
 
 	void Transform::Render()

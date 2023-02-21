@@ -91,7 +91,31 @@ namespace hj
 		
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
+
+		PlayerScript* playerScript = new PlayerScript();
+		obj->AddComponent(playerScript);
 		
+		mActiveScene->AddGameObject(obj, eLayerType::Player);
+	#pragma endregion
+	#pragma region Test Transform Inherit Object
+		obj = new GameObject();
+		obj->SetName(L"Test Obj - Transform Inherit");
+
+		Transform* childTR = new Transform();
+		childTR->SetPosition(Vector3(0.5f, 0.5f, 0.f));
+		childTR->SetScale(Vector3(1.f, 1.f, 1.f));
+		childTR->SetParent(tr);
+		childTR->SetInheritParentTransform(true);
+		obj->AddComponent(childTR);
+
+		mr = new MeshRenderer();
+		obj->AddComponent(mr);
+
+		material = Resources::Find<Material>(L"SpriteMaterial");
+
+		mr->SetMaterial(material);
+		mr->SetMesh(mesh);
+
 		mActiveScene->AddGameObject(obj, eLayerType::Player);
 	#pragma endregion
 #pragma endregion
