@@ -51,6 +51,12 @@ namespace hj::renderer
 			, spriteShader->GetVSBlobBufferPointer()
 			, spriteShader->GetVSBlobBufferSize()
 			, spriteShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> uIShader = Resources::Find<Shader>(L"UIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, uIShader->GetVSBlobBufferPointer()
+			, uIShader->GetVSBlobBufferSize()
+			, uIShader->GetInputLayoutAddressOf());
 #pragma endregion
 #pragma region Sampler State
 		D3D11_SAMPLER_DESC samplerDesc = {};
@@ -222,13 +228,26 @@ namespace hj::renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
+
+		// UI
+		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
+		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"UIShader", uiShader);
+	}
+
+	void LoadTexture()
+	{
+		// Default
+		Resources::Load<Texture>(L"LightSprite", L"Light.png");
+		Resources::Load<Texture>(L"DefaultSprite", L"DungeonEat08.png");
+		Resources::Load<Texture>(L"HPBarTexture", L"PlayerLifeBase 1.png");
 	}
 
 	void LoadMaterial()
 	{
-		// Default
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"DungeonEatFrame08", L"DungeonEat08.png");
-
+		std::shared_ptr<Texture> texture = Resources::Find<Texture>(L"LightSprite");
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
@@ -237,14 +256,22 @@ namespace hj::renderer
 
 		// Sprite
 		//std::shared_ptr<Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"DefaultSprite.png");
-		std::shared_ptr<Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
+		texture = Resources::Find<Texture>(L"DefaultSprite");
+		shader = Resources::Find<Shader>(L"SpriteShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert<Material>(L"SpriteMaterial", material);
 
-		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
-		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
-		spriteMaterial->SetShader(spriteShader);
-		spriteMaterial->SetTexture(spriteTexture);
-		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
+		// HPBar
+		texture = Resources::Find<Texture>(L"HPBarTexture");
+		shader = Resources::Find<Shader>(L"UIShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert<Material>(L"UIMaterial", material);
 	}
 
 	void Initialize()
@@ -273,6 +300,7 @@ namespace hj::renderer
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
+		LoadTexture();
 		LoadMaterial();
 	}
 

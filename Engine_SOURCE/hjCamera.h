@@ -32,6 +32,8 @@ namespace hj
 		void EnableLayerMask() { mLayerMasks.set(); }
 		void DisableLayerMask() { mLayerMasks.reset(); }
 
+		void SetProjectionType(eProjectionType type) { mType = type; }
+
 	private:
 		void sortGameObjects();
 		void renderOpaque();

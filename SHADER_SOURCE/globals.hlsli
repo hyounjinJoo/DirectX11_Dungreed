@@ -1,17 +1,3 @@
-struct VSIn
-{
-    float4 Pos : POSITION;
-    float4 Color : COLOR;
-    float2 UV : TEXCOORD;
-};
-
-struct VSOut
-{
-    float4 Pos : SV_Position;
-    float4 Color : COLOR;
-    float2 UV : TEXCOORD;
-};
-
 cbuffer Transform : register(b0)
 {
     row_major matrix world;

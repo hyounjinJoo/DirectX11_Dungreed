@@ -8,6 +8,8 @@ namespace hj::enums
 		Camera,
 		Monster,
 		Player,
+
+		UI,
 		End = 16,
 	};
 

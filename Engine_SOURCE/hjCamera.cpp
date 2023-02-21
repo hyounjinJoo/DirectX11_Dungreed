@@ -23,6 +23,7 @@ namespace hj
 		, mFar(1000.f)
 		, mScale(1.f)
 	{
+		EnableLayerMask(); 
 	}
 
 	Camera::~Camera()
@@ -31,7 +32,6 @@ namespace hj
 
 	void Camera::Initialize()
 	{
-		EnableLayerMask();
 	}
 	
 	void Camera::Update()
@@ -101,7 +101,7 @@ namespace hj
 		}
 		else
 		{
-			mProjection = Matrix::CreateOrthographicLH(width / 100.f, height / 100.f, mNear, mFar);
+			mProjection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
 		}
 	}
 
