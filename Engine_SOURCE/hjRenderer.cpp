@@ -83,6 +83,12 @@ namespace hj::renderer
 			, gridShader->GetVSBlobBufferSize()
 			, gridShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> fadeShader = Resources::Find<Shader>(L"FadeShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
+			, fadeShader->GetVSBlobBufferPointer()
+			, fadeShader->GetVSBlobBufferSize()
+			, fadeShader->GetInputLayoutAddressOf());
+
 		delete[] arrLayoutDesc;
 #pragma endregion
 #pragma region Sampler State
@@ -272,6 +278,13 @@ namespace hj::renderer
 		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"GridShader", gridShader);
+
+		// Fade
+		std::shared_ptr<Shader> fadeShader = std::make_shared<Shader>();
+		fadeShader->Create(eShaderStage::VS, L"FadeVS.hlsl", "main");
+		fadeShader->Create(eShaderStage::PS, L"FadePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"FadeShader", fadeShader);
 	}
 
 	void LoadTexture()
@@ -314,7 +327,18 @@ namespace hj::renderer
 		shader = Resources::Find<Shader>(L"GridShader");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);
+		shader->SetRSState(eRSType::SolidNone);
+		shader->SetDSState(eDSType::NoWrite);
+		shader->SetBSState(eBSType::AlphaBlend);
 		Resources::Insert<Material>(L"GridMaterial", material);
+
+		// Fade
+		shader = Resources::Find<Shader>(L"FadeShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		shader->SetBSState(eBSType::AlphaBlend);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert<Material>(L"FadeMaterial", material);
 	}
 
 	void Initialize()

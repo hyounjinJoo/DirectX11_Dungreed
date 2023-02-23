@@ -158,6 +158,7 @@
     <ClInclude Include="hjEngine.h" />
     <ClInclude Include="hjEntity.h" />
     <ClInclude Include="hjEnums.h" />
+    <ClInclude Include="hjFadeScript.h" />
     <ClInclude Include="hjGameObject.h" />
     <ClInclude Include="hjGraphics.h" />
     <ClInclude Include="hjGridScript.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="hjComponent.cpp" />
     <ClCompile Include="hjConstantBuffer.cpp" />
     <ClCompile Include="hjEntity.cpp" />
+    <ClCompile Include="hjFadeScript.cpp" />
     <ClCompile Include="hjGameObject.cpp" />
     <ClCompile Include="hjGridScript.cpp" />
     <ClCompile Include="hjInput.cpp" />

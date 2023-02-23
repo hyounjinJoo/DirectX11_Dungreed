@@ -148,6 +148,9 @@
     <ClCompile Include="hjGridScript.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
+    <ClCompile Include="hjFadeScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -242,6 +245,9 @@
       <Filter>Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="hjGridScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFadeScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
   </ItemGroup>

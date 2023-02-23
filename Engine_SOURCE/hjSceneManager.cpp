@@ -10,6 +10,7 @@
 #include "hjSpriteRenderer.h"
 #include "hjApplication.h"
 #include "hjGridScript.h"
+#include "hjFadeScript.h"
 
 extern hj::Application application;
 
@@ -37,7 +38,23 @@ namespace hj
 
 		mActiveScene->AddGameObject(gridObj, eLayerType::Grid);
 	#pragma endregion
+	#pragma region Fade Object
+		GameObject* fadeObj = new GameObject();
 
+		Transform* fadeTr = new Transform();
+		fadeTr->SetScale(Vector3(1600.f, 900.f, 1.f));
+		fadeTr->SetPosition(Vector3(0.f, 0.f, 0.f));
+		fadeObj->AddComponent(fadeTr);
+		
+		fadeObj->AddComponent(new FadeScript());
+		
+		MeshRenderer* fadeMR = new MeshRenderer();
+		fadeMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		fadeMR->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
+		fadeObj->AddComponent(fadeMR);
+		
+		mActiveScene->AddGameObject(fadeObj, eLayerType::UI);
+	#pragma endregion
 	#pragma region Main Camera
 		GameObject* cameraObj = new GameObject();
 		Transform* cameraTr = new Transform();
@@ -75,24 +92,24 @@ namespace hj
 #pragma region Objects
 
 	#pragma region light Object
-		GameObject* light = new GameObject();
-		Transform* lightTr = new Transform();
-		light->SetName(L"Light");
-
-		lightTr->SetPosition(Vector3(0.f, 0.f, 10.f));
-		lightTr->SetScale(Vector3(500.f, 500.f, 1.f));
-		light->AddComponent(lightTr);
-
-		SpriteRenderer* sr = new SpriteRenderer();
-		light->AddComponent(sr);
-
+		//GameObject* light = new GameObject();
+		//Transform* lightTr = new Transform();
+		//light->SetName(L"Light");
+		//
+		//lightTr->SetPosition(Vector3(0.f, 0.f, 10.f));
+		//lightTr->SetScale(Vector3(500.f, 500.f, 1.f));
+		//light->AddComponent(lightTr);
+		//
+		//SpriteRenderer* sr = new SpriteRenderer();
+		//light->AddComponent(sr);
+		//
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> lightMaterial = Resources::Find<Material>(L"RectMaterial");
-
-		sr->SetMaterial(lightMaterial);
-		sr->SetMesh(mesh);
-
-		mActiveScene->AddGameObject(light, eLayerType::Player);
+		//std::shared_ptr<Material> lightMaterial = Resources::Find<Material>(L"RectMaterial");
+		//
+		//sr->SetMaterial(lightMaterial);
+		//sr->SetMesh(mesh);
+		//
+		//mActiveScene->AddGameObject(light, eLayerType::Player);
 	#pragma endregion
 
 	#pragma region Test Object(Transform / MeshRenderer / PlayerScript)
@@ -151,14 +168,14 @@ namespace hj
 		float height = static_cast<float>(winRect.bottom - winRect.top);
 		Vector3 originLT = Vector3(0.f - width / 2.f, height / 2.f, 0.f);
 
-#pragma region HPBarBase
+	#pragma region HPBarBase
 		GameObject* hpBarBase = new GameObject();
 		hpBarBase->SetName(L"HPBarBase");
 		Transform* hpBarBaseTR = new Transform();
 
 
 		Vector3 scale = Vector3(74.f * 4.f, 16.f * 4.f, 1.f);
-		Vector3 calcPos = originLT + Vector3(scale.x / 2.f + 20.f, scale.y / -2.f - 20.f, 0.f);
+		Vector3 calcPos = originLT + Vector3(scale.x / 2.f + 20.f, scale.y / -2.f - 20.f, 1.f);
 		hpBarBaseTR->SetPosition(calcPos);
 		hpBarBaseTR->SetScale(scale);
 		hpBarBase->AddComponent(hpBarBaseTR);
