@@ -30,12 +30,35 @@ namespace hj::renderer
 
 	CBUFFER(MaterialCB, CBSLOT_MATERIAL)
 	{
-		int iData;
-		float fData;
-		Vector2 xy;
-		Vector3 xyz;
-		Vector4 xyzw;
-		Matrix matrix;
+		int iData1;
+		int iData2;
+		int iData3;
+		int iData4;
+
+		float fData1;
+		float fData2;
+		float fData3;
+		float fData4;
+
+		Vector2 xy1;
+		Vector2 xy2;
+		Vector2 xy3;
+		Vector2 xy4;
+
+		Vector3 xyz1;
+		Vector3 xyz2;
+		Vector3 xyz3;
+		Vector3 xyz4;
+
+		Vector4 xyzw1;
+		Vector4 xyzw2;
+		Vector4 xyzw3;
+		Vector4 xyzw4;
+
+		Matrix matrix1;
+		Matrix matrix2;
+		Matrix matrix3;
+		Matrix matrix4;
 	};
 
 	CBUFFER(GridCB, CBSLOT_GRID)
