@@ -17,8 +17,8 @@ namespace hj::renderer
 	void SetUpState()
 	{
 #pragma region Input Layout
-		D3D11_INPUT_ELEMENT_DESC arrLayoutDesc[3] = {};
-
+		D3D11_INPUT_ELEMENT_DESC* arrLayoutDesc = new D3D11_INPUT_ELEMENT_DESC[3];
+		memset(arrLayoutDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC) * 3);
 		arrLayoutDesc[0].AlignedByteOffset = 0;
 		arrLayoutDesc[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		arrLayoutDesc[0].InputSlot = 0;
@@ -58,11 +58,32 @@ namespace hj::renderer
 			, uiShader->GetVSBlobBufferSize()
 			, uiShader->GetInputLayoutAddressOf());
 
+		delete[] arrLayoutDesc;
+
+		arrLayoutDesc = new D3D11_INPUT_ELEMENT_DESC[2];
+		memset(arrLayoutDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC) * 2);
+
+		arrLayoutDesc[0].AlignedByteOffset = 0;
+		arrLayoutDesc[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		arrLayoutDesc[0].InputSlot = 0;
+		arrLayoutDesc[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		arrLayoutDesc[0].SemanticName = "POSITION";
+		arrLayoutDesc[0].SemanticIndex = 0;
+				
+		arrLayoutDesc[1].AlignedByteOffset = 16;
+		arrLayoutDesc[1].Format = DXGI_FORMAT_R32G32_FLOAT;
+		arrLayoutDesc[1].InputSlot = 0;
+		arrLayoutDesc[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		arrLayoutDesc[1].SemanticName = "TEXCOORD";
+		arrLayoutDesc[1].SemanticIndex = 0;
+
 		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
-		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
 			, gridShader->GetVSBlobBufferPointer()
 			, gridShader->GetVSBlobBufferSize()
 			, gridShader->GetInputLayoutAddressOf());
+
+		delete[] arrLayoutDesc;
 #pragma endregion
 #pragma region Sampler State
 		D3D11_SAMPLER_DESC samplerDesc = {};
