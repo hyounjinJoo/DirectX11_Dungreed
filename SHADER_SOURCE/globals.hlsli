@@ -7,31 +7,30 @@ cbuffer Transform : register(b0)
 
 cbuffer MaterialData : register(b1)
 {
-    // 0 ~ 16
     int cbiData1;
     int cbiData2;
     int cbiData3;
     int cbiData4;
     
-    // 16 ~ 32
     float cbfData1;
     float cbfData2;
     float cbfData3;
     float cbfData4;
     
-    // 32 ~ 64
     float2 cbxy1;
-    float2 cbxy2;    
+    float2 cbxy2;
     float2 cbxy3;
     float2 cbxy4;
     
-    // 64 ~ 112
     float3 cbxyz1;
+    float  cbxyzPadding1;
     float3 cbxyz2;
+    float  cbxyzPadding2;
     float3 cbxyz3;
+    float  cbxyzPadding3;
     float3 cbxyz4;
+    float  cbxyzPadding4;
     
-    // 112 ~ 176
     float4 cbxyzw1;
     float4 cbxyzw2;
     float4 cbxyzw3;

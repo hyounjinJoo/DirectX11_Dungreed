@@ -46,9 +46,13 @@ namespace hj::renderer
 		Vector2 xy4;
 
 		Vector3 xyz1;
+		float	xyzPadding1;
 		Vector3 xyz2;
+		float	xyzPadding2;
 		Vector3 xyz3;
+		float	xyzPadding3;
 		Vector3 xyz4;
+		float	xyzPadding4;
 
 		Vector4 xyzw1;
 		Vector4 xyzw2;
