@@ -35,7 +35,6 @@ namespace hj
 
 		if (stage == eShaderStage::VS)
 		{
-
 			D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 								,funcName.c_str(), "vs_5_0", 0, 0
 								,mVSBlob.GetAddressOf()
@@ -52,7 +51,6 @@ namespace hj
 		}
 		else if (stage == eShaderStage::PS)
 		{
-
 			D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 								,funcName.c_str(), "ps_5_0", 0, 0
 								,mPSBlob.GetAddressOf()
@@ -91,6 +89,8 @@ namespace hj
 	inline void Shader::PrintErrorBlobMessage()
 	{
 		OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+		mErrorBlob->Release();
+		mErrorBlob = nullptr;
 	}
 
 	inline void Shader::ReleaseErrorBlob()

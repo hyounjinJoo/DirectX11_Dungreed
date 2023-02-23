@@ -92,7 +92,7 @@ namespace hj
 
         // 윈도우 크기 조정
         RECT rt = { 0, 0, (LONG)width, (LONG)height };
-        AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
+        AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, true);
         SetWindowPos(mHwnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
         ShowWindow(mHwnd, true);
         UpdateWindow(mHwnd);

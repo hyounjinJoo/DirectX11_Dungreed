@@ -9,6 +9,7 @@
 #include "hjCameraScript.h"
 #include "hjSpriteRenderer.h"
 #include "hjApplication.h"
+#include "hjGridScript.h"
 
 extern hj::Application application;
 
@@ -22,6 +23,21 @@ namespace hj
 		mActiveScene->Initialize();
 
 #pragma region Setting
+	#pragma region Grid Object
+		GameObject* gridObj = new GameObject();
+		
+		gridObj->AddComponent(new Transform());
+
+		gridObj->AddComponent(new GridScript());
+		
+		MeshRenderer* gridMR = new MeshRenderer();
+		gridMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		gridMR->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		gridObj->AddComponent(gridMR);
+
+		mActiveScene->AddGameObject(gridObj, eLayerType::Grid);
+	#pragma endregion
+
 	#pragma region Main Camera
 		GameObject* cameraObj = new GameObject();
 		Transform* cameraTr = new Transform();
@@ -30,14 +46,15 @@ namespace hj
 		
 		Camera* cameraComp = new Camera();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent(cameraComp);
 
-		CameraScript* cameraScript = new CameraScript();
-		cameraObj->AddComponent(cameraScript);
+		cameraObj->AddComponent(new CameraScript());
 		
 		mActiveScene->AddGameObject(cameraObj, eLayerType::Camera);
 	#pragma endregion
+
 	#pragma region UI Camera
 		GameObject* cameraUIObj = new GameObject();
 		Transform* cameraUITr = new Transform();
@@ -52,9 +69,11 @@ namespace hj
 
 		mActiveScene->AddGameObject(cameraUIObj, eLayerType::Camera);
 	#pragma endregion
+
 #pragma endregion
 
 #pragma region Objects
+
 	#pragma region light Object
 		GameObject* light = new GameObject();
 		Transform* lightTr = new Transform();
@@ -75,13 +94,14 @@ namespace hj
 
 		mActiveScene->AddGameObject(light, eLayerType::Player);
 	#pragma endregion
+
 	#pragma region Test Object(Transform / MeshRenderer / PlayerScript)
 		GameObject* obj = new GameObject();
 		obj->SetName(L"Test Obj");
 		
 		Transform* tr = new Transform();
 		tr->SetPosition(Vector3(0.f, 0.f, 10.f));
-		tr->SetScale(Vector3(117.f * 4.f, 85.f * 4.f, 1.f));
+		tr->SetScale(Vector3(100.f, 100.f, 1.f));
 		obj->AddComponent(tr);
 		
 		MeshRenderer* mr = new MeshRenderer();
@@ -97,6 +117,7 @@ namespace hj
 		
 		mActiveScene->AddGameObject(obj, eLayerType::Player);
 	#pragma endregion
+
 	#pragma region Test Transform Inherit Object
 		obj = new GameObject();
 		obj->SetName(L"Test Obj - Transform Inherit");
@@ -118,7 +139,9 @@ namespace hj
 
 		mActiveScene->AddGameObject(obj, eLayerType::Player);
 	#pragma endregion
+
 #pragma endregion
+
 #pragma region UI
 
 		RECT winRect;
@@ -151,6 +174,7 @@ namespace hj
 
 		mActiveScene->AddGameObject(hpBarBase, eLayerType::UI);
 	#pragma endregion
+
 #pragma endregion
 
 		mActiveScene->Initialize();

@@ -14,6 +14,8 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpritePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>

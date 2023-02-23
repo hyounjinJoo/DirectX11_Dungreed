@@ -15,6 +15,16 @@ cbuffer MaterialData : register(b1)
     matrix cbmat;
 }
 
+cbuffer Grid : register(b2)
+{
+    float4  cameraPosition;
+    float2  cameraScale;
+    float2  resolution;
+    float   meshScale;
+
+    float3  padding;
+}
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);
@@ -22,6 +32,14 @@ SamplerState anisotropicSampler : register(s2);
 Texture2D defaultTexture : register(t0);
 //Texture2D defaultTexture2 : register(t1);
 //Texture2D defaultTexture3 : register(t2);
+
+#define RED     float4(1.f, 0.f, 0.f, 1.f)
+#define GREEN   float4(0.f, 1.f, 0.f, 1.f)
+#define BLUE    float4(0.f, 0.f, 1.f, 1.f)
+#define WHITE   float4(1.f, 1.f, 1.f, 1.f)
+#define BLACK   float4(0.f, 0.f, 0.f, 1.f)
+#define GREY    float4(0.5f, 0.5f, 0.5f, 1.f)
+#define ALPHA(target, value) float4(target.r, target.g, target.b, (float)value)
 
 float4 drawOutline(Texture2D tex, SamplerState sampleState, float lineThickness, float2 texcoord, float threshold, float4 outlineColor)
 {

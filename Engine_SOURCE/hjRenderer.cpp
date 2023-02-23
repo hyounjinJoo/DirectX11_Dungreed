@@ -52,11 +52,17 @@ namespace hj::renderer
 			, spriteShader->GetVSBlobBufferSize()
 			, spriteShader->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> uIShader = Resources::Find<Shader>(L"UIShader");
+		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, uIShader->GetVSBlobBufferPointer()
-			, uIShader->GetVSBlobBufferSize()
-			, uIShader->GetInputLayoutAddressOf());
+			, uiShader->GetVSBlobBufferPointer()
+			, uiShader->GetVSBlobBufferSize()
+			, uiShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, gridShader->GetVSBlobBufferPointer()
+			, gridShader->GetVSBlobBufferSize()
+			, gridShader->GetInputLayoutAddressOf());
 #pragma endregion
 #pragma region Sampler State
 		D3D11_SAMPLER_DESC samplerDesc = {};
@@ -211,6 +217,9 @@ namespace hj::renderer
 
 		constantBuffers[(UINT)eCBType::Material] = new ConstantBuffer(eCBType::Material);
 		constantBuffers[(UINT)eCBType::Material]->Create(sizeof(MaterialCB));
+
+		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
+		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
 	}
 
 	void LoadShader()
@@ -235,6 +244,13 @@ namespace hj::renderer
 		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"UIShader", uiShader);
+
+		// Grid
+		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
+		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"GridShader", gridShader);
 	}
 
 	void LoadTexture()
@@ -272,6 +288,12 @@ namespace hj::renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert<Material>(L"UIMaterial", material);
+
+		// Grid
+		shader = Resources::Find<Shader>(L"GridShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		Resources::Insert<Material>(L"GridMaterial", material);
 	}
 
 	void Initialize()

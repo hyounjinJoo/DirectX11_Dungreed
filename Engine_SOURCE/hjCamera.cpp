@@ -85,8 +85,8 @@ namespace hj
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
 
-		float width = static_cast<float>(winRect.right - winRect.left);
-		float height = static_cast<float>(winRect.bottom - winRect.top);
+		float width = static_cast<float>(winRect.right - winRect.left) * mScale;
+		float height = static_cast<float>(winRect.bottom - winRect.top) * mScale;
 		mAspectRatio = width / height;
 
 		if (mType == eProjectionType::Perspective)

@@ -160,6 +160,7 @@
     <ClInclude Include="hjEnums.h" />
     <ClInclude Include="hjGameObject.h" />
     <ClInclude Include="hjGraphics.h" />
+    <ClInclude Include="hjGridScript.h" />
     <ClInclude Include="hjInput.h" />
     <ClInclude Include="hjLayer.h" />
     <ClInclude Include="hjMaterial.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="hjConstantBuffer.cpp" />
     <ClCompile Include="hjEntity.cpp" />
     <ClCompile Include="hjGameObject.cpp" />
+    <ClCompile Include="hjGridScript.cpp" />
     <ClCompile Include="hjInput.cpp" />
     <ClCompile Include="hjLayer.cpp" />
     <ClCompile Include="hjMaterial.cpp" />
