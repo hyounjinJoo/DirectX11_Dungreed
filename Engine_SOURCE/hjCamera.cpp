@@ -138,6 +138,9 @@ namespace hj
 			}
 		}
 
+		std::sort(mOpaqueGameObjects.begin(), mOpaqueGameObjects.end(), &Camera::compareZPosInSameRenderMode);
+		std::sort(mCutoutGameObjects.begin(), mCutoutGameObjects.end(), &Camera::compareZPosInSameRenderMode);
+		std::sort(mTransparentGameObjects.begin(), mTransparentGameObjects.end(), &Camera::compareZPosInSameRenderMode);
 	}
 	
 	void Camera::renderOpaque()
@@ -197,5 +200,18 @@ namespace hj
 		default:
 			break;
 		}
+	}
+	bool Camera::compareZPosInSameRenderMode(GameObject* src, GameObject* dest)
+	{
+		Transform* srcTR = src->GetComponent<Transform>();
+		Transform* destTR = dest->GetComponent<Transform>();
+
+		if (nullptr == srcTR || nullptr == destTR)
+			return false;
+
+		float srcZ = srcTR->GetPosition().z;
+		float destZ = destTR->GetPosition().z;
+
+		return srcZ > destZ;
 	}
 }

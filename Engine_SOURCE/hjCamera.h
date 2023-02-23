@@ -44,6 +44,8 @@ namespace hj
 		void renderTransparent();
 		void pushGameObjectToRenderingModes(GameObject* gameObj);
 
+		static bool compareZPosInSameRenderMode(GameObject* src, GameObject* dest);
+
 	private:
 		static Matrix View;
 		static Matrix Projection;
