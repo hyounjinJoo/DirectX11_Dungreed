@@ -10,7 +10,6 @@
 #include <DirectXCollision.h>
 #endif
 
-#define XM_CONSTEXPR
 
 using namespace DirectX;
 using namespace DirectX::PackedVector;

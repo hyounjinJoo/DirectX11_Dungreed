@@ -121,7 +121,7 @@ namespace hj
 		auto curTime = std::chrono::system_clock::now();
 		auto duration = curTime.time_since_epoch();
 		auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
-		std::mt19937 randomSeed(millis);
+		std::mt19937 randomSeed(static_cast<UINT>(millis));
 
 		std::uniform_real_distribution<float> valueRange(0.f, 1.1f);
 
