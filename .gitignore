@@ -24,7 +24,6 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Log files
 *.tlog
@@ -38,7 +37,6 @@
 *.app
 /.vs/44Engine/v17
 /44Engine/x64/Debug
-/x64/Debug
 /44Engine/x64/Release/44Engine.tlog
 /44Engine/x64/Release
 /.vs/44Engine/FileContentIndex
