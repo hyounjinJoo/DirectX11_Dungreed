@@ -167,6 +167,7 @@
     <ClInclude Include="hjMaterial.h" />
     <ClInclude Include="hjMesh.h" />
     <ClInclude Include="hjMeshRenderer.h" />
+    <ClInclude Include="hjObject.h" />
     <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />

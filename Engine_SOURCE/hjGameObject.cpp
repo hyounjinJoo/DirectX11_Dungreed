@@ -1,4 +1,5 @@
 #include "hjGameObject.h"
+#include "hjTransform.h"
 
 namespace hj
 {
@@ -6,6 +7,7 @@ namespace hj
 		: mState(eState::Active)
 	{
 		mComponents.resize((UINT)eComponentType::End);
+		AddComponent(new Transform());
 	}
 
 	GameObject::~GameObject()

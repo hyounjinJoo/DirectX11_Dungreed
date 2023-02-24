@@ -250,6 +250,9 @@
     <ClInclude Include="hjFadeScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
+    <ClInclude Include="hjObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="hjMath.inl">

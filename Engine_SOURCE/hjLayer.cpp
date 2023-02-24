@@ -35,6 +35,8 @@ namespace hj
 		{
 			if (obj == nullptr)
 				continue;
+			if (obj->GetState() != GameObject::eState::Active)
+				continue;
 
 			obj->Update();
 		}
@@ -46,6 +48,8 @@ namespace hj
 		{
 			if (obj == nullptr)
 				continue;
+			if (obj->GetState() != GameObject::eState::Active)
+				continue;
 
 			obj->FixedUpdate();
 		}
@@ -56,6 +60,8 @@ namespace hj
 		for (GameObject* obj : mGameObjects)
 		{
 			if (obj == nullptr)
+				continue;
+			if (obj->GetState() != GameObject::eState::Active)
 				continue;
 
 			obj->Render();
