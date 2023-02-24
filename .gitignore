@@ -24,6 +24,8 @@
 *.lai
 *.la
 *.a
+*.pdb
+*.idb
 
 # Log files
 *.tlog
