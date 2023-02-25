@@ -14,6 +14,7 @@
 
 namespace hj::graphics
 {
+	using namespace hj::math;
 	class Texture : public Resource
 	{
 	public:
@@ -24,10 +25,14 @@ namespace hj::graphics
 		void BindShader(eShaderStage stage, UINT slot);
 		void Clear();
 
+		const Vector2& GetTexSize() { return mTextureSize; }
+
 	private:
 		ScratchImage mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;
 		D3D11_TEXTURE2D_DESC mDesc;
+
+		Vector2 mTextureSize;
 	};
 }

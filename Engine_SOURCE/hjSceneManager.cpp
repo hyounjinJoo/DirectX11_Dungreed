@@ -41,19 +41,19 @@ namespace hj
 		gridObj->AddComponent(new GridScript());
 	#pragma endregion
 	#pragma region Fade Object
-		scale = Vector3(1600.f, 900.f, 1.f);
-
-		GameObject* fadeObj = object::Instantiate<GameObject>(eLayerType::UI
-															, pos
-															, rot
-															, scale);
-				
-		fadeObj->AddComponent(new FadeScript());
-		
-		MeshRenderer* fadeMR = new MeshRenderer();
-		fadeMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		fadeMR->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
-		fadeObj->AddComponent(fadeMR);
+		//scale = Vector3(1600.f, 900.f, 1.f);
+		//
+		//GameObject* fadeObj = object::Instantiate<GameObject>(eLayerType::UI
+		//													, pos
+		//													, rot
+		//													, scale);
+		//		
+		//fadeObj->AddComponent(new FadeScript());
+		//
+		//MeshRenderer* fadeMR = new MeshRenderer();
+		//fadeMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//fadeMR->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
+		//fadeObj->AddComponent(fadeMR);
 	#pragma endregion
 	#pragma region Main Camera
 		pos = Vector3::Zero;
@@ -105,7 +105,6 @@ namespace hj
 	#pragma region Test Object(Transform / MeshRenderer / PlayerScript)
 		pos = Vector3::Zero;
 		rot = Vector3::Zero;
-		scale = Vector3(100.f, 100.f, 1.f);
 		GameObject* obj = object::Instantiate<GameObject>(eLayerType::Player, pos, rot, scale);
 		obj->SetName(L"Test Obj");
 		
@@ -114,6 +113,9 @@ namespace hj
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
+
+		Vector2 texSize = material->GetTexture()->GetTexSize();
+		obj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 
 		obj->AddComponent(mr);
 

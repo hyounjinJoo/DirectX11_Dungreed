@@ -48,6 +48,9 @@ namespace hj::graphics
 		);
 
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+		
+		mTextureSize.x = (float)mImage.GetImages()[0].width;
+		mTextureSize.y = (float)mImage.GetImages()[0].height;
 
 		return S_OK;
 	}
