@@ -43,18 +43,19 @@ float4 main(VSOut In) : SV_TARGET
     // 원점의 벡터 그리기
     if (calcX <= thickness || calcY <= thickness)
     {
-        // 기저 벡터
+        float4 axisXColor = RED;
+        float4 axisYColor = GREEN;
+        
+        // 좌표축 그리기
         if (abs(worldX) <= thickness)
-            return RED;
-        
+            return axisYColor;
         if (abs(worldY) <= thickness)
-            return BLUE;
-        
+            return axisXColor;
         
         if (abs(worldX) <= thickness * 4.f)
-            return RED;
+            return axisYColor;
         if (abs(worldY) <= thickness * 4.f)
-            return BLUE;
+            return axisXColor;
         
         if (abs(calcX10) <= thickness || abs(calcY10) <= thickness)
             return WHITE;
