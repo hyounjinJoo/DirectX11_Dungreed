@@ -58,7 +58,7 @@ namespace hj
         renderer::Render();
 
         //graphicDevice->Render();
-        graphicDevice->Present();
+        //graphicDevice->Present();
     }
     
 	void Application::Destroy()
@@ -73,6 +73,11 @@ namespace hj
         FixedUpdate();
         Render();
         Destroy();
+    }
+
+    void Application::Present()
+	{
+		graphicDevice->Present();
     }
 
     void Application::Release()

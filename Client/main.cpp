@@ -5,6 +5,7 @@
 #include "Client.h"
 #include "hjApplication.h"
 #include "hjSceneManager.h"
+#include "hjEditor.h"
 
 #ifdef __DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib")
@@ -21,6 +22,7 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 
 
 hj::Application application;
+hj::Editor      editor;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -70,6 +72,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             application.Run();
+            editor.Run();
+            application.Present();
         }
     }
 
@@ -131,6 +135,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     // 그래픽 장치 생성 및 윈도우 크기 설정
     application.SetWindow(hWnd, 1600, 900);
     application.Initialize();
+    editor.Initialize();
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 

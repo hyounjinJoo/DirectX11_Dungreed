@@ -20,6 +20,7 @@ namespace hj
 
 		// Running main engine loop
 		void Run();
+		void Present();
 		void Release();
 #pragma endregion
 

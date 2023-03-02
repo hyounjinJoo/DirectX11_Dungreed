@@ -153,6 +153,10 @@
     <ClInclude Include="hjBaseRenderer.h" />
     <ClInclude Include="hjCamera.h" />
     <ClInclude Include="hjCameraScript.h" />
+    <ClInclude Include="hjCollider.h" />
+    <ClInclude Include="hjCollider2D.h" />
+    <ClInclude Include="hjCollider3D.h" />
+    <ClInclude Include="hjCollisionManager.h" />
     <ClInclude Include="hjComponent.h" />
     <ClInclude Include="hjConstantBuffer.h" />
     <ClInclude Include="hjDungeonScene.h" />
@@ -170,6 +174,7 @@
     <ClInclude Include="hjMeshRenderer.h" />
     <ClInclude Include="hjObject.h" />
     <ClInclude Include="hjPlayerScript.h" />
+    <ClInclude Include="hjPrefab.h" />
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
     <ClInclude Include="hjResources.h" />
@@ -190,6 +195,10 @@
     <ClCompile Include="hjBaseRenderer.cpp" />
     <ClCompile Include="hjCamera.cpp" />
     <ClCompile Include="hjCameraScript.cpp" />
+    <ClCompile Include="hjCollider.cpp" />
+    <ClCompile Include="hjCollider2D.cpp" />
+    <ClCompile Include="hjCollider3D.cpp" />
+    <ClCompile Include="hjCollisionManager.cpp" />
     <ClCompile Include="hjComponent.cpp" />
     <ClCompile Include="hjConstantBuffer.cpp" />
     <ClCompile Include="hjDungeonScene.cpp" />
@@ -203,6 +212,7 @@
     <ClCompile Include="hjMesh.cpp" />
     <ClCompile Include="hjMeshRenderer.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
+    <ClCompile Include="hjPrefab.cpp" />
     <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />
     <ClCompile Include="hjResources.cpp" />

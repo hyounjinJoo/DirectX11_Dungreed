@@ -76,6 +76,21 @@
     <Filter Include="Resource\Script">
       <UniqueIdentifier>{fca1d838-497f-44a7-a540-e756296ab89e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{ce7f6882-4c0d-4f48-9d7d-d2195b57f643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Prefab">
+      <UniqueIdentifier>{b5b26ca5-3761-4633-a924-ee4b7b8c7cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\Manager">
+      <UniqueIdentifier>{e12e114a-7dea-41c5-a8a4-646650895348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\2D">
+      <UniqueIdentifier>{22d1dd41-a512-4c36-8250-f2bc4e82518f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\3D">
+      <UniqueIdentifier>{8a367c44-76dc-4a99-ba41-61d430d79a3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -170,6 +185,21 @@
     </ClCompile>
     <ClCompile Include="hjDungeonScene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPrefab.cpp">
+      <Filter>Resource\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="hjCollisionManager.cpp">
+      <Filter>Component\Collider\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="hjCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="hjCollider2D.cpp">
+      <Filter>Component\Collider\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="hjCollider3D.cpp">
+      <Filter>Component\Collider\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +310,21 @@
     </ClInclude>
     <ClInclude Include="hjDungeonScene.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPrefab.h">
+      <Filter>Resource\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="hjCollisionManager.h">
+      <Filter>Component\Collider\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="hjCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="hjCollider2D.h">
+      <Filter>Component\Collider\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="hjCollider3D.h">
+      <Filter>Component\Collider\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
