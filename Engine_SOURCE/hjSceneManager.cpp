@@ -62,11 +62,11 @@ namespace hj
 		if (mActiveScene)
 			mActiveScene->OnExit();
 
-		mActiveScene = mScenes[(UINT)type];
-
 		// 씬이 변경될 때, dontDestroy 오브젝트는 다음씬으로 같이 넘겨줘야 한다.
 		std::vector<GameObject*> gameObjects
 			= mActiveScene->GetDontDestroyGameObjects();
+		
+		mActiveScene = mScenes[(UINT)type];
 
 		if (gameObjects.empty() == false)
 		{
