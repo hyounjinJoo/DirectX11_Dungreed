@@ -63,6 +63,24 @@ namespace hj
 		{
 			return mMousePosition;
 		}
+
+		// 누르는 동안 true 반환
+		static __forceinline bool GetKeyPressed(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].eState == eKeyState::PRESSED;
+		}
+
+		// 눌렀을 때 true 반환
+		static __forceinline bool GetKeyDown(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].eState == eKeyState::DOWN;
+		}
+		
+		// 누르다 뗐을 때 true 반환
+		static __forceinline bool GetKeyUp(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].eState == eKeyState::UP;
+		}
 #pragma endregion
 
 #pragma region DeleteInputDefaultConstructor&Destructor
