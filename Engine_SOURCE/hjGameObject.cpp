@@ -5,6 +5,8 @@ namespace hj
 {
 	GameObject::GameObject()
 		: mState(eState::Active)
+		, mLayerType(eLayerType::None)
+		, mbDontDestroy(false)
 	{
 		mComponents.resize((UINT)eComponentType::End);
 		AddComponent(new Transform());

@@ -16,6 +16,7 @@ namespace hj
 		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
+		virtual void Destroy();
 
 		// Running main engine loop
 		void Run();

@@ -2,7 +2,8 @@
 
 namespace hj
 {
-	Scene::Scene()
+	Scene::Scene(eSceneType type)
+		: mSceneType(type)
 	{
 		mLayers.resize((UINT)eLayerType::End);
 	}
@@ -43,8 +44,45 @@ namespace hj
 		}
 	}
 
+	void Scene::Destroy()
+	{
+		for (Layer& layer : mLayers)
+		{
+			layer.Destroy();
+		}
+	}
+
+	void Scene::OnEnter()
+	{
+	}
+
+	void Scene::OnExit()
+	{
+	}
+
 	void Scene::AddGameObject(GameObject* gameObject, const eLayerType type)
 	{
 		mLayers[(UINT)type].AddGameObject(gameObject);
+		gameObject->SetLayerType(type);
 	}
+
+	std::vector<GameObject*> Scene::GetDontDestroyGameObjects()
+	{
+		std::vector<GameObject*> gameObjects;
+		for (Layer& layer : mLayers)
+		{
+			std::vector<GameObject*> dontGameObjs
+				= layer.GetDontDestroyGameObjects();
+
+			if(dontGameObjs.empty())
+				continue;
+
+			gameObjects.insert(gameObjects.end()
+				, dontGameObjs.begin()
+				, dontGameObjs.end());
+		}
+
+		return gameObjects;
+	}
+
 }

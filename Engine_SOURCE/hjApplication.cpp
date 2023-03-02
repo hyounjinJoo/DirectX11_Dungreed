@@ -19,7 +19,6 @@ namespace hj
 
     Application::~Application()
     {
-        SceneManager::Release();
     }
 
     // ÃÊ±âÈ­
@@ -62,12 +61,18 @@ namespace hj
         graphicDevice->Present();
     }
     
-    // Running main engine loop
+	void Application::Destroy()
+	{
+
+	}
+
+	// Running main engine loop
     void Application::Run()
     {
         Update();
         FixedUpdate();
         Render();
+        Destroy();
     }
 
     void Application::Release()

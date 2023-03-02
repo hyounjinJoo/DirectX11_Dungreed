@@ -75,9 +75,16 @@ namespace hj
 		void Death() { mState = eState::Dead; }
 		eState GetState() { return mState; }
 
+		bool IsDontDestroy() { return mbDontDestroy; }
+		void DontDestroy(bool enable) { mbDontDestroy = enable; }
+		eLayerType GetLayerType() { return mLayerType; }
+		void SetLayerType(eLayerType type) { mLayerType = type; }
+
 	private:
 		eState mState;
+		eLayerType mLayerType;
 		std::vector<Component*> mComponents;
 		std::vector<Component*> mScripts;
+		bool mbDontDestroy;
 	};
 }

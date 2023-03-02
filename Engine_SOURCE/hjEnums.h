@@ -2,6 +2,16 @@
 
 namespace hj::enums
 {
+	enum class eSceneType
+	{
+		Title,
+		Story,
+		Town,
+		Dungeon,
+		Ending,
+		End,
+	};
+
 	enum class eLayerType
 	{
 		None = 0,
