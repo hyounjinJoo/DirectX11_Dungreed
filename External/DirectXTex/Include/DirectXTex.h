@@ -183,7 +183,7 @@ namespace DirectX
         TEX_ALPHA_MODE __cdecl GetAlphaMode() const noexcept { return static_cast<TEX_ALPHA_MODE>(miscFlags2 & TEX_MISC2_ALPHA_MODE_MASK); }
             // Helpers for miscFlags2
 
-        bool __cdecl IsVolumemap() const noexcept { return (dimension == TEX_DIMENSION_TEXTURE3D); }
+        bool __cdecl IsVolumemap() const noexcept { return (dimension & TEX_DIMENSION_TEXTURE3D); }
             // Helper for dimension
     };
 
