@@ -64,6 +64,18 @@
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{6e119388-00d6-4490-9f27-19794c7deb27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{c9142d19-2d73-43e5-a84c-3c0329334c53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{03e438c6-52ea-45d7-ad03-d8596c45f86c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{1501a391-7fd1-48dd-a1ec-57e4919d05f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Script">
+      <UniqueIdentifier>{fca1d838-497f-44a7-a540-e756296ab89e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -90,15 +102,6 @@
     <ClCompile Include="hjRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="hjLayer.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="hjScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="hjSceneManager.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="hjGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -117,7 +120,6 @@
     <ClCompile Include="hjMesh.cpp">
       <Filter>Resource\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="hjConstantBuffer.cpp" />
     <ClCompile Include="hjTexture.cpp">
       <Filter>Resource\Texture</Filter>
     </ClCompile>
@@ -139,17 +141,29 @@
     <ClCompile Include="hjSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="hjBaseRenderer.cpp">
-      <Filter>Component\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="hjCameraScript.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
+    <ClCompile Include="hjSceneManager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="hjLayer.cpp">
+      <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="hjScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="hjConstantBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
     <ClCompile Include="hjGridScript.cpp">
-      <Filter>Component\Script</Filter>
+      <Filter>Resource\Script</Filter>
     </ClCompile>
     <ClCompile Include="hjFadeScript.cpp">
       <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBaseRenderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -189,15 +203,6 @@
     <ClInclude Include="hjEnums.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="hjSceneManager.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="hjLayer.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="hjScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="hjGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
@@ -216,7 +221,6 @@
     <ClInclude Include="hjMesh.h">
       <Filter>Resource\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="hjConstantBuffer.h" />
     <ClInclude Include="hjTexture.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
@@ -238,20 +242,32 @@
     <ClInclude Include="hjSpriteRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="hjBaseRenderer.h">
-      <Filter>Component\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="hjCameraScript.h">
-      <Filter>Component\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="hjGridScript.h">
-      <Filter>Component\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="hjFadeScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="hjObject.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjSceneManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="hjLayer.h">
+      <Filter>Scene\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="hjConstantBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="hjGridScript.h">
+      <Filter>Resource\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFadeScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBaseRenderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
