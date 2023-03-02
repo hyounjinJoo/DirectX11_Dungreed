@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Client.h"
 #include "hjApplication.h"
+#include "hjSceneManager.h"
 
 #ifdef __DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib")
@@ -72,6 +73,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    hj::SceneManager::Release();
     application.Release();
     return (int)msg.wParam;
 }

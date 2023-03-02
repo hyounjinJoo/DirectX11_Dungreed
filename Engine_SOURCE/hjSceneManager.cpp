@@ -192,7 +192,10 @@ namespace hj
 
 	void SceneManager::Release()
 	{
-		delete mActiveScene;
-		mActiveScene = nullptr;
+		if (mActiveScene)
+		{
+			delete mActiveScene;
+			mActiveScene = nullptr;
+		}
 	}
 }
