@@ -7,6 +7,7 @@
 #include "hjSceneManager.h"
 #include "hjMaterial.h"
 #include "hjBaseRenderer.h"
+#include "hjSceneManager.h"
 
 extern hj::Application application;
 
@@ -107,7 +108,8 @@ namespace hj
 
 	void Camera::RegisterCameraInRenderer()
 	{
-		renderer::cameras.push_back(this);
+		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
+		renderer::cameras[(UINT)type].push_back(this);
 	}
 	
 	void Camera::TurnLayerMask(eLayerType layer, bool enable)

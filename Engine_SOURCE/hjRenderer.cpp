@@ -2,6 +2,7 @@
 #include "hjRenderer.h"
 #include "hjResources.h"
 #include "hjMaterial.h"
+#include "hjSceneManager.h"
 
 namespace hj::renderer
 {
@@ -12,7 +13,7 @@ namespace hj::renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 	
-	std::vector<Camera*> cameras;
+	std::vector<Camera*> cameras[(UINT)eSceneType::End];
 
 	void SetUpState()
 	{
@@ -373,7 +374,8 @@ namespace hj::renderer
 
 	void Render()
 	{
-		for (Camera* cam : cameras)
+		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
+		for (Camera* cam : cameras[(UINT)type])
 		{
 			if (cam == nullptr)
 				continue;
@@ -381,7 +383,7 @@ namespace hj::renderer
 			cam->Render();
 		}
 
-		cameras.clear();
+		cameras[(UINT)type].clear();
 	}
 
 	void Release()

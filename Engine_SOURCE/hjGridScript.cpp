@@ -6,6 +6,7 @@
 #include "hjConstantBuffer.h"
 #include "hjInput.h"
 #include "hjTime.h"
+#include "hjSceneManager.h"
 
 extern hj::Application application;
 
@@ -25,7 +26,8 @@ namespace hj
 	void GridScript::Initialize()
 	{
 		//if(renderer::cameras[0])
-			mCamera = renderer::cameras[0];
+		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
+		mCamera = renderer::cameras[(UINT)type][0];
 	}
 
 	void GridScript::Update()
