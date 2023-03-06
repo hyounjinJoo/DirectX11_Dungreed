@@ -1,5 +1,5 @@
 #pragma once
-#include "..\Engine_SOURCE\hjGameObject.h"
+#include "hjGameObject.h"
 
 namespace hj
 {
