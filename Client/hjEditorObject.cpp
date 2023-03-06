@@ -3,6 +3,7 @@
 namespace hj
 {
 	EditorObject::EditorObject()
+		: GameObject()
 	{
 	}
 	EditorObject::~EditorObject()
@@ -10,14 +11,18 @@ namespace hj
 	}
 	void EditorObject::Initialize()
 	{
+		GameObject::Initialize();
 	}
 	void EditorObject::Update()
 	{
+		GameObject::Update();
 	}
 	void EditorObject::FixedUpdate()
 	{
+		GameObject::FixedUpdate();
 	}
 	void EditorObject::Render()
 	{
+		GameObject::Render();
 	}
 }

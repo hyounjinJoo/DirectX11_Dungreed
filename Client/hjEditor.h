@@ -1,7 +1,7 @@
 #pragma once
-#include "..\Editor_SOURCE\hjDebugObject.h"
-#include "..\Editor_SOURCE\hjWidget.h"
-#include "..\Editor_SOURCE\hjEditorObject.h"
+#include "hjDebugObject.h"
+#include "hjWidget.h"
+#include "hjEditorObject.h"
 
 namespace hj
 {
@@ -20,8 +20,8 @@ namespace hj
 		void DebugRender();
 
 	private:
-		std::vector<Widget> mWidgets;
-		std::vector<EditorObject> mEditorObjects;
-		std::vector<DebugObject> mDebugObjects;
+		std::vector<Widget*> mWidgets;
+		std::vector<EditorObject*> mEditorObjects;
+		std::vector<DebugObject*> mDebugObjects;
 	};
 }
