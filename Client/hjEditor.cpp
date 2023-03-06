@@ -29,7 +29,7 @@ namespace hj
 	{
 	}
 	
-	void Editor::DebugRender()
+	void Editor::DebugRender(graphics::DebugMesh& mesh)
 	{
 	}
 }

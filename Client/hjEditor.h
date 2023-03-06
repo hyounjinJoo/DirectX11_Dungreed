@@ -2,6 +2,7 @@
 #include "hjDebugObject.h"
 #include "hjWidget.h"
 #include "hjEditorObject.h"
+#include "hjGraphics.h"
 
 namespace hj
 {
@@ -17,7 +18,7 @@ namespace hj
 		void Render();
 		void Release();
 
-		void DebugRender();
+		void DebugRender(graphics::DebugMesh& mesh);
 
 	private:
 		std::vector<Widget*> mWidgets;
