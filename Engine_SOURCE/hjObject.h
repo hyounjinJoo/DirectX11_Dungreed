@@ -7,6 +7,16 @@
 
 namespace hj::object
 {
+#pragma region Instantiate with No Layer(For Editor)
+	template <typename T>
+	static T* Instantiate()
+	{
+		T* gameObject = new T();
+
+		return gameObject;
+	}
+#pragma endregion
+
 #pragma region Instantiate
 	template <typename T>
 	static T* Instantiate(enums::eLayerType type)

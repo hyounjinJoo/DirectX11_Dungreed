@@ -11,6 +11,19 @@ namespace hj
 {
 	void Editor::Initialize()
 	{
+#pragma region Grid Object
+		EditorObject* gridObj = object::Instantiate<EditorObject>();
+		MeshRenderer* gridMR = new MeshRenderer();
+		gridMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		gridMR->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		gridObj->AddComponent(gridMR);
+
+		GridScript* gridScript = new GridScript();
+		gridScript->SetCamera(mainCamera);
+		gridObj->AddComponent(gridScript);
+
+		mEditorObjects.push_back(gridObj);
+#pragma endregion
 	}
 
 	void Editor::Run()

@@ -31,7 +31,6 @@ namespace hj
 
 	void TitleScene::Initialize()
 	{
-		Scene::Initialize();
 #pragma region Transform Initial Vector
 		Vector3 pos = Vector3::Zero;
 		Vector3 rot = Vector3::Zero;
@@ -82,17 +81,6 @@ namespace hj
 			cameraUIComp->DisableLayerMask();
 			cameraUIComp->TurnLayerMask(eLayerType::UI, true);
 			cameraUIObj->AddComponent(cameraUIComp);
-	#pragma endregion
-	#pragma region Grid Object
-			GameObject* gridObj = object::Instantiate<GameObject>(eLayerType::Grid);
-			MeshRenderer* gridMR = new MeshRenderer();
-			gridMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			gridMR->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-			gridObj->AddComponent(gridMR);
-
-			GridScript* gridScript = new GridScript();
-			gridScript->SetCamera(cameraComp);
-			gridObj->AddComponent(gridScript);
 	#pragma endregion
 #pragma endregion
 #pragma region Objects
