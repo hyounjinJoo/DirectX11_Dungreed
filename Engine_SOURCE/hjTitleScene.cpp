@@ -66,6 +66,7 @@ namespace hj
 			//cameraComp->RegisterCameraInRenderer();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			cameraObj->AddComponent(cameraComp);
+			mainCamera = cameraComp;
 
 			cameraObj->AddComponent(new CameraScript());
 	#pragma endregion
@@ -183,6 +184,7 @@ namespace hj
 	#pragma endregion
 #pragma endregion
 
+		Scene::Initialize();
 	}
 
 	void TitleScene::Update()

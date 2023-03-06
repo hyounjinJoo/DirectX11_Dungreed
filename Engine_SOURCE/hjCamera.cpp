@@ -33,6 +33,7 @@ namespace hj
 
 	void Camera::Initialize()
 	{
+		RegisterCameraInRenderer();
 	}
 	
 	void Camera::Update()
