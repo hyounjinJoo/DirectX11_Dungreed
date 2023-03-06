@@ -49,6 +49,19 @@ namespace hj::renderer
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
+		indexes.push_back(0);
+		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
+
+		mesh = std::make_shared<Mesh>();
+		Resources::Insert<Mesh>(L"RectDebugMesh", mesh);
+		mesh->CreateVertexBuffer(vertexes, 4);
+
+		indexes.clear();
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
+		indexes.push_back(3);
+		indexes.push_back(0);
 		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 #pragma endregion
 #pragma region Circle Mesh
@@ -60,7 +73,7 @@ namespace hj::renderer
 
 		circleVtxes.push_back(center);
 
-		int iSlice = 40;
+		int iSlice = 80;
 		float fRadius = 0.5f;
 		float fTheta = XM_2PI / static_cast<float>(iSlice);
 
@@ -71,7 +84,7 @@ namespace hj::renderer
 			(
 				fRadius * cosf(fTheta * static_cast<float>(i))
 				, fRadius * sinf(fTheta * static_cast<float>(i))
-				, 0.f, 1.f
+				, 0.5f, 1.f
 			);
 			vtx.color = center.color;
 
@@ -369,7 +382,7 @@ namespace hj::renderer
 		shader->SetRSState(eRSType::SolidNone);
 		shader->SetDSState(eDSType::NoWrite);
 		shader->SetBSState(eBSType::AlphaBlend);
-		shader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+		shader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 		Resources::Insert<Shader>(L"DebugShader", shader);
 	}
@@ -430,6 +443,7 @@ namespace hj::renderer
 		// Debug
 		shader = Resources::Find<Shader>(L"DebugShader");
 		material = std::make_shared<Material>();
+		material->SetRenderingMode(eRenderingMode::Transparent);
 		material->SetShader(shader);
 		Resources::Insert<Material>(L"DebugMaterial", material);
 	}

@@ -14,6 +14,11 @@ namespace hj
         void FixedUpdate() override;
         void Render() override;
 
-    private:
+		void SetType(eColliderType type) { mType = type; };
+        eColliderType GetType() { return mType; }
+
+    protected:
+        bool mbTrigger;
+		eColliderType mType;
     };
 }

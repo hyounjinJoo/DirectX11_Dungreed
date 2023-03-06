@@ -9,11 +9,11 @@
 #include "hjCameraScript.h"
 #include "hjSpriteRenderer.h"
 #include "hjApplication.h"
-#include "hjGridScript.h"
 #include "hjFadeScript.h"
 #include "hjObject.h"
 #include "hjInput.h"
 #include "hjSceneManager.h"
+#include "hjCollider2D.h"
 
 extern hj::Application application;
 
@@ -118,6 +118,9 @@ namespace hj
 	
 			obj->AddComponent(mr);
 	
+			Collider2D* collider = obj->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Rect);
+
 			PlayerScript* playerScript = new PlayerScript();
 			obj->AddComponent(playerScript);
 	

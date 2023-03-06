@@ -4,6 +4,8 @@ namespace hj
 {
 	Collider::Collider()
 		: Component(eComponentType::Collider)
+		, mType(eColliderType::None)
+		, mbTrigger(false)
 	{
 	}
 
