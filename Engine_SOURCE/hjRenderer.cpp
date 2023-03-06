@@ -14,6 +14,85 @@ namespace hj::renderer
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 	
 	std::vector<Camera*> cameras[(UINT)eSceneType::End];
+	std::vector<DebugMesh> debugMeshes;
+
+	void LoadMesh()
+	{
+#pragma region RECT Mesh
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.f);
+		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
+		vertexes[0].uv = Vector2(0.f, 0.f);
+
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.f);
+		vertexes[1].color = Vector4(1.f, 1.0f, 1.f, 1.f);
+		vertexes[1].uv = Vector2(1.f, 0.f);
+
+		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.f);
+		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
+		vertexes[2].uv = Vector2(1.f, 1.f);
+
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.f);
+		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
+		vertexes[3].uv = Vector2(0.f, 1.f);
+
+		// Create Mesh
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
+		Resources::Insert<Mesh>(L"RectMesh", mesh);
+		mesh->CreateVertexBuffer(vertexes, 4);
+
+		std::vector<UINT> indexes;
+		indexes.push_back(0);
+		indexes.push_back(1);
+		indexes.push_back(2);
+
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
+		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
+#pragma endregion
+#pragma region Circle Mesh
+		std::vector<Vertex> circleVtxes;
+		Vertex center = {};
+		center.pos = Vector4(0.f, 0.f, 0.f, 1.f);
+		center.color = Vector4(0.f, 1.f, 0.f, 1.f);
+		center.uv = Vector2::Zero;
+
+		circleVtxes.push_back(center);
+
+		int iSlice = 40;
+		float fRadius = 0.5f;
+		float fTheta = XM_2PI / static_cast<float>(iSlice);
+
+		Vertex vtx = {};
+		for (size_t i = 0; i < iSlice; ++i)
+		{
+			vtx.pos = Vector4
+			(
+				fRadius * cosf(fTheta * static_cast<float>(i))
+				, fRadius * sinf(fTheta * static_cast<float>(i))
+				, 0.f, 1.f
+			);
+			vtx.color = center.color;
+
+			circleVtxes.push_back(vtx);
+
+			vtx = {};
+		}
+
+		indexes.clear();
+		for (size_t i = 0; i < iSlice - 2; ++i)
+		{
+			indexes.push_back(static_cast<UINT>(i) + 1);
+		}
+		indexes.push_back(1);
+		
+		// Create Mesh
+		mesh = std::make_shared<Mesh>();
+		Resources::Insert<Mesh>(L"CircleMesh", mesh);
+		mesh->CreateVertexBuffer(circleVtxes.data(), static_cast<UINT>(circleVtxes.size()));
+		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
+#pragma endregion
+	}
 
 	void SetUpState()
 	{
@@ -41,23 +120,33 @@ namespace hj::renderer
 		arrLayoutDesc[2].SemanticName = "TEXCOORD";
 		arrLayoutDesc[2].SemanticIndex = 0;
 
+		// RECT Shader
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
+		// Sprite Shader
+		shader = Resources::Find<Shader>(L"SpriteShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, spriteShader->GetVSBlobBufferPointer()
-			, spriteShader->GetVSBlobBufferSize()
-			, spriteShader->GetInputLayoutAddressOf());
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
+		// UI Shader
+		shader = Resources::Find<Shader>(L"UIShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, uiShader->GetVSBlobBufferPointer()
-			, uiShader->GetVSBlobBufferSize()
-			, uiShader->GetInputLayoutAddressOf());
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
+
+		// Debug Shader
+		shader = Resources::Find<Shader>(L"DebugShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
 
 		delete[] arrLayoutDesc;
 
@@ -78,17 +167,19 @@ namespace hj::renderer
 		arrLayoutDesc[1].SemanticName = "TEXCOORD";
 		arrLayoutDesc[1].SemanticIndex = 0;
 
-		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
+		// Grid Shader
+		shader = Resources::Find<Shader>(L"GridShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
-			, gridShader->GetVSBlobBufferPointer()
-			, gridShader->GetVSBlobBufferSize()
-			, gridShader->GetInputLayoutAddressOf());
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> fadeShader = Resources::Find<Shader>(L"FadeShader");
+		// Fade Shader
+		shader = Resources::Find<Shader>(L"FadeShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
-			, fadeShader->GetVSBlobBufferPointer()
-			, fadeShader->GetVSBlobBufferSize()
-			, fadeShader->GetInputLayoutAddressOf());
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
 
 		delete[] arrLayoutDesc;
 #pragma endregion
@@ -223,23 +314,6 @@ namespace hj::renderer
 
 	void LoadBuffer()
 	{
-		// 메시 생성
-		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-		Resources::Insert<Mesh>(L"RectMesh", mesh);
-
-		mesh->CreateVertexBuffer(vertexes, 4);
-
-		std::vector<UINT> indexes;
-		indexes.push_back(0);
-		indexes.push_back(1);
-		indexes.push_back(2);
-		
-		indexes.push_back(0);
-		indexes.push_back(2);
-		indexes.push_back(3);
-
-		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
-
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -260,32 +334,43 @@ namespace hj::renderer
 		Resources::Insert<Shader>(L"RectShader", shader);
 
 		// Sprite
-		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
-		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
-		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		shader = std::make_shared<Shader>();
+		shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
+		Resources::Insert<Shader>(L"SpriteShader", shader);
 
 		// UI
-		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
-		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
-		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+		shader = std::make_shared<Shader>();
+		shader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"UIShader", uiShader);
+		Resources::Insert<Shader>(L"UIShader", shader);
 
 		// Grid
-		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
-		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
-		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		shader = std::make_shared<Shader>();
+		shader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"GridShader", gridShader);
+		Resources::Insert<Shader>(L"GridShader", shader);
 
 		// Fade
-		std::shared_ptr<Shader> fadeShader = std::make_shared<Shader>();
-		fadeShader->Create(eShaderStage::VS, L"FadeVS.hlsl", "main");
-		fadeShader->Create(eShaderStage::PS, L"FadePS.hlsl", "main");
+		shader = std::make_shared<Shader>();
+		shader->Create(eShaderStage::VS, L"FadeVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"FadePS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"FadeShader", fadeShader);
+		Resources::Insert<Shader>(L"FadeShader", shader);
+
+		// Debug
+		shader = std::make_shared<Shader>();
+		shader->Create(eShaderStage::VS, L"DebugVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"DebugPS.hlsl", "main");
+		shader->SetRSState(eRSType::SolidNone);
+		shader->SetDSState(eDSType::NoWrite);
+		shader->SetBSState(eBSType::AlphaBlend);
+		shader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+		Resources::Insert<Shader>(L"DebugShader", shader);
 	}
 
 	void LoadTexture()
@@ -340,31 +425,17 @@ namespace hj::renderer
 		shader->SetBSState(eBSType::AlphaBlend);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert<Material>(L"FadeMaterial", material);
+
+		// Debug
+		shader = Resources::Find<Shader>(L"DebugShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		Resources::Insert<Material>(L"DebugMaterial", material);
 	}
 
 	void Initialize()
 	{
-		// RECT
-		// 0-----1
-		// |     |
-		// 3-----2
-
-		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.f);
-		vertexes[0].color = Vector4(1.f, 0.f, 0.f, 1.f);
-		vertexes[0].uv = Vector2(0.f, 0.f);
-
-		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.f);
-		vertexes[1].color = Vector4(0.f, 1.0f, 0.f, 1.f);
-		vertexes[1].uv = Vector2(1.f, 0.f);
-
-		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.f);
-		vertexes[2].color = Vector4(0.f, 0.f, 1.f, 1.f);
-		vertexes[2].uv = Vector2(1.f, 1.f);
-
-		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.f);
-		vertexes[3].color = Vector4(1.f, 1.f, 1.f, 1.f);
-		vertexes[3].uv = Vector2(0.f, 1.f);
-
+		LoadMesh();
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
