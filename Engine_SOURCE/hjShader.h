@@ -26,6 +26,7 @@ namespace hj
 		inline void PrintErrorBlobMessage();
 		inline void ReleaseErrorBlob();
 
+		void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology) { mTopology = topology; }
 		void SetRSState(eRSType state) { mRSType = state; }
 		void SetDSState(eDSType state) { mDSType = state; }
 		void SetBSState(eBSType state) { mBSType = state; }
