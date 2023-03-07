@@ -1,21 +1,18 @@
 #include "hjSceneManager.h"
-#include "hjTitleScene.h"
-#include "hjDungeonScene.h"
 
 namespace hj
 {
 	std::vector<Scene*> SceneManager::mScenes = {};
 	Scene* SceneManager::mActiveScene = nullptr;
+	
+
+	void SceneManager::InitialResize()
+	{
+		mScenes.resize(static_cast<UINT>(eSceneType::End));
+	}
 
 	void SceneManager::Initialize()
 	{
-		mScenes.resize((UINT)eSceneType::End);
-
-		mScenes[(UINT)eSceneType::Title] = new TitleScene();
-		mScenes[(UINT)eSceneType::Dungeon] = new DungeonScene();
-
-		mActiveScene = mScenes[(UINT)eSceneType::Title];
-
 		for (Scene* scene : mScenes)
 		{
 			if(scene)
@@ -57,14 +54,26 @@ namespace hj
 		}
 	}
 
+	void SceneManager::CreateScene(eSceneType type, Scene* scene)
+	{
+		if (mScenes.size() >= static_cast<UINT>(eSceneType::End) && mScenes[static_cast<UINT>(type)])
+		{
+			mScenes.push_back(scene);
+		}
+
+		mScenes[static_cast<UINT>(type)] = scene;
+	}
+
 	void SceneManager::LoadScene(eSceneType type)
 	{
 		if (mActiveScene)
 			mActiveScene->OnExit();
 
 		// 씬이 변경될 때, dontDestroy 오브젝트는 다음씬으로 같이 넘겨줘야 한다.
-		std::vector<GameObject*> gameObjects
-			= mActiveScene->GetDontDestroyGameObjects();
+		std::vector<GameObject*> gameObjects;
+		
+		if(mActiveScene)
+			gameObjects = mActiveScene->GetDontDestroyGameObjects();
 		
 		mActiveScene = mScenes[(UINT)type];
 

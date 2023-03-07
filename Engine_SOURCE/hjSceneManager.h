@@ -6,6 +6,7 @@ namespace hj
 	class SceneManager
 	{
 	public:
+		static void InitialResize();
 		static void Initialize();
 		static void Update();
 		static void FixedUpdate();
@@ -13,6 +14,7 @@ namespace hj
 		static void Destroy();
 		static void Release();
 
+		static void CreateScene(eSceneType type, Scene* scene);
 		static void LoadScene(eSceneType type);
 		static Scene* GetActiveScene() { return mActiveScene; }
 	private:

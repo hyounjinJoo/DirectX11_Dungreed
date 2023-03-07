@@ -156,28 +156,23 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="hjBaseRenderer.h" />
     <ClInclude Include="hjCamera.h" />
-    <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjCollider.h" />
     <ClInclude Include="hjCollider2D.h" />
     <ClInclude Include="hjCollider3D.h" />
     <ClInclude Include="hjCollisionManager.h" />
     <ClInclude Include="hjComponent.h" />
     <ClInclude Include="hjConstantBuffer.h" />
-    <ClInclude Include="hjDungeonScene.h" />
     <ClInclude Include="hjEngine.h" />
     <ClInclude Include="hjEntity.h" />
     <ClInclude Include="hjEnums.h" />
-    <ClInclude Include="hjFadeScript.h" />
     <ClInclude Include="hjGameObject.h" />
     <ClInclude Include="hjGraphics.h" />
-    <ClInclude Include="hjGridScript.h" />
     <ClInclude Include="hjInput.h" />
     <ClInclude Include="hjLayer.h" />
     <ClInclude Include="hjMaterial.h" />
     <ClInclude Include="hjMesh.h" />
     <ClInclude Include="hjMeshRenderer.h" />
     <ClInclude Include="hjObject.h" />
-    <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjPrefab.h" />
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
@@ -192,30 +187,24 @@
     <ClInclude Include="hjApplication.h" />
     <ClInclude Include="hjGraphicDevice_DX11.h" />
     <ClInclude Include="hjMath.h" />
-    <ClInclude Include="hjTitleScene.h" />
     <ClInclude Include="hjTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjBaseRenderer.cpp" />
     <ClCompile Include="hjCamera.cpp" />
-    <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjCollider.cpp" />
     <ClCompile Include="hjCollider2D.cpp" />
     <ClCompile Include="hjCollider3D.cpp" />
     <ClCompile Include="hjCollisionManager.cpp" />
     <ClCompile Include="hjComponent.cpp" />
     <ClCompile Include="hjConstantBuffer.cpp" />
-    <ClCompile Include="hjDungeonScene.cpp" />
     <ClCompile Include="hjEntity.cpp" />
-    <ClCompile Include="hjFadeScript.cpp" />
     <ClCompile Include="hjGameObject.cpp" />
-    <ClCompile Include="hjGridScript.cpp" />
     <ClCompile Include="hjInput.cpp" />
     <ClCompile Include="hjLayer.cpp" />
     <ClCompile Include="hjMaterial.cpp" />
     <ClCompile Include="hjMesh.cpp" />
     <ClCompile Include="hjMeshRenderer.cpp" />
-    <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjPrefab.cpp" />
     <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />
@@ -230,7 +219,6 @@
     <ClCompile Include="hjApplication.cpp" />
     <ClCompile Include="hjGraphicDevice_DX11.cpp" />
     <ClCompile Include="hjMath.cpp" />
-    <ClCompile Include="hjTitleScene.cpp" />
     <ClCompile Include="hjTransform.cpp" />
   </ItemGroup>
   <ItemGroup>

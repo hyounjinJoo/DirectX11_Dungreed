@@ -6,6 +6,8 @@
 #include "hjApplication.h"
 #include "hjSceneManager.h"
 #include "hjEditor.h"
+#include "hjTitleScene.h"
+#include "hjDungeonScene.h"
 
 #ifdef __DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib")
@@ -135,6 +137,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     // 그래픽 장치 생성 및 윈도우 크기 설정
     application.SetWindow(hWnd, 1600, 900);
+    hj::SceneManager::InitialResize();
+	hj::SceneManager::CreateScene(eSceneType::Title, new hj::TitleScene());
+	hj::SceneManager::CreateScene(eSceneType::Dungeon, new hj::DungeonScene());
+    hj::SceneManager::LoadScene(eSceneType::Title);
     application.Initialize();
     editor.Initialize();
     ShowWindow(hWnd, nCmdShow);

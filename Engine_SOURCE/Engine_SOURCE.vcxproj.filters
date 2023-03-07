@@ -58,9 +58,6 @@
     <Filter Include="Component\Transform">
       <UniqueIdentifier>{3c5c903b-628d-4ce8-b9dc-cf4577ec961d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Script\Contents">
-      <UniqueIdentifier>{7707c55d-e516-4f40-9999-38ae1d4352a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{6e119388-00d6-4490-9f27-19794c7deb27}</UniqueIdentifier>
     </Filter>
@@ -147,17 +144,11 @@
     <ClCompile Include="hjTransform.cpp">
       <Filter>Component\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="hjPlayerScript.cpp">
-      <Filter>Component\Script\Contents</Filter>
-    </ClCompile>
     <ClCompile Include="hjCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="hjSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="hjCameraScript.cpp">
-      <Filter>Component\Script</Filter>
     </ClCompile>
     <ClCompile Include="hjSceneManager.cpp">
       <Filter>Scene\Manager</Filter>
@@ -171,20 +162,8 @@
     <ClCompile Include="hjConstantBuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="hjGridScript.cpp">
-      <Filter>Resource\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="hjFadeScript.cpp">
-      <Filter>Component\Script</Filter>
-    </ClCompile>
     <ClCompile Include="hjBaseRenderer.cpp">
       <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="hjTitleScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="hjDungeonScene.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="hjPrefab.cpp">
       <Filter>Resource\Prefab</Filter>
@@ -269,17 +248,11 @@
     <ClInclude Include="hjMeshRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="hjPlayerScript.h">
-      <Filter>Component\Script\Contents</Filter>
-    </ClInclude>
     <ClInclude Include="hjCamera.h">
       <Filter>Component\Camera</Filter>
     </ClInclude>
     <ClInclude Include="hjSpriteRenderer.h">
       <Filter>Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="hjCameraScript.h">
-      <Filter>Component\Script</Filter>
     </ClInclude>
     <ClInclude Include="hjObject.h">
       <Filter>GameObject</Filter>
@@ -296,20 +269,8 @@
     <ClInclude Include="hjConstantBuffer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="hjGridScript.h">
-      <Filter>Resource\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="hjFadeScript.h">
-      <Filter>Component\Script</Filter>
-    </ClInclude>
     <ClInclude Include="hjBaseRenderer.h">
       <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="hjTitleScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="hjDungeonScene.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="hjPrefab.h">
       <Filter>Resource\Prefab</Filter>

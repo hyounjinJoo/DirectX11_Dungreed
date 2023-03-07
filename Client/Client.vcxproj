@@ -140,17 +140,29 @@
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjDebugObject.h" />
+    <ClInclude Include="hjDungeonScene.h" />
     <ClInclude Include="hjEditor.h" />
     <ClInclude Include="hjEditorObject.h" />
+    <ClInclude Include="hjFadeScript.h" />
+    <ClInclude Include="hjGridScript.h" />
+    <ClInclude Include="hjPlayerScript.h" />
+    <ClInclude Include="hjTitleScene.h" />
     <ClInclude Include="hjWidget.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjDebugObject.cpp" />
+    <ClCompile Include="hjDungeonScene.cpp" />
     <ClCompile Include="hjEditor.cpp" />
     <ClCompile Include="hjEditorObject.cpp" />
+    <ClCompile Include="hjFadeScript.cpp" />
+    <ClCompile Include="hjGridScript.cpp" />
+    <ClCompile Include="hjPlayerScript.cpp" />
+    <ClCompile Include="hjTitleScene.cpp" />
     <ClCompile Include="hjWidget.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
