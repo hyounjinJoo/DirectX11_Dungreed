@@ -1,6 +1,7 @@
 #include "hjCollider2D.h"
 #include "hjGameObject.h"
 #include "hjRenderer.h"
+#include "hjScript.h"
 
 namespace hj
 {
@@ -61,5 +62,59 @@ namespace hj
 
 	void Collider2D::Render()
 	{
+	}
+
+	void Collider2D::OnCollisionEnter(Collider* collider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnCollisionEnter(collider);
+		}
+	}
+	
+	void Collider2D::OnCollisionStay(Collider* collider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnCollisionStay(collider);
+		}
+	}
+	
+	void Collider2D::OnCollisionExit(Collider* collider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnCollisionExit(collider);
+		}
+	}
+	
+	void Collider2D::OnTriggerEnter(Collider* collider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnTriggerEnter(collider);
+		}
+	}
+	
+	void Collider2D::OnTriggerStay(Collider* collider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnTriggerStay(collider);
+		}
+	}
+	
+	void Collider2D::OnTriggerExit(Collider* collider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnTriggerExit(collider);
+		}
 	}
 }

@@ -37,7 +37,7 @@ namespace hj
 			}
 			else
 			{
-				mScripts.push_back(comp);
+				mScripts.push_back(dynamic_cast<Script*>(comp));
 				comp->SetOwner(this);
 			}
 
@@ -63,6 +63,8 @@ namespace hj
 			return nullptr;
 		}
 
+		const std::vector<Script*>& GetScripts() { return mScripts; }
+
 		bool IsDead()
 		{
 			if (mState == eState::Dead)
@@ -86,7 +88,7 @@ namespace hj
 	private:
 		eState mState;
 		eLayerType mLayerType;
-		std::vector<Component*> mScripts;
+		std::vector<Script*> mScripts;
 		bool mbDontDestroy;
 	};
 }

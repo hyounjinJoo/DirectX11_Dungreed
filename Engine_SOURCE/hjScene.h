@@ -25,6 +25,7 @@ namespace hj
 		void AddGameObject(GameObject* gameObject, const eLayerType type);
 		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 		std::vector<GameObject*> GetDontDestroyGameObjects();
+		const std::vector<GameObject*>& GetGameObjects(const eLayerType type);
 
 	private:
 		std::vector<Layer> mLayers;

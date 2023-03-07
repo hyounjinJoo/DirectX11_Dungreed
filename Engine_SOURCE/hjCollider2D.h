@@ -18,6 +18,14 @@ namespace hj
         void SetSize(Vector2 size) { mSize = size;}
         void SetCenter(Vector2 center) { mCenter = center; }
 
+		virtual void OnCollisionEnter(Collider* collider) override;
+		virtual void OnCollisionStay(Collider* collider) override;
+		virtual void OnCollisionExit(Collider* collider) override;
+
+		virtual void OnTriggerEnter(Collider* collider) override;
+		virtual void OnTriggerStay(Collider* collider) override;
+		virtual void OnTriggerExit(Collider* collider) override;
+
     private:
         Transform* mTransform;
 
