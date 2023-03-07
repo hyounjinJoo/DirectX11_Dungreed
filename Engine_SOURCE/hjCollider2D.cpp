@@ -51,7 +51,7 @@ namespace hj
 
 		DebugMesh meshAttribute = {};
 		meshAttribute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
-		meshAttribute.radius = 1.f;
+		meshAttribute.radius = mSize.x;
 		meshAttribute.rotation = rotation;
 		meshAttribute.scale = scale;
 		meshAttribute.type = mType;

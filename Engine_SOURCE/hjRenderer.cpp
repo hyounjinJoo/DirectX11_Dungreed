@@ -20,19 +20,19 @@ namespace hj::renderer
 	void LoadMesh()
 	{
 #pragma region RECT Mesh
-		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.f);
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.f, 1.f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
 
-		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.f);
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.f, 1.f);
 		vertexes[1].color = Vector4(1.f, 1.0f, 1.f, 1.f);
 		vertexes[1].uv = Vector2(1.f, 0.f);
 
-		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.f);
+		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.f, 1.f);
 		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
 		vertexes[2].uv = Vector2(1.f, 1.f);
 
-		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.f);
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.f, 1.f);
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
 		vertexes[3].uv = Vector2(0.f, 1.f);
 
@@ -45,15 +45,19 @@ namespace hj::renderer
 		indexes.push_back(0);
 		indexes.push_back(1);
 		indexes.push_back(2);
-
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
 		indexes.push_back(0);
 		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
-
+#pragma endregion
+#pragma region Debug RECT Mesh
+		for (size_t index = 0; index < 4; ++index)
+		{
+			vertexes[index].pos.z = -0.00001f;
+		}
 		mesh = std::make_shared<Mesh>();
-		Resources::Insert<Mesh>(L"RectDebugMesh", mesh);
+		Resources::Insert<Mesh>(L"DebugRectMesh", mesh);
 		mesh->CreateVertexBuffer(vertexes, 4);
 
 		indexes.clear();
@@ -67,7 +71,7 @@ namespace hj::renderer
 #pragma region Circle Mesh
 		std::vector<Vertex> circleVtxes;
 		Vertex center = {};
-		center.pos = Vector4(0.f, 0.f, 0.f, 1.f);
+		center.pos = Vector4(0.f, 0.f, -0.00001f, 1.f);
 		center.color = Vector4(0.f, 1.f, 0.f, 1.f);
 		center.uv = Vector2::Zero;
 
@@ -84,7 +88,7 @@ namespace hj::renderer
 			(
 				fRadius * cosf(fTheta * static_cast<float>(i))
 				, fRadius * sinf(fTheta * static_cast<float>(i))
-				, 0.5f, 1.f
+				, -0.00001f, 1.f
 			);
 			vtx.color = center.color;
 
