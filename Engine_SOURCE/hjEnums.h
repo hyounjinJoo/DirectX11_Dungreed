@@ -63,4 +63,13 @@ namespace hj::enums
 		Sphere,
 		End,
 	};
+
+	enum class eCollisionState
+	{
+		CollisionNot = 0,
+		CollisionEnter,
+		CollisionStay,
+		CollisionExit,
+		End,
+	};
 }

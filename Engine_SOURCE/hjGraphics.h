@@ -135,6 +135,7 @@ namespace hj::graphics
 	struct DebugMesh
 	{
 		enums::eColliderType type;
+		enums::eCollisionState state;
 		math::Vector3 position;
 		math::Vector3 rotation;
 		math::Vector3 scale;
