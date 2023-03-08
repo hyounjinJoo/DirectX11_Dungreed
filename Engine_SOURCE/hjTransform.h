@@ -35,6 +35,8 @@ namespace hj
 
 		void SetInheritParentTransform(bool inherit) { mInheritParentTransform = inherit; }
 
+		const Matrix& GetWorldMatrix() { return mWorld; }
+
 	private:
 		Transform* mParent;
 

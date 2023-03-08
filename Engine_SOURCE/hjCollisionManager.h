@@ -27,6 +27,9 @@ namespace hj
 		static void ColliderCollision(Collider* left, Collider* right);
 		static bool Intersect(Collider* left, Collider* right);
 		static bool Intersect2D(class Collider2D* left, class Collider2D* right);
+		static bool IntersectRectToRect(class Collider2D* left, class Collider2D* right);
+		static bool IntersectCircleToCircle(class Collider2D* left, class Collider2D* right);
+
 		static bool Intersect3D(class Collider3D* left, class Collider3D* right);
 
 	private:

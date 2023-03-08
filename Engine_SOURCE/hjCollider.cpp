@@ -2,10 +2,13 @@
 
 namespace hj
 {
+	UINT32 Collider::colliderID = 0;
+
 	Collider::Collider()
 		: Component(eComponentType::Collider)
 		, mType(eColliderType::None)
 		, mbTrigger(false)
+		, mColliderID(colliderID++)
 	{
 	}
 

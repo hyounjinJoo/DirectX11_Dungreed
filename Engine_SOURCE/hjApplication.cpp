@@ -4,6 +4,7 @@
 #include "hjInput.h"
 #include "hjSceneManager.h"
 #include "hjResources.h"
+#include "hjCollisionManager.h"
 
 namespace hj
 {
@@ -26,7 +27,7 @@ namespace hj
     {
         Time::Initialize();
         Input::Initialize();
-
+        CollisionManager::Initialize();
         renderer::Initialize();
         SceneManager::Initialize();
     }
@@ -37,12 +38,14 @@ namespace hj
         Time::Update();
         Input::Update();
 
+		CollisionManager::Update();
         SceneManager::Update();
     }
 
     // CPU Update 된 정보들을 GPU에 Update
     void Application::FixedUpdate()
-    {
+	{
+		CollisionManager::FixedUpdate();
         SceneManager::FixedUpdate();
     }
 
@@ -55,7 +58,8 @@ namespace hj
         graphicDevice->AdjustViewPorts();
 
         //SceneManager::Render();
-        renderer::Render();
+		renderer::Render();
+		CollisionManager::Render();
 
         //graphicDevice->Render();
         //graphicDevice->Present();

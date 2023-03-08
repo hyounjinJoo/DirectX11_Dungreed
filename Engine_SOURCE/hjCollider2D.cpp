@@ -10,6 +10,8 @@ namespace hj
 		, mTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
+		, mPosition(Vector3::Zero)
+		, mRadius(50.f)
 	{
 	}
 
@@ -37,7 +39,7 @@ namespace hj
 		Vector3 rotation = mTransform->GetRotation();
 
 		Vector3 position = mTransform->GetPosition();
-		Vector3 colliderPos = position + Vector3(mCenter.x, mCenter.y, 0.f);
+		mPosition = position + Vector3(mCenter.x, mCenter.y, 0.f);
 
 		Matrix scaleMatrix = Matrix::CreateScale(scale);
 		Matrix rotationMatrix;
@@ -46,22 +48,42 @@ namespace hj
 		rotationMatrix *= Matrix::CreateRotationZ(rotation.z);
 
 		Matrix positionMatrix;
-		positionMatrix.Translation(Vector3(colliderPos.x, colliderPos.y, colliderPos.z));
+		positionMatrix.Translation(Vector3(mPosition.x, mPosition.y, mPosition.z));
 
 		Matrix worldMatrix = scaleMatrix * rotationMatrix * positionMatrix;
 
 		DebugMesh meshAttribute = {};
-		meshAttribute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
-		meshAttribute.radius = mSize.x;
+		meshAttribute.position = Vector3(mPosition.x, mPosition.y, mPosition.z);
+		meshAttribute.radius = mRadius;
 		meshAttribute.rotation = rotation;
 		meshAttribute.scale = scale;
 		meshAttribute.type = mType;
+		meshAttribute.state = mState;
 
 		renderer::debugMeshes.push_back(meshAttribute);
 	}
 
 	void Collider2D::Render()
 	{
+	}
+
+	void Collider2D::SetSize(Vector2 size)
+	{
+		switch (mType)
+		{
+		case hj::enums::eColliderType::Circle:
+			mSize = Vector2::One;
+			mRadius = size.x >= size.y ? size.x : size.y;
+			break;
+		case hj::enums::eColliderType::None:
+		case hj::enums::eColliderType::Rect:
+		case hj::enums::eColliderType::Box:
+		case hj::enums::eColliderType::Sphere:
+		case hj::enums::eColliderType::End:
+		default:
+			mSize = Vector2::One;
+			break;
+		}
 	}
 
 	void Collider2D::OnCollisionEnter(Collider* collider)

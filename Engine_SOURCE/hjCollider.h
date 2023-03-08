@@ -17,6 +17,8 @@ namespace hj
 		void SetType(eColliderType type) { mType = type; };
         eColliderType GetType() { return mType; }
         bool IsTrigger() { return mbTrigger; }
+        void SetState(eCollisionState state) { mState = state; }
+        eCollisionState GetState() { return mState; }
 
         virtual void OnCollisionEnter(Collider* collider) = 0;
 		virtual void OnCollisionStay(Collider* collider) = 0;
@@ -26,8 +28,12 @@ namespace hj
 		virtual void OnTriggerStay(Collider* collider) = 0;
 		virtual void OnTriggerExit(Collider* collider) = 0;
 
+        static UINT32 colliderID;
+
     protected:
         bool mbTrigger;
 		eColliderType mType;
+        const UINT32 mColliderID;
+        eCollisionState mState;
     };
 }

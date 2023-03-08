@@ -95,8 +95,8 @@ namespace hj
 	{
 		// 두 충돌체로 구성된 ID 확인
 		ColliderID colliderID;
-		colliderID.left = reinterpret_cast<UINT32>(left);
-		colliderID.right = reinterpret_cast<UINT32>(right);
+		colliderID.left = left->colliderID;
+		colliderID.right = right->colliderID;
 
 		// 이전 충돌 정보를 검색한다.
 		// 만약에 충돌정보가 없는 상태라면
@@ -111,6 +111,12 @@ namespace hj
 		// 충돌 체크를 진행한다.
 		bool triggerLeft = left->IsTrigger();
 		bool triggerRight = right->IsTrigger();
+		eColliderType leftType = left->GetType();
+		eColliderType rightType = right->GetType();
+
+		if (leftType != rightType)
+			return;
+
 		if (Intersect(left, right))
 		{
 			// 충돌 Enter
@@ -127,6 +133,8 @@ namespace hj
 					right->OnCollisionEnter(left);
 
 				iter->second = true;
+				left->SetState(eCollisionState::CollisionEnter);
+				right->SetState(eCollisionState::CollisionEnter);
 			}
 			else // 충돌 Stay
 			{
@@ -139,6 +147,9 @@ namespace hj
 					right->OnTriggerStay(left);
 				else
 					right->OnCollisionStay(left);
+
+				left->SetState(eCollisionState::CollisionStay);
+				right->SetState(eCollisionState::CollisionStay);
 			}
 		}
 		else	// 충돌하지 않은 상태
@@ -157,6 +168,17 @@ namespace hj
 					right->OnCollisionExit(left);
 
 				iter->second = false;
+
+				left->SetState(eCollisionState::CollisionExit);
+				right->SetState(eCollisionState::CollisionExit);
+
+			}
+			else
+			{
+				left->SetState(eCollisionState::CollisionNot);
+				right->SetState(eCollisionState::CollisionNot);
+
+				mCollisionMap.erase(iter);
 			}
 		}
 	}
@@ -175,6 +197,101 @@ namespace hj
 
 	bool CollisionManager::Intersect2D(Collider2D* left, Collider2D* right)
 	{
+		eColliderType leftType = left->GetType();
+		eColliderType rightType = right->GetType();
+
+		switch (leftType)
+		{
+		case eColliderType::Rect:
+			if (rightType == eColliderType::Rect)
+				return IntersectRectToRect(left, right);
+			break;
+		case eColliderType::Circle:
+			if (rightType == eColliderType::Circle)
+				return IntersectCircleToCircle(left, right);
+			break;
+		default:
+			break;
+		}
+
+		return false;
+	}
+
+	bool CollisionManager::IntersectRectToRect(Collider2D* left, Collider2D* right)
+	{
+		static const Vector3 arrLocalPos[4] =
+		{
+			Vector3{-0.5f, 0.5f, 0.f}
+			,Vector3{0.5f, 0.5f, 0.f}
+			,Vector3{0.5f, -0.5f, 0.f}
+			,Vector3{-0.5f, -0.5f, 0.f}
+		};
+
+		Transform* leftTr = left->GetOwner()->GetComponent<Transform>();
+		Transform* rightTr = right->GetOwner()->GetComponent<Transform>();
+
+		Matrix leftMat = leftTr->GetWorldMatrix();
+		Matrix rightMat = rightTr->GetWorldMatrix();
+
+		// 분리축 벡터 (투영 벡터)
+		Vector3 Axis[4] = {};
+		Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);
+		Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
+		Axis[2] = Vector3::Transform(arrLocalPos[1], rightMat);
+		Axis[3] = Vector3::Transform(arrLocalPos[3], rightMat);
+
+		Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMat);
+		Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMat);
+		Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
+		Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
+
+		for (size_t i = 0; i < 4; ++i)
+		{
+			Axis[i].z = 0.f;
+		}
+
+		Vector3 vc = left->GetPosition() - right->GetPosition();
+		vc.z = 0.f;
+
+		Vector3 centerDir = vc;
+
+		for (size_t i = 0; i < 4; ++i)
+		{
+			Vector3 vA = Axis[i];
+			vA.Normalize();
+
+			float projDist = 0.f;
+			for (size_t j = 0; j < 4; ++j)
+			{
+				projDist += fabsf(Axis[j].Dot(vA) / 2.f);
+			}
+
+			if (projDist < fabsf(centerDir.Dot(vA)))
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool CollisionManager::IntersectCircleToCircle(Collider2D* left, Collider2D* right)
+	{
+		Vector3 leftPos = left->GetPosition();
+		Vector3 rightPos = right->GetPosition();
+
+		float centerDist = Vector3::Distance(leftPos, rightPos);
+
+		Vector2 leftSize = left->GetSize();
+		Vector2 rightSize = right->GetSize();
+		float	leftRadius = leftSize.x >= leftSize.y ? leftSize.x : leftSize.y;
+		float	rightRadius = rightSize.x >= rightSize.y ? rightSize.x : rightSize.y;
+
+		float radiusDist = leftRadius * 0.5f + rightRadius * 0.5f;
+
+		if (radiusDist < centerDist)
+			return false;
+
 		return true;
 	}
 

@@ -397,6 +397,8 @@ namespace hj::renderer
 		Resources::Load<Texture>(L"LightSprite", L"Light.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"DungeonEat08.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"PlayerLifeBase 1.png");
+		Resources::Load<Texture>(L"Char_Adventurer_Idle_0", L"01_Character\\01_Adventurer\\01_Idle\\CharIdle0.png");
+		Resources::Load<Texture>(L"Weapon_Legendary_DemonSword_00", L"02_Weapon\\04_Legendary\\DemonSword\\DemonSword00.png");
 	}
 
 	void LoadMaterial()
@@ -417,6 +419,24 @@ namespace hj::renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert<Material>(L"SpriteMaterial", material);
+
+		// Sprite/Char/Adventurer
+		texture = Resources::Find<Texture>(L"Char_Adventurer_Idle_0");
+		shader = Resources::Find<Shader>(L"SpriteShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert<Material>(L"Sprite_Char_Adventurer", material);
+
+		// Sprite/Weapon/Legendary/DemonSword
+		texture = Resources::Find<Texture>(L"Weapon_Legendary_DemonSword_00");
+		shader = Resources::Find<Shader>(L"SpriteShader");
+		material = std::make_shared<Material>();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert<Material>(L"Sprite_Weapon_Legendary_DemonSword", material);
 
 		// HPBar
 		texture = Resources::Find<Texture>(L"HPBarTexture");

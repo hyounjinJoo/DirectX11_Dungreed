@@ -144,7 +144,8 @@ namespace hj
 
 		BaseRenderer* renderer = debugObj->GetComponent<BaseRenderer>();
 		Camera* camera = renderer::mainCamera;
-
+		std::shared_ptr<Material> material = renderer->GetMaterial();
+		material->SetData(eGPUParam::Int_1, &mesh.state);
 		tr->FixedUpdate();
 
 		Camera::SetGpuViewMatrix(renderer::mainCamera->GetViewMatrix());

@@ -14,6 +14,9 @@
 #include "hjInput.h"
 #include "hjSceneManager.h"
 #include "hjCollider2D.h"
+#include "hjTestPlayer.h"
+#include "hjTestMonster.h"
+#include "hjCollisionManager.h"
 
 extern hj::Application application;
 
@@ -67,7 +70,8 @@ namespace hj
 			cameraObj->AddComponent(cameraComp);
 			mainCamera = cameraComp;
 
-			cameraObj->AddComponent(new CameraScript());
+			//cameraObj->AddComponent(new CameraScript());
+			object::DontDestroyOnLoad(cameraObj);
 	#pragma endregion
 	#pragma region UI Camera
 			pos = Vector3::Zero;
@@ -102,9 +106,9 @@ namespace hj
 			//mActiveScene->AddGameObject(light, eLayerType::Player);
 	#pragma endregion
 	#pragma region Test Object(Transform / MeshRenderer / PlayerScript)
-			pos = Vector3::Zero;
+			pos = Vector3(-400.f, -200.f, 0.f);
 			rot = Vector3::Zero;
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Player, pos, rot, scale);
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
 			obj->SetName(L"Test Obj");
 	
 			MeshRenderer* mr = new MeshRenderer();
@@ -120,12 +124,50 @@ namespace hj
 	
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
-
-			PlayerScript* playerScript = new PlayerScript();
-			obj->AddComponent(playerScript);
-	
+			
 			object::DontDestroyOnLoad(obj);
 	
+	#pragma endregion
+	#pragma region Collision Test
+	#pragma region Collision Object - 1
+			pos = Vector3(0.f, 0.f, -1.f);
+			TestPlayer* testPlayer = object::Instantiate<TestPlayer>(eLayerType::Player, pos, rot, scale);
+			testPlayer->SetName(L"Test Player for Collision");
+
+			SpriteRenderer* sr = testPlayer->AddComponent<SpriteRenderer>();
+			material = Resources::Find<Material>(L"Sprite_Char_Adventurer");
+			sr->SetMaterial(material);
+			sr->SetMesh(mesh);
+
+			texSize = material->GetTexture()->GetTexSize();
+			texSize *= 4.f;
+			testPlayer->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
+			
+			collider = testPlayer->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Circle);
+			collider->SetSize(texSize);
+
+			PlayerScript* playerScript = new PlayerScript();
+			testPlayer->AddComponent(playerScript);
+	#pragma endregion
+	#pragma region Collision Object - 2
+			pos = Vector3(100.f, 100.f, -1.f);
+			TestMonster* testMonster = object::Instantiate<TestMonster>(eLayerType::Monster, pos, rot, scale);
+			testMonster->SetName(L"Test Monster for Collision");
+
+			sr = testMonster->AddComponent<SpriteRenderer>();
+			material = Resources::Find<Material>(L"Sprite_Weapon_Legendary_DemonSword");
+			sr->SetMaterial(material);
+			sr->SetMesh(mesh);
+
+			texSize = material->GetTexture()->GetTexSize();
+			texSize *= 4.f;
+			testMonster->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
+
+			collider = testMonster->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Circle);
+			collider->SetSize(texSize);
+	#pragma endregion
 	#pragma endregion
 	#pragma region Test Transform Inherit Object
 			pos = Vector3(0.5f, 0.5f, 0.f);
@@ -174,7 +216,7 @@ namespace hj
 			hpBarBaseSR->SetMaterial(hpBarBaseMaterial);
 	#pragma endregion
 #pragma endregion
-
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		Scene::Initialize();
 	}
 

@@ -15,7 +15,7 @@ namespace hj
         void FixedUpdate() override;
         void Render() override;
 
-        void SetSize(Vector2 size) { mSize = size;}
+        void SetSize(Vector2 size);
         void SetCenter(Vector2 center) { mCenter = center; }
 
 		virtual void OnCollisionEnter(Collider* collider) override;
@@ -26,10 +26,25 @@ namespace hj
 		virtual void OnTriggerStay(Collider* collider) override;
 		virtual void OnTriggerExit(Collider* collider) override;
 
+        const Vector3& GetPosition() { return mPosition; }
+        const Vector2& GetSize()
+        {
+            if (eColliderType::Circle == mType)
+            {
+                static Vector2 circleSize;
+                circleSize = Vector2(mRadius, mRadius);
+                return circleSize;
+            }
+
+            return mSize; 
+        }
+
     private:
         Transform* mTransform;
 
+        Vector3 mPosition;
         Vector2 mSize;
         Vector2 mCenter;
+        float   mRadius;
     };
 }
