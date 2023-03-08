@@ -20,17 +20,17 @@ namespace hj
 
 	void DungeonScene::Initialize()
 	{
-		Vector3 pos = Vector3::Zero;
-		Vector3 rot = Vector3::Zero;
-		Vector3 scale = Vector3::One;
-
-		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
-
-		Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
-
-		cameraObj->AddComponent(new CameraScript());
+		//Vector3 pos = Vector3::Zero;
+		//Vector3 rot = Vector3::Zero;
+		//Vector3 scale = Vector3::One;
+		//
+		//GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
+		//
+		//Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		//cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		//cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//
+		//cameraObj->AddComponent(new CameraScript());
 
 		Scene::Initialize();
 	}
