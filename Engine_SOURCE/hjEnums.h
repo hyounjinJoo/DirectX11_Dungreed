@@ -9,6 +9,7 @@ namespace hj::enums
 		Town,
 		Dungeon,
 		Ending,
+		Test,
 		End,
 	};
 

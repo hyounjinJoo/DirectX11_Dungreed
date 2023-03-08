@@ -22,7 +22,6 @@ extern hj::Application application;
 
 namespace hj
 {
-
 	TitleScene::TitleScene()
 		: Scene(eSceneType::Title)
 	{
@@ -88,23 +87,6 @@ namespace hj
 	#pragma endregion
 #pragma endregion
 #pragma region Objects
-	#pragma region Light Object
-			//pos = Vector3::Zero;
-			//rot = Vector3::Zero;
-			//scale = Vector3(500.f, 500.f, 1.f);
-			//GameObject* light = object::Instantiate<GameObject>(eLayerType::Player, pos, rot, scale);
-			//
-			//SpriteRenderer* sr = new SpriteRenderer();
-			//light->AddComponent(sr);
-			//
-			//std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			//std::shared_ptr<Material> lightMaterial = Resources::Find<Material>(L"RectMaterial");
-			//
-			//sr->SetMaterial(lightMaterial);
-			//sr->SetMesh(mesh);
-			//
-			//mActiveScene->AddGameObject(light, eLayerType::Player);
-	#pragma endregion
 	#pragma region Test Object(Transform / MeshRenderer / PlayerScript)
 			pos = Vector3(-400.f, -200.f, 0.f);
 			rot = Vector3::Zero;
@@ -127,66 +109,6 @@ namespace hj
 			
 			object::DontDestroyOnLoad(obj);
 	
-	#pragma endregion
-	#pragma region Collision Test
-	#pragma region Collision Object - 1
-			pos = Vector3(0.f, 0.f, -1.f);
-			TestPlayer* testPlayer = object::Instantiate<TestPlayer>(eLayerType::Player, pos, rot, scale);
-			testPlayer->SetName(L"Test Player for Collision");
-
-			SpriteRenderer* sr = testPlayer->AddComponent<SpriteRenderer>();
-			material = Resources::Find<Material>(L"Sprite_Char_Adventurer");
-			sr->SetMaterial(material);
-			sr->SetMesh(mesh);
-
-			texSize = material->GetTexture()->GetTexSize();
-			texSize *= 4.f;
-			testPlayer->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
-			
-			collider = testPlayer->AddComponent<Collider2D>();
-			collider->SetType(eColliderType::Circle);
-			collider->SetSize(texSize);
-
-			PlayerScript* playerScript = new PlayerScript();
-			testPlayer->AddComponent(playerScript);
-	#pragma endregion
-	#pragma region Collision Object - 2
-			pos = Vector3(100.f, 100.f, -1.f);
-			TestMonster* testMonster = object::Instantiate<TestMonster>(eLayerType::Monster, pos, rot, scale);
-			testMonster->SetName(L"Test Monster for Collision");
-
-			sr = testMonster->AddComponent<SpriteRenderer>();
-			material = Resources::Find<Material>(L"Sprite_Weapon_Legendary_DemonSword");
-			sr->SetMaterial(material);
-			sr->SetMesh(mesh);
-
-			texSize = material->GetTexture()->GetTexSize();
-			texSize *= 4.f;
-			testMonster->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
-
-			collider = testMonster->AddComponent<Collider2D>();
-			collider->SetType(eColliderType::Circle);
-			collider->SetSize(texSize);
-	#pragma endregion
-	#pragma endregion
-	#pragma region Test Transform Inherit Object
-			pos = Vector3(0.5f, 0.5f, 0.f);
-			rot = Vector3::Zero;
-			scale = Vector3::One;
-	
-			Transform* parentTR = obj->GetComponent<Transform>();
-			obj = object::Instantiate<GameObject>(eLayerType::Player, parentTR, pos, rot, scale);
-			obj->SetName(L"Test Obj - Transform Inherit");
-	
-			Transform* childTR = obj->GetComponent<Transform>();
-			childTR->SetInheritParentTransform(true);
-	
-			mr = new MeshRenderer();
-			obj->AddComponent(mr);
-	
-			material = Resources::Find<Material>(L"SpriteMaterial");
-			mr->SetMaterial(material);
-			mr->SetMesh(mesh);
 	#pragma endregion
 #pragma endregion
 #pragma region UI
@@ -216,6 +138,7 @@ namespace hj
 			hpBarBaseSR->SetMaterial(hpBarBaseMaterial);
 	#pragma endregion
 #pragma endregion
+
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		Scene::Initialize();
 	}

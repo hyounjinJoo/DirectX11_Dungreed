@@ -147,9 +147,11 @@
     <ClInclude Include="hjEditorObject.h" />
     <ClInclude Include="hjFadeScript.h" />
     <ClInclude Include="hjGridScript.h" />
+    <ClInclude Include="hjMainBird.h" />
     <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjTestMonster.h" />
     <ClInclude Include="hjTestPlayer.h" />
+    <ClInclude Include="hjTestScene.h" />
     <ClInclude Include="hjTitleScene.h" />
     <ClInclude Include="hjWidget.h" />
     <ClInclude Include="Resource.h" />
@@ -163,9 +165,11 @@
     <ClCompile Include="hjEditorObject.cpp" />
     <ClCompile Include="hjFadeScript.cpp" />
     <ClCompile Include="hjGridScript.cpp" />
+    <ClCompile Include="hjMainBird.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjTestMonster.cpp" />
     <ClCompile Include="hjTestPlayer.cpp" />
+    <ClCompile Include="hjTestScene.cpp" />
     <ClCompile Include="hjTitleScene.cpp" />
     <ClCompile Include="hjWidget.cpp" />
     <ClCompile Include="main.cpp" />

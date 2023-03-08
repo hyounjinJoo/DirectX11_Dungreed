@@ -29,6 +29,12 @@
     <Filter Include="Editor\UI">
       <UniqueIdentifier>{a6e7b243-b1e6-4d6a-8db9-cac8e60dfbd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\TitleScene">
+      <UniqueIdentifier>{3f9b8efd-35ac-4e45-92a8-6a86de4a5dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\TitleScene">
+      <UniqueIdentifier>{abc96cb4-2a4f-4392-b24e-388fd3795db9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -79,6 +85,12 @@
     <ClInclude Include="hjTestMonster.h">
       <Filter>Contents\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="hjTestScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="hjMainBird.h">
+      <Filter>Contents\GameObject\TitleScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -127,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="hjTestMonster.cpp">
       <Filter>Contents\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTestScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMainBird.cpp">
+      <Filter>Contents\GameObject\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
