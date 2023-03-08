@@ -81,7 +81,7 @@ namespace hj
 		case hj::enums::eColliderType::Sphere:
 		case hj::enums::eColliderType::End:
 		default:
-			mSize = Vector2::One;
+			mSize = size;
 			break;
 		}
 	}
