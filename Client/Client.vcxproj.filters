@@ -73,6 +73,12 @@
     <ClInclude Include="hjTitleScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="hjTestPlayer.h">
+      <Filter>Contents\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTestMonster.h">
+      <Filter>Contents\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -115,6 +121,12 @@
     </ClCompile>
     <ClCompile Include="hjTitleScene.cpp">
       <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTestPlayer.cpp">
+      <Filter>Contents\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTestMonster.cpp">
+      <Filter>Contents\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
