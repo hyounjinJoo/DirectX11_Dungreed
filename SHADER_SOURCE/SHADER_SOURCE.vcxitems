@@ -28,6 +28,9 @@
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)ShiftPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)SpritePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>

@@ -13,11 +13,12 @@ namespace hj
 
 	void SceneManager::Initialize()
 	{
-		for (Scene* scene : mScenes)
-		{
-			if(scene)
-				scene->Initialize();
-		}
+		mActiveScene->Initialize();
+		//for (Scene* scene : mScenes)
+		//{
+		//	if(scene)
+		//		scene->Initialize();
+		//}
 	}
 
 	void SceneManager::Update()
@@ -85,7 +86,6 @@ namespace hj
 				mActiveScene->AddGameObject(object, type);
 			}
 		}
-
 		mActiveScene->OnEnter();
 	}
 }

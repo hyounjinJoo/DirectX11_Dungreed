@@ -85,6 +85,7 @@ namespace hj
 		cameraUIComp->DisableLayerMask();
 		cameraUIComp->TurnLayerMask(eLayerType::UI, true);
 		cameraUIObj->AddComponent(cameraUIComp);
+		object::DontDestroyOnLoad(cameraUIObj);
 #pragma endregion
 #pragma endregion
 #pragma region Objects
@@ -224,7 +225,7 @@ namespace hj
 	{
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::LoadScene(eSceneType::Dungeon);
+			SceneManager::LoadScene(eSceneType::Title);
 		}
 
 		Scene::Update();

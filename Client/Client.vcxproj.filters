@@ -35,6 +35,9 @@
     <Filter Include="Contents\GameObject\TitleScene">
       <UniqueIdentifier>{abc96cb4-2a4f-4392-b24e-388fd3795db9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Layer">
+      <UniqueIdentifier>{6eed3863-e244-49ab-95dd-e8e1140799cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -91,6 +94,9 @@
     <ClInclude Include="hjTitleBird.h">
       <Filter>Contents\GameObject\TitleScene</Filter>
     </ClInclude>
+    <ClInclude Include="hjLayerObject.h">
+      <Filter>Contents\GameObject\Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -145,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="hjTitleBird.cpp">
       <Filter>Contents\GameObject\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="hjLayerObject.cpp">
+      <Filter>Contents\GameObject\Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -152,6 +152,13 @@ namespace hj::renderer
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
+		// Shift Shader
+		shader = SHADER_FIND("Shader_Shift");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
+
 		// UI Shader
 		shader = SHADER_FIND("Shader_UI");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
@@ -358,6 +365,13 @@ namespace hj::renderer
 
 		SHADER_INSERT("Shader_Sprite", shader);
 
+		// Shift
+		shader = SHADER_NEW();
+		shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"ShiftPS.hlsl", "main");
+
+		SHADER_INSERT("Shader_Shift", shader);
+
 		// UI
 		shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
@@ -468,9 +482,7 @@ namespace hj::renderer
 		MAIN_FOLDER("01_Scene\\00_TitleScene\\00_Layers");
 		
 		LOAD_TEX("Tex_Title_Layer_BackCloud", "BackCloud.png");
-		LOAD_TEX("Tex_Title_Layer_FrondCloud", "FrontCloud.png");
-		LOAD_TEX("Tex_Title_Layer_Sky_Day", "Sky_Day.png");
-		LOAD_TEX("Tex_Title_Layer_Sky_Night", "Sky_Night.png");
+		LOAD_TEX("Tex_Title_Layer_FrontCloud", "FrontCloud.png");
 	#pragma endregion
 	#pragma region 01_Object
 		MAIN_FOLDER("01_Scene\\00_TitleScene\\01_Object");
@@ -547,6 +559,8 @@ namespace hj::renderer
 
 		LOAD_TEX("HPBarTexture", "PlayerLifeBase 1.png");
 		LOAD_TEX("Weapon_Legendary_DemonSword_00", "02_Weapon\\04_Legendary\\DemonSword\\DemonSword00.png");
+		//LOAD_TEX("Tex_Title_Layer_Sky_Day", "Sky_Day.png");
+		//LOAD_TEX("Tex_Title_Layer_Sky_Night", "Sky_Night.png");
 
 	}
 
@@ -619,6 +633,38 @@ namespace hj::renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		material->SetShader(shader);
 		MTRL_INSERT("MTRL_Debug", material);
+		
+		shader = SHADER_FIND("Shader_Shift");
+		shader->SetBSState(eBSType::AlphaBlend);
+		
+		texture = TEX_FIND("Tex_Title_Layer_BackCloud");
+		material = MTRL_NEW();
+		material->SetTexture(texture);
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Title_Layer_BackCloud", material);
+		
+		texture = TEX_FIND("Tex_Title_Layer_FrontCloud");
+		material = MTRL_NEW();
+		material->SetTexture(texture);
+		material->SetShader(shader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Title_Layer_FrontCloud", material);
+		
+		//texture = TEX_FIND("Tex_Town_Layer_Sky_Day");
+		//material = MTRL_NEW();
+		//material->SetTexture(texture);
+		//material->SetShader(shader);
+		//material->SetRenderingMode(eRenderingMode::Transparent);
+		//MTRL_INSERT("MTRL_Town_Layer_Sky_Day", material);
+		//
+		//texture = TEX_FIND("Tex_Town_Layer_Sky_Night");
+		//material = MTRL_NEW();
+		//material->SetTexture(texture);
+		//material->SetShader(shader);
+		//material->SetRenderingMode(eRenderingMode::Transparent);
+		//MTRL_INSERT("MTRL_Town_Layer_Sky_Night", material);
+
 	}
 
 	void Initialize()

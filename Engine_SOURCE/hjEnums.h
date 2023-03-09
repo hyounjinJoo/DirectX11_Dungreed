@@ -20,7 +20,9 @@ namespace hj::enums
 		Grid,
 		Monster,
 		Player,
-
+		BackGround,
+		MidGround,
+		ForeGround,
 		UI,
 		End = 16,
 	};
