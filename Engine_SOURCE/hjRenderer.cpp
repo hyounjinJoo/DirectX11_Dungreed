@@ -393,12 +393,22 @@ namespace hj::renderer
 
 	void LoadTexture()
 	{
-		// Default
-		Resources::Load<Texture>(L"LightSprite", L"Light.png");
-		Resources::Load<Texture>(L"DefaultSprite", L"DungeonEat08.png");
-		Resources::Load<Texture>(L"HPBarTexture", L"PlayerLifeBase 1.png");
-		Resources::Load<Texture>(L"Char_Adventurer_Idle_0", L"01_Character\\01_Adventurer\\01_Idle\\CharIdle0.png");
-		Resources::Load<Texture>(L"Weapon_Legendary_DemonSword_00", L"02_Weapon\\04_Legendary\\DemonSword\\DemonSword00.png");
+		std::wstring mainFolderPath = WIDE("");
+		std::wstring subFolderPath1 = WIDE("");
+		std::wstring subFolderPath2 = WIDE("");
+
+		// must type ;(semicolon) where Macro call end.
+		
+#define LOAD_TEX(texName, fileName) Resources::Load<Texture>(WIDE(texName), mainFolderPath + subFolderPath1 + subFolderPath2 + WIDE("\\") + WIDE(fileName))
+#define MAIN_FOLDER(folderPath) mainFolderPath = WIDE(folderPath)
+#define SUB_FOLDER(subNumber, folderPath)			\
+			subFolderPath##subNumber = WIDE("\\");	\
+			subFolderPath##subNumber.append(WIDE(folderPath))
+#define SUB_FOLDER_CLEAR(subNumber) subFolderPath##subNumber = WIDE("");
+#define SUB_FOLDER_ALLCLEAR() \
+			SUB_FOLDER_CLEAR(1); \
+			SUB_FOLDER_CLEAR(2)
+
 	}
 
 	void LoadMaterial()
