@@ -391,23 +391,162 @@ namespace hj::renderer
 		Resources::Insert<Shader>(L"DebugShader", shader);
 	}
 
+
 	void LoadTexture()
 	{
 		std::wstring mainFolderPath = WIDE("");
 		std::wstring subFolderPath1 = WIDE("");
 		std::wstring subFolderPath2 = WIDE("");
 
-		// must type ;(semicolon) where Macro call end.
-		
-#define LOAD_TEX(texName, fileName) Resources::Load<Texture>(WIDE(texName), mainFolderPath + subFolderPath1 + subFolderPath2 + WIDE("\\") + WIDE(fileName))
+// must type ;(semicolon) where Macro call end.		
+#define LOAD_TEX(texName, fileName) \
+			Resources::Load<Texture>(WIDE(texName), \
+			(mainFolderPath.empty() ? L"" : mainFolderPath + WIDE("\\")) \
+			+(subFolderPath1.empty() ? L"" : subFolderPath1 + WIDE("\\"))\
+			+(subFolderPath2.empty() ? L"" : subFolderPath2 + WIDE("\\"))\
+			+ WIDE(fileName))
+
 #define MAIN_FOLDER(folderPath) mainFolderPath = WIDE(folderPath)
-#define SUB_FOLDER(subNumber, folderPath)			\
-			subFolderPath##subNumber = WIDE("\\");	\
-			subFolderPath##subNumber.append(WIDE(folderPath))
+#define MAIN_FOLDER_CLEAR() mainFolderPath = WIDE("")
+#define SUB_FOLDER(subNumber, folderPath) subFolderPath##subNumber = WIDE(folderPath)
 #define SUB_FOLDER_CLEAR(subNumber) subFolderPath##subNumber = WIDE("");
 #define SUB_FOLDER_ALLCLEAR() \
 			SUB_FOLDER_CLEAR(1); \
 			SUB_FOLDER_CLEAR(2)
+#define FOLDER_ALLCLEAR() \
+			MAIN_FOLDER_CLEAR(); \
+			SUB_FOLDER_ALLCLEAR()
+			
+
+#pragma region Default
+		LOAD_TEX("LightSprite", "Light.png");
+		LOAD_TEX("DefaultSprite", "DungeonEat08.png");
+#pragma endregion
+
+#pragma region 00_Character
+		#pragma region 00_Player
+		MAIN_FOLDER("00_Character\\00_Player");
+			#pragma region 00_Adventurer
+			SUB_FOLDER(1, "00_Adventurer");
+				#pragma region 00_Idle
+				SUB_FOLDER(2, "00_Idle");
+
+				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_0", "CharIdle0.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_1", "CharIdle1.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_2", "CharIdle2.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_3", "CharIdle3.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_4", "CharIdle4.png");
+				#pragma endregion
+				#pragma region 01_Jump
+				SUB_FOLDER(2, "01_Jump");
+
+				LOAD_TEX("Tex_Character_Player_Adventurer_Jump_0", "CharJump.png");
+				#pragma endregion
+				#pragma region 02_Run
+				SUB_FOLDER(2, "02_Run");
+
+				LOAD_TEX("Tex_Character_Player_Adventurer_Run_0", "CharRun0.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Run_1", "CharRun1.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Run_2", "CharRun2.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Run_3", "CharRun3.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Run_4", "CharRun4.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Run_5", "CharRun5.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Run_6", "CharRun6.png");
+				LOAD_TEX("Tex_Character_Player_Adventurer_Run_7", "CharRun7.png");
+				#pragma endregion
+				#pragma region 03_Die
+				SUB_FOLDER(2, "03_Die");
+
+				LOAD_TEX("Tex_Character_Player_Adventurer_Die_0", "CharDie.png");
+				#pragma endregion
+			SUB_FOLDER_ALLCLEAR();
+			#pragma endregion
+		#pragma endregion
+#pragma endregion
+#pragma region 01_TitleScene
+	#pragma region 00_Layers
+		MAIN_FOLDER("01_Scene\\00_TitleScene\\00_Layers");
+		
+		LOAD_TEX("Tex_Title_Layer_BackCloud", "BackCloud.png");
+		LOAD_TEX("Tex_Title_Layer_FrondCloud", "FrontCloud.png");
+		LOAD_TEX("Tex_Title_Layer_Sky_Day", "Sky_Day.png");
+		LOAD_TEX("Tex_Title_Layer_Sky_Night", "Sky_Night.png");
+	#pragma endregion
+	#pragma region 01_Object
+		MAIN_FOLDER("01_Scene\\00_TitleScene\\01_Object");
+		#pragma region Cloud
+			SUB_FOLDER(1, "Cloud");
+			LOAD_TEX("Tex_Title_Object_MidCloud", "MidCloud0.png");
+		#pragma endregion
+		#pragma region Bird
+			SUB_FOLDER(1, "Bird");
+			
+			LOAD_TEX("Tex_Title_Object_Bird_0", "Bird0.png");
+			LOAD_TEX("Tex_Title_Object_Bird_1", "Bird1.png");
+			LOAD_TEX("Tex_Title_Object_Bird_2", "Bird2.png");
+			LOAD_TEX("Tex_Title_Object_Bird_3", "Bird3.png");
+			LOAD_TEX("Tex_Title_Object_Bird_4", "Bird4.png");
+			LOAD_TEX("Tex_Title_Object_Bird_5", "Bird5.png");
+			LOAD_TEX("Tex_Title_Object_Bird_6", "Bird6.png");
+			LOAD_TEX("Tex_Title_Object_Bird_7", "Bird7.png");
+		#pragma endregion
+	#pragma endregion
+	#pragma region 02_UI
+		MAIN_FOLDER("01_Scene\\00_TitleScene\\02_UI");
+			#pragma region Logo
+				SUB_FOLDER(1, "Logo");
+				LOAD_TEX("Tex_Title_UI_MainLogo", "MainLogo.png");
+			#pragma endregion
+			#pragma region Text
+				SUB_FOLDER(1, "Text");
+				#pragma region 00_Play_KOR
+					SUB_FOLDER(2, "00_Play_KOR");
+					LOAD_TEX("Tex_Title_UI_Text_Play_On", "PlayOn_Kor.png");
+					LOAD_TEX("Tex_Title_UI_Text_Play_Off", "PlayOff_Kor.png");
+			#pragma endregion
+				#pragma region 01_Option_KOR
+					SUB_FOLDER(2, "01_Option_KOR");
+					LOAD_TEX("Tex_Title_UI_Text_Option_On", "OptionOn_Kor.png");
+					LOAD_TEX("Tex_Title_UI_Text_Option_Off", "OptionOff_Kor.png");
+			#pragma endregion
+				#pragma region 02_Exit_KOR
+					SUB_FOLDER(2, "02_Exit_KOR");
+					LOAD_TEX("Tex_Title_UI_Text_Exit_On", "ExitOn_Kor.png");
+					LOAD_TEX("Tex_Title_UI_Text_Exit_Off", "ExitOff_Kor.png");
+				#pragma endregion
+				SUB_FOLDER_CLEAR(2);
+				SUB_FOLDER_CLEAR(1);
+			#pragma endregion
+			#pragma region Slot
+				SUB_FOLDER(1, "Slot");
+				#pragma region Base
+					SUB_FOLDER(2, "Base");
+
+					LOAD_TEX("Tex_Title_UI_Slot_Base_NoneSelected", "SlotBase.png");
+					LOAD_TEX("Tex_Title_UI_Slot_Base_Selected", "SlotBase_Selected.png");
+				#pragma endregion
+				#pragma region Delete
+					SUB_FOLDER(2, "DeleteButton");
+
+					LOAD_TEX("Tex_Title_UI_Slot_DeleteButton", "SlotDeleteButton.png");
+					LOAD_TEX("Tex_Title_UI_Slot_DeleteButton_White", "SlotDeleteButtonWhite.png");
+				#pragma endregion
+				#pragma region Text
+					SUB_FOLDER(2, "Text");
+
+					LOAD_TEX("Tex_Title_UI_Slot_Text_SlotText1", "SlotText1_EN.png");
+					LOAD_TEX("Tex_Title_UI_Slot_Text_SlotText2", "SlotText2_EN.png");
+					LOAD_TEX("Tex_Title_UI_Slot_Text_SlotText3", "SlotText3_EN.png");
+				#pragma endregion
+				SUB_FOLDER_ALLCLEAR();
+			#pragma endregion
+	#pragma endregion
+#pragma endregion
+
+		FOLDER_ALLCLEAR();
+
+		LOAD_TEX("HPBarTexture", "PlayerLifeBase 1.png");
+		LOAD_TEX("Weapon_Legendary_DemonSword_00", "02_Weapon\\04_Legendary\\DemonSword\\DemonSword00.png");
 
 	}
 
@@ -431,7 +570,7 @@ namespace hj::renderer
 		Resources::Insert<Material>(L"SpriteMaterial", material);
 
 		// Sprite/Char/Adventurer
-		texture = Resources::Find<Texture>(L"Char_Adventurer_Idle_0");
+		texture = Resources::Find<Texture>(L"Tex_Character_Player_Adventurer_Idle_0");
 		shader = Resources::Find<Shader>(L"SpriteShader");
 		material = std::make_shared<Material>();
 		material->SetShader(shader);
