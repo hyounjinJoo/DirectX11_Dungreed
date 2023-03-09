@@ -14,30 +14,32 @@ namespace hj
 		// 충돌체의 종류 갯수만큼만 있으면 된다.
 		mDebugObjects.resize((UINT)eColliderType::End);
 
-		std::shared_ptr<Mesh> rectMesh = Resources::Find<Mesh>(L"DebugRectMesh");
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"DebugMaterial");
+		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_DebugRect");
+		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Debug");
 
 		mDebugObjects[(UINT)eColliderType::Rect] = object::Instantiate<DebugObject>();
 		MeshRenderer* renderer
 			= mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<MeshRenderer>();
 
 		renderer->SetMaterial(material);
-		renderer->SetMesh(rectMesh);
+		renderer->SetMesh(mesh);
 
-		std::shared_ptr<Mesh> circleMesh = Resources::Find<Mesh>(L"CircleMesh");
+		mesh = MESH_FIND("Mesh_Circle");
 
 		mDebugObjects[(UINT)eColliderType::Circle] = object::Instantiate<DebugObject>();
 		renderer
 			= mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<MeshRenderer>();
 
 		renderer->SetMaterial(material);
-		renderer->SetMesh(circleMesh);
+		renderer->SetMesh(mesh);
 
 #pragma region Grid Object
 		EditorObject* gridObj = object::Instantiate<EditorObject>();
 		MeshRenderer* gridMR = new MeshRenderer();
-		gridMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		gridMR->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		mesh = MESH_FIND("Mesh_Rect");
+		material = MTRL_FIND("MTRL_Grid");
+		gridMR->SetMesh(mesh);
+		gridMR->SetMaterial(material);
 		gridObj->AddComponent(gridMR);
 
 		GridScript* gridScript = new GridScript();

@@ -8,6 +8,7 @@
 #include "hjEditor.h"
 #include "hjTitleScene.h"
 #include "hjDungeonScene.h"
+#include "hjTestScene.h"
 
 #ifdef __DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib")
@@ -140,7 +141,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     hj::SceneManager::InitialResize();
 	hj::SceneManager::CreateScene(eSceneType::Title, new hj::TitleScene());
 	hj::SceneManager::CreateScene(eSceneType::Dungeon, new hj::DungeonScene());
-    hj::SceneManager::LoadScene(eSceneType::Title);
+	hj::SceneManager::CreateScene(eSceneType::Test, new hj::TestScene());
+	hj::SceneManager::LoadScene(eSceneType::Test);
     application.Initialize();
     editor.Initialize();
     ShowWindow(hWnd, nCmdShow);

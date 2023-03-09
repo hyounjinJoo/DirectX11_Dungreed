@@ -37,8 +37,8 @@ namespace hj::renderer
 		vertexes[3].uv = Vector2(0.f, 1.f);
 
 		// Create Mesh
-		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-		Resources::Insert<Mesh>(L"RectMesh", mesh);
+		std::shared_ptr<Mesh> mesh = MESH_NEW();
+		MESH_INSERT("Mesh_Rect", mesh);
 		mesh->CreateVertexBuffer(vertexes, 4);
 
 		std::vector<UINT> indexes;
@@ -56,8 +56,8 @@ namespace hj::renderer
 		{
 			vertexes[index].pos.z = -0.00001f;
 		}
-		mesh = std::make_shared<Mesh>();
-		Resources::Insert<Mesh>(L"DebugRectMesh", mesh);
+		mesh = MESH_NEW();
+		MESH_INSERT("Mesh_DebugRect", mesh);
 		mesh->CreateVertexBuffer(vertexes, 4);
 
 		indexes.clear();
@@ -105,8 +105,8 @@ namespace hj::renderer
 		indexes.push_back(1);
 		
 		// Create Mesh
-		mesh = std::make_shared<Mesh>();
-		Resources::Insert<Mesh>(L"CircleMesh", mesh);
+		mesh = MESH_NEW();
+		MESH_INSERT("Mesh_Circle", mesh);
 		mesh->CreateVertexBuffer(circleVtxes.data(), static_cast<UINT>(circleVtxes.size()));
 		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 #pragma endregion
@@ -139,28 +139,28 @@ namespace hj::renderer
 		arrLayoutDesc[2].SemanticIndex = 0;
 
 		// RECT Shader
-		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
+		std::shared_ptr<Shader> shader = SHADER_FIND("Shader_Rect");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
 		// Sprite Shader
-		shader = Resources::Find<Shader>(L"SpriteShader");
+		shader = SHADER_FIND("Shader_Sprite");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
 		// UI Shader
-		shader = Resources::Find<Shader>(L"UIShader");
+		shader = SHADER_FIND("Shader_UI");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
 		// Debug Shader
-		shader = Resources::Find<Shader>(L"DebugShader");
+		shader = SHADER_FIND("Shader_Debug");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
@@ -186,14 +186,14 @@ namespace hj::renderer
 		arrLayoutDesc[1].SemanticIndex = 0;
 
 		// Grid Shader
-		shader = Resources::Find<Shader>(L"GridShader");
+		shader = SHADER_FIND("Shader_Grid");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
 		// Fade Shader
-		shader = Resources::Find<Shader>(L"FadeShader");
+		shader = SHADER_FIND("Shader_Fade");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
@@ -345,42 +345,42 @@ namespace hj::renderer
 	void LoadShader()
 	{
 		// Default
-		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
+		std::shared_ptr<Shader> shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"RectShader", shader);
+		SHADER_INSERT("Shader_Rect", shader);
 
 		// Sprite
-		shader = std::make_shared<Shader>();
+		shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"SpriteShader", shader);
+		SHADER_INSERT("Shader_Sprite", shader);
 
 		// UI
-		shader = std::make_shared<Shader>();
+		shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"UIShader", shader);
+		SHADER_INSERT("Shader_UI", shader);
 
 		// Grid
-		shader = std::make_shared<Shader>();
+		shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"GridShader", shader);
+		SHADER_INSERT("Shader_Grid", shader);
 
 		// Fade
-		shader = std::make_shared<Shader>();
+		shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"FadeVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"FadePS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"FadeShader", shader);
+		SHADER_INSERT("Shader_Fade", shader);
 
 		// Debug
-		shader = std::make_shared<Shader>();
+		shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"DebugVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"DebugPS.hlsl", "main");
 		shader->SetRSState(eRSType::SolidNone);
@@ -388,7 +388,7 @@ namespace hj::renderer
 		shader->SetBSState(eBSType::AlphaBlend);
 		shader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
-		Resources::Insert<Shader>(L"DebugShader", shader);
+		SHADER_INSERT("Shader_Debug", shader);
 	}
 
 
@@ -398,7 +398,7 @@ namespace hj::renderer
 		std::wstring subFolderPath1 = WIDE("");
 		std::wstring subFolderPath2 = WIDE("");
 
-// must type ;(semicolon) where Macro call end.		
+// must type ;(semicolon) where Macro call end.
 #define LOAD_TEX(texName, fileName) \
 			Resources::Load<Texture>(WIDE(texName), \
 			(mainFolderPath.empty() ? L"" : mainFolderPath + WIDE("\\")) \
@@ -409,7 +409,7 @@ namespace hj::renderer
 #define MAIN_FOLDER(folderPath) mainFolderPath = WIDE(folderPath)
 #define MAIN_FOLDER_CLEAR() mainFolderPath = WIDE("")
 #define SUB_FOLDER(subNumber, folderPath) subFolderPath##subNumber = WIDE(folderPath)
-#define SUB_FOLDER_CLEAR(subNumber) subFolderPath##subNumber = WIDE("");
+#define SUB_FOLDER_CLEAR(subNumber) subFolderPath##subNumber = WIDE("")
 #define SUB_FOLDER_ALLCLEAR() \
 			SUB_FOLDER_CLEAR(1); \
 			SUB_FOLDER_CLEAR(2)
@@ -552,73 +552,73 @@ namespace hj::renderer
 
 	void LoadMaterial()
 	{
-		std::shared_ptr<Texture> texture = Resources::Find<Texture>(L"LightSprite");
-		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
-		std::shared_ptr<Material> material = std::make_shared<Material>();
+		std::shared_ptr<Texture> texture = TEX_FIND("LightSprite");
+		std::shared_ptr<Shader> shader = SHADER_FIND("Shader_Rect");
+		std::shared_ptr<Material> material = MTRL_NEW();
 		material->SetShader(shader);
 		material->SetTexture(texture);
-		Resources::Insert<Material>(L"RectMaterial", material);
+		MTRL_INSERT("MTRL_Rect", material);
 
 		// Sprite
 		//std::shared_ptr<Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"DefaultSprite.png");
-		texture = Resources::Find<Texture>(L"DefaultSprite");
-		shader = Resources::Find<Shader>(L"SpriteShader");
-		material = std::make_shared<Material>();
+		texture = TEX_FIND("DefaultSprite");
+		shader = SHADER_FIND("Shader_Sprite");
+		material = MTRL_NEW();
 		material->SetShader(shader);
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert<Material>(L"SpriteMaterial", material);
+		MTRL_INSERT("MTRL_Sprite", material);
 
 		// Sprite/Char/Adventurer
-		texture = Resources::Find<Texture>(L"Tex_Character_Player_Adventurer_Idle_0");
-		shader = Resources::Find<Shader>(L"SpriteShader");
-		material = std::make_shared<Material>();
+		texture = TEX_FIND("Tex_Character_Player_Adventurer_Idle_0");
+		shader = SHADER_FIND("Shader_Sprite");
+		material = MTRL_NEW();
 		material->SetShader(shader);
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert<Material>(L"Sprite_Char_Adventurer", material);
+		MTRL_INSERT("MTRL_Char_Adventurer", material);
 
 		// Sprite/Weapon/Legendary/DemonSword
-		texture = Resources::Find<Texture>(L"Weapon_Legendary_DemonSword_00");
-		shader = Resources::Find<Shader>(L"SpriteShader");
-		material = std::make_shared<Material>();
+		texture = TEX_FIND("Weapon_Legendary_DemonSword_00");
+		shader = SHADER_FIND("Shader_Sprite");
+		material = MTRL_NEW();
 		material->SetShader(shader);
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert<Material>(L"Sprite_Weapon_Legendary_DemonSword", material);
+		MTRL_INSERT("MTRL_Weapon_Legendary_DemonSword", material);
 
 		// HPBar
-		texture = Resources::Find<Texture>(L"HPBarTexture");
-		shader = Resources::Find<Shader>(L"UIShader");
-		material = std::make_shared<Material>();
+		texture = TEX_FIND("HPBarTexture");
+		shader = SHADER_FIND("Shader_UI");
+		material = MTRL_NEW();
 		material->SetShader(shader);
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert<Material>(L"UIMaterial", material);
+		MTRL_INSERT("MTRL_UI", material);
 
 		// Grid
-		shader = Resources::Find<Shader>(L"GridShader");
-		material = std::make_shared<Material>();
+		shader = SHADER_FIND("Shader_Grid");
+		material = MTRL_NEW();
 		material->SetShader(shader);
 		shader->SetRSState(eRSType::SolidNone);
 		shader->SetDSState(eDSType::NoWrite);
 		shader->SetBSState(eBSType::AlphaBlend);
-		Resources::Insert<Material>(L"GridMaterial", material);
+		MTRL_INSERT("MTRL_Grid", material);
 
 		// Fade
-		shader = Resources::Find<Shader>(L"FadeShader");
-		material = std::make_shared<Material>();
+		shader = SHADER_FIND("Shader_Fade");
+		material = MTRL_NEW();
 		material->SetShader(shader);
 		shader->SetBSState(eBSType::AlphaBlend);
 		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert<Material>(L"FadeMaterial", material);
+		MTRL_INSERT("MTRL_Fade", material);
 
 		// Debug
-		shader = Resources::Find<Shader>(L"DebugShader");
-		material = std::make_shared<Material>();
+		shader = SHADER_FIND("Shader_Debug");
+		material = MTRL_NEW();
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		material->SetShader(shader);
-		Resources::Insert<Material>(L"DebugMaterial", material);
+		MTRL_INSERT("MTRL_Debug", material);
 	}
 
 	void Initialize()

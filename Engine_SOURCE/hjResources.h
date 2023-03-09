@@ -4,6 +4,21 @@
 
 namespace hj
 {
+// 사용 시 반드시 ;(semi-colon)을 붙여서 사용할 것.
+#define SHADER_NEW() std::make_shared<Shader>()
+#define SHADER_INSERT(shaderKey, sharedPtrShader) Resources::Insert<Shader>(WIDE(shaderKey), sharedPtrShader)
+#define SHADER_FIND(shaderKey) Resources::Find<Shader>(WIDE(shaderKey))
+
+#define TEX_FIND(texKey) Resources::Find<Texture>(WIDE(texKey))
+
+#define MTRL_NEW() std::make_shared<Material>()
+#define MTRL_INSERT(materialKey, sharedPtrMTRL) Resources::Insert<Material>(WIDE(materialKey), sharedPtrMTRL)
+#define MTRL_FIND(materialKey) Resources::Find<Material>(WIDE(materialKey))
+
+#define MESH_NEW() std::make_shared<Mesh>()
+#define MESH_INSERT(meshKey, sharedPtrMesh) Resources::Insert<Mesh>(WIDE(meshKey), sharedPtrMesh)
+#define MESH_FIND(meshKey) Resources::Find<Mesh>(WIDE(meshKey))
+
 	class Resources
 	{
 	public:

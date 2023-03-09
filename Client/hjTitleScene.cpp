@@ -94,8 +94,8 @@ namespace hj
 			obj->SetName(L"Test Obj");
 	
 			MeshRenderer* mr = new MeshRenderer();
-			std::shared_ptr<Material> material = Resources::Find<Material>(L"SpriteMaterial");
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> material = MTRL_FIND("MTRL_Sprite");
+			std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
 			mr->SetMaterial(material);
 			mr->SetMesh(mesh);
 	
@@ -132,8 +132,8 @@ namespace hj
 			SpriteRenderer* hpBarBaseSR = new SpriteRenderer();
 			hpBarBase->AddComponent(hpBarBaseSR);
 	
-			std::shared_ptr<Mesh> hpBarBaseMesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> hpBarBaseMaterial = Resources::Find<Material>(L"UIMaterial");
+			std::shared_ptr<Mesh> hpBarBaseMesh = MESH_FIND("Mesh_Rect");
+			std::shared_ptr<Material> hpBarBaseMaterial = MTRL_FIND("MTRL_UI");
 			hpBarBaseSR->SetMesh(hpBarBaseMesh);
 			hpBarBaseSR->SetMaterial(hpBarBaseMaterial);
 	#pragma endregion
