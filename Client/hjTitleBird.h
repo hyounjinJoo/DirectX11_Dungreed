@@ -3,12 +3,12 @@
 
 namespace hj
 {
-	class MainBird :
+	class TitleBird :
 		public GameObject
 	{
 	public:
-		MainBird();
-		virtual ~MainBird();
+		TitleBird();
+		virtual ~TitleBird();
 
 
 		void Initialize() override;
