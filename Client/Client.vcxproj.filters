@@ -88,7 +88,7 @@
     <ClInclude Include="hjTestScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="hjMainBird.h">
+    <ClInclude Include="hjTitleBird.h">
       <Filter>Contents\GameObject\TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,7 +143,7 @@
     <ClCompile Include="hjTestScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="hjMainBird.cpp">
+    <ClCompile Include="hjTitleBird.cpp">
       <Filter>Contents\GameObject\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
