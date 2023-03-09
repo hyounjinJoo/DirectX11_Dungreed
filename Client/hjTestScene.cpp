@@ -126,8 +126,6 @@ namespace hj
 		Collider2D* collider = obj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
 
-		object::DontDestroyOnLoad(obj);
-
 #pragma endregion
 #pragma region Collision Test
 #pragma region Collision Object - 1
