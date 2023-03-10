@@ -75,4 +75,14 @@ namespace hj::enums
 		CollisionExit,
 		End,
 	};
+
+	enum class eMoveDir
+	{
+		Left = 0,
+		Top,
+		Right,
+		Bottom,
+		End,
+	};
+
 }

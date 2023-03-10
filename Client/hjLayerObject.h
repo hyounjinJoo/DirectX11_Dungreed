@@ -6,15 +6,6 @@ namespace hj
     class LayerObject :
         public GameObject
     {
-        enum class MoveDir
-        {
-            Left = 0,
-            Top,
-            Right,
-            Bottom,
-            End,
-        };
-
     public:
         LayerObject();
         virtual ~LayerObject();
@@ -26,7 +17,7 @@ namespace hj
 
         void SetMove(bool move) { mMove = move; }
         void SetMoveSpeed(float moveSpeed) { mMoveSpeed = moveSpeed; }
-        void SetMoveDir(MoveDir dir) { mMoveDir = static_cast<UINT>(dir); }
+        void SetMoveDir(eMoveDir dir) { mMoveDir = static_cast<UINT>(dir); }
 
 	private:
 		float   mTotalMove;

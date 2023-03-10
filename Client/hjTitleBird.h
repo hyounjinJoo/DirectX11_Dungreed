@@ -16,6 +16,19 @@ namespace hj
 		void FixedUpdate() override;
 		void Render() override;
 
+		void SetMoveDir(eMoveDir dir) { mMoveDir = static_cast<UINT>(dir); }
+		void SetMoveSpeed(float moveSpeed) { mMoveSpeed = moveSpeed; }
+		void SetStartX(float startX) { mStartX = startX; }
+		void SetEndX(float startX) { mStartX = startX; }
+
+		void Reset();
+
 	private:
+		bool	mbMove;
+		
+		float	mStartX;
+		float	mEndX;
+		float	mMoveSpeed;
+		UINT	mMoveDir;
 	};
 }

@@ -9,7 +9,7 @@ namespace hj
 		: GameObject()
 		, mTotalMove(0.f)
 		, mMoveSpeed(0.f)
-		, mMoveDir(static_cast<UINT>(MoveDir::Left))
+		, mMoveDir(static_cast<UINT>(eMoveDir::Left))
 		, mMove(false)
 	{
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
