@@ -33,6 +33,7 @@ namespace hj
 		HWND GetHwnd() { return mHwnd; }
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
+		Vector2 GetResolutionRatio();
 #pragma endregion;
 
 #pragma region MemberVariable
