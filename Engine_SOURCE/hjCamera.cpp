@@ -90,7 +90,7 @@ namespace hj
 		float width = static_cast<float>(winRect.right - winRect.left) * mScale;
 		float height = static_cast<float>(winRect.bottom - winRect.top) * mScale;
 
-		if (width <= 0.f && height <= 0.f)
+		if (width <= 0.00001f || height <= 0.00001f)
 		{
 			mProjection = Matrix::Identity;
 			return;
