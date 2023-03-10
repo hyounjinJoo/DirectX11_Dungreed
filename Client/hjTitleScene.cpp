@@ -50,31 +50,52 @@ namespace hj
 
 #pragma region Setting
 	#pragma region Layer Object
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Title_Layer_BackCloud");
-		std::shared_ptr<Texture> texture = material->GetTexture();
-		Vector2 texSize = texture->GetTexSize();
-		float layerRatio = height / texSize.y;
-		texSize *= layerRatio;
-		scale = Vector3(texSize.x, texSize.y, 1.f);
-		pos.z = 3.f;
+		#pragma region Background
+			std::shared_ptr<Material> material = MTRL_FIND("MTRL_ColorRect");
+			scale = Vector3(width, height, 1.f);
+			int colorRed = 121;
+			int colorGreen = 186;
+			int colorBlue = 255;
+			int colorAlpha = 255;
 		
-		LayerObject* layerObj = object::Instantiate<LayerObject>(eLayerType::MidGround, pos, rot, scale);
-		layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
-		layerObj->SetName(WIDE("Title_BackCloud"));
-		layerObj->SetMove(true);
-		layerObj->SetMoveSpeed(0.004f);
-
-		material = MTRL_FIND("MTRL_Title_Layer_FrontCloud");
-		texture = material->GetTexture();
-		texSize = texture->GetTexSize();
-		texSize *= layerRatio;
-		scale = Vector3(texSize.x, texSize.y, 1.f);
-		pos.z = 1.f;
-		layerObj = object::Instantiate<LayerObject>(eLayerType::ForeGround, pos, rot, scale);
-		layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
-		layerObj->SetName(WIDE("Title_Layer_FrontCloud"));
-		layerObj->SetMove(true);
-		layerObj->SetMoveSpeed(0.025f);
+			material->SetData(eGPUParam::Int_1, &colorRed);
+			material->SetData(eGPUParam::Int_2, &colorGreen);
+			material->SetData(eGPUParam::Int_3, &colorBlue);
+			material->SetData(eGPUParam::Int_4, &colorAlpha);
+			pos.z = 5.f;
+		
+			LayerObject* layerObj = object::Instantiate<LayerObject>(eLayerType::BackGround, pos, rot, scale);
+			layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
+			layerObj->SetName(WIDE("Title_BackGround"));
+			layerObj->SetMove(false);
+		#pragma endregion
+		#pragma region BackCloud
+			material = MTRL_FIND("MTRL_Title_Layer_BackCloud");
+			std::shared_ptr<Texture> texture = material->GetTexture();
+			Vector2 texSize = texture->GetTexSize();
+			scale = Vector3(texSize.x, texSize.y, 1.f);
+			pos.z = 3.f;
+			
+			layerObj = object::Instantiate<LayerObject>(eLayerType::BackGround, pos, rot, scale);
+			layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
+			layerObj->SetName(WIDE("Title_BackCloud"));
+			layerObj->SetMove(true);
+			layerObj->SetMoveSpeed(0.004f);
+		#pragma endregion
+		#pragma region FrondCloud
+			material = MTRL_FIND("MTRL_Title_Layer_FrontCloud");
+			texture = material->GetTexture();
+			texSize = texture->GetTexSize();
+			scale = Vector3(texSize.x, texSize.y, 1.f);
+			pos.z = 1.f;
+		
+			layerObj = object::Instantiate<LayerObject>(eLayerType::ForeGround, pos, rot, scale);
+			layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
+			layerObj->SetName(WIDE("Title_Layer_FrontCloud"));
+			layerObj->SetMove(true);
+			layerObj->SetMoveSpeed(0.025f);
+		#pragma endregion
+	#pragma endregion
 
 		//material = MTRL_FIND("MTRL_Title_Layer_Sky_Day");
 		//texture = material->GetTexture();
@@ -85,7 +106,7 @@ namespace hj
 		//layerObj = object::Instantiate<LayerObject>(eLayerType::BackGround, pos, rot, scale);
 		//layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
 		//layerObj->SetName(WIDE("Title_Layer_Sky_Day"));
-		
+
 		//material = MTRL_FIND("MTRL_Title_Layer_Sky_Night");
 		//texture = material->GetTexture();
 		//texSize = texture->GetTexSize();
@@ -94,8 +115,7 @@ namespace hj
 		//layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
 		//layerObj->SetName(WIDE("Title_BackCloud"));
 
-		
-	#pragma endregion
+
 	#pragma region Fade Object
 			//scale = Vector3(1600.f, 900.f, 1.f);
 			//

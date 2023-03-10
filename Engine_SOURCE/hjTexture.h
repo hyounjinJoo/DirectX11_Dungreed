@@ -26,6 +26,7 @@ namespace hj::graphics
 		void Clear();
 
 		const Vector2& GetTexSize() { return mTextureSize; }
+		void SetTexSize(const Vector2& textureSize) { mTextureSize = textureSize; }
 
 	private:
 		ScratchImage mImage;
