@@ -1,11 +1,17 @@
 #include "hjInput.h"
 #include "hjApplication.h"
+#include "hjCamera.h"
+#include "hjRenderer.h"
+#include "hjGameObject.h"
+#include "hjComponent.h"
+#include "hjTransform.h"
 
 extern hj::Application application;
 namespace hj
 {
 	std::vector<Input::Key> Input::mKeys;
 	math::Vector2 Input::mMousePosition;
+	math::Vector2 Input::mMouseWorldPosition;
 
 	int ASCII[(UINT)eKeyCode::END] =
 	{
@@ -30,7 +36,7 @@ namespace hj
 		'6', '7', '8', '9',
 	};
 
-	void hj::Input::Initialize()
+	void Input::Initialize()
 	{
 		for (UINT i = 0; i < (UINT)eKeyCode::END; i++)
 		{
@@ -43,7 +49,7 @@ namespace hj
 		}
 	}
 
-	void hj::Input::Update()
+	void Input::Update()
 	{
 		if (GetFocus())
 		{
@@ -72,12 +78,7 @@ namespace hj
 					mKeys[i].bPressed = false;
 				}
 			}
-
-			POINT mousePos = {};
-			GetCursorPos(&mousePos);
-			ScreenToClient(application.GetHwnd(), &mousePos);
-			mMousePosition.x = static_cast<float>(mousePos.x);
-			mMousePosition.y = static_cast<float>(mousePos.y);
+			ComputeMousePos();
 		}
 		else
 		{
@@ -93,4 +94,36 @@ namespace hj
 		}
 	}
 
+	void Input::ComputeMousePos()
+	{
+		using namespace math;
+
+		POINT ptMouse = {};
+		GetCursorPos(&ptMouse);
+		ScreenToClient(application.GetHwnd(), &ptMouse);
+
+		RECT windowRect;
+		GetClientRect(application.GetHwnd(), &windowRect);
+
+		Vector2 resolutionRatio = application.GetResolutionRatio();
+
+		Vector2 mousePos;
+
+		mousePos.x = static_cast<float>(ptMouse.x - (windowRect.right - windowRect.left) * 0.5f) * resolutionRatio.x;
+		mousePos.y = static_cast<float>((windowRect.bottom - windowRect.top) * 0.5f - ptMouse.y) * resolutionRatio.y;
+
+		mMousePosition = mousePos;
+
+		Camera* cameraComp = renderer::mainCamera;
+
+		if (nullptr == cameraComp)
+			return;
+
+		Vector3 cameraPos = cameraComp->GetOwner()->GetComponent<Transform>()->GetPosition();
+
+		mMouseWorldPosition = mMousePosition + Vector2(cameraPos.x, cameraPos.y);
+	
+		DEBUG_PRINT("Mouse Pos : (%4.f, %4.f) Mouse WorldPos : (%4.f, %4.f)"
+			, mMousePosition.x, mMousePosition.y, mMouseWorldPosition.x, mMouseWorldPosition.y);
+	}
 }

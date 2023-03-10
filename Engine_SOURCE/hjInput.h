@@ -51,6 +51,7 @@ namespace hj
 #pragma region MemberFunction
 		static void Initialize();
 		static void Update();
+		static void ComputeMousePos();
 #pragma endregion
 
 #pragma region Getter
@@ -62,6 +63,11 @@ namespace hj
 		static __forceinline math::Vector2 GetMousePosition()
 		{
 			return mMousePosition;
+		}
+
+		static __forceinline math::Vector2 GetMouseWorldPosition()
+		{
+			return mMouseWorldPosition;
 		}
 
 		// 누르는 동안 true 반환
@@ -93,6 +99,7 @@ namespace hj
 	private:
 		static std::vector<Key>		mKeys;
 		static math::Vector2		mMousePosition;
+		static math::Vector2		mMouseWorldPosition;
 #pragma endregion
 	};
 }
