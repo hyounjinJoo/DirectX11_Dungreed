@@ -36,7 +36,7 @@ namespace hj::graphics
 		swapChainDesc.OutputWindow	= hwnd;
 		swapChainDesc.Windowed		= TRUE;
 		swapChainDesc.BufferCount	= static_cast<UINT>(2);
-		swapChainDesc.SwapEffect	= DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
+		swapChainDesc.SwapEffect	= DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		swapChainDesc.BufferUsage	= DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
 		swapChainDesc.BufferDesc.Width						= application.GetWidth();
