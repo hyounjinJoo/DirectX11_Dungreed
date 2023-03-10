@@ -1,5 +1,10 @@
 #include "hjScene.h"
+#include "hjObject.h"
+#include "hjCamera.h"
+#include "hjRenderer.h"
+#include "..\Client\hjCameraScript.h"
 
+extern hj::Camera* hj::renderer::mainCamera;
 namespace hj
 {
 	Scene::Scene(eSceneType type)
@@ -58,6 +63,41 @@ namespace hj
 
 	void Scene::OnExit()
 	{
+	}
+
+	void Scene::CreateDefaultCamera()
+	{
+#pragma region Main Camera
+		Vector3 pos = Vector3::Zero;
+		Vector3 rot = Vector3::Zero;
+		Vector3 scale = Vector3::One;
+
+		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, pos);
+
+		Camera* cameraComp = new Camera();
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		//cameraComp->RegisterCameraInRenderer();
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		cameraObj->AddComponent(cameraComp);
+		mainCamera = cameraComp;
+
+		//cameraObj->AddComponent(new CameraScript());
+		object::DontDestroyOnLoad(cameraObj);
+#pragma endregion
+#pragma region UI Camera
+		pos = Vector3::Zero;
+		rot = Vector3::Zero;
+		scale = Vector3::One;
+
+		GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera, pos);
+
+		Camera* cameraUIComp = new Camera();
+		cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		cameraUIComp->DisableLayerMask();
+		cameraUIComp->TurnLayerMask(eLayerType::UI, true);
+		cameraUIObj->AddComponent(cameraUIComp);
+		object::DontDestroyOnLoad(cameraUIObj);
+#pragma endregion
 	}
 
 	void Scene::AddGameObject(GameObject* gameObject, const eLayerType type)

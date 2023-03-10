@@ -41,52 +41,21 @@ namespace hj
 #pragma endregion
 
 #pragma region Setting
-#pragma region Fade Object
-		//scale = Vector3(1600.f, 900.f, 1.f);
-		//
-		//GameObject* fadeObj = object::Instantiate<GameObject>(eLayerType::UI
-		//													, pos
-		//													, rot
-		//													, scale);
-		//		
-		//fadeObj->AddComponent(new FadeScript());
-		//
-		//MeshRenderer* fadeMR = new MeshRenderer();
-		//fadeMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//fadeMR->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
-		//fadeObj->AddComponent(fadeMR);
-#pragma endregion
-#pragma region Main Camera
-		pos = Vector3::Zero;
-		rot = Vector3::Zero;
-		scale = Vector3::One;
-
-		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, pos);
-
-		Camera* cameraComp = new Camera();
-		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		//cameraComp->RegisterCameraInRenderer();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraObj->AddComponent(cameraComp);
-		mainCamera = cameraComp;
-
-		//cameraObj->AddComponent(new CameraScript());
-		object::DontDestroyOnLoad(cameraObj);
-#pragma endregion
-#pragma region UI Camera
-		pos = Vector3::Zero;
-		rot = Vector3::Zero;
-		scale = Vector3::One;
-
-		GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera, pos);
-
-		Camera* cameraUIComp = new Camera();
-		cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		cameraUIComp->DisableLayerMask();
-		cameraUIComp->TurnLayerMask(eLayerType::UI, true);
-		cameraUIObj->AddComponent(cameraUIComp);
-		object::DontDestroyOnLoad(cameraUIObj);
-#pragma endregion
+	#pragma region Fade Object
+			//scale = Vector3(1600.f, 900.f, 1.f);
+			//
+			//GameObject* fadeObj = object::Instantiate<GameObject>(eLayerType::UI
+			//													, pos
+			//													, rot
+			//													, scale);
+			//		
+			//fadeObj->AddComponent(new FadeScript());
+			//
+			//MeshRenderer* fadeMR = new MeshRenderer();
+			//fadeMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			//fadeMR->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
+			//fadeObj->AddComponent(fadeMR);
+	#pragma endregion
 #pragma endregion
 #pragma region Objects
 #pragma region Light Object

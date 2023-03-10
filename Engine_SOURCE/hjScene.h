@@ -22,6 +22,7 @@ namespace hj
 		virtual void OnExit();
 
 		eSceneType GetSceneType() { return mSceneType; }
+		void CreateDefaultCamera();
 		void AddGameObject(GameObject* gameObject, const eLayerType type);
 		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 		std::vector<GameObject*> GetDontDestroyGameObjects();
