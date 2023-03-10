@@ -95,7 +95,7 @@ namespace hj
 			}
 			else
 			{
-				++deleteIter;
+				++iter;
 			}
 		}
 

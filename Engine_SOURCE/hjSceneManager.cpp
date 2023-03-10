@@ -13,7 +13,8 @@ namespace hj
 
 	void SceneManager::Initialize()
 	{
-		mActiveScene->Initialize();
+		//mActiveScene->Initialize();
+		LoadScene(eSceneType::Title);
 		mActiveScene->CreateDefaultCamera();
 		//for (Scene* scene : mScenes)
 		//{
@@ -74,8 +75,11 @@ namespace hj
 		// 씬이 변경될 때, dontDestroy 오브젝트는 다음씬으로 같이 넘겨줘야 한다.
 		std::vector<GameObject*> gameObjects;
 		
-		if(mActiveScene)
+		if (mActiveScene)
+		{
 			gameObjects = mActiveScene->GetDontDestroyGameObjects();
+			mActiveScene->Destroy();
+		}
 		
 		mActiveScene = mScenes[(UINT)type];
 

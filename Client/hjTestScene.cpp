@@ -190,12 +190,12 @@ namespace hj
 
 	void TestScene::Update()
 	{
+		Scene::Update();
+		
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(eSceneType::Title);
 		}
-
-		Scene::Update();
 	}
 
 	void TestScene::FixedUpdate()
@@ -211,6 +211,8 @@ namespace hj
 	void TestScene::OnEnter()
 	{
 		Scene::OnEnter();
+
+		Initialize();
 	}
 
 	void TestScene::OnExit()

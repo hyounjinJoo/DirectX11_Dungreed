@@ -37,12 +37,11 @@ namespace hj
 
 	void DungeonScene::Update()
 	{
+		Scene::Update();
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(eSceneType::Title);
 		}
-
-		Scene::Update();
 	}
 
 	void DungeonScene::FixedUpdate()
@@ -58,6 +57,8 @@ namespace hj
 	void DungeonScene::OnEnter()
 	{
 		Scene::OnEnter();
+
+		Initialize();
 	}
 
 	void DungeonScene::OnExit()

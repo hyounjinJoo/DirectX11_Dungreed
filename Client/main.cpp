@@ -142,7 +142,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hj::SceneManager::CreateScene(eSceneType::Title, new hj::TitleScene());
 	hj::SceneManager::CreateScene(eSceneType::Dungeon, new hj::DungeonScene());
 	hj::SceneManager::CreateScene(eSceneType::Test, new hj::TestScene());
-	hj::SceneManager::LoadScene(eSceneType::Test);
+	//hj::SceneManager::LoadScene(eSceneType::Test);
     application.Initialize();
     editor.Initialize();
     ShowWindow(hWnd, nCmdShow);
