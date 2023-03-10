@@ -3,6 +3,8 @@
 #include "hjGameObject.h"
 #include "hjInput.h"
 #include "hjTime.h"
+#include "hjSpriteRenderer.h"
+#include "hjBaseRenderer.h"
 
 namespace hj
 {
@@ -58,6 +60,24 @@ namespace hj
 		}
 
 		tr->SetPosition(pos);
+
+
+		BaseRenderer* baseRenderer = GetOwner()->GetComponent<BaseRenderer>();
+		if (baseRenderer)
+		{
+			std::shared_ptr<Material> mtrl = baseRenderer->GetMaterial();
+			if (mtrl)
+			{
+
+#define INVERSE -1
+#define NORMAL 1
+
+				Vector2 mousePos = Input::GetMousePosition();
+				int isInverse = mousePos.x < pos.x ? INVERSE : NORMAL;
+
+				mtrl->SetData(eGPUParam::Int_1, &isInverse);
+			}
+		}
 	}
 
 	void PlayerScript::FixedUpdate()
