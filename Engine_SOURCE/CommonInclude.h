@@ -23,8 +23,19 @@
 		    } \
 		    std::this_thread::yield(); \
 		} while (0)
+
+#define MSG_BOX(title, text) do { \
+        WCHAR wtext[MAX_PATH]; \
+        WCHAR wtitle[MAX_PATH]; \
+        MultiByteToWideChar(CP_UTF8, 0, text, -1, wtext, MAX_PATH); \
+        MultiByteToWideChar(CP_UTF8, 0, title, -1, wtitle, MAX_PATH); \
+		WCHAR wmsg[MAX_PATH*2]; \
+        wsprintf(wmsg, L"%s\n\nFile: %S\nLine: %d", wtext, __FILE__, __LINE__); \
+        MessageBox(NULL, wmsg, wtitle, MB_OK); \
+    } while (0)
 #else
 #define DEBUG_PRINT(fmt, ...) do {} while (0)
+#define MSG_BOX(title, text) ((void)0)
 #endif
 
 // Enable enum flags:
