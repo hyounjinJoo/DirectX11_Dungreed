@@ -18,6 +18,7 @@
 #include "hjTestMonster.h"
 #include "hjCollisionManager.h"
 #include "hjLayerObject.h"
+#include "hjTitleBird.h"
 
 extern hj::Application application;
 
@@ -159,7 +160,45 @@ namespace hj
 	#pragma endregion
 #pragma endregion
 #pragma region Objects
+	#pragma region Triangle Squadron Birds
+			TitleBird* testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
+			testBird->SetPosY(0.f);
+			float birdPos = testBird->GetPositionX();
+			float birdSize = -testBird->GetScaleX();
+			float birdFinalPos = birdPos + birdSize;
+			testBird->SetStartX(birdFinalPos);
+			testBird->SetPositionX(birdFinalPos);
+			mTriangleSquadronBirds.push_back(testBird);
+
+			birdFinalPos += birdSize;
+			testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
+			testBird->SetPosY(25.f);
+			testBird->SetStartX(birdFinalPos);
+			testBird->SetPositionX(birdFinalPos);
+			mTriangleSquadronBirds.push_back(testBird);
+
+			testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
+			testBird->SetPosY(-35.f);
+			testBird->SetStartX(birdFinalPos - 10.f);
+			testBird->SetPositionX(birdFinalPos - 10.f);
+			mTriangleSquadronBirds.push_back(testBird);
+
+			birdFinalPos += birdSize;
+			testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
+			testBird->SetPosY(50.f);
+			testBird->SetStartX(birdFinalPos);
+			testBird->SetPositionX(birdFinalPos);
+			mTriangleSquadronBirds.push_back(testBird);
+
+			testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
+			testBird->SetPosY(-70.f);
+			testBird->SetStartX(birdFinalPos - 10.f);
+			testBird->SetPositionX(birdFinalPos - 10.f);
+			mTriangleSquadronBirds.push_back(testBird);
+	#pragma endregion
+	#pragma region Normal Bird
 	
+	#pragma endregion
 #pragma endregion
 #pragma region UI
 	
@@ -196,5 +235,27 @@ namespace hj
 	void TitleScene::OnExit()
 	{
 		Scene::OnExit();
+
+		for (auto Bird : mTriangleSquadronBirds)
+		{
+			if (Bird)
+			{
+				Bird->Death();
+				Bird = nullptr;
+			}
+		}
+
+		mTriangleSquadronBirds.resize(0);
+
+		for (auto Bird : mNormalBirds)
+		{
+			if (Bird)
+			{
+				Bird->Death();
+				Bird = nullptr;
+			}
+		}
+
+		mNormalBirds.resize(0);
 	}
 }

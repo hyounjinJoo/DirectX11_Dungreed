@@ -1,5 +1,6 @@
 #pragma once
 #include "hjScene.h"
+#include "hjTitleBird.h"
 
 namespace hj
 {
@@ -19,5 +20,7 @@ namespace hj
 		void OnExit() override;
 
 	private:
+		std::vector<TitleBird*> mTriangleSquadronBirds;
+		std::vector<TitleBird*> mNormalBirds;
 	};
 }

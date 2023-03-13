@@ -98,7 +98,7 @@ namespace hj
 #pragma endregion
 #pragma region Collision Test
 #pragma region Collision Object - 1
-		pos = Vector3(0.f, 0.f, -1.f);
+		pos = Vector3(0.f, 0.f, 0.f);
 		TestPlayer* testPlayer = object::Instantiate<TestPlayer>(eLayerType::Player, pos, rot, scale);
 		testPlayer->SetName(L"Test Player for Collision");
 
@@ -112,8 +112,7 @@ namespace hj
 		testPlayer->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 
 		collider = testPlayer->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Circle);
-		collider->SetSize(texSize);
+		collider->SetType(eColliderType::Rect);
 
 		PlayerScript* playerScript = new PlayerScript();
 		testPlayer->AddComponent(playerScript);
