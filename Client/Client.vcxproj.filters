@@ -97,6 +97,9 @@
     <ClInclude Include="hjLayerObject.h">
       <Filter>Contents\GameObject\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="hjTitleCloud.h">
+      <Filter>Contents\GameObject\TitleScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="hjLayerObject.cpp">
       <Filter>Contents\GameObject\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTitleCloud.cpp">
+      <Filter>Contents\GameObject\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

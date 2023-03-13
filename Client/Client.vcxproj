@@ -153,6 +153,7 @@
     <ClInclude Include="hjTestMonster.h" />
     <ClInclude Include="hjTestPlayer.h" />
     <ClInclude Include="hjTestScene.h" />
+    <ClInclude Include="hjTitleCloud.h" />
     <ClInclude Include="hjTitleScene.h" />
     <ClInclude Include="hjWidget.h" />
     <ClInclude Include="Resource.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="hjTestMonster.cpp" />
     <ClCompile Include="hjTestPlayer.cpp" />
     <ClCompile Include="hjTestScene.cpp" />
+    <ClCompile Include="hjTitleCloud.cpp" />
     <ClCompile Include="hjTitleScene.cpp" />
     <ClCompile Include="hjWidget.cpp" />
     <ClCompile Include="main.cpp" />
