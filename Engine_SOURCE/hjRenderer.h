@@ -75,6 +75,29 @@ namespace hj::renderer
 		Vector3 padding;
 	};
 
+	CBUFFER(AnimationCB, CBSLOT_ANIMATION)
+	{
+		// 0 ~ 16
+		Vector2 leftTop;
+		Vector2 size;
+
+		// 16 ~ 32
+		Vector2 offset;
+		Vector2 atlasSize;
+
+		// 32 ~ 40
+		Vector2 canvasSize;
+		// 40 ~ 44
+		UINT used;
+		// 44 ~ 48
+		UINT canvasUsed;
+		// 48 ~ 52
+		UINT inverse;
+
+		// 52 ~ 64
+		Vector3 padding;
+	};
+
 #pragma region extern Variables
 	extern Vertex vertexes[4];
 	extern Camera* mainCamera;

@@ -154,6 +154,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="hjAnimation.h" />
+    <ClInclude Include="hjAnimator.h" />
     <ClInclude Include="hjBaseRenderer.h" />
     <ClInclude Include="hjCamera.h" />
     <ClInclude Include="hjCollider.h" />
@@ -190,6 +192,8 @@
     <ClInclude Include="hjTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjAnimation.cpp" />
+    <ClCompile Include="hjAnimator.cpp" />
     <ClCompile Include="hjBaseRenderer.cpp" />
     <ClCompile Include="hjCamera.cpp" />
     <ClCompile Include="hjCollider.cpp" />

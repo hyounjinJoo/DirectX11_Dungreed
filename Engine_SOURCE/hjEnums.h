@@ -37,6 +37,7 @@ namespace hj::enums
 		//Collider2,
 		MeshRenderer,
 		SpriteRenderer,
+		Animator,
 		UI,
 		Script,
 		End,

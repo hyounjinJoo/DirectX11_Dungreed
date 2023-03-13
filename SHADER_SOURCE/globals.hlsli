@@ -49,7 +49,22 @@ cbuffer Grid : register(b2)
     float2  resolution;
     float   meshScale;
 
-    float3  padding;
+    float3  cbGridPadding;
+}
+
+cbuffer Animation : register(b3)
+{
+    float2 cbAnimLeftTop;
+    float2 cbAnimSize;
+    float2 cbAnimOffset;
+    float2 cbAnimAtlasSize;
+    
+    float2 cbAnimCanvasSize;
+    uint cbAnimUsed;
+    uint cbAnimCanvasUsed;
+    
+    uint cbAnimInverse;
+    float3 cbAnimpadding;
 }
 
 SamplerState pointSampler : register(s0);

@@ -88,6 +88,9 @@
     <Filter Include="Component\Collider\3D">
       <UniqueIdentifier>{8a367c44-76dc-4a99-ba41-61d430d79a3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{cb48aaeb-8ecf-4573-b154-8e4e6e1fce0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -179,6 +182,12 @@
     </ClCompile>
     <ClCompile Include="hjCollider3D.cpp">
       <Filter>Component\Collider\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAnimation.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAnimator.cpp">
+      <Filter>Component\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +295,12 @@
     </ClInclude>
     <ClInclude Include="hjCollider3D.h">
       <Filter>Component\Collider\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAnimation.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAnimator.h">
+      <Filter>Component\Animator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

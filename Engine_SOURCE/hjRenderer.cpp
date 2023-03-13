@@ -356,6 +356,9 @@ namespace hj::renderer
 
 		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
 		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
+
+		constantBuffers[(UINT)eCBType::Animation] = new ConstantBuffer(eCBType::Animation);
+		constantBuffers[(UINT)eCBType::Animation]->Create(sizeof(AnimationCB));
 	}
 
 	void LoadShader()

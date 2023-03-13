@@ -17,6 +17,7 @@
 #define CBSLOT_TRANSFORM	0
 #define CBSLOT_MATERIAL		1
 #define CBSLOT_GRID			2
+#define CBSLOT_ANIMATION	3
 
 namespace hj::graphics
 {
@@ -101,6 +102,7 @@ namespace hj::graphics
 		Transform,
 		Material,
 		Grid,
+		Animation,
 		End,
 	};
 
