@@ -28,8 +28,8 @@ namespace hj
 
         // Shader »ý¼º
 		std::filesystem::path path = std::filesystem::current_path().parent_path();
-		path += "\\SHADER_SOURCE\\";
-
+		path += "\\..\\SHADER_SOURCE\\";
+		
 		std::wstring shaderPath(path.c_str());
 		shaderPath += file;
 
