@@ -15,7 +15,7 @@ namespace hj::graphics
 	HRESULT Texture::Load(const std::wstring& name)
 	{
 		std::filesystem::path parentPath = std::filesystem::current_path().parent_path();
-		std::wstring fullPath = parentPath.wstring() + L"\\Resources\\Texture\\" + name;
+		std::wstring fullPath = parentPath.wstring() + L"\\..\\Resources\\Texture\\" + name;
 
 		wchar_t szExtension[256] = {};
 		_wsplitpath_s(name.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 256);
