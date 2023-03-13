@@ -94,8 +94,11 @@ namespace hj::renderer
 		// 48 ~ 52
 		UINT inverse;
 
-		// 52 ~ 64
-		Vector3 padding;
+		// 52 ~ 56
+		UINT type;
+
+		// 56 ~ 64
+		Vector2 padding;
 	};
 
 #pragma region extern Variables

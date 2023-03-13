@@ -380,7 +380,7 @@ namespace hj::renderer
 		// Sprite
 		shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
-		shader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
 
 		SHADER_INSERT("Shader_Sprite", shader);
 

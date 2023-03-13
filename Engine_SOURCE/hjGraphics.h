@@ -134,6 +134,14 @@ namespace hj::graphics
 		Matrix_4,
 	};
 
+	enum class eAnimationType
+	{
+		None,
+		SecondDimension,
+		ThirdDimension,
+		End,
+	};
+
 	struct DebugMesh
 	{
 		enums::eColliderType type;

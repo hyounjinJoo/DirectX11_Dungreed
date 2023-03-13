@@ -19,12 +19,14 @@ namespace hj
             Vector2 size;       // 좌측 상단부터 잘라낼 가로/세로 픽셀 크기
             Vector2 offset;     // 렌더링 위치를 조정하기 위한 좌표
             float duration;     // 프레임간의 시간 간격
+            Vector2 atlasSize;  // 보유한 이미지 크기
 
             Sprite()
                 : leftTop(0.f, 0.f)
                 , size(0.f, 0.f)
                 , offset(0.f, 0.f)
                 , duration(0.1f)
+                , atlasSize(Vector2::One)
             {
             }
         };
@@ -38,7 +40,7 @@ namespace hj
 
         void Create(const std::wstring& name, std::shared_ptr<Texture> atlas
             , Vector2 leftTop, Vector2 size, Vector2 offset
-            , UINT columnLength, UINT spriteLength, float duration);
+            , UINT spriteLength, float duration, bool reversePlay = false);
 
         void Create(const std::wstring& name, std::shared_ptr<Texture> atlas
             , const std::vector<Sprite>& sprite, Vector2 canvasSize, bool reversePlay);
@@ -51,10 +53,10 @@ namespace hj
         void Clear();
 
         bool IsComplete() { return mbComplete; }
-        std::wstring& AnimationName() { return mName; }
+        std::wstring& AnimationName() { return mAnimationName; }
     private:
         class Animator* mAnimator;
-        std::wstring mName;
+        std::wstring mAnimationName;
 		std::shared_ptr<Texture> mAtlas;
 		std::shared_ptr<Shader> mShader;
         std::vector<Sprite> mSpriteSheet;
@@ -65,7 +67,6 @@ namespace hj
         bool mbReversePlay;
         bool mbUsed;
         bool mbCanvasUsed;
-
-		AnimationCB mCB;
+        bool mbInverse;
     };
 }

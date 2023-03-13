@@ -55,7 +55,7 @@ cbuffer Grid : register(b2)
 cbuffer Animation : register(b3)
 {
     float2 cbAnimLeftTop;
-    float2 cbAnimSize;
+    float2 cbAnimSpriteSize;
     float2 cbAnimOffset;
     float2 cbAnimAtlasSize;
     
@@ -64,7 +64,8 @@ cbuffer Animation : register(b3)
     uint cbAnimCanvasUsed;
     
     uint cbAnimInverse;
-    float3 cbAnimpadding;
+    uint cbAnimType;
+    float2 cbAnimpadding;
 }
 
 SamplerState pointSampler : register(s0);
@@ -74,6 +75,9 @@ SamplerState anisotropicSampler : register(s2);
 Texture2D defaultTexture : register(t0);
 //Texture2D defaultTexture2 : register(t1);
 //Texture2D defaultTexture3 : register(t2);
+
+//Atlas texture
+Texture2D atlasTexture : register(t12);
 
 #define RED     float4(1.f, 0.f, 0.f, 1.f)
 #define GREEN   float4(0.f, 1.f, 0.f, 1.f)

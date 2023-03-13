@@ -70,7 +70,8 @@ namespace hj
 		mActiveAnimation->Render();
 	}
 
-	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, Vector2 size, Vector2 offset, UINT columnLength, UINT spriteLength, float duration)
+	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, 
+		Vector2 size, Vector2 offset, UINT spriteLength, float duration, bool reversePlay)
 	{
 		if (atlas == nullptr)
 			return false;
@@ -81,15 +82,15 @@ namespace hj
 
 		animation = new Animation();
 		animation->Create(name, atlas, leftTop
-			, size, offset, columnLength
-			, spriteLength, duration);
+			, size, offset, spriteLength, duration, reversePlay);
 
 		mAnimations.insert(std::make_pair(name, animation));
 
 		return true;
 	}
 
-	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, const std::vector<Animation::Sprite>& sprite, Vector2 canvasSize, bool reversePlay)
+	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, 
+		const std::vector<Animation::Sprite>& sprite, Vector2 canvasSize, bool reversePlay)
 	{
 		Animation* animation = FindAnimation(name);
 		if (animation != nullptr)
@@ -129,7 +130,7 @@ namespace hj
 		return iter->second;
 	}
 
-	void Animator::Play(std::wstring& name, bool loop)
+	void Animator::Play(const std::wstring& name, bool loop)
 	{
 		Animation* prevAnimation = mActiveAnimation;
 		Events* events = FindEvents(prevAnimation->AnimationName());

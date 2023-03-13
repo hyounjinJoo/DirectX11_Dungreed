@@ -22,7 +22,7 @@ float4 main(VSOut In) : SV_TARGET
         if (cbAnimCanvasUsed)
         {
             float2 renderCanvasSize = cbAnimCanvasSize / cbAnimAtlasSize;
-            float2 spriteSize = cbAnimSize / cbAnimAtlasSize;
+            float2 spriteSize = cbAnimSpriteSize / cbAnimAtlasSize;
             float2 spriteLT = cbAnimLeftTop / cbAnimAtlasSize;
             float2 spriteOffset = cbAnimOffset / cbAnimAtlasSize;
             
@@ -37,7 +37,7 @@ float4 main(VSOut In) : SV_TARGET
         else
         {
             float2 spriteLT = cbAnimLeftTop / cbAnimAtlasSize;
-            float2 spriteSize = cbAnimSize / cbAnimAtlasSize;
+            float2 spriteSize = cbAnimSpriteSize / cbAnimAtlasSize;
             float2 spriteOffset = cbAnimOffset / cbAnimAtlasSize;
             
             UV = In.UV / cbAnimAtlasSize;
@@ -54,7 +54,7 @@ float4 main(VSOut In) : SV_TARGET
         UV = In.UV;
     }
     
-    Out = defaultTexture.Sample(pointSampler, UV);
+    Out = atlasTexture.Sample(pointSampler, UV);
     
     return Out;
 }

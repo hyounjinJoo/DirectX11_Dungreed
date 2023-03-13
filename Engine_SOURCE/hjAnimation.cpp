@@ -62,34 +62,43 @@ namespace hj
 
 	void Animation::FixedUpdate()
 	{
-		if (mIndex < mSpriteSheet.size())
-		{
-			Sprite test = mSpriteSheet[mIndex];
-			
-			mCB.leftTop = test.leftTop;
-			mCB.size = test.size;
-			mCB.offset = test.offset;
-			mCB.atlasSize = mAtlas->GetTexSize();
-			mCB.canvasSize = mCanvasSize;
-			mCB.used = mbUsed;
-			mCB.canvasUsed = mbCanvasUsed;
-		}
 	}
 
 	void Animation::Render()
 	{
 	}
 
-	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, Vector2 size, Vector2 offset, UINT columnLength, UINT spriteLength, float duration)
+	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, 
+		Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration, bool reversePlay)
 	{
+		mAnimationName = name;
 
+		mAtlas = atlas;
+		Vector2 atlasSize = atlas->GetTexSize();
+		float width = static_cast<float>(atlasSize.x);
+		float height = static_cast<float>(atlasSize.y);
+		mbReversePlay = reversePlay;
+		mCanvasSize = size;
+
+		for (size_t i = 0; i < spriteLength; ++i)
+		{
+			Sprite sprite = {};
+			sprite.leftTop = Vector2(leftTop.x + (size.x * static_cast<float>(i)), leftTop.y);
+			sprite.size = size;
+			sprite.offset = offset;
+			sprite.duration = duration;
+			sprite.atlasSize = atlasSize;
+
+			mSpriteSheet.push_back(sprite);
+		}
 		mbUsed = true;
 		mbCanvasUsed = false;
 	}
 
-	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, const std::vector<Sprite>& sprite, Vector2 canvasSize, bool reversePlay)
+	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas,
+		const std::vector<Sprite>& sprite, Vector2 canvasSize, bool reversePlay)
 	{
-		mName = name;
+		mAnimationName = name;
 		mAtlas = atlas;
 		mCanvasSize = canvasSize;
 		mbReversePlay = reversePlay;
@@ -106,14 +115,23 @@ namespace hj
 	void Animation::BindShader()
 	{
 		if (mAtlas)
-			mAtlas->BindShader(eShaderStage::PS, 0);
+			mAtlas->BindShader(eShaderStage::PS, 12);
 
 		ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Animation];
-		pCB->Bind(&mCB);
-		pCB->SetPipeline(eShaderStage::VS);
-		pCB->SetPipeline(eShaderStage::PS);
 
-		mShader->Binds();
+		renderer::AnimationCB info = {};
+		info.type = static_cast<UINT>(eAnimationType::SecondDimension);
+		info.leftTop = mSpriteSheet[mIndex].leftTop;
+		info.offset = mSpriteSheet[mIndex].offset;
+		info.size = mSpriteSheet[mIndex].size;
+		info.atlasSize = mSpriteSheet[mIndex].atlasSize;
+		info.inverse = mbInverse;
+		info.canvasSize = mCanvasSize;
+		info.canvasUsed = true;
+		info.used = mbUsed;
+
+		pCB->Bind(&info);
+		pCB->SetPipeline(eShaderStage::PS);
 	}
 
 	void Animation::Reset()
