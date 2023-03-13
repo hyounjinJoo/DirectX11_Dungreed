@@ -20,7 +20,7 @@ namespace hj
 		void SetMoveSpeed(float moveSpeed) { mMoveSpeed = moveSpeed; }
 		void SetStartX(float startX) { mStartX = startX; }
 		void SetEndX(float startX) { mStartX = startX; }
-
+		void SetPosY(float posY) { mPosY = posY; }
 		void Reset();
 
 	private:
@@ -28,6 +28,7 @@ namespace hj
 		
 		float	mStartX;
 		float	mEndX;
+		float	mPosY;
 		float	mMoveSpeed;
 		UINT	mMoveDir;
 	};
