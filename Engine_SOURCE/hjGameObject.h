@@ -3,6 +3,7 @@
 #include "hjComponent.h"
 #include "hjScript.h"
 #include "hjEntity.h"
+#include "hjTransform.h"
 
 namespace hj
 {
@@ -90,5 +91,47 @@ namespace hj
 		eLayerType mLayerType;
 		std::vector<Script*> mScripts;
 		bool mbDontDestroy;
+
+
+	public:
+		Transform* GetTransform() { return static_cast<Transform*>(mComponents[(UINT)eComponentType::Transform]); }
+		
+		Vector3 GetPosition() { return GetTransform()->GetPosition(); }
+		float GetPositionX() { return GetTransform()->GetPositionX(); }
+		float GetPositionY() { return GetTransform()->GetPositionY(); }
+		float GetPositionZ() { return GetTransform()->GetPositionZ(); }
+
+		Vector3 GetRotation() { return GetTransform()->GetRotation(); }
+		float GetRotationX() { return GetTransform()->GetRotationX(); }
+		float GetRotationY() { return GetTransform()->GetRotationY(); }
+		float GetRotationZ() { return GetTransform()->GetRotationZ(); }
+		
+		Vector3 GetScale() { return GetTransform()->GetScale(); }
+		float GetScaleX() { return GetTransform()->GetScaleX(); }
+		float GetScaleY() { return GetTransform()->GetScaleY(); }
+		float GetScaleZ() { return GetTransform()->GetScaleZ(); }
+
+		void SetPosition(Vector3 position) { GetTransform()->SetPosition(position); }
+		void SetPositionX(float posX) { GetTransform()->SetPositionX(posX); }
+		void SetPositionY(float posY) { GetTransform()->SetPositionY(posY); }
+		void SetPositionZ(float posZ) { GetTransform()->SetPositionZ(posZ); }
+
+		void SetRotation(Vector3 rotation) { GetTransform()->SetRotation(rotation); }
+		void SetRotationX(float rotX) { GetTransform()->SetRotationX(rotX); }
+		void SetRotationY(float rotY) { GetTransform()->SetRotationY(rotY); }
+		void SetRotationZ(float rotZ) { GetTransform()->SetRotationZ(rotZ); }
+
+		void SetScale(Vector3 scale) { GetTransform()->SetScale(scale); }
+		void SetScaleX(float scaleX) { GetTransform()->SetScaleX(scaleX); }
+		void SetScaleY(float scaleY) { GetTransform()->SetScaleY(scaleY); }
+		void SetScaleZ(float scaleZ) { GetTransform()->SetScaleZ(scaleZ); }
+
+		Vector3 Forward() { return GetTransform()->Forward(); }
+		Vector3 Right() { return GetTransform()->Right(); }
+		Vector3 Up() { return GetTransform()->Up(); }
+
+		void SetInheritParentTransform(bool inherit) { GetTransform()->SetInheritParentTransform(inherit); }
+
+		const math::Matrix& GetWorldMatrix() { return GetTransform()->GetWorldMatrix(); }
 	};
 }

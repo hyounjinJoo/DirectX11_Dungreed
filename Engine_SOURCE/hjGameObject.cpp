@@ -1,5 +1,4 @@
 #include "hjGameObject.h"
-#include "hjTransform.h"
 
 namespace hj
 {
