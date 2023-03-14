@@ -71,14 +71,20 @@ namespace hj
 	void Layer::Destroy()
 	{
 		std::set<GameObject*> deleteObjects;
+		std::vector<GameObject*> dontGameObjs = GetDontDestroyGameObjects();
 
 		// 삭제할 오브젝트를 전부 찾아온다.
 		for (GameObject* gameObject : mGameObjects)
 		{
-			if (gameObject->GetState() == GameObject::eState::Dead)
-			{
-				deleteObjects.insert(gameObject);
-			}
+			//if (gameObject->GetState() == GameObject::eState::Dead)
+			//{
+			//	deleteObjects.insert(gameObject);
+			//}
+			auto findResult = find(dontGameObjs.begin(), dontGameObjs.end(), gameObject);
+			if (findResult != dontGameObjs.end())
+				continue;
+
+			deleteObjects.insert(gameObject);
 		}
 
 		// 지워야 할 오브젝트들을 게임 오브젝트 모음 안에서 삭제
