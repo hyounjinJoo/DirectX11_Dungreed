@@ -1,6 +1,7 @@
 #include "hjAnimation.h"
 #include "hjTime.h"
 #include "hjRenderer.h"
+#include "hjTexture.h"
 
 namespace hj
 {
@@ -150,6 +151,8 @@ namespace hj
 
 	void Animation::Clear()
 	{
+		Texture::Clear(12);
+
 		ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Animation];
 		pCB->Clear();
 	}

@@ -59,15 +59,16 @@ namespace hj::graphics
 	{
 		GetDevice()->SetShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
-	void Texture::Clear()
+
+	void Texture::Clear(UINT slot)
 	{
 		ID3D11ShaderResourceView* srv = nullptr;
 
-		GetDevice()->SetShaderResource(eShaderStage::VS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::DS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::GS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::HS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::CS, 0, &srv);
-		GetDevice()->SetShaderResource(eShaderStage::PS, 0, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::VS, slot, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::DS, slot, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::GS, slot, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::HS, slot, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::CS, slot, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::PS, slot, &srv);
 	}
 }

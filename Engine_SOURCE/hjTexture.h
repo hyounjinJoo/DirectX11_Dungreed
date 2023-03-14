@@ -23,7 +23,7 @@ namespace hj::graphics
 
 		virtual HRESULT Load(const std::wstring& name) override;
 		void BindShader(eShaderStage stage, UINT slot);
-		void Clear();
+		static void Clear(UINT slot);
 
 		const Vector2& GetTexSize() { return mTextureSize; }
 		void SetTexSize(const Vector2& textureSize) { mTextureSize = textureSize; }
