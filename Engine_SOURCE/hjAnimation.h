@@ -20,7 +20,7 @@ namespace hj
             Vector2 offset;     // 렌더링 위치를 조정하기 위한 좌표
             float duration;     // 프레임간의 시간 간격
             Vector2 atlasSize;  // 보유한 이미지 크기
-
+            
             Sprite()
                 : leftTop(0.f, 0.f)
                 , size(0.f, 0.f)
@@ -34,7 +34,7 @@ namespace hj
         Animation();
         virtual ~Animation();
 
-        void Update();
+        UINT Update();
         void FixedUpdate();
         void Render();
 
@@ -54,7 +54,8 @@ namespace hj
 
         bool IsComplete() { return mbComplete; }
         std::wstring& AnimationName() { return mAnimationName; }
-    private:
+
+	private:
         class Animator* mAnimator;
         std::wstring mAnimationName;
 		std::shared_ptr<Texture> mAtlas;

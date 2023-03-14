@@ -24,10 +24,10 @@ namespace hj
 	{
 	}
 
-	void Animation::Update()
+	UINT Animation::Update()
 	{
 		if (mbComplete)
-			return;
+			return -1;
 
 		// 시간 체크
 		mTime += Time::DeltaTime();
@@ -57,8 +57,12 @@ namespace hj
 					mbComplete = true;
 					mIndex = static_cast<int>(mSpriteSheet.size() - 1);
 				}
-			}			
+			}
+
+			return mIndex;
 		}
+
+		return -1;
 	}
 
 	void Animation::FixedUpdate()
