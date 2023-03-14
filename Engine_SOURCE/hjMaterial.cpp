@@ -114,6 +114,9 @@ namespace hj::graphics
 	void Material::Clear()
 	{
 		mTexture->Clear();
+
+		ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Material];		
+		pCB->Clear();
 	}
 }
 

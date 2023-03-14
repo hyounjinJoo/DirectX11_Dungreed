@@ -92,7 +92,7 @@ namespace hj
 			mSpriteSheet.push_back(sprite);
 		}
 		mbUsed = true;
-		mbCanvasUsed = false;
+		mbCanvasUsed = true;
 	}
 
 	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas,
@@ -127,7 +127,7 @@ namespace hj
 		info.atlasSize = mSpriteSheet[mIndex].atlasSize;
 		info.inverse = mbInverse;
 		info.canvasSize = mCanvasSize;
-		info.canvasUsed = true;
+		info.canvasUsed = mbCanvasUsed;
 		info.used = mbUsed;
 
 		pCB->Bind(&info);
@@ -150,5 +150,7 @@ namespace hj
 
 	void Animation::Clear()
 	{
+		ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Animation];
+		pCB->Clear();
 	}
 }

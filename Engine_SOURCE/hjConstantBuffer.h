@@ -14,6 +14,7 @@ namespace hj::graphics
 		bool Create(size_t size);
 		void Bind(void* data);
 		void SetPipeline(eShaderStage stage);
+		void Clear();
 
 	private:
 		const eCBType mType;

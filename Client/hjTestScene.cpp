@@ -208,7 +208,6 @@ namespace hj
 			spriteRender->SetMaterial(mateiral);
 			mesh = Resources::Find<Mesh>(L"Mesh_Rect");
 			spriteRender->SetMesh(mesh);
-			obj->AddComponent<PlayerScript>();
 			object::DontDestroyOnLoad(obj);
 		}
 		Scene::Initialize();

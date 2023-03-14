@@ -54,7 +54,13 @@ float4 main(VSOut In) : SV_TARGET
         UV = In.UV;
     }
     
-    Out = atlasTexture.Sample(pointSampler, UV);
+    if(cbAnimUsed)
+        Out = atlasTexture.Sample(pointSampler, UV);
+    else
+        Out = defaultTexture.Sample(pointSampler, UV);
+    
+    if (Out.a == 0.f)
+        discard;
     
     return Out;
 }

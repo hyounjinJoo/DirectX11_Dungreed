@@ -33,4 +33,15 @@ namespace hj::graphics
 	{
 		GetDevice()->SetConstantBuffer(stage, mType, buffer.Get());
 	}
+
+	void ConstantBuffer::Clear()
+	{
+		GetDevice()->ClearConstantBuffer(buffer.Get(), desc.ByteWidth);
+
+		UINT stageCount = static_cast<UINT>(eShaderStage::Count);
+		for(UINT stage = 0; stage < stageCount; ++stage)
+		{
+			GetDevice()->SetConstantBuffer(static_cast<eShaderStage>(stage), mType, buffer.Get());
+		}
+	}
 }
