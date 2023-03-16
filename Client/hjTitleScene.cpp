@@ -18,7 +18,8 @@
 #include "hjTestMonster.h"
 #include "hjCollisionManager.h"
 #include "hjLayerObject.h"
-#include "hjTitleBird.h"
+#include "hjTitleBirdLeader.h"
+#include "hjTitleBirdFollower.h"
 
 extern hj::Application application;
 
@@ -160,46 +161,55 @@ namespace hj
 	#pragma endregion
 #pragma endregion
 #pragma region Objects
-	#pragma region Triangle Squadron Birds
-			TitleBird* testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
-			testBird->SetPosY(0.f);
-			float birdPos = testBird->GetPositionX();
-			float birdSize = -testBird->GetScaleX();
-			float birdFinalPos = birdPos + birdSize;
-			testBird->SetStartX(birdFinalPos);
-			testBird->SetPositionX(birdFinalPos);
-			mTriangleSquadronBirds.push_back(testBird);
+	#pragma region Bird
+			TitleBirdLeader* Bird = nullptr;
+#define MAX_LEADER_BIRD 4
+#define MAX_FOLLOWER_BIRD 4
+#define DIST 5.f
+#define DELAY_START_TIME 10.f
+#define LOOP_INTERVAL (MAX_LEADER_BIRD * 3.f)
 
-			birdFinalPos += birdSize;
-			testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
-			testBird->SetPosY(25.f);
-			testBird->SetStartX(birdFinalPos);
-			testBird->SetPositionX(birdFinalPos);
-			mTriangleSquadronBirds.push_back(testBird);
+		#pragma region Normal Bird
+			int followingRow = static_cast<int>(std::floorf(MAX_FOLLOWER_BIRD * 0.5f)) + 1;
+			Bird = object::Instantiate<TitleBirdLeader>(eLayerType::MidGround);
+			Bird->SetReservedDelayMoveStart(0.f);
+			Bird->SetLoopInterval(LOOP_INTERVAL);
+			const Vector2 birdScale = Bird->GetScaleXY();
 
-			testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
-			testBird->SetPosY(-35.f);
-			testBird->SetStartX(birdFinalPos - 10.f);
-			testBird->SetPositionX(birdFinalPos - 10.f);
-			mTriangleSquadronBirds.push_back(testBird);
+			for (int iter = 1; iter < MAX_LEADER_BIRD; ++iter)
+			{
+				Bird = object::Instantiate<TitleBirdLeader>(eLayerType::MidGround);
+				Bird->SetReservedDelayMoveStart(DELAY_START_TIME * iter);
+				Bird->SetLoopInterval(LOOP_INTERVAL);
+				Bird->AddEndPosX(followingRow * birdScale.x);
+			}
+		#pragma endregion
+		#pragma region Triangle Squadron Birds
+			float distForBirdY = birdScale.y - 5.f;;
+			TitleBirdFollower* followerBird = nullptr;
+			
+			for (int iter = 0; iter < MAX_FOLLOWER_BIRD; ++iter)
+			{
+				followerBird = object::Instantiate<TitleBirdFollower>(eLayerType::MidGround);
+				followerBird->SetLeader(Bird);
 
-			birdFinalPos += birdSize;
-			testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
-			testBird->SetPosY(50.f);
-			testBird->SetStartX(birdFinalPos);
-			testBird->SetPositionX(birdFinalPos);
-			mTriangleSquadronBirds.push_back(testBird);
+				static int factorTwice = 0;
+				static int factorSign = 0;
 
-			testBird = object::Instantiate<TitleBird>(eLayerType::MidGround);
-			testBird->SetPosY(-70.f);
-			testBird->SetStartX(birdFinalPos - 10.f);
-			testBird->SetPositionX(birdFinalPos - 10.f);
-			mTriangleSquadronBirds.push_back(testBird);
+				if (iter % 2 == 0)
+					factorTwice = 1;
+				else
+					factorTwice = 2;
+
+				if (static_cast<float>(iter) < std::floorf(MAX_FOLLOWER_BIRD * 0.5f))
+					factorSign = 1;
+				else
+					factorSign = -1;
+
+					followerBird->SetDistanceFromLeader(Vector2(-(birdScale.x + DIST * iter) * factorTwice, distForBirdY * factorTwice * factorSign - (DIST * iter)));
+			}
+		#pragma endregion
 	#pragma endregion
-	#pragma region Normal Bird
-	
-	#pragma endregion
-#pragma endregion
 #pragma region UI
 	
 #pragma endregion
@@ -235,27 +245,5 @@ namespace hj
 	void TitleScene::OnExit()
 	{
 		Scene::OnExit();
-
-		for (auto Bird : mTriangleSquadronBirds)
-		{
-			if (Bird)
-			{
-				Bird->Death();
-				Bird = nullptr;
-			}
-		}
-
-		mTriangleSquadronBirds.resize(0);
-
-		for (auto Bird : mNormalBirds)
-		{
-			if (Bird)
-			{
-				Bird->Death();
-				Bird = nullptr;
-			}
-		}
-
-		mNormalBirds.resize(0);
 	}
 }

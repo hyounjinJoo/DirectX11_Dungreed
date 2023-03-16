@@ -38,6 +38,9 @@
     <Filter Include="Contents\GameObject\Layer">
       <UniqueIdentifier>{6eed3863-e244-49ab-95dd-e8e1140799cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\TitleScene\Bird">
+      <UniqueIdentifier>{bd5d56b1-4093-488b-a858-4c857ee4519d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -91,14 +94,23 @@
     <ClInclude Include="hjTestScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="hjTitleBird.h">
-      <Filter>Contents\GameObject\TitleScene</Filter>
-    </ClInclude>
     <ClInclude Include="hjLayerObject.h">
       <Filter>Contents\GameObject\Layer</Filter>
     </ClInclude>
     <ClInclude Include="hjTitleCloud.h">
       <Filter>Contents\GameObject\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="hjLinearMoveScript.h">
+      <Filter>Contents\Script\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTitleBird.h">
+      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTitleBirdLeader.h">
+      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTitleBirdFollower.h">
+      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,14 +164,23 @@
     <ClCompile Include="hjTestScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="hjTitleBird.cpp">
-      <Filter>Contents\GameObject\TitleScene</Filter>
-    </ClCompile>
     <ClCompile Include="hjLayerObject.cpp">
       <Filter>Contents\GameObject\Layer</Filter>
     </ClCompile>
     <ClCompile Include="hjTitleCloud.cpp">
       <Filter>Contents\GameObject\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="hjLinearMoveScript.cpp">
+      <Filter>Contents\Script\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTitleBird.cpp">
+      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTitleBirdLeader.cpp">
+      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTitleBirdFollower.cpp">
+      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

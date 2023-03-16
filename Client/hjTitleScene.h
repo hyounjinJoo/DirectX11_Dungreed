@@ -20,7 +20,5 @@ namespace hj
 		void OnExit() override;
 
 	private:
-		std::vector<TitleBird*> mTriangleSquadronBirds;
-		std::vector<TitleBird*> mNormalBirds;
 	};
 }
