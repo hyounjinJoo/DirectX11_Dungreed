@@ -25,32 +25,53 @@ namespace hj
 		float GetPositionX() { return mPosition.x; }
 		float GetPositionY() { return mPosition.y; }
 		float GetPositionZ() { return mPosition.z; }
+		Vector2 GetPositionXY() { return Vector2(mPosition.x, mPosition.y); }
 
 		Vector3 GetRotation() { return mRotation; }
 		float GetRotationX() { return mRotation.x; }
 		float GetRotationY() { return mRotation.y; }
 		float GetRotationZ() { return mRotation.z; }
+		Vector2 GetRotationXY() { return Vector2(mRotation.x, mRotation.y); }
 
 		Vector3 GetScale() { return mScale; }
 		float GetScaleX() { return mScale.x; }
 		float GetScaleY() { return mScale.y; }
 		float GetScaleZ() { return mScale.z; }
+		Vector2 GetScaleXY() { return Vector2(mScale.x, mScale.y); }
 
-		void SetPosition(Vector3 position) { mPosition = position; }
-		void SetPositionX(float posX) { mPosition.x = posX; }
-		void SetPositionY(float posY) { mPosition.y = posY; }
-		void SetPositionZ(float posZ) { mPosition.z = posZ; }
+		void SetPosition(const Vector3& position) { mPosition = position; }
+		void SetPositionX(const float posX) { mPosition.x = posX; }
+		void SetPositionY(const float posY) { mPosition.y = posY; }
+		void SetPositionZ(const float posZ) { mPosition.z = posZ; }
+		void SetPositionXY(const Vector2& position) { mPosition.x = position.x; mPosition.y = position.y; }
 
-		void SetRotation(Vector3 rotation) { mRotation = rotation; }
-		void SetRotationX(float rotX) { mRotation.x = rotX; }
-		void SetRotationY(float rotY) { mRotation.y = rotY; }
-		void SetRotationZ(float rotZ) { mRotation.z = rotZ; }
+		void SetRotation(const Vector3& rotation) { mRotation = rotation; }
+		void SetRotationX(const float rotX) { mRotation.x = rotX; }
+		void SetRotationY(const float rotY) { mRotation.y = rotY; }
+		void SetRotationZ(const float rotZ) { mRotation.z = rotZ; }
+		void SetRotationXY(const Vector2& rotation) { mRotation.x = rotation.x; mRotation.y = rotation.y; }
 		
-		void SetScale(Vector3 scale) { mScale = scale; }
-		void SetScaleX(float scaleX) { mScale.x = scaleX; }
-		void SetScaleY(float scaleY) { mScale.y = scaleY; }
-		void SetScaleZ(float scaleZ) { mScale.z = scaleZ; }
+		void SetScale(const Vector3& scale) { mScale = scale; }
+		void SetScaleX(const float scaleX) { mScale.x = scaleX; }
+		void SetScaleY(const float scaleY) { mScale.y = scaleY; }
+		void SetScaleZ(const float scaleZ) { mScale.z = scaleZ; }
+		void SetScaleXY(const Vector2& scale) { mScale.x = scale.x; mScale.y = scale.y; }
 		
+		void AddPosition(const Vector3& position) { mPosition += position; }
+		void AddPositionX(const float posX) { mPosition.x += posX; }
+		void AddPositionY(const float posY) { mPosition.y += posY; }
+		void AddPositionZ(const float posZ) { mPosition.z += posZ; }
+
+		void AddRotation(const Vector3& rotation) { mRotation += rotation; }
+		void AddRotationX(const float rotX) { mRotation.x += rotX; }
+		void AddRotationY(const float rotY) { mRotation.y += rotY; }
+		void AddRotationZ(const float rotZ) { mRotation.z += rotZ; }
+
+		void AddScale(const Vector3& scale) { mScale += scale; }
+		void AddScaleX(const float scaleX) { mScale.x += scaleX; }
+		void AddScaleY(const float scaleY) { mScale.y += scaleY; }
+		void AddScaleZ(const float scaleZ) { mScale.z += scaleZ; }
+
 		Vector3 Forward() { return mForward; }
 		Vector3 Right() { return mRight; }
 		Vector3 Up() { return mUp; }
