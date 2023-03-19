@@ -17,6 +17,7 @@ namespace hj
 		, mbReversePlay(false)
 		, mbUsed(false)
 		, mbCanvasUsed(false)
+		, mbInverse(false)
 	{
 	}
 

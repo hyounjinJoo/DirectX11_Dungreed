@@ -459,6 +459,7 @@ namespace hj::renderer
 #pragma region 00_Character
 		#pragma region 00_Player
 		MAIN_FOLDER("00_Character\\00_Player");
+		LOAD_TEX("00_Player", "00_Player.png");
 			#pragma region 00_Adventurer
 			SUB_FOLDER(1, "00_Adventurer");
 				#pragma region 00_Idle
@@ -498,6 +499,10 @@ namespace hj::renderer
 #pragma endregion
 #pragma region 01_TitleScene
 	#pragma region 00_Layers
+			MAIN_FOLDER("01_Scene\\00_TitleScene");
+			LOAD_TEX("TitleScene_01", "TitleScene_01.png");
+			LOAD_TEX("TitleScene_02", "TitleScene_02.png");
+
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
 
@@ -738,12 +743,12 @@ namespace hj::renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_Layer_FrontCloud", material);
 
-		texture = TEX_FIND("Tex_Title_Object_Bird_0");
+		texture = TEX_FIND("TitleScene_01");
 		material = MTRL_NEW();
 		material->SetTexture(texture);
-		material->SetShader(shader);
+		material->SetShader(SHADER_FIND("Shader_Sprite"));
 		material->SetRenderingMode(eRenderingMode::Transparent);
-		MTRL_INSERT("MTRL_Title_Object_Bird_0", material);
+		MTRL_INSERT("MTRL_Title_Object_Bird", material);
 
 #pragma endregion
 		//texture = TEX_FIND("Tex_Town_Layer_Sky_Day");
