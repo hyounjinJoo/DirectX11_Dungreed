@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:a99f540f34bea5a5589132e8f24af9ae:c7ab64d29d4ed167b55765e2316af5f6:e84c62cf1354c795be20975d62d61420$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="Weapon_Common.png" width="472" height="472">
+    <sprite n="AutomaticPistol" x="72" y="0" w="44" h="28" pX="0.5" pY="0.5"/>
+    <sprite n="BambooSword" x="96" y="196" w="20" h="80" pX="0.5" pY="1"/>
+    <sprite n="BigPaintBrush" x="0" y="296" w="36" h="104" pX="0.5" pY="0.5"/>
+    <sprite n="BrokenLumber" x="260" y="32" w="16" h="36" pX="0.5" pY="1"/>
+    <sprite n="Dagger/Dagger" x="16" y="0" w="56" h="24" pX="0.5" pY="1"/>
+    <sprite n="DaimyoOakBow/OakBow" x="404" y="72" w="28" h="52" pX="0.5" pY="0.5"/>
+    <sprite n="DaimyoOakBow/OakBow0" x="404" y="72" w="28" h="52" pX="0.5" pY="0.5"/>
+    <sprite n="DaimyoOakBow/OakBow1" x="0" y="124" w="56" h="52" pX="0.5" pY="0.5"/>
+    <sprite n="DaimyoOakBow/OakBow2" x="56" y="124" w="60" h="52" pX="0.5" pY="0.5"/>
+    <sprite n="DaimyoOakBow/OakBow3" x="116" y="72" w="56" h="44" pX="0.5" pY="0.5"/>
+    <sprite n="DaimyoOakBow/OakBow4" x="116" y="124" w="36" h="52" pX="0.5" pY="0.5"/>
+    <sprite n="DaimyoOakBow/OakBow5" x="404" y="72" w="28" h="52" pX="0.5" pY="0.5"/>
+    <sprite n="DrumStick_1" x="172" y="196" w="36" h="88" pX="0.5" pY="1"/>
+    <sprite n="DrumStick_2" x="304" y="124" w="32" h="64" pX="0.5" pY="1"/>
+    <sprite n="DrumStickBone" x="252" y="124" w="24" h="60" pX="0.5" pY="1"/>
+    <sprite n="Falx" x="208" y="196" w="24" h="88" pX="0.5" pY="1"/>
+    <sprite n="Gladius" x="116" y="196" w="20" h="80" pX="0.5" pY="1"/>
+    <sprite n="GreatSword/GreatSword" x="276" y="32" w="100" h="36" pX="0.5" pY="1"/>
+    <sprite n="GreatSword/GreatSword0" x="424" y="196" w="36" h="100" pX="0.5" pY="1"/>
+    <sprite n="Halberd" x="124" y="296" w="40" h="136" pX="0.5" pY="1"/>
+    <sprite n="IronHook" x="296" y="196" w="92" h="96" pX="0.5" pY="1"/>
+    <sprite n="Katana" x="64" y="296" w="28" h="108" pX="0.5" pY="1"/>
+    <sprite n="Khukri" x="72" y="196" w="24" h="76" pX="0.5" pY="1"/>
+    <sprite n="LongSword" x="232" y="196" w="36" h="88" pX="0.5" pY="1"/>
+    <sprite n="Lumber" x="336" y="124" w="16" h="64" pX="0.5" pY="1"/>
+    <sprite n="MainGauche" x="276" y="124" w="28" h="60" pX="0.5" pY="1"/>
+    <sprite n="MatchlockGun" x="296" y="0" w="108" h="32" pX="0.5" pY="1"/>
+    <sprite n="QuarterStaff/LongStaff" x="112" y="296" w="12" h="132" pX="0.5" pY="1"/>
+    <sprite n="Rapier" x="268" y="196" w="28" h="88" pX="0.5" pY="1"/>
+    <sprite n="Revolver0" x="116" y="0" w="44" h="28" pX="0.5" pY="1"/>
+    <sprite n="RoundShield" x="416" y="32" w="40" h="40" pX="0.5" pY="1"/>
+    <sprite n="RussianRoulette" x="0" y="72" w="56" h="40" pX="0.5" pY="1"/>
+    <sprite n="Shamshir" x="388" y="196" w="36" h="96" pX="0.5" pY="1"/>
+    <sprite n="ShortSpear" x="92" y="296" w="20" h="112" pX="0.5" pY="1"/>
+    <sprite n="ShortSword" x="160" y="0" w="76" h="28" pX="0.5" pY="1"/>
+    <sprite n="ShortSword000" x="236" y="0" w="60" h="28" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot00" x="404" y="0" w="24" h="32" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot01" x="428" y="0" w="28" h="32" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot02" x="0" y="32" w="36" h="32" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot03" x="36" y="32" w="52" h="32" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot04" x="88" y="32" w="72" h="32" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot05" x="280" y="72" w="40" h="48" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot06" x="172" y="72" w="36" h="44" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot07" x="376" y="32" w="40" h="36" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot08" x="160" y="32" w="40" h="32" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot09" x="200" y="32" w="32" h="32" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShot10" x="232" y="32" w="28" h="32" pX="0.5" pY="1"/>
+    <sprite n="SlingShot/SlingShotBullet/SlingShot" x="0" y="0" w="16" h="16" pX="0.5" pY="1"/>
+    <sprite n="Spear" x="164" y="296" w="20" h="136" pX="0.5" pY="1"/>
+    <sprite n="SteelMace" x="428" y="124" w="28" h="72" pX="0.5" pY="1"/>
+    <sprite n="SwordOfExplorer" x="0" y="196" w="28" h="72" pX="0.5" pY="1"/>
+    <sprite n="TheColt" x="208" y="72" w="72" h="44" pX="0.5" pY="0.5"/>
+    <sprite n="ThunderKunai" x="224" y="124" w="28" h="56" pX="0.5" pY="1"/>
+    <sprite n="TwinShortSwords" x="28" y="196" w="44" h="72" pX="0.5" pY="0.5"/>
+    <sprite n="Whip/Whip" x="56" y="72" w="28" h="40" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip00" x="56" y="72" w="28" h="40" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip01" x="152" y="124" w="72" h="52" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip02" x="352" y="124" w="76" h="64" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip03" x="320" y="72" w="84" h="48" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip04" x="288" y="296" w="96" h="176" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip05" x="208" y="296" w="80" h="144" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip06" x="184" y="296" w="24" h="140" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip07" x="36" y="296" w="28" h="104" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip08" x="136" y="196" w="36" h="84" pX="0.5" pY="1"/>
+    <sprite n="Whip/Whip09" x="84" y="72" w="32" h="40" pX="0.5" pY="1"/>
+</TextureAtlas>

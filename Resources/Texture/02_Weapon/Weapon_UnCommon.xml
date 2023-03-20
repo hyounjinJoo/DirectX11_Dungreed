@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:95640ec11792ca4a8037e33df6c715a3:436fca6144d1803f4d6d8b48b761ca03:3ff300cbc8c6566b6f8f1ac4df19e608$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="Weapon_UnCommon.png" width="580" height="580">
+    <sprite n="Assasin'sDagger" x="40" y="0" w="64" h="20" pX="0.5" pY="0.5"/>
+    <sprite n="BambooSpear" x="564" y="268" w="16" h="132" pX="0.5" pY="0.5"/>
+    <sprite n="BloodStoneSword" x="532" y="108" w="28" h="68" pX="0.5" pY="0.5"/>
+    <sprite n="Blunderbuss" x="0" y="28" w="80" h="32" pX="0.5" pY="0.5"/>
+    <sprite n="BombSword" x="248" y="176" w="32" h="80" pX="0.5" pY="0.5"/>
+    <sprite n="Bouquet" x="428" y="108" w="44" h="64" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife" x="124" y="0" w="72" h="24" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife00" x="0" y="0" w="40" h="16" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife01" x="424" y="64" w="56" h="44" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife02" x="236" y="108" w="60" h="60" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife03" x="296" y="108" w="68" h="60" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife04" x="196" y="0" w="72" h="24" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife05" x="124" y="0" w="72" h="24" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife06" x="80" y="28" w="68" h="32" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife07" x="472" y="108" w="60" h="64" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife08" x="480" y="64" w="56" h="44" pX="0.5" pY="0.5"/>
+    <sprite n="ButterflyKnife/ButterflyKnife09" x="236" y="28" w="40" h="36" pX="0.5" pY="0.5"/>
+    <sprite n="CampingAxe" x="120" y="108" w="32" h="48" pX="0.5" pY="0.5"/>
+    <sprite n="Chef'sSalvation" x="292" y="0" w="76" h="28" pX="0.5" pY="0.5"/>
+    <sprite n="Crossbow/Crossbow0" x="276" y="28" w="64" h="36" pX="0.5" pY="0.5"/>
+    <sprite n="Crossbow/Crossbow2" x="0" y="108" w="56" h="44" pX="0.5" pY="0.5"/>
+    <sprite n="DangerousShotgun/Bullet/DangerousShotgunBullet" x="368" y="0" w="16" h="28" pX="0.5" pY="0.5"/>
+    <sprite n="DangerousShotgun/DangerousShotgun" x="340" y="28" w="76" h="36" pX="0.5" pY="0.5"/>
+    <sprite n="FluteGreatSword" x="324" y="268" w="32" h="124" pX="0.5" pY="0.5"/>
+    <sprite n="GaeBulga" x="416" y="28" w="60" h="36" pX="0.5" pY="0.5"/>
+    <sprite n="GoldenStarKetboard" x="128" y="64" w="92" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="Grenade/Granade" x="148" y="28" w="24" h="32" pX="0.5" pY="0.5"/>
+    <sprite n="HeaterShield" x="44" y="176" w="44" h="72" pX="0.5" pY="0.5"/>
+    <sprite n="HeavyStoneMagma/HeavyStone" x="220" y="64" w="44" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="HeavyStoneMagma/HeavyStoneMagma" x="264" y="64" w="44" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="HeavyStoneMagma/HeavyStoneMagmaFragments1" x="268" y="0" w="24" h="24" pX="0.5" pY="0.5"/>
+    <sprite n="HolyShield" x="280" y="176" w="52" h="80" pX="0.5" pY="0.5"/>
+    <sprite n="HoreseKillerSword" x="160" y="400" w="28" h="148" pX="0.5" pY="0.5"/>
+    <sprite n="JoseonCannon/JoseonCannon" x="308" y="64" w="76" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="JoseonCannon/JoseonCannonBullet" x="384" y="0" w="28" h="28" pX="0.5" pY="0.5"/>
+    <sprite n="M1Garand" x="476" y="28" w="104" h="36" pX="0.5" pY="0.5"/>
+    <sprite n="MetalBoomerang/MetalBoomerang" x="356" y="268" w="124" h="124" pX="0.5" pY="0.5"/>
+    <sprite n="MetalBoomerang/MetalBoomerangSpin0" x="188" y="400" w="148" h="148" pX="0.5" pY="0.5"/>
+    <sprite n="MetalBoomerang/MetalBoomerangSpin1" x="20" y="400" w="140" h="140" pX="0.5" pY="0.5"/>
+    <sprite n="MT8Carbin" x="412" y="0" w="76" h="28" pX="0.5" pY="0.5"/>
+    <sprite n="PickaxeGray" x="336" y="400" w="132" h="172" pX="0.5" pY="0.5"/>
+    <sprite n="Pistol2" x="172" y="28" w="64" h="32" pX="0.5" pY="0.5"/>
+    <sprite n="PoliceShield" x="200" y="108" w="36" h="52" pX="0.5" pY="0.5"/>
+    <sprite n="QuarterStaff_Big" x="0" y="400" w="20" h="132" pX="0.5" pY="0.5"/>
+    <sprite n="Saber/Saber" x="452" y="176" w="36" h="92" pX="0.5" pY="0.5"/>
+    <sprite n="Saber/SaberCase" x="212" y="176" w="36" h="76" pX="0.5" pY="0.5"/>
+    <sprite n="Salamander'sEye" x="56" y="108" w="28" h="44" pX="0.5" pY="0.5"/>
+    <sprite n="SerratedSword" x="488" y="176" w="28" h="92" pX="0.5" pY="0.5"/>
+    <sprite n="Shotgun0" x="488" y="0" w="76" h="28" pX="0.5" pY="0.5"/>
+    <sprite n="SilverlimeStick" x="152" y="108" w="20" h="48" pX="0.5" pY="0.5"/>
+    <sprite n="SolarPlasmaRifle/SunLord" x="0" y="64" w="92" h="36" pX="0.5" pY="0.5"/>
+    <sprite n="SolarPlasmaRifle/SunLordBullet" x="384" y="64" w="20" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="SolarPlasmaRifle/SunLordShoot0" x="104" y="0" w="20" h="20" pX="0.5" pY="0.5"/>
+    <sprite n="SolarPlasmaRifle/SunLordShoot1" x="92" y="64" w="36" h="36" pX="0.5" pY="0.5"/>
+    <sprite n="SteamShield" x="0" y="176" w="44" h="68" pX="0.5" pY="0.5"/>
+    <sprite n="SteelDualSword/SteelDualSword" x="88" y="176" w="28" h="72" pX="0.5" pY="0.5"/>
+    <sprite n="SteelDualSword/SteelDualSwordItem" x="116" y="176" w="52" h="72" pX="0.5" pY="0.5"/>
+    <sprite n="SwordInStone" x="480" y="268" w="84" h="128" pX="0.5" pY="0.5"/>
+    <sprite n="TearMace" x="220" y="268" w="52" h="104" pX="0.5" pY="0.5"/>
+    <sprite n="Three-TieredBaton" x="388" y="176" w="20" h="88" pX="0.5" pY="0.5"/>
+    <sprite n="ThrowingDagger" x="404" y="64" w="20" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="ThunderBird" x="84" y="108" w="36" h="44" pX="0.5" pY="0.5"/>
+    <sprite n="Tonfa/Tonfa" x="364" y="108" w="24" h="60" pX="0.5" pY="0.5"/>
+    <sprite n="Tonfa/TonfaItem" x="388" y="108" w="40" h="60" pX="0.5" pY="0.5"/>
+    <sprite n="Torch/Torch0" x="516" y="176" w="44" h="92" pX="0.5" pY="0.5"/>
+    <sprite n="Torch/Torch1" x="0" y="268" w="40" h="92" pX="0.5" pY="0.5"/>
+    <sprite n="Torch/Torch2" x="40" y="268" w="40" h="100" pX="0.5" pY="0.5"/>
+    <sprite n="Torch/Torch3" x="80" y="268" w="48" h="100" pX="0.5" pY="0.5"/>
+    <sprite n="Torch/Torch4" x="272" y="268" w="52" h="104" pX="0.5" pY="0.5"/>
+    <sprite n="Torch/Torch5" x="128" y="268" w="60" h="100" pX="0.5" pY="0.5"/>
+    <sprite n="Torch/Torch6" x="332" y="176" w="56" h="84" pX="0.5" pY="0.5"/>
+    <sprite n="Torch/Torch7" x="408" y="176" w="44" h="88" pX="0.5" pY="0.5"/>
+    <sprite n="TwinShortSword" x="168" y="176" w="44" h="72" pX="0.5" pY="0.5"/>
+    <sprite n="UncommonKatana" x="188" y="268" w="32" h="100" pX="0.5" pY="0.5"/>
+    <sprite n="Undine'sBreath" x="172" y="108" w="28" h="48" pX="0.5" pY="0.5"/>
+</TextureAtlas>

@@ -23,26 +23,16 @@ namespace hj
 		Animator* animator = AddComponent<Animator>();
 		if (animator)
 		{
-			std::vector<Animation::Sprite> frames;
-			Animation::Sprite test = {};
-
-			test.atlasSize = material->GetTexture()->GetTexSize();
-			test.duration = 0.0625f;
-			test.leftTop = Vector2(0.f, 0.f);
-			test.offset = Vector2::Zero;
-			test.size = Vector2(48.f, 32.f);
-
-			frames.push_back(test);
-
-			test.leftTop.x = 48.f; frames.push_back(test);
-			test.leftTop.x = 96.f; frames.push_back(test);
-			test.leftTop.x = 144.f; frames.push_back(test);
-			test.leftTop.x = 192.f;	frames.push_back(test);
-			test.leftTop.x = 240.f;	frames.push_back(test);
-			test.leftTop.x = 288.f;	frames.push_back(test);
-			test.leftTop.x = 336.f;	frames.push_back(test);
-
-			bool isCreate = animator->Create(L"Bird_Idle", material->GetTexture(), frames, test.size, false);
+			CREATE_ANIM(birdIdleAnimSheet, birdIdleFrame, material->GetTexture()->GetTexSize(), 0.0625f, Vector2::Zero);
+			FRAME_ADD(birdIdleFrame, 240.f, 0.f, 48.f, 32.f,birdIdleAnimSheet);
+			FRAME_ADD(birdIdleFrame, 48.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
+			FRAME_ADD(birdIdleFrame, 96.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
+			FRAME_ADD(birdIdleFrame, 288.f, 0.f, 48.f, 32.f,birdIdleAnimSheet);
+			FRAME_ADD(birdIdleFrame, 336.f, 0.f, 48.f, 32.f,birdIdleAnimSheet);
+			FRAME_ADD(birdIdleFrame, 144.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
+			FRAME_ADD(birdIdleFrame, 0.f, 0.f, 48.f, 24.f,birdIdleAnimSheet);
+			FRAME_ADD(birdIdleFrame, 192.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
+			bool isCreate = animator->Create(WIDE("Bird_Idle"), material->GetTexture(), birdIdleAnimSheet, Vector2(48.f, 32.f), false);
 
 			if(isCreate)
 			{
