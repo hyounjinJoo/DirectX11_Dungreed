@@ -42,7 +42,7 @@ namespace hj
 		{
 			// 공중에 있을 때
 			// 잠시 대기
-			//mVelocity += mGravity * Time::DeltaTime();
+			mVelocity -= mGravity * Time::DeltaTime();
 		}
 
 
@@ -67,7 +67,7 @@ namespace hj
 		mVelocity = gravity + sideVelocity;
 
 		//마찰력 조건 ( 적용된 힘이 없고, 속도가 0 이 아닐 떄)
-		if (!(mVelocity == Vector2::Zero))
+		if (!(mVelocity == Vector2::Zero) && mbGround)
 		{
 			// 속도에 반대 방향으로 마찰력을 적용
 			Vector2 friction = -mVelocity;

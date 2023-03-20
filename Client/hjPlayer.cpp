@@ -140,7 +140,7 @@ namespace hj
 		if (mState == state)
 			return;
 
-		if (mState == ePlayerState::Jump || mState == ePlayerState::Die)
+		if (mState == ePlayerState::Die)
 			return;
 
 		mState = state;
@@ -151,6 +151,7 @@ namespace hj
 			Idle();
 			break;
 		case ePlayerState::Jump:
+			Jump();
 			break;
 		case ePlayerState::Run:
 			Run();
@@ -171,6 +172,11 @@ namespace hj
 	void Player::Run()
 	{
 		mAnimator->Play(WIDE("Adeventurer_Run"), true);
+	}
+
+	void Player::Jump()
+	{
+		mAnimator->Play(WIDE("Adeventurer_Jump"), true);
 	}
 
 }

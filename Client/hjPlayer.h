@@ -57,5 +57,6 @@ namespace hj
 
         void Idle();
         void Run();
+        void Jump();
     };
 }

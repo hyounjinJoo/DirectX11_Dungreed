@@ -49,7 +49,8 @@ namespace hj
 		}
 		if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
 		{
-			//mOwnerRigid->AddForce(Vector2(0.f, 500.f));
+			mOwnerRigid->AddForce(Vector2(0.f, 2000.f));
+			mOwnerRigid->SetGround(false);
 		}
 		if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
 		{
@@ -89,7 +90,7 @@ namespace hj
 	{
 		if (mOwnerRigid)
 		{
-			if (GetOwner()->GetPositionY() <= 0.f)
+			if (GetOwner()->GetPositionY() < 0.f && mOwnerRigid->GetVelocity().y <= 0.f)
 			{
 				GetOwner()->SetPositionY(0.f);
 				mOwnerRigid->SetGround(true);
