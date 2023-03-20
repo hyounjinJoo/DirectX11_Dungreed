@@ -7,7 +7,10 @@
 #include "hjBaseRenderer.h"
 #include "hjRigidBody.h"
 #include "hjPlayer.h"
+#include "hjApplication.h"
+#include "CommonInclude.h"
 
+extern hj::Application application;
 namespace hj
 {
 	PlayerScript::PlayerScript()
@@ -79,7 +82,8 @@ namespace hj
 #define NORMAL 1
 
 				Vector2 mousePos = Input::GetMousePosition();
-				int isInverse = mousePos.x < pos.x ? INVERSE : NORMAL;
+				Vector2 playerPos = CalcScreenPos();
+				int isInverse = mousePos.x < playerPos.x ? INVERSE : NORMAL;
 
 				mtrl->SetData(eGPUParam::Int_1, &isInverse);
 			}
@@ -117,9 +121,50 @@ namespace hj
 				player->ChangeState(state);
 			}
 		}
+
 	}
 
 	void PlayerScript::Render()
 	{
+	}
+
+	Vector2 PlayerScript::CalcScreenPos()
+	{
+		Camera* mainCamera = renderer::mainCamera;
+
+		if (mainCamera)
+		{
+			Matrix viewMat = mainCamera->GetViewMatrix();
+			Matrix projMat = mainCamera->GetProjectionMatrix();
+
+			Vector4 objectPosInView = XMVectorSetW(Vector4(GetOwner()->GetPosition().x, GetOwner()->GetPosition().y, GetOwner()->GetPosition().z, 1.f), 1.f);
+			objectPosInView = XMVector3TransformCoord(objectPosInView, viewMat);
+
+			Vector4 objectPosInClip = XMVector4Transform(objectPosInView, projMat);
+
+			Vector3 objectPosNDC = Vector3(objectPosInClip) / objectPosInClip.w;
+
+
+			RECT winRect;
+			GetClientRect(application.GetHwnd(), &winRect);
+
+			float width = static_cast<float>(winRect.right - winRect.left);
+			float height = static_cast<float>(winRect.bottom - winRect.top);
+			
+			float viewX = winRect.left;
+			float viewY = winRect.top;
+
+			Vector2 objectPosInScreen;
+			objectPosInScreen.x = (objectPosNDC.x + 1.0f) * 0.5f * width - (width * 0.5f);
+			objectPosInScreen.y = (height * 0.5f) - (1.0f - objectPosNDC.y) * 0.5f * height;
+
+			DEBUG_PRINT("Player Pos : (%4.f, %4.f)" , objectPosInScreen.x, objectPosInScreen.y);
+
+			return objectPosInScreen;
+		}
+		else
+		{
+			return Vector2(FLT_MAX, FLT_MAX);
+		}
 	}
 }

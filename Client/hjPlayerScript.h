@@ -16,5 +16,7 @@ namespace hj
 
 	private:
 		class RigidBody* mOwnerRigid;
+
+		Vector2 CalcScreenPos();
 	};
 }
