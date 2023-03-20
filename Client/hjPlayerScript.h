@@ -14,9 +14,9 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		Vector2 GetOwnerScreenPos();
 	private:
 		class RigidBody* mOwnerRigid;
 
-		Vector2 CalcScreenPos();
 	};
 }

@@ -29,7 +29,7 @@ namespace hj
 		}
 
 		mRigidBody = AddComponent<RigidBody>();
-		AddComponent<PlayerScript>();
+		mPlayerScript = AddComponent<PlayerScript>();
 	}
 
 	Player::~Player()
@@ -51,7 +51,7 @@ namespace hj
 	{
 		GameObject::FixedUpdate();
 
-		float posX = GetPositionX();
+		float posX = mPlayerScript->GetOwnerScreenPos().x;
 		float mouseScreenPosX = Input::GetMousePosition().x;
 
 		if (posX < mouseScreenPosX)

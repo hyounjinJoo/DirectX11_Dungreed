@@ -52,6 +52,7 @@ namespace hj
         ePlayerState mState;
         class Animator* mAnimator;
         class RigidBody* mRigidBody;
+        class PlayerScript* mPlayerScript;
 
         void CreateAnimation();
 

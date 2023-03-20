@@ -71,23 +71,23 @@ namespace hj
 		tr->SetPosition(pos);
 
 
-		BaseRenderer* baseRenderer = GetOwner()->GetComponent<BaseRenderer>();
-		if (baseRenderer)
-		{
-			std::shared_ptr<Material> mtrl = baseRenderer->GetMaterial();
-			if (mtrl)
-			{
-
-#define INVERSE -1
-#define NORMAL 1
-
-				Vector2 mousePos = Input::GetMousePosition();
-				Vector2 playerPos = CalcScreenPos();
-				int isInverse = mousePos.x < playerPos.x ? INVERSE : NORMAL;
-
-				mtrl->SetData(eGPUParam::Int_1, &isInverse);
-			}
-		}
+//		BaseRenderer* baseRenderer = GetOwner()->GetComponent<BaseRenderer>();
+//		if (baseRenderer)
+//		{
+//			std::shared_ptr<Material> mtrl = baseRenderer->GetMaterial();
+//			if (mtrl)
+//			{
+//
+//#define INVERSE -1
+//#define NORMAL 1
+//
+//				Vector2 mousePos = Input::GetMousePosition();
+//				Vector2 playerPos = CalcScreenPos();
+//				int isInverse = mousePos.x < playerPos.x ? INVERSE : NORMAL;
+//
+//				mtrl->SetData(eGPUParam::Int_1, &isInverse);
+//			}
+//		}
 	}
 
 	void PlayerScript::FixedUpdate()
@@ -128,7 +128,7 @@ namespace hj
 	{
 	}
 
-	Vector2 PlayerScript::CalcScreenPos()
+	Vector2 PlayerScript::GetOwnerScreenPos()
 	{
 		Camera* mainCamera = renderer::mainCamera;
 
@@ -151,8 +151,8 @@ namespace hj
 			float width = static_cast<float>(winRect.right - winRect.left);
 			float height = static_cast<float>(winRect.bottom - winRect.top);
 			
-			float viewX = winRect.left;
-			float viewY = winRect.top;
+			float viewX = static_cast<float>(winRect.left);
+			float viewY = static_cast<float>(winRect.top);
 
 			Vector2 objectPosInScreen;
 			objectPosInScreen.x = (objectPosNDC.x + 1.0f) * 0.5f * width - (width * 0.5f);
