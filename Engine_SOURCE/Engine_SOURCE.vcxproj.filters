@@ -91,6 +91,9 @@
     <Filter Include="Component\Animator">
       <UniqueIdentifier>{cb48aaeb-8ecf-4573-b154-8e4e6e1fce0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\RigidBody">
+      <UniqueIdentifier>{de596207-9403-4de7-8cab-04a9fb481bd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -188,6 +191,9 @@
     </ClCompile>
     <ClCompile Include="hjAnimator.cpp">
       <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRigidBody.cpp">
+      <Filter>Component\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="hjAnimator.h">
       <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="hjRigidBody.h">
+      <Filter>Component\RigidBody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

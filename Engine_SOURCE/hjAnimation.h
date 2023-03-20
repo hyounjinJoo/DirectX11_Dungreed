@@ -3,6 +3,8 @@
 #include "hjTexture.h"
 #include "hjRenderer.h"
 
+#define CREATE_SHEET(sheetVarName) std::vector<Animation::Sprite> sheetVarName
+
 // std::vector<Animation::Sprite> 와 Animation::Sprite 타입 변수를 선언해주고 atlasTexture의 size, frame 당 duration, frame의 offset을 설정해주는 매크로
 // FRAME_ADD와 함께 사용할 것을 가정하는 매크로이다.
 // sheetVarName : std::vector<Animation::Sprite> 타입으로 선언할 변수 이름
@@ -10,8 +12,9 @@
 // atlasTexSize : 프레임에 사용할 아틀라스 텍스처의 크기, Vector2 타입
 // frameDuration : 프레임의 재생 시간, float 타입
 // frameOffset : 프레임이 가질 오프셋, Vector2 타입
-#define CREATE_ANIM(sheetVarName, spriteVarName, atlasTexSize, frameDuration, frameOffset) std::vector<Animation::Sprite> sheetVarName;\
+#define CREATE_ANIM(sheetVarName, spriteVarName, atlasTexSize, frameDuration, frameOffset) CREATE_SHEET(sheetVarName);\
 																				Animation::Sprite spriteVarName = {};\
+                                                                                Vector2 canvasSize = {};\
 																				spriteVarName.atlasSize = atlasTexSize;\
 																				spriteVarName.duration = frameDuration;\
 																				spriteVarName.offset = frameOffset
@@ -27,6 +30,8 @@
 #define FRAME_ADD(var, ltX, ltY, sizeX, sizeY, sheet) \
 				var.leftTop = Vector2(ltX, ltY);\
 				var.size = Vector2(sizeX, sizeY);\
+                canvasSize.x = canvasSize.x >= sizeX ? canvasSize.x : sizeX;\
+                canvasSize.y = canvasSize.y >= sizeY ? canvasSize.y : sizeY;\
 				sheet.push_back(var)
 namespace hj
 {
@@ -73,6 +78,7 @@ namespace hj
 		void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
 		std::shared_ptr<Shader> GetShader() { return mShader; }
 
+        void Inverse(bool inverse) { mbInverse = inverse; }
         void BindShader();
         void Reset();
         void Clear();

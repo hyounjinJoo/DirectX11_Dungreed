@@ -35,6 +35,7 @@ namespace hj::enums
 		Mesh,
 		Collider,
 		//Collider2,
+		RigidBody,
 		MeshRenderer,
 		SpriteRenderer,
 		Animator,

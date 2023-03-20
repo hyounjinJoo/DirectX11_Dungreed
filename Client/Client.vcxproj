@@ -147,8 +147,11 @@
     <ClInclude Include="hjEditorObject.h" />
     <ClInclude Include="hjFadeScript.h" />
     <ClInclude Include="hjGridScript.h" />
+    <ClInclude Include="hjItem.h" />
     <ClInclude Include="hjLayerObject.h" />
     <ClInclude Include="hjLinearMoveScript.h" />
+    <ClInclude Include="hjPlayer.h" />
+    <ClInclude Include="hjPlayerHand.h" />
     <ClInclude Include="hjTitleBird.h" />
     <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjTestMonster.h" />
@@ -158,6 +161,7 @@
     <ClInclude Include="hjTitleCloud.h" />
     <ClInclude Include="hjTitleBirdFollower.h" />
     <ClInclude Include="hjTitleScene.h" />
+    <ClInclude Include="hjWeapon.h" />
     <ClInclude Include="hjWidget.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -170,8 +174,11 @@
     <ClCompile Include="hjEditorObject.cpp" />
     <ClCompile Include="hjFadeScript.cpp" />
     <ClCompile Include="hjGridScript.cpp" />
+    <ClCompile Include="hjItem.cpp" />
     <ClCompile Include="hjLayerObject.cpp" />
     <ClCompile Include="hjLinearMoveScript.cpp" />
+    <ClCompile Include="hjPlayer.cpp" />
+    <ClCompile Include="hjPlayerHand.cpp" />
     <ClCompile Include="hjTitleBird.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjTestMonster.cpp" />
@@ -181,6 +188,7 @@
     <ClCompile Include="hjTitleCloud.cpp" />
     <ClCompile Include="hjTitleBirdFollower.cpp" />
     <ClCompile Include="hjTitleScene.cpp" />
+    <ClCompile Include="hjWeapon.cpp" />
     <ClCompile Include="hjWidget.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

@@ -13,16 +13,19 @@ namespace hj
 
 	Animator::~Animator()
 	{
-		for (auto anim : mAnimations)
+		for (auto anim = mAnimations.begin(); anim != mAnimations.end(); )
 		{
-			delete anim.second;
-			anim.second = nullptr;
+			delete anim->second;
+			anim->second = nullptr;
+			anim = mAnimations.erase(anim);
 		}
 
-		for (auto event : mEvents)
+
+		for (auto event = mEvents.begin(); event != mEvents.end(); )
 		{
-			delete event.second;
-			event.second = nullptr;
+			delete event->second;
+			event->second = nullptr;
+			event = mEvents.erase(event);
 		}
 	}
 
@@ -166,6 +169,14 @@ namespace hj
 
 		if (events)
 			events->mStartEvent();
+	}
+
+	void Animator::Inverse(bool inverse)
+	{
+		if (mActiveAnimation == nullptr)
+			return;
+		
+		mActiveAnimation->Inverse(inverse);
 	}
 
 	void Animator::Binds()

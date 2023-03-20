@@ -179,6 +179,7 @@
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
     <ClInclude Include="hjResources.h" />
+    <ClInclude Include="hjRigidBody.h" />
     <ClInclude Include="hjScene.h" />
     <ClInclude Include="hjSceneManager.h" />
     <ClInclude Include="hjScript.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />
     <ClCompile Include="hjResources.cpp" />
+    <ClCompile Include="hjRigidBody.cpp" />
     <ClCompile Include="hjScene.cpp" />
     <ClCompile Include="hjSceneManager.cpp" />
     <ClCompile Include="hjScript.cpp" />

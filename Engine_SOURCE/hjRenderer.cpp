@@ -460,41 +460,7 @@ namespace hj::renderer
 		#pragma region 00_Player
 		MAIN_FOLDER("00_Character\\00_Player");
 		LOAD_TEX("00_Player", "00_Player.png");
-			#pragma region 00_Adventurer
-			SUB_FOLDER(1, "00_Adventurer");
-				#pragma region 00_Idle
-				SUB_FOLDER(2, "00_Idle");
-
-				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_0", "CharIdle0.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_1", "CharIdle1.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_2", "CharIdle2.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_3", "CharIdle3.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Idle_4", "CharIdle4.png");
-				#pragma endregion
-				#pragma region 01_Jump
-				SUB_FOLDER(2, "01_Jump");
-
-				LOAD_TEX("Tex_Character_Player_Adventurer_Jump_0", "CharJump.png");
-				#pragma endregion
-				#pragma region 02_Run
-				SUB_FOLDER(2, "02_Run");
-
-				LOAD_TEX("Tex_Character_Player_Adventurer_Run_0", "CharRun0.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Run_1", "CharRun1.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Run_2", "CharRun2.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Run_3", "CharRun3.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Run_4", "CharRun4.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Run_5", "CharRun5.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Run_6", "CharRun6.png");
-				LOAD_TEX("Tex_Character_Player_Adventurer_Run_7", "CharRun7.png");
-				#pragma endregion
-				#pragma region 03_Die
-				SUB_FOLDER(2, "03_Die");
-
-				LOAD_TEX("Tex_Character_Player_Adventurer_Die_0", "CharDie.png");
-				#pragma endregion
-			SUB_FOLDER_ALLCLEAR();
-			#pragma endregion
+		SUB_FOLDER_ALLCLEAR();
 		#pragma endregion
 #pragma endregion
 #pragma region 01_TitleScene
@@ -675,7 +641,7 @@ namespace hj::renderer
 		MTRL_INSERT("MTRL_Sprite", material);
 
 		// Sprite/Char/Adventurer
-		texture = TEX_FIND("Tex_Character_Player_Adventurer_Idle_0");
+		texture = TEX_FIND("00_Player");
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
 		material->SetShader(shader);

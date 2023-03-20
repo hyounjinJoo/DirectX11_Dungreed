@@ -5,6 +5,8 @@
 #include "hjTime.h"
 #include "hjSpriteRenderer.h"
 #include "hjBaseRenderer.h"
+#include "hjRigidBody.h"
+#include "hjPlayer.h"
 
 namespace hj
 {
@@ -19,6 +21,8 @@ namespace hj
 
 	void PlayerScript::Initialize()
 	{
+		if (GetOwner()->GetComponent<RigidBody>())
+			mOwnerRigid = GetOwner()->GetComponent<RigidBody>();			
 	}
 
 	void PlayerScript::Update()
@@ -36,15 +40,16 @@ namespace hj
 
 		if (Input::GetKeyState(eKeyCode::D) == eKeyState::PRESSED)
 		{
-			pos.x += 100.f * Time::DeltaTime();
+			//pos.x += 100.f * Time::DeltaTime();
+			mOwnerRigid->AddForce(Vector2(1000.f, 0.f));
 		}
 		if (Input::GetKeyState(eKeyCode::A) == eKeyState::PRESSED)
 		{
-			pos.x -= 100.f * Time::DeltaTime();
+			mOwnerRigid->AddForce(Vector2(-1000.f, 0.f));
 		}
 		if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
 		{
-			pos.y += 100.f * Time::DeltaTime();
+			//mOwnerRigid->AddForce(Vector2(0.f, 500.f));
 		}
 		if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
 		{
@@ -82,6 +87,35 @@ namespace hj
 
 	void PlayerScript::FixedUpdate()
 	{
+		if (mOwnerRigid)
+		{
+			if (GetOwner()->GetPositionY() <= 0.f)
+			{
+				GetOwner()->SetPositionY(0.f);
+				mOwnerRigid->SetGround(true);
+			}
+			float velocityX = mOwnerRigid->GetVelocity().x;
+			bool isGround= mOwnerRigid->IsGround();
+			ePlayerState state = ePlayerState::End;
+			Player* player = dynamic_cast<Player*>(GetOwner());
+				
+			if (player)
+			{
+				if (isGround)
+				{
+					if (velocityX == 0.f)
+						state = ePlayerState::Idle;
+					else
+						state = ePlayerState::Run;
+				}
+				else
+				{
+					state = ePlayerState::Jump;
+				}
+
+				player->ChangeState(state);
+			}
+		}
 	}
 
 	void PlayerScript::Render()

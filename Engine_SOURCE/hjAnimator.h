@@ -50,7 +50,7 @@ namespace hj
         Animation* FindAnimation(const std::wstring& name);
         Events* FindEvents(const std::wstring& name);
         void Play(const std::wstring& name, bool loop = true);
-
+        void Inverse(bool inverse);
         void Binds();
         void Clear();
 

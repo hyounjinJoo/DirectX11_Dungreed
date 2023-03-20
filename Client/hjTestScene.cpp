@@ -18,6 +18,7 @@
 #include "hjTestMonster.h"
 #include "hjCollisionManager.h"
 #include "hjAnimator.h"
+#include "hjPlayer.h"
 
 
 extern hj::Application application;
@@ -100,7 +101,7 @@ namespace hj
 #pragma region Collision Test
 #pragma region Collision Object - 1
 		pos = Vector3(0.f, 0.f, 0.f);
-		TestPlayer* testPlayer = object::Instantiate<TestPlayer>(eLayerType::Player, pos, rot, scale);
+		/*TestPlayer* testPlayer = object::Instantiate<TestPlayer>(eLayerType::Player, pos, rot, scale);
 		testPlayer->SetName(L"Test Player for Collision");
 
 		SpriteRenderer* sr = testPlayer->AddComponent<SpriteRenderer>();
@@ -116,7 +117,14 @@ namespace hj
 		collider->SetType(eColliderType::Rect);
 
 		PlayerScript* playerScript = new PlayerScript();
-		testPlayer->AddComponent(playerScript);
+		testPlayer->AddComponent(playerScript);*/
+		SpriteRenderer* sr = nullptr;
+		{
+			Player* player = object::Instantiate<Player>(eLayerType::Player, pos);
+			player->SetName(L"Player");
+			PlayerScript* playerScript = new PlayerScript();
+			player->AddComponent(playerScript);
+		}
 #pragma endregion
 #pragma region Collision Object - 2
 		pos = Vector3(100.f, 100.f, -1.f);
@@ -186,29 +194,29 @@ namespace hj
 #pragma endregion
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 
-		{
-			obj = object::Instantiate<TestPlayer>(eLayerType::Player);
-			obj->SetName(L"Zelda");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
-			tr->SetScale(Vector3(100.f, 100.f, 1.f));
-			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-			//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-			Collider2D* collider = obj->AddComponent<Collider2D>();
-			collider->SetType(eColliderType::Rect);
-			//collider->SetCenter(Vector2(0.2f, 0.2f));
-			//collider->SetSize(Vector2(1.5f, 1.5f));
-			Animator* animator = obj->AddComponent<Animator>();
-			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Zelda.png");
-			animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3, 0.1f);
-			animator->Play(L"Idle", true);
-
-			SpriteRenderer* spriteRender = obj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"MTRL_Sprite");
-			spriteRender->SetMaterial(mateiral);
-			mesh = Resources::Find<Mesh>(L"Mesh_Rect");
-			spriteRender->SetMesh(mesh);
-		}
+		//{
+		//	obj = object::Instantiate<TestPlayer>(eLayerType::Player);
+		//	obj->SetName(L"Zelda");
+		//	Transform* tr = obj->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
+		//	tr->SetScale(Vector3(100.f, 100.f, 1.f));
+		//	//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+		//	//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+		//	Collider2D* collider = obj->AddComponent<Collider2D>();
+		//	collider->SetType(eColliderType::Rect);
+		//	//collider->SetCenter(Vector2(0.2f, 0.2f));
+		//	//collider->SetSize(Vector2(1.5f, 1.5f));
+		//	Animator* animator = obj->AddComponent<Animator>();
+		//	std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Zelda.png");
+		//	animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3, 0.1f);
+		//	animator->Play(L"Idle", true);
+		//
+		//	SpriteRenderer* spriteRender = obj->AddComponent<SpriteRenderer>();
+		//	std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"MTRL_Sprite");
+		//	spriteRender->SetMaterial(mateiral);
+		//	mesh = Resources::Find<Mesh>(L"Mesh_Rect");
+		//	spriteRender->SetMesh(mesh);
+		//}
 		Scene::Initialize();
 	}
 

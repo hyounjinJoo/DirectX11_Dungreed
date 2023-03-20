@@ -41,6 +41,39 @@
     <Filter Include="Contents\GameObject\TitleScene\Bird">
       <UniqueIdentifier>{bd5d56b1-4093-488b-a858-4c857ee4519d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Play">
+      <UniqueIdentifier>{e1e4ddca-5b81-42f0-ad31-578424d92821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Player">
+      <UniqueIdentifier>{6cf89847-41cc-4315-b299-3708f317fffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster">
+      <UniqueIdentifier>{14a2a0c0-0b3f-4efd-91a9-1735a2e293f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Ground">
+      <UniqueIdentifier>{847ec714-a697-4025-a9a7-02d5bb800035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Fly">
+      <UniqueIdentifier>{8776660f-4725-436f-9622-9dc8e13a1c31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Boss">
+      <UniqueIdentifier>{c671dde9-bbb5-4137-bf78-2446589e3ff7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item">
+      <UniqueIdentifier>{d7a98415-9f63-4ee8-8746-4b11aa7358d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon">
+      <UniqueIdentifier>{bd865cd2-df62-45ba-b981-99690f5b3154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee">
+      <UniqueIdentifier>{d4391847-6382-4817-a973-91180377cf49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged">
+      <UniqueIdentifier>{cb22e33c-90c2-4bf4-8ddc-438fbd11adb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Accessory">
+      <UniqueIdentifier>{5c41a52c-9ba9-4d56-ac9e-53117d710b59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -112,6 +145,18 @@
     <ClInclude Include="hjTitleBirdFollower.h">
       <Filter>Contents\GameObject\TitleScene\Bird</Filter>
     </ClInclude>
+    <ClInclude Include="hjPlayer.h">
+      <Filter>Contents\GameObject\Play\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPlayerHand.h">
+      <Filter>Contents\GameObject\Play\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="hjWeapon.h">
+      <Filter>Contents\GameObject\Play\Item\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="hjItem.h">
+      <Filter>Contents\GameObject\Play\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -181,6 +226,18 @@
     </ClCompile>
     <ClCompile Include="hjTitleBirdFollower.cpp">
       <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayer.cpp">
+      <Filter>Contents\GameObject\Play\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerHand.cpp">
+      <Filter>Contents\GameObject\Play\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="hjWeapon.cpp">
+      <Filter>Contents\GameObject\Play\Item\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="hjItem.cpp">
+      <Filter>Contents\GameObject\Play\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
