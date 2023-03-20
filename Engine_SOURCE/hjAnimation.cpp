@@ -161,4 +161,8 @@ namespace hj
 		ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Animation];
 		pCB->Clear();
 	}
+	void Animation::SetAnimator(Animator* animator)
+	{
+		mAnimator = animator;
+	}
 }

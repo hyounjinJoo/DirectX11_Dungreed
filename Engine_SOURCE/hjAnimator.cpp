@@ -90,8 +90,9 @@ namespace hj
 		animation = new Animation();
 		animation->Create(name, atlas, leftTop
 			, size, offset, spriteLength, duration, reversePlay);
-
+		
 		mAnimations.insert(std::make_pair(name, animation));
+		animation->SetAnimator(this);
 
 		Events* events = new Events();
 		events->mEvents.resize(spriteLength);
@@ -111,6 +112,7 @@ namespace hj
 		animation->Create(name, atlas, sprite, canvasSize, reversePlay);
 
 		mAnimations.insert(std::make_pair(name, animation));
+		animation->SetAnimator(this);
 
 		Events* events = new Events();
 		events->mEvents.resize(sprite.size());
