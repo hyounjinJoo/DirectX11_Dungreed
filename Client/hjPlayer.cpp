@@ -91,6 +91,7 @@ namespace hj
 		FRAME_ADD(frame, 404.f, 0.f, 52.f, 76.f, animAdventurerJump);
 		
 		CREATE_SHEET(animAdventurerRun);
+		frame.duration = 1.f / 15.f;
 		FRAME_ADD(frame, 456.f, 0.f, 68.f, 76.f, animAdventurerRun);
 		FRAME_ADD(frame, 524.f, 0.f, 56.f, 80.f, animAdventurerRun);
 		FRAME_ADD(frame, 580.f, 0.f, 56.f, 80.f, animAdventurerRun);
