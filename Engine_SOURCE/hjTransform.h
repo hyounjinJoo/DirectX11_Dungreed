@@ -61,6 +61,7 @@ namespace hj
 		void AddPositionX(const float posX) { mPosition.x += posX; }
 		void AddPositionY(const float posY) { mPosition.y += posY; }
 		void AddPositionZ(const float posZ) { mPosition.z += posZ; }
+		void AddPositionXY(const Vector2& position) { mPosition.x += position.x; mPosition.y += position.y; }
 
 		void AddRotation(const Vector3& rotation) { mRotation += rotation; }
 		void AddRotationX(const float rotX) { mRotation.x += rotX; }
