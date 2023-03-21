@@ -22,13 +22,36 @@ namespace hj
 
     void Time::Update()
     {
-        QueryPerformanceCounter(&mCurFrequency);
+        HWND activeWindow = GetFocus();
+        if (activeWindow == application.GetHwnd())
+        {
 
-        float differenceInFrequancy 
-            = static_cast<float>((mCurFrequency.QuadPart - mPrevFrequency.QuadPart));
+            QueryPerformanceCounter(&mCurFrequency);
 
-        mDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
-        mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
+            float differenceInFrequancy
+                = static_cast<float>((mCurFrequency.QuadPart - mPrevFrequency.QuadPart));
+
+            mDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
+            mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
+
+            float deviceNumerator = static_cast<float>(hj::graphics::GetDevice()->GetSwapChainNumerator());
+
+            if (deviceNumerator <= 0.f)
+                deviceNumerator = 60.f;
+            if (mDeltaTime >= 1.f / deviceNumerator)
+            {
+                mDeltaTime = 1.f / deviceNumerator;
+            }
+        }
+        else
+        {
+            mDeltaTime = 0.f;
+        }
+#ifdef _DEBUG
+        //if (mDeltaTime > (1.f / static_cast<float>(mCpuFrequency.QuadPart)))
+        //    mDeltaTime = 1.f / static_cast<float>(mCpuFrequency.QuadPart);
+#else
+#endif
     }
 
     void Time::Render(HDC hdc)
