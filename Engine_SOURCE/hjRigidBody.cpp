@@ -9,11 +9,14 @@ namespace hj
 		: Component(eComponentType::RigidBody)
 		, mMass(1.0f)
 		, mFriction(1000.0f)
+		, mbOnFriction(false)
+		, mbHorizonAccelMove(false)
+		, mMoveDir(eMoveDir::End)
 	{
 		mLimitVelocity.x = 400.f;
 		mLimitVelocity.y = 1000.f;
 		mbGround = false;
-		mGravity = Vector2(0.0f, 800.0f);
+		mGravity = Vector2(0.0f, 2000.0f);
 	}
 	RigidBody::~RigidBody()
 	{
@@ -27,7 +30,12 @@ namespace hj
 		mAccelation = mForce / mMass;
 
 		// 속도에 가속도를 더한다
-		mVelocity += mAccelation * Time::DeltaTime();
+		if (mbHorizonAccelMove)
+			mAccelation *= Time::DeltaTime();
+		else
+			mAccelation.y *= Time::DeltaTime();
+
+		mVelocity += mAccelation;
 
 
 		if (mbGround)
@@ -67,23 +75,26 @@ namespace hj
 		mVelocity = gravity + sideVelocity;
 
 		//마찰력 조건 ( 적용된 힘이 없고, 속도가 0 이 아닐 떄)
-		if (!(mVelocity == Vector2::Zero) && mbGround)
+		if(mbOnFriction)
 		{
-			// 속도에 반대 방향으로 마찰력을 적용
-			Vector2 friction = -mVelocity;
-			friction.Normalize();
-			friction = friction * mFriction * mMass * Time::DeltaTime();
+			if (!(mVelocity == Vector2::Zero) && mbGround)
+			{
+				// 속도에 반대 방향으로 마찰력을 적용
+				Vector2 friction = -mVelocity;
+				friction.Normalize();
+				friction = friction * mFriction * mMass * Time::DeltaTime();
 
-			// 마찰력으로 인한 속도 감소량이 현재 속도보다 더 큰 경우
-			if (mVelocity.Length() < friction.Length())
-			{
-				// 속도를 0 로 만든다.
-				mVelocity = Vector2(0.f, 0.f);
-			}
-			else
-			{
-				// 속도에서 마찰력으로 인한 반대방향으로 속도를 차감한다.
-				mVelocity += friction;
+				// 마찰력으로 인한 속도 감소량이 현재 속도보다 더 큰 경우
+				if (mVelocity.Length() < friction.Length())
+				{
+					// 속도를 0 로 만든다.
+					mVelocity = Vector2(0.f, 0.f);
+				}
+				else
+				{
+					// 속도에서 마찰력으로 인한 반대방향으로 속도를 차감한다.
+					mVelocity += friction;
+				}
 			}
 		}
 
@@ -92,6 +103,16 @@ namespace hj
 		pos = pos + mVelocity * Time::DeltaTime();
 		GetOwner()->SetPositionXY(pos);
 		mForce = Vector2::Zero;
+		
+		if (mVelocity.x == 0.f)
+			mMoveDir = eMoveDir::End;
+		else if (mVelocity.x < 0.f)
+			mMoveDir = eMoveDir::Left;
+		else if(mVelocity.x > 0.f)
+			mMoveDir = eMoveDir::Right;
+
+		if (!mbHorizonAccelMove)
+			mVelocity.x = 0.f;
 	}
 
 	void RigidBody::FixedUpdate()

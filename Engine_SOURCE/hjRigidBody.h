@@ -22,18 +22,27 @@ namespace hj
 		Vector2 GetVelocity() { return mVelocity; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
 
+		void OnFriction(bool isOn) { mbOnFriction = isOn; }
+		void OnHorizonAccelMove(bool isOn) { mbHorizonAccelMove = isOn; }
+
+		eMoveDir GetMoveDir() { return mMoveDir; }
+
 	private:
 		// 힘과 마찰력을 이용한 이동
 		float mMass;
+		bool mbOnFriction;
 		float mFriction;
-		//float mMoveFriction;
+
 		Vector2 mForce;
 		Vector2 mVelocity;
 		Vector2 mAccelation;
+		float mbHorizonAccelMove;
 
 		// 중력 이용한 점프
 		Vector2 mGravity;
 		bool mbGround;
 		Vector2 mLimitVelocity;
+
+		eMoveDir mMoveDir;
 	};
 }
