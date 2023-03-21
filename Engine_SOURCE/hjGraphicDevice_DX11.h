@@ -57,6 +57,7 @@ namespace hj::graphics
 
 	#pragma region Getter
 		ID3D11Device* GetID3D11Device() { return mDevice.Get(); }
+		UINT GetSwapChainNumerator() { return mSwapChainNumerator; }
 	#pragma endregion
 #pragma endregion
 
@@ -74,6 +75,7 @@ namespace hj::graphics
 		D3D11_VIEWPORT mViewPort;
 #pragma endregion
 
+		UINT mSwapChainNumerator;
 	};
 
 	inline GraphicDevice_DX11*& GetDevice()

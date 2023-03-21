@@ -81,7 +81,7 @@ namespace hj
 		cameraObj->AddComponent(cameraComp);
 		mainCamera = cameraComp;
 
-		//cameraObj->AddComponent(new CameraScript());
+		cameraObj->AddComponent(new CameraScript());
 		object::DontDestroyOnLoad(cameraObj);
 #pragma endregion
 #pragma region UI Camera

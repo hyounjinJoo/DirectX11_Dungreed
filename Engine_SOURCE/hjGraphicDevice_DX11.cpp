@@ -50,6 +50,9 @@ namespace hj::graphics
 		swapChainDesc.SampleDesc.Count						= static_cast<UINT>(1);
 		swapChainDesc.SampleDesc.Quality					= static_cast<UINT>(0);
 
+		// DeltaTime 계산 시 1프레임 초를 넘어서지 않기 위해 제한하는 용도
+		mSwapChainNumerator = swapChainDesc.BufferDesc.RefreshRate.Numerator;
+
 		if (!CreateSwapChain(&swapChainDesc))
 			return;
 
