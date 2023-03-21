@@ -108,8 +108,5 @@ float4 main(VSOut In) : SV_TARGET
             return OutInverseDiagonal;
     }
 	
-    return float4(1.f, 0.f, 1.f, 1.f);
-
-    //discard;
-        
+    return float4(1.f, 0.f, 1.f, 1.f);        
 }
