@@ -17,6 +17,5 @@ namespace hj
 		Vector2 GetOwnerScreenPos();
 	private:
 		class RigidBody* mOwnerRigid;
-
 	};
 }

@@ -44,15 +44,15 @@ namespace hj
 		if (Input::GetKeyState(eKeyCode::D) == eKeyState::PRESSED)
 		{
 			//pos.x += 100.f * Time::DeltaTime();
-			mOwnerRigid->AddForce(Vector2(1000.f, 0.f));
+			mOwnerRigid->AddForce(Vector2(2000.f, 0.f));
 		}
 		if (Input::GetKeyState(eKeyCode::A) == eKeyState::PRESSED)
 		{
-			mOwnerRigid->AddForce(Vector2(-1000.f, 0.f));
+			mOwnerRigid->AddForce(Vector2(-2000.f, 0.f));
 		}
 		if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
 		{
-			mOwnerRigid->AddForce(Vector2(0.f, 2000.f));
+			mOwnerRigid->AddForce(Vector2(0.f, 4000.f));
 			mOwnerRigid->SetGround(false);
 		}
 		if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
@@ -94,12 +94,14 @@ namespace hj
 	{
 		if (mOwnerRigid)
 		{
-			if (GetOwner()->GetPositionY() < 0.f && mOwnerRigid->GetVelocity().y <= 0.f)
+			float halfScaleY = GetOwner()->GetScaleY() * 0.5f;
+			float testY = GetOwner()->GetPositionY() - halfScaleY;
+			if (testY < 0.f && mOwnerRigid->GetVelocity().y <= 0.f)
 			{
-				GetOwner()->SetPositionY(0.f);
+				GetOwner()->SetPositionY(halfScaleY);
 				mOwnerRigid->SetGround(true);
 			}
-			float velocityX = mOwnerRigid->GetVelocity().x;
+			eMoveDir moveDir = mOwnerRigid->GetMoveDir();
 			bool isGround= mOwnerRigid->IsGround();
 			ePlayerState state = ePlayerState::End;
 			Player* player = dynamic_cast<Player*>(GetOwner());
@@ -108,9 +110,9 @@ namespace hj
 			{
 				if (isGround)
 				{
-					if (velocityX == 0.f)
+					if (eMoveDir::End == moveDir)
 						state = ePlayerState::Idle;
-					else
+					else if(eMoveDir::Left == moveDir || eMoveDir::Right == moveDir)
 						state = ePlayerState::Run;
 				}
 				else
