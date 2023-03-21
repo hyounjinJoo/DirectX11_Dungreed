@@ -13,6 +13,7 @@ namespace hj
 		, mPosition(Vector3::Zero)
 		, mRadius(50.f)
 	{
+		SetType(eColliderType::Rect);
 	}
 
 	Collider2D::~Collider2D()
