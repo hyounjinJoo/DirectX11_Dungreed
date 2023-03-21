@@ -3,6 +3,8 @@
 #include "hjGameObject.h"
 #include "hjInput.h"
 #include "hjTime.h"
+#include "hjSceneManager.h"
+#include "hjPlayer.h"
 
 namespace hj
 {
@@ -21,36 +23,19 @@ namespace hj
 
 	void CameraScript::Update()
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-
-		Vector3 pos = tr->GetPosition();
-
-		if (Input::GetKeyState(eKeyCode::D) == eKeyState::PRESSED)
+		std::vector<GameObject*> objects = SceneManager::GetActiveScene()->GetGameObjects(eLayerType::Player);
+		bool isPlayerExist = false;
+		for (auto iter : objects)
 		{
-			pos += 3000.f * tr->Right() * Time::DeltaTime();
-		}
-		if (Input::GetKeyState(eKeyCode::A) == eKeyState::PRESSED)
-		{
-			pos += 3000.f * -tr->Right() * Time::DeltaTime();
-		}
-		if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
-		{
-			pos += 3000.f * tr->Forward() * Time::DeltaTime();
-		}
-		if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
-		{
-			pos += 3000.f * -tr->Forward() * Time::DeltaTime();
-		}
-		if (Input::GetKeyState(eKeyCode::Q) == eKeyState::PRESSED)
-		{
-			pos += 3000.f * tr->Up() * Time::DeltaTime();
-		}
-		if (Input::GetKeyState(eKeyCode::E) == eKeyState::PRESSED)
-		{
-			pos += 3000.f * -tr->Up() * Time::DeltaTime();
+			if (dynamic_cast<Player*>(iter))
+			{
+				isPlayerExist = true;
+				GetOwner()->SetPositionXY(iter->GetPositionXY());
+			}
 		}
 
-		tr->SetPosition(pos);
+		if (!isPlayerExist)
+			GetOwner()->SetPositionXY(Vector2(0.f, 0.f));
 	}
 
 	void CameraScript::Render()
