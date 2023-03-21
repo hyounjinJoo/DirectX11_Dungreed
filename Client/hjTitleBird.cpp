@@ -7,6 +7,7 @@
 #include "hjTime.h"
 #include "hjAnimator.h"
 #include "hjAnimation.h"
+#include "hjCollider2D.h"
 
 extern hj::Application application;
 namespace hj
@@ -23,7 +24,7 @@ namespace hj
 		Animator* animator = AddComponent<Animator>();
 		if (animator)
 		{
-			CREATE_ANIM(birdIdleAnimSheet, birdIdleFrame, material->GetTexture()->GetTexSize(), 0.0625f, Vector2::Zero);
+			CREATE_ANIM(birdIdleAnimSheet, birdIdleFrame, material->GetTexture()->GetTexSize(), 0.0625f);
 			FRAME_ADD(birdIdleFrame, 240.f, 0.f, 48.f, 32.f,birdIdleAnimSheet);
 			FRAME_ADD(birdIdleFrame, 48.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
 			FRAME_ADD(birdIdleFrame, 96.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
@@ -32,7 +33,10 @@ namespace hj
 			FRAME_ADD(birdIdleFrame, 144.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
 			FRAME_ADD(birdIdleFrame, 0.f, 0.f, 48.f, 24.f,birdIdleAnimSheet);
 			FRAME_ADD(birdIdleFrame, 192.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
-			bool isCreate = animator->Create(WIDE("Bird_Idle"), material->GetTexture(), birdIdleAnimSheet, Vector2(48.f, 32.f), false);
+
+			AUTO_OFFSET_CALC(birdIdleAnimSheet);
+
+			bool isCreate = animator->Create(WIDE("Bird_Idle"), material->GetTexture(), birdIdleAnimSheet, canvasSize, false);
 
 			if(isCreate)
 			{
@@ -42,6 +46,8 @@ namespace hj
 
 		Transform* tr = static_cast<Transform*>(mComponents[(UINT)eComponentType::Transform]);
 		tr->SetScale(Vector3(48.f, 32.f, 1.f));
+
+		AddComponent<Collider2D>();
 	}
 	
 	TitleBird::~TitleBird()

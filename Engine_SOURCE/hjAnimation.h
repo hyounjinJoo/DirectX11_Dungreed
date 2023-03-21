@@ -12,12 +12,12 @@
 // atlasTexSize : 프레임에 사용할 아틀라스 텍스처의 크기, Vector2 타입
 // frameDuration : 프레임의 재생 시간, float 타입
 // frameOffset : 프레임이 가질 오프셋, Vector2 타입
-#define CREATE_ANIM(sheetVarName, spriteVarName, atlasTexSize, frameDuration, frameOffset) CREATE_SHEET(sheetVarName);\
+#define CREATE_ANIM(sheetVarName, spriteVarName, atlasTexSize, frameDuration) CREATE_SHEET(sheetVarName);\
 																				Animation::Sprite spriteVarName = {};\
                                                                                 Vector2 canvasSize = {};\
 																				spriteVarName.atlasSize = atlasTexSize;\
 																				spriteVarName.duration = frameDuration;\
-																				spriteVarName.offset = frameOffset
+																				spriteVarName.offset = Vector2::Zero
 // FRAME_ADD : std::vector sheet에 프레임을 추가해 주는 매크로
 // 반드시 Animation::Sprite 변수를 생성하고 atlasSize, duration, offset을 미리 지정해 주어야 한다.
 // 그 다음은 해당 매크로를 이용하여 프레임을 추가해 주면 된다.
@@ -33,6 +33,24 @@
                 canvasSize.x = canvasSize.x >= sizeX ? canvasSize.x : sizeX;\
                 canvasSize.y = canvasSize.y >= sizeY ? canvasSize.y : sizeY;\
 				sheet.push_back(var)
+
+#define AUTO_OFFSET_CALC(spriteSheetVarName) \
+		for (auto& spriteFrame : spriteSheetVarName)\
+		{\
+			if (spriteFrame.size.x != canvasSize.x)\
+			{\
+				spriteFrame.offset.x = (canvasSize.x - spriteFrame.size.x) / 2.f - canvasSize.x * 0.13f;\
+			}\
+			else\
+				spriteFrame.offset.x = 0.f;\
+			if (spriteFrame.size.y != canvasSize.y)\
+			{\
+				spriteFrame.offset.y = -(canvasSize.y - spriteFrame.size.y) / 2.f;\
+			}\
+			else\
+				spriteFrame.offset.y = 0.f;\
+		}\
+
 namespace hj
 {
     using namespace hj::math;
