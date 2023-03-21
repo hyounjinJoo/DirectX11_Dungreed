@@ -27,7 +27,7 @@ float4 main(VSOut In) : SV_TARGET
             float2 spriteOffset = cbAnimOffset / cbAnimAtlasSize;
             
             UV = In.UV * renderCanvasSize;
-            UV = UV - (renderCanvasSize - spriteSize) / 2.f + spriteLT - spriteOffset;
+            UV = UV - (renderCanvasSize - spriteSize) / 2.f + spriteLT + spriteOffset;
             
             if (UV.x < spriteLT.x || spriteLT.x + spriteSize.x < UV.x || UV.y < spriteLT.y || spriteLT.y + spriteSize.y < UV.y)
             {
