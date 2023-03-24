@@ -14,7 +14,7 @@ namespace hj
 	void SceneManager::Initialize()
 	{
 		//mActiveScene->Initialize();
-		LoadScene(eSceneType::Title);
+		LoadScene(eSceneType::Test);
 		mActiveScene->CreateDefaultCamera();
 		//for (Scene* scene : mScenes)
 		//{
