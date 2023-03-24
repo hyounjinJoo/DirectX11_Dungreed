@@ -138,11 +138,37 @@ namespace hj
 		void SetScaleZ(const float scaleZ) { GetTransform()->SetScaleZ(scaleZ); }
 		void SetScaleXY(const Vector2& scale) { GetTransform()->SetScaleXY(scale); }
 
+		void AddPosition(const Vector3& position) { GetTransform()->AddPosition(position); }
+		void AddPositionX(const float posX) { GetTransform()->AddPositionX(posX); }
+		void AddPositionY(const float posY) { GetTransform()->AddPositionY(posY); }
+		void AddPositionZ(const float posZ) { GetTransform()->AddPositionZ(posZ); }
+		void AddPositionXY(const Vector2& position) { GetTransform()->AddPositionXY(position); }
+
+		void AddRotation(const Vector3& rotation) { GetTransform()->AddRotation(rotation); }
+		void AddRotationX(const float rotX) { GetTransform()->AddRotationX(rotX); }
+		void AddRotationY(const float rotY) { GetTransform()->AddRotationY(rotY); }
+		void AddRotationZ(const float rotZ) { GetTransform()->AddRotationZ(rotZ); }
+
+		void AddScale(const Vector3& scale) { GetTransform()->AddScale(scale); }
+		void AddScaleX(const float scaleX) { GetTransform()->AddScaleX(scaleX); }
+		void AddScaleY(const float scaleY) { GetTransform()->AddScaleY(scaleY); }
+		void AddScaleZ(const float scaleZ) { GetTransform()->AddScaleZ(scaleZ); }
+
+		float GetWorldPositionX() { return GetTransform()->GetWorldPositionX(); }
+		float GetWorldPositionY() { return GetTransform()->GetWorldPositionY(); }
+		float GetWorldPositionZ() { return GetTransform()->GetWorldPositionZ(); }
+		float GetWorldRotationX() { return GetTransform()->GetWorldRotationX(); }
+		float GetWorldRotationY() { return GetTransform()->GetWorldRotationY(); }
+		float GetWorldRotationZ() { return GetTransform()->GetWorldRotationZ(); }
+		float GetWorldScaleX() { return GetTransform()->GetWorldScaleX(); }
+		float GetWorldScaleY() { return GetTransform()->GetWorldScaleY(); }
+		float GetWorldScaleZ() { return GetTransform()->GetWorldScaleZ(); }
+
 		Vector3 Forward() { return GetTransform()->Forward(); }
 		Vector3 Right() { return GetTransform()->Right(); }
 		Vector3 Up() { return GetTransform()->Up(); }
 
-		void SetInheritParentTransform(bool inherit) { GetTransform()->SetInheritParentTransform(inherit); }
+		//void SetInheritParentTransform(bool inherit) { GetTransform()->SetInheritParentTransform(inherit); }
 
 		const math::Matrix& GetWorldMatrix() { return GetTransform()->GetWorldMatrix(); }
 	};

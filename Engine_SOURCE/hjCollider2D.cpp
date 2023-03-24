@@ -34,12 +34,12 @@ namespace hj
 		if (nullptr == mTransform)
 			return;
 
-		Vector3 scale = mTransform->GetScale();
+		Vector3 scale = mTransform->GetWorldScale();
 		scale *= Vector3(mSize.x, mSize.y, 1.f);
 
-		Vector3 rotation = mTransform->GetRotation();
+		Vector3 rotation = mTransform->GetWorldRotation();
 
-		Vector3 position = mTransform->GetPosition();
+		Vector3 position = mTransform->GetWorldPosition();
 		mPosition = position + Vector3(mCenter.x, mCenter.y, 0.f);
 
 		Matrix scaleMatrix = Matrix::CreateScale(scale);

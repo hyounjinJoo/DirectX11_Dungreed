@@ -19,6 +19,7 @@
 #include "hjCollisionManager.h"
 #include "hjAnimator.h"
 #include "hjPlayer.h"
+#include "hjTime.h"
 
 
 extern hj::Application application;
@@ -78,10 +79,12 @@ namespace hj
 		//mActiveScene->AddGameObject(light, eLayerType::Player);
 #pragma endregion
 #pragma region Test Object(Transform / MeshRenderer / PlayerScript)
-		pos = Vector3(-400.f, -200.f, 0.f);
+		pos = Vector3(100.f, 100.f, 0.f);
 		rot = Vector3::Zero;
-		GameObject* obj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
-		obj->SetName(L"Test Obj");
+		//GameObject* obj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
+		m_obj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
+
+		m_obj->SetName(L"Test Obj");
 
 		MeshRenderer* mr = new MeshRenderer();
 		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Sprite");
@@ -90,11 +93,11 @@ namespace hj
 		mr->SetMesh(mesh);
 
 		Vector2 texSize = material->GetTexture()->GetTexSize();
-		obj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
+		m_obj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 
-		obj->AddComponent(mr);
+		m_obj->AddComponent(mr);
 
-		Collider2D* collider = obj->AddComponent<Collider2D>();
+		Collider2D* collider = m_obj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
 
 #pragma endregion
@@ -119,15 +122,12 @@ namespace hj
 		PlayerScript* playerScript = new PlayerScript();
 		testPlayer->AddComponent(playerScript);*/
 		SpriteRenderer* sr = nullptr;
-		{
-			Player* player = object::Instantiate<Player>(eLayerType::Player, pos);
-			player->SetName(L"Player");
-			PlayerScript* playerScript = new PlayerScript();
-			player->AddComponent(playerScript);
-		}
+		
+		Player* player = object::Instantiate<Player>(eLayerType::Player, pos);
+		player->SetName(L"Player");
 #pragma endregion
 #pragma region Collision Object - 2
-		pos = Vector3(100.f, 100.f, -1.f);
+		pos = Vector3(100.f, 100.f, 1.f);
 		TestMonster* testMonster = object::Instantiate<TestMonster>(eLayerType::Monster, pos, rot, scale);
 		testMonster->SetName(L"Test Monster for Collision");
 
@@ -139,30 +139,37 @@ namespace hj
 		texSize = material->GetTexture()->GetTexSize();
 		texSize *= 4.f;
 		testMonster->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
+		testMonster->GetTransform()->SetParent(player->GetTransform());
+		//testMonster->GetTransform()->SetInheritParentPosition(true);
+		testMonster->GetTransform()->SetInheritParentRotation(true);
 
 		collider = testMonster->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Circle);
 		collider->SetSize(texSize);
 #pragma endregion
+		m_obj->GetTransform()->SetParent(testMonster->GetTransform());
+		m_obj->GetTransform()->SetInheritParentPosition(true);
+		m_obj->GetTransform()->SetInheritParentRotation(true);
 #pragma endregion
 #pragma region Test Transform Inherit Object
-		pos = Vector3(0.5f, 0.5f, 0.f);
-		rot = Vector3::Zero;
-		scale = Vector3::One;
-
-		Transform* parentTR = obj->GetComponent<Transform>();
-		obj = object::Instantiate<GameObject>(eLayerType::Player, parentTR, pos, rot, scale);
-		obj->SetName(L"Test Obj - Transform Inherit");
-
-		Transform* childTR = obj->GetComponent<Transform>();
-		childTR->SetInheritParentTransform(true);
-
-		mr = new MeshRenderer();
-		obj->AddComponent(mr);
-
-		material = MTRL_FIND("MTRL_Sprite");
-		mr->SetMaterial(material);
-		mr->SetMesh(mesh);
+		//pos = Vector3(0.5f, 0.5f, 0.f);
+		//rot = Vector3::Zero;
+		//scale = Vector3::One;
+		//
+		//Transform* parentTR = obj->GetComponent<Transform>();
+		//obj = object::Instantiate<GameObject>(eLayerType::Player, parentTR, pos, rot, scale);
+		//obj->SetName(L"Test Obj - Transform Inherit");
+		//
+		//Transform* childTR = player->GetTransform();
+		//childTR->SetInheritParentPosition(true);
+		////childTR->SetInheritParentTransform(true);
+		//
+		//mr = new MeshRenderer();
+		//obj->AddComponent(mr);
+		//
+		//material = MTRL_FIND("MTRL_Sprite");
+		//mr->SetMaterial(material);
+		//mr->SetMesh(mesh);
 #pragma endregion
 #pragma endregion
 #pragma region UI
@@ -227,6 +234,31 @@ namespace hj
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(eSceneType::Title);
+		}
+
+		if (Input::GetKeyPressed(eKeyCode::I))
+		{
+			m_obj->AddPositionY(100.f * Time::DeltaTime());
+		}
+		if (Input::GetKeyPressed(eKeyCode::K))
+		{
+			m_obj->AddPositionY(-100.f * Time::DeltaTime());
+		}
+		if (Input::GetKeyPressed(eKeyCode::J))
+		{
+			m_obj->AddPositionX(-100.f * Time::DeltaTime());
+		}
+		if (Input::GetKeyPressed(eKeyCode::L))
+		{
+			m_obj->AddPositionX(100.f * Time::DeltaTime());
+		}
+		if (Input::GetKeyPressed(eKeyCode::U))
+		{
+			m_obj->AddRotationZ(10.f * Time::DeltaTime());
+		}
+		if (Input::GetKeyPressed(eKeyCode::O))
+		{
+			m_obj->AddRotationZ(-10.f * Time::DeltaTime());
 		}
 	}
 

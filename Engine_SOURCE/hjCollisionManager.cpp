@@ -227,38 +227,43 @@ namespace hj
 			,Vector3{-0.5f, -0.5f, 0.f}
 		};
 
+		// 각 트랜스폼(위치 정보)를 가져온다.
 		Transform* leftTr = left->GetOwner()->GetComponent<Transform>();
 		Transform* rightTr = right->GetOwner()->GetComponent<Transform>();
 
+		// 월드 행렬을 가져온다.
 		Matrix leftMat = leftTr->GetWorldMatrix();
 		Matrix rightMat = rightTr->GetWorldMatrix();
 
 		// 분리축 벡터 (투영 벡터)
 		Vector3 Axis[4] = {};
-		Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);
-		Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
-		Axis[2] = Vector3::Transform(arrLocalPos[1], rightMat);
-		Axis[3] = Vector3::Transform(arrLocalPos[3], rightMat);
+		Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);		// Left 우상단 축으로 확장
+		Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);		// Left 좌상단 축으로 확장
+		Axis[2] = Vector3::Transform(arrLocalPos[1], rightMat);		// Right 우상단 축으로 확장
+		Axis[3] = Vector3::Transform(arrLocalPos[3], rightMat);		// Right 좌상단 축으로 확장
 
-		Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMat);
-		Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMat);
-		Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
-		Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
+		Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMat);		// Left 좌상단 만큼을 빼서 원점기준으로 이동
+		Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMat);		// Left 좌상단 만큼을 빼서 원점기준으로 이동
+		Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);	// Right 좌상단 만큼을 빼서 원점기준으로 이동
+		Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);	// Right 좌상단 만큼을 빼서 원점기준으로 이동
 
+		// 충돌체의 크기만큼 축 확장
 		Vector3 leftScale = Vector3(left->GetSize().x, left->GetSize().y, 1.f);
-		Axis[0] = Axis[0] * leftScale;
-		Axis[1] = Axis[1] * leftScale;
+		Axis[0] = Axis[0] * leftScale;											
+		Axis[1] = Axis[1] * leftScale;											
 
 		Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.f);
 		Axis[2] = Axis[2] * rightScale;
 		Axis[3] = Axis[3] * rightScale;
 
+		// 2D 계산이기 때문에 Z 축을 0으로 제한
 		for (size_t i = 0; i < 4; ++i)
 		{
 			Axis[i].z = 0.f;
 		}
 
-		Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
+		// 각 트랜스폼의 원점간 거리 계산(월드 기준)
+		Vector3 vc = leftTr->GetWorldPosition() - rightTr->GetWorldPosition();
 		vc.z = 0.f;
 
 		Vector3 centerDir = vc;

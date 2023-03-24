@@ -1,4 +1,6 @@
 #include "hjTestMonster.h"
+#include "hjInput.h"
+#include "hjTime.h"
 
 namespace hj
 {
@@ -24,6 +26,13 @@ namespace hj
 	void TestMonster::FixedUpdate()
 	{
 		GameObject::FixedUpdate();
+
+		if (Input::GetKeyState(eKeyCode::Y) == eKeyState::PRESSED)
+		{
+			Vector3 rot = GetTransform()->GetRotation();
+			rot.z += 10.f * Time::DeltaTime();
+			GetTransform()->SetRotation(rot);
+		}
 	}
 
 	void TestMonster::Render()

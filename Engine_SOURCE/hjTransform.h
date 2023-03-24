@@ -77,9 +77,25 @@ namespace hj
 		Vector3 Right() { return mRight; }
 		Vector3 Up() { return mUp; }
 
-		void SetInheritParentTransform(bool inherit) { mInheritParentTransform = inherit; }
+		void SetInheritParentPosition(bool inherit) { mInheritParentPosition = inherit; }
+		void SetInheritParentRotation(bool inherit) { mInheritParentRotation = inherit; }
+		void SetInheritParentScale(bool inherit) { mInheritParentScale = inherit; }
 
 		const Matrix& GetWorldMatrix() { return mWorld; }
+
+		const Vector3& GetWorldPosition() { return mWorldPosition; }
+		const Vector3& GetWorldRotation() { return mWorldRotation; }
+		const Vector3& GetWorldScale() { return mWorldScale; }
+
+		float GetWorldPositionX() { return mWorldPosition.x; }
+		float GetWorldPositionY() { return mWorldPosition.y; }
+		float GetWorldPositionZ() { return mWorldPosition.z; }
+		float GetWorldRotationX() { return mWorldRotation.x; }
+		float GetWorldRotationY() { return mWorldRotation.y; }
+		float GetWorldRotationZ() { return mWorldRotation.z; }
+		float GetWorldScaleX() { return mWorldScale.x; }
+		float GetWorldScaleY() { return mWorldScale.y; }
+		float GetWorldScaleZ() { return mWorldScale.z; }
 
 	private:
 		Transform* mParent;
@@ -91,7 +107,13 @@ namespace hj
 		Vector3 mRotation;
 		Vector3 mScale;
 		Matrix mWorld;
-		bool mInheritParentTransform;
+		bool mInheritParentScale;
+		bool mInheritParentRotation;
+		bool mInheritParentPosition;
+
+		Vector3 mWorldPosition;
+		Vector3 mWorldRotation;
+		Vector3 mWorldScale;
 	};
 }
 
