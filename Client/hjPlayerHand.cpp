@@ -1,5 +1,6 @@
 #include "hjPlayerHand.h"
 #include "hjPlayer.h"
+#include "hjCollider2D.h"
 
 namespace hj
 {
@@ -10,6 +11,9 @@ namespace hj
 		, mHandTransform(nullptr)
 		, mHandState(handState::Normal)
 	{
+		AddComponent<Collider2D>();
+		SetScaleXY(Vector2(25.f, 25.f));
+
 	}
 
 	PlayerHand::~PlayerHand()
