@@ -393,6 +393,19 @@ inline void Vector2::Clamp(const Vector2& vmin, const Vector2& vmax, Vector2& re
     XMStoreFloat2(&result, X);
 }
 
+inline Vector2 Vector2::RadianToDegree() const noexcept
+{
+	const float convertX = x * PI / 180.f;
+	const float convertY = y * PI / 180.f;
+	return Vector2(convertX, convertY);
+}
+
+inline Vector2 Vector2::DegreeToRadian() const noexcept
+{
+	const float convertX = x * 180.f / PI;
+	const float convertY = y * 180.f / PI;
+	return Vector2(convertX, convertY);
+}
 //------------------------------------------------------------------------------
 // Static functions
 //------------------------------------------------------------------------------
@@ -982,6 +995,21 @@ inline void Vector3::Clamp(const Vector3& vmin, const Vector3& vmax, Vector3& re
     XMStoreFloat3(&result, X);
 }
 
+inline Vector3 Vector3::RadianToDegree() const noexcept
+{
+	const float convertX = x * PI / 180.f;
+	const float convertY = y * PI / 180.f;
+	const float convertZ = z * PI / 180.f;
+	return Vector3(convertX, convertY, convertZ);
+}
+
+inline Vector3 Vector3::DegreeToRadian() const noexcept
+{
+	const float convertX = x * 180.f / PI;
+    const float convertY = y * 180.f / PI;
+    const float convertZ = z * 180.f / PI;
+	return Vector3(convertX, convertY, convertZ);
+}
 //------------------------------------------------------------------------------
 // Static functions
 //------------------------------------------------------------------------------

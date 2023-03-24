@@ -16,6 +16,8 @@ using namespace DirectX::PackedVector;
 
 namespace hj::math
 {
+    static float PI = 3.14159f;
+
     struct Vector2;
     struct Vector4;
     struct Matrix;
@@ -139,6 +141,9 @@ namespace hj::math
         void Clamp(const Vector2& vmin, const Vector2& vmax) noexcept;
         void Clamp(const Vector2& vmin, const Vector2& vmax, Vector2& result) const noexcept;
 
+		Vector2 RadianToDegree() const noexcept;
+		Vector2 DegreeToRadian() const noexcept;
+
         // Static functions
         static float Distance(const Vector2& v1, const Vector2& v2) noexcept;
         static float DistanceSquared(const Vector2& v1, const Vector2& v2) noexcept;
@@ -251,6 +256,9 @@ namespace hj::math
 
         void Clamp(const Vector3& vmin, const Vector3& vmax) noexcept;
         void Clamp(const Vector3& vmin, const Vector3& vmax, Vector3& result) const noexcept;
+
+        Vector3 RadianToDegree() const noexcept;
+        Vector3 DegreeToRadian() const noexcept;
 
         // Static functions
         static float Distance(const Vector3& v1, const Vector3& v2) noexcept;
