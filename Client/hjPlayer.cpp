@@ -6,12 +6,13 @@
 #include "hjPlayerScript.h"
 #include "hjInput.h"
 #include "hjCollider2D.h"
+#include "hjObject.h"
 
 namespace hj
 {
 	Player::Player()
 		: GameObject()
-		, mHand(nullptr)
+		, mLeftHand(nullptr)
 		, mState(ePlayerState::End)
 	{
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
@@ -33,6 +34,10 @@ namespace hj
 		mRigidBody = AddComponent<RigidBody>();
 		mPlayerScript = AddComponent<PlayerScript>();
 		AddComponent<Collider2D>();
+
+		//mLeftHand = object::Instantiate<PlayerHand>(eLayerType::Player, Vector3(GetScaleX() * 0.5f, 0.f, 0.f));
+		//mLeftHand->GetTransform()->SetParent(GetTransform());
+		//mLeftHand->GetTransform()->SetInheritParentPosition(true);
 	}
 
 	Player::~Player()

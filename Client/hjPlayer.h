@@ -47,8 +47,10 @@ namespace hj
         void Render() override;
         void ChangeState(ePlayerState state);
 
+        class PlayerHand* GetHand() { return mLeftHand; }
+
     private:
-        class PlayerHand* mHand;
+        class PlayerHand* mLeftHand;
         ePlayerState mState;
         class Animator* mAnimator;
         class RigidBody* mRigidBody;
