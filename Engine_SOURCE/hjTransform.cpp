@@ -55,34 +55,35 @@ namespace hj
 		// - 최종 계산을 거쳐 사용될 행렬, 상속을 처리하지 않을 경우에 대비해 localTransform 행렬을 먼저 대입.
 		Matrix combinedTransform = localTransform;
 
-		if (mParent)
+		if (mParent && (mInheritParentScale || mInheritParentRotation || mInheritParentPosition))
 		{
-			Matrix parentTransform = Matrix::Identity;
+			Matrix parentWorld = mParent->GetWorldMatrix();
 
-			if (mInheritParentScale)
+			if (!mInheritParentScale)
 			{
-				parentTransform *= Matrix::CreateScale(mParent->mWorldScale);
+				Matrix parentWorldScale = XMMatrixScalingFromVector(mParent->mWorldScale);
+				Matrix parentWorldScaleInv = XMMatrixInverse(nullptr, parentWorldScale);
+
+				parentWorld = parentWorldScaleInv * parentWorld;
 			}
 
-			if (mInheritParentRotation)
+			if (!mInheritParentRotation)
 			{
-				parentTransform *= Matrix::CreateFromQuaternion(Quaternion::CreateFromYawPitchRoll(mParent->mWorldRotation.y, mParent->mWorldRotation.x, mParent->mWorldRotation.z));
+				Vector3 parentRotation = mParent->mWorldRotation;
+				Matrix parentWorldRotation = XMMatrixRotationRollPitchYaw(parentRotation.z, parentRotation.x, parentRotation.y);
+				Matrix parentWorldRotationInv = XMMatrixInverse(nullptr, parentWorldRotation);
+				parentWorld = parentWorldRotationInv * parentWorld;
 			}
 
-			if (mInheritParentPosition)
+			if (!mInheritParentPosition)
 			{
 				Matrix parentRotation = Matrix::CreateWorld(mParent->mWorldPosition, mParent->mUp, mParent->mForward);
-				Vector3 parentPos = mParent->mWorldPosition;
-				memcpy(&parentRotation._41, &parentPos, sizeof(Vector3));
+				Vector3 origin = Vector3::Zero;
 				
-				const XMFLOAT3* convertPos = (XMFLOAT3*)&mWorldPosition;
-				Vector3 worldPos = XMVector3TransformCoord(XMLoadFloat3(convertPos), parentRotation);
-				mWorldPosition = worldPos;
-				
-				memcpy(&combinedTransform._41, &worldPos, sizeof(Vector3));
+				memcpy(&parentWorld._41, &origin, sizeof(Vector3));
 			}
 
-			combinedTransform *= parentTransform;
+			combinedTransform *= parentWorld;
 
 			// - 월드 좌표, 크기, 회전 갱신
 			Vector3 worldPos, worldScale;
@@ -102,9 +103,9 @@ namespace hj
 		{
 			Matrix rotation = Matrix::CreateFromYawPitchRoll(mWorldRotation.y, mWorldRotation.x, mWorldRotation.z);
 
-			mForward = Vector3::TransformNormal(Vector3::Forward, rotation) + Vector3(0.f, 0.f, mWorldPosition.z);
-			mRight = Vector3::TransformNormal(Vector3::Right, rotation) + Vector3(mWorldPosition.x, 0.f, 0.f);
-			mUp = Vector3::TransformNormal(Vector3::Up, rotation) + Vector3(0.f, mWorldPosition.y, 0.f);
+			mForward = Vector3::TransformNormal(Vector3::Forward, rotation);
+			mRight = Vector3::TransformNormal(Vector3::Right, rotation);
+			mUp = Vector3::TransformNormal(Vector3::Up, rotation);
 		}
 		else
 		{
