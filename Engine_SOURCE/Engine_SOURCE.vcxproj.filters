@@ -94,6 +94,15 @@
     <Filter Include="Component\RigidBody">
       <UniqueIdentifier>{de596207-9403-4de7-8cab-04a9fb481bd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Buffer">
+      <UniqueIdentifier>{b53116ae-d850-424f-a961-4435091aea31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Buffer\ConstantBuffer">
+      <UniqueIdentifier>{8a750862-2587-45e1-9628-e200bf18f81d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Buffer\StructuredBuffer">
+      <UniqueIdentifier>{6cd47a68-f02f-4c78-a2c6-7dda0eb39022}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -165,9 +174,6 @@
     <ClCompile Include="hjScene.cpp">
       <Filter>Scene\Base</Filter>
     </ClCompile>
-    <ClCompile Include="hjConstantBuffer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="hjBaseRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -194,6 +200,12 @@
     </ClCompile>
     <ClCompile Include="hjRigidBody.cpp">
       <Filter>Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="hjConstantBuffer.cpp">
+      <Filter>Graphics\Buffer\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStructuredBuffer.cpp">
+      <Filter>Graphics\Buffer\StructuredBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,9 +293,6 @@
     <ClInclude Include="hjScene.h">
       <Filter>Scene\Base</Filter>
     </ClInclude>
-    <ClInclude Include="hjConstantBuffer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="hjBaseRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -310,6 +319,12 @@
     </ClInclude>
     <ClInclude Include="hjRigidBody.h">
       <Filter>Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="hjConstantBuffer.h">
+      <Filter>Graphics\Buffer\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStructuredBuffer.h">
+      <Filter>Graphics\Buffer\StructuredBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

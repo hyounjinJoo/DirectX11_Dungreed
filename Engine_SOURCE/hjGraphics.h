@@ -90,7 +90,7 @@ namespace hj::graphics
 			UnknownType,
 		} type = eType::UnknownType;
 
-		D3D11_BUFFER_DESC desc;
+		D3D11_BUFFER_DESC desc = {};
 		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
 
 		GpuBuffer() = default;
@@ -132,6 +132,12 @@ namespace hj::graphics
 		Matrix_2,
 		Matrix_3,
 		Matrix_4,
+	};
+
+	enum class eSRVType
+	{
+		None,
+		End,
 	};
 
 	enum class eAnimationType

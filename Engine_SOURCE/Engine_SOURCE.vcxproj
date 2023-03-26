@@ -185,6 +185,7 @@
     <ClInclude Include="hjScript.h" />
     <ClInclude Include="hjShader.h" />
     <ClInclude Include="hjSpriteRenderer.h" />
+    <ClInclude Include="hjStructuredBuffer.h" />
     <ClInclude Include="hjTexture.h" />
     <ClInclude Include="hjTime.h" />
     <ClInclude Include="hjApplication.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="hjScript.cpp" />
     <ClCompile Include="hjShader.cpp" />
     <ClCompile Include="hjSpriteRenderer.cpp" />
+    <ClCompile Include="hjStructuredBuffer.cpp" />
     <ClCompile Include="hjTexture.cpp" />
     <ClCompile Include="hjTime.cpp" />
     <ClCompile Include="hjApplication.cpp" />
