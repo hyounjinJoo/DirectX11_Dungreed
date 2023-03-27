@@ -57,6 +57,9 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)defines.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)functions.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)Light.hlsli" />
   </ItemGroup>
 </Project>

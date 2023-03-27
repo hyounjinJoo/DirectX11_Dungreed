@@ -19,6 +19,6 @@ namespace hj
 		void OnExit() override;
 
 	private:
-		class GameObject* m_obj;
+		class GameObject* mObj;
     };
 }

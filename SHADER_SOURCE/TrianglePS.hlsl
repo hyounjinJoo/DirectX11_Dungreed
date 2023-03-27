@@ -1,5 +1,5 @@
 
-#include "globals.hlsli"
+#include "functions.hlsli"
 
 struct VSOut
 {

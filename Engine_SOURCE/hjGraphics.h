@@ -14,10 +14,11 @@
 #define CB_GETBINDSLOT(name) __CBUFFERBINDSLOT__##name##__
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name
 
-#define CBSLOT_TRANSFORM	0
-#define CBSLOT_MATERIAL		1
-#define CBSLOT_GRID			2
-#define CBSLOT_ANIMATION	3
+#define CBSLOT_TRANSFORM		0
+#define CBSLOT_MATERIAL			1
+#define CBSLOT_GRID				2
+#define CBSLOT_ANIMATION		3
+#define CBSLOT_NUMBEROFLIGHT	4
 
 namespace hj::graphics
 {
@@ -103,6 +104,7 @@ namespace hj::graphics
 		Material,
 		Grid,
 		Animation,
+		Light,
 		End,
 	};
 
@@ -158,5 +160,20 @@ namespace hj::graphics
 		float radius;
 		float duration;
 		float time;
+	};
+
+	struct LightAttribute
+	{
+		math::Vector4 diffuse;
+		math::Vector4 specular;
+		math::Vector4 ambient;
+		math::Vector4 emissive;
+		math::Vector4 position;
+		math::Vector4 direction;
+
+		enums::eLightType type;
+		float radius;
+		float angle;
+		int padding;
 	};
 }

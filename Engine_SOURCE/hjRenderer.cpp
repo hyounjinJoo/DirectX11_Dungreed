@@ -18,6 +18,8 @@ namespace hj::renderer
 	Camera* mainCamera = nullptr;
 	std::vector<Camera*> cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
+	std::vector<LightAttribute> lights;
+	StructuredBuffer* lightsBuffer = nullptr;
 
 	void LoadMesh()
 	{
@@ -348,6 +350,7 @@ namespace hj::renderer
 
 	void LoadBuffer()
 	{
+#pragma region Constant Buffer
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -359,6 +362,14 @@ namespace hj::renderer
 
 		constantBuffers[(UINT)eCBType::Animation] = new ConstantBuffer(eCBType::Animation);
 		constantBuffers[(UINT)eCBType::Animation]->Create(sizeof(AnimationCB));
+
+		constantBuffers[(UINT)eCBType::Light] = new ConstantBuffer(eCBType::Light);
+		constantBuffers[(UINT)eCBType::Light]->Create(sizeof(LightCB));
+#pragma endregion
+#pragma region Structured Buffer
+		lightsBuffer = new StructuredBuffer();
+		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
+#pragma endregion
 	}
 
 	void LoadShader()
@@ -745,6 +756,8 @@ namespace hj::renderer
 
 	void Render()
 	{
+		BindLights();
+
 		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
 		for (Camera* cam : cameras[(UINT)type])
 		{
@@ -755,14 +768,46 @@ namespace hj::renderer
 		}
 
 		cameras[(UINT)type].clear();
+		lights.clear();
 	}
 
 	void Release()
 	{
 		for (size_t i = 0; i < (UINT)eCBType::End; ++i)
 		{
-			delete constantBuffers[i];
-			constantBuffers[i] = nullptr;
+			if (constantBuffers[i])
+			{
+				delete constantBuffers[i];
+				constantBuffers[i] = nullptr;
+			}
 		}
+
+		if (lightsBuffer)
+		{
+			delete lightsBuffer;
+			lightsBuffer = nullptr;
+		}
+	}
+
+	void PushLightAttribute(LightAttribute lightAttribute)
+	{
+		lights.push_back(lightAttribute);
+	}
+
+	void BindLights()
+	{
+		// Structured Buffer Binding
+		lightsBuffer->Bind(lights.data(), static_cast<UINT>(lights.size()));
+		lightsBuffer->SetPipeline(eShaderStage::VS, 13);
+		lightsBuffer->SetPipeline(eShaderStage::PS, 13);
+
+		// Constant Buffer Binding
+		LightCB trCb = {};
+		trCb.numberOfLight = static_cast<UINT>(lights.size());
+
+		ConstantBuffer* cb = constantBuffers[(UINT)eCBType::Light];
+		cb->Bind(&trCb);
+		cb->SetPipeline(eShaderStage::VS);
+		cb->SetPipeline(eShaderStage::PS);
 	}
 }

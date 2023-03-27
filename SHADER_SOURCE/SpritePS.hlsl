@@ -1,8 +1,9 @@
-#include "globals.hlsli"
+#include "functions.hlsli"
 
 struct VSOut
 {
     float4 Pos : SV_Position;
+    float3 WorldPos : POSITION;
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
@@ -18,10 +19,16 @@ float4 main(VSOut In) : SV_TARGET
     
     color = defaultTexture.Sample(pointSampler, In.UV);
     
-        
-    
     if (color.a == 0.f)
         discard;
+    
+    LightColor lightColor = (LightColor) 0.f;
+    for (uint i = 0; i < numberOfLight; ++i)
+    {
+        CalculateLight(lightColor, In.WorldPos.xyz, i);
+    }
+    
+    color *= lightColor.diffuse;
     
     return color;
 }

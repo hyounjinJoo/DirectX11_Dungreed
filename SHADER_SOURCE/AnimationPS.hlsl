@@ -1,8 +1,9 @@
-#include "globals.hlsli"
+#include "functions.hlsli"
 
 struct VSOut
 {
     float4 Pos : SV_Position;
+    float3 WorldPos : POSITION;
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
@@ -61,6 +62,14 @@ float4 main(VSOut In) : SV_TARGET
     
     if (Out.a == 0.f)
         discard;
+    
+    LightColor lightColor = (LightColor) 0.f;
+    for (uint i = 0; i < numberOfLight; ++i)
+    {
+        CalculateLight(lightColor, In.WorldPos.xyz, i);
+    }
+    
+    Out *= lightColor.diffuse;
     
     return Out;
 }

@@ -20,6 +20,7 @@
 #include "hjAnimator.h"
 #include "hjPlayer.h"
 #include "hjTime.h"
+#include "hjLight.h"
 
 
 extern hj::Application application;
@@ -28,6 +29,7 @@ namespace hj
 
 	TestScene::TestScene()
 		: Scene(eSceneType::Test)
+		, mObj(nullptr)
 	{
 	}
 
@@ -43,6 +45,23 @@ namespace hj
 		Vector3 scale = Vector3::One;
 #pragma endregion
 
+#pragma region Light Test
+		{
+			{
+				GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, Vector3(0.f, 0.f, -100.f));
+				Light* lightComp = directionalLight->AddComponent<Light>();
+				lightComp->SetType(eLightType::Directional);
+				lightComp->SetDiffuse(Vector4(1.f, 1.f, 1.f, 1.f));
+			}
+			{
+				GameObject* pointLight = object::Instantiate<GameObject>(eLayerType::Player, Vector3(0.f, 0.f, 0.f));
+				Light* lightComp = pointLight->AddComponent<Light>();
+				lightComp->SetType(eLightType::Point);
+				lightComp->SetRadius(500.f);
+				lightComp->SetDiffuse(Vector4(1.f, 0.f, 1.f, 1.f));
+			}
+		}
+#pragma endregion
 #pragma region Setting
 	#pragma region Fade Object
 			//scale = Vector3(1600.f, 900.f, 1.f);
@@ -82,9 +101,9 @@ namespace hj
 		pos = Vector3(100.f, 100.f, 0.f);
 		rot = Vector3::Zero;
 		//GameObject* obj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
-		m_obj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
+		mObj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
 
-		m_obj->SetName(L"Test Obj");
+		mObj->SetName(L"Test Obj");
 
 		MeshRenderer* mr = new MeshRenderer();
 		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Sprite");
@@ -93,11 +112,11 @@ namespace hj
 		mr->SetMesh(mesh);
 
 		Vector2 texSize = material->GetTexture()->GetTexSize();
-		m_obj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
+		mObj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 
-		m_obj->AddComponent(mr);
+		mObj->AddComponent(mr);
 
-		Collider2D* collider = m_obj->AddComponent<Collider2D>();
+		Collider2D* collider = mObj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
 
 #pragma endregion
@@ -147,9 +166,9 @@ namespace hj
 		collider->SetType(eColliderType::Circle);
 		collider->SetSize(texSize);
 #pragma endregion
-		m_obj->GetTransform()->SetParent(testMonster->GetTransform());
-		m_obj->GetTransform()->SetInheritParentPosition(true);
-		m_obj->GetTransform()->SetInheritParentRotation(true);
+		mObj->GetTransform()->SetParent(testMonster->GetTransform());
+		mObj->GetTransform()->SetInheritParentPosition(true);
+		mObj->GetTransform()->SetInheritParentRotation(true);
 #pragma endregion
 #pragma region Test Transform Inherit Object
 		//pos = Vector3(0.5f, 0.5f, 0.f);
@@ -238,27 +257,27 @@ namespace hj
 
 		if (Input::GetKeyPressed(eKeyCode::I))
 		{
-			m_obj->AddPositionY(100.f * Time::DeltaTime());
+			mObj->AddPositionY(100.f * Time::DeltaTime());
 		}
 		if (Input::GetKeyPressed(eKeyCode::K))
 		{
-			m_obj->AddPositionY(-100.f * Time::DeltaTime());
+			mObj->AddPositionY(-100.f * Time::DeltaTime());
 		}
 		if (Input::GetKeyPressed(eKeyCode::J))
 		{
-			m_obj->AddPositionX(-100.f * Time::DeltaTime());
+			mObj->AddPositionX(-100.f * Time::DeltaTime());
 		}
 		if (Input::GetKeyPressed(eKeyCode::L))
 		{
-			m_obj->AddPositionX(100.f * Time::DeltaTime());
+			mObj->AddPositionX(100.f * Time::DeltaTime());
 		}
 		if (Input::GetKeyPressed(eKeyCode::U))
 		{
-			m_obj->AddRotationZ(10.f * Time::DeltaTime());
+			mObj->AddRotationZ(10.f * Time::DeltaTime());
 		}
 		if (Input::GetKeyPressed(eKeyCode::O))
 		{
-			m_obj->AddRotationZ(-10.f * Time::DeltaTime());
+			mObj->AddRotationZ(-10.f * Time::DeltaTime());
 		}
 	}
 

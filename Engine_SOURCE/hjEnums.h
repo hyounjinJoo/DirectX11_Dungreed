@@ -39,6 +39,7 @@ namespace hj::enums
 		MeshRenderer,
 		SpriteRenderer,
 		Animator,
+		Light,
 		UI,
 		Script,
 		End,
@@ -87,4 +88,11 @@ namespace hj::enums
 		End,
 	};
 
+	enum class eLightType
+	{
+		Directional,
+		Point,
+		Spot,
+		End,
+	};
 }

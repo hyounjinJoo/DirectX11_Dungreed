@@ -8,6 +8,8 @@
 #include "hjShader.h"
 #include "hjConstantBuffer.h"
 #include "hjCamera.h"
+#include "hjLight.h"
+#include "hjStructuredBuffer.h"
 
 using namespace hj::math;
 using namespace hj::graphics;
@@ -101,6 +103,11 @@ namespace hj::renderer
 		Vector2 padding;
 	};
 
+	CBUFFER(LightCB, CBSLOT_NUMBEROFLIGHT)
+	{
+		UINT numberOfLight;
+	};
+
 #pragma region extern Variables
 	extern Vertex vertexes[4];
 	extern Camera* mainCamera;
@@ -112,9 +119,14 @@ namespace hj::renderer
 
 	extern std::vector<Camera*> cameras[];
 	extern std::vector<DebugMesh> debugMeshes;
+	extern std::vector<LightAttribute> lights;
+	extern StructuredBuffer* lightsBuffer;
 #pragma endregion
 
 	void Initialize();
 	void Render();
 	void Release();
+
+	void PushLightAttribute(LightAttribute lightAttribute);
+	void BindLights();
 }

@@ -103,6 +103,9 @@
     <Filter Include="Graphics\Buffer\StructuredBuffer">
       <UniqueIdentifier>{6cd47a68-f02f-4c78-a2c6-7dda0eb39022}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Light">
+      <UniqueIdentifier>{cbe6a2af-5e47-4410-a0d4-81e0ea4bb285}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -206,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="hjStructuredBuffer.cpp">
       <Filter>Graphics\Buffer\StructuredBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="hjLight.cpp">
+      <Filter>Component\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="hjStructuredBuffer.h">
       <Filter>Graphics\Buffer\StructuredBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjLight.h">
+      <Filter>Component\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
