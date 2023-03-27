@@ -64,6 +64,23 @@ namespace hj
 			return nullptr;
 		}
 
+		template <typename T>
+		std::vector<T*> GetComponents()
+		{
+			std::vector<T*> components = {};
+
+			T* comp;
+			for (auto c : mComponents)
+			{
+				comp = dynamic_cast<T*>(c);
+
+				if (comp != nullptr)
+					components.push_back(comp);
+			}
+
+			return components;
+		}
+
 		const std::vector<Script*>& GetScripts() { return mScripts; }
 
 		bool IsDead()
@@ -153,6 +170,10 @@ namespace hj
 		void AddScaleX(const float scaleX) { GetTransform()->AddScaleX(scaleX); }
 		void AddScaleY(const float scaleY) { GetTransform()->AddScaleY(scaleY); }
 		void AddScaleZ(const float scaleZ) { GetTransform()->AddScaleZ(scaleZ); }
+
+		const Vector3& GetWorldPosition() { return GetTransform()->GetWorldPosition(); }
+		const Vector3& GetWorldRotation() { return GetTransform()->GetWorldRotation(); }
+		const Vector3& GetWorldScale() { return GetTransform()->GetWorldScale(); }
 
 		float GetWorldPositionX() { return GetTransform()->GetWorldPositionX(); }
 		float GetWorldPositionY() { return GetTransform()->GetWorldPositionY(); }
