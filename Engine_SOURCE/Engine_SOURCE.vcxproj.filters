@@ -106,6 +106,9 @@
     <Filter Include="Component\Light">
       <UniqueIdentifier>{cbe6a2af-5e47-4410-a0d4-81e0ea4bb285}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Shader\CS">
+      <UniqueIdentifier>{ed9644cc-6e77-4e3c-8b3c-d8220e3a7d83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -212,6 +215,12 @@
     </ClCompile>
     <ClCompile Include="hjLight.cpp">
       <Filter>Component\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="hjComputeShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPaintShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="hjLight.h">
       <Filter>Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="hjComputeShader.h">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPaintShader.h">
+      <Filter>Resource\Shader\CS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

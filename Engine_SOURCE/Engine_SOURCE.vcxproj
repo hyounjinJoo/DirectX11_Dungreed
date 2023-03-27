@@ -163,6 +163,7 @@
     <ClInclude Include="hjCollider3D.h" />
     <ClInclude Include="hjCollisionManager.h" />
     <ClInclude Include="hjComponent.h" />
+    <ClInclude Include="hjComputeShader.h" />
     <ClInclude Include="hjConstantBuffer.h" />
     <ClInclude Include="hjEngine.h" />
     <ClInclude Include="hjEntity.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="hjMesh.h" />
     <ClInclude Include="hjMeshRenderer.h" />
     <ClInclude Include="hjObject.h" />
+    <ClInclude Include="hjPaintShader.h" />
     <ClInclude Include="hjPrefab.h" />
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
@@ -204,6 +206,7 @@
     <ClCompile Include="hjCollider3D.cpp" />
     <ClCompile Include="hjCollisionManager.cpp" />
     <ClCompile Include="hjComponent.cpp" />
+    <ClCompile Include="hjComputeShader.cpp" />
     <ClCompile Include="hjConstantBuffer.cpp" />
     <ClCompile Include="hjEntity.cpp" />
     <ClCompile Include="hjGameObject.cpp" />
@@ -213,6 +216,7 @@
     <ClCompile Include="hjMaterial.cpp" />
     <ClCompile Include="hjMesh.cpp" />
     <ClCompile Include="hjMeshRenderer.cpp" />
+    <ClCompile Include="hjPaintShader.cpp" />
     <ClCompile Include="hjPrefab.cpp" />
     <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />

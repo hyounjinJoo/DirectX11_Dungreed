@@ -12,6 +12,7 @@ namespace hj
 		, mRSType(eRSType::SolidBack)
 		, mDSType(eDSType::LessEqual)
 		, mBSType(eBSType::AlphaBlend)
+		, mStage(eShaderStage::Count)
     {
     }
     Shader::~Shader()

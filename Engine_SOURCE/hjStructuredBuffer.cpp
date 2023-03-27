@@ -66,6 +66,6 @@ namespace hj::graphics
 	
 	void StructuredBuffer::SetPipeline(eShaderStage stage, UINT slot)
 	{
-		GetDevice()->SetShaderResource(stage, slot, mSRV.GetAddressOf());
+		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
 }

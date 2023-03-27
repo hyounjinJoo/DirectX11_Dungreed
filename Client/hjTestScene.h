@@ -1,5 +1,6 @@
 #pragma once
 #include <hjScene.h>
+#include "hjPaintShader.h"
 
 namespace hj
 {
@@ -20,5 +21,6 @@ namespace hj
 
 	private:
 		class GameObject* mObj;
+		std::shared_ptr<PaintShader> mPaintShader;
     };
 }

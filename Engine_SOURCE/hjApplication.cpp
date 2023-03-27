@@ -101,7 +101,7 @@ namespace hj
 
             ValidationMode validationMode = ValidationMode::Disabled;
             graphicDevice = std::make_unique<GraphicDevice_DX11>();
-            graphics::GetDevice() = graphicDevice.get();
+            //graphics::GetDevice() = graphicDevice.get();
         }
 
         // 윈도우 크기 조정

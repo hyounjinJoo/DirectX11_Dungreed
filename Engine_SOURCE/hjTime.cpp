@@ -9,6 +9,7 @@ namespace hj
     LARGE_INTEGER   Time::mPrevFrequency = {};
     LARGE_INTEGER	Time::mCurFrequency = {};
     float			Time::mDeltaTime = 0.0f;
+    float           Time::mAccTime = 0.0f;
     float			Time::mOneSecond = 0.0f;
 
     void Time::Initialize()
@@ -32,6 +33,7 @@ namespace hj
                 = static_cast<float>((mCurFrequency.QuadPart - mPrevFrequency.QuadPart));
 
             mDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
+            mAccTime += mDeltaTime;
             mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 
             float deviceNumerator = static_cast<float>(hj::graphics::GetDevice()->GetSwapChainNumerator());

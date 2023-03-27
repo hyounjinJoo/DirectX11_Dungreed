@@ -4,6 +4,7 @@
 #include "hjMaterial.h"
 #include "hjSceneManager.h"
 #include "hjApplication.h"
+#include "hjPaintShader.h"
 
 extern hj::Application application;
 namespace hj::renderer
@@ -365,6 +366,9 @@ namespace hj::renderer
 
 		constantBuffers[(UINT)eCBType::Light] = new ConstantBuffer(eCBType::Light);
 		constantBuffers[(UINT)eCBType::Light]->Create(sizeof(LightCB));
+
+		constantBuffers[(UINT)eCBType::Global] = new ConstantBuffer(eCBType::Global);
+		constantBuffers[(UINT)eCBType::Global]->Create(sizeof(GlobalCB));
 #pragma endregion
 #pragma region Structured Buffer
 		lightsBuffer = new StructuredBuffer();
@@ -433,6 +437,11 @@ namespace hj::renderer
 		shader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 		SHADER_INSERT("Shader_Debug", shader);
+
+		// Paint Shader(Compute Shader)
+		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		paintShader->Create(L"PaintCS.hlsl", "main");
+		Resources::Insert<PaintShader>(WIDE("Shader_Paint"), paintShader);
 	}
 
 
@@ -622,6 +631,12 @@ namespace hj::renderer
 		//LOAD_TEX("Tex_Title_Layer_Sky_Day", "Sky_Day.png");
 		//LOAD_TEX("Tex_Title_Layer_Sky_Night", "Sky_Night.png");
 
+		//Compute Test
+		LOAD_TEX("NoiseTex01", "Noise_01.png");
+		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
+			| D3D11_BIND_UNORDERED_ACCESS);
+		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
 	}
 
 	void LoadMaterial()
@@ -643,7 +658,8 @@ namespace hj::renderer
 
 		// Sprite
 		//std::shared_ptr<Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"DefaultSprite.png");
-		texture = TEX_FIND("DefaultSprite");
+		//texture = TEX_FIND("DefaultSprite");
+		texture = TEX_FIND("PaintTexture");
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
 		material->SetShader(shader);

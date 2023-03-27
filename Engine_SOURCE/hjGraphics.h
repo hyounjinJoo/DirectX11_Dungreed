@@ -19,6 +19,7 @@
 #define CBSLOT_GRID				2
 #define CBSLOT_ANIMATION		3
 #define CBSLOT_NUMBEROFLIGHT	4
+#define CBSLOT_GLOBAL			5
 
 namespace hj::graphics
 {
@@ -105,6 +106,7 @@ namespace hj::graphics
 		Grid,
 		Animation,
 		Light,
+		Global,
 		End,
 	};
 

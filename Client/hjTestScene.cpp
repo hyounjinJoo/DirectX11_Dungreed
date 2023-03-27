@@ -21,6 +21,7 @@
 #include "hjPlayer.h"
 #include "hjTime.h"
 #include "hjLight.h"
+#include "hjPaintShader.h"
 
 
 extern hj::Application application;
@@ -44,7 +45,18 @@ namespace hj
 		Vector3 rot = Vector3::Zero;
 		Vector3 scale = Vector3::One;
 #pragma endregion
-
+#pragma region Compute Shader Test
+		{
+			//paint shader
+			mPaintShader = Resources::Find<PaintShader>(L"Shader_Paint");
+			//Paint Tex and Noise Tex
+			std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
+			std::shared_ptr<Texture> noiseTex = Resources::Find<Texture>(L"NoiseTex01");
+			paintTex->SetTexSize(Vector2(1024.f, 1024.f));
+			mPaintShader->SetTarget(paintTex);
+			mPaintShader->SetNoiseTexture(noiseTex);
+		}
+#pragma endregion
 #pragma region Light Test
 		{
 			{
@@ -54,11 +66,11 @@ namespace hj
 				lightComp->SetDiffuse(Vector4(1.f, 1.f, 1.f, 1.f));
 			}
 			{
-				GameObject* pointLight = object::Instantiate<GameObject>(eLayerType::Player, Vector3(0.f, 0.f, 0.f));
-				Light* lightComp = pointLight->AddComponent<Light>();
-				lightComp->SetType(eLightType::Point);
-				lightComp->SetRadius(500.f);
-				lightComp->SetDiffuse(Vector4(1.f, 0.f, 1.f, 1.f));
+				//GameObject* pointLight = object::Instantiate<GameObject>(eLayerType::Player, Vector3(0.f, 0.f, 0.f));
+				//Light* lightComp = pointLight->AddComponent<Light>();
+				//lightComp->SetType(eLightType::Point);
+				//lightComp->SetRadius(500.f);
+				//lightComp->SetDiffuse(Vector4(1.f, 0.f, 1.f, 1.f));
 			}
 		}
 #pragma endregion
@@ -111,9 +123,10 @@ namespace hj
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
 
-		Vector2 texSize = material->GetTexture()->GetTexSize();
-		mObj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
-
+		//Vector2 texSize = material->GetTexture()->GetTexSize();
+		//mObj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
+		Vector2 texSize = Vector2(500.f, 500.f);
+		mObj->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 		mObj->AddComponent(mr);
 
 		Collider2D* collider = mObj->AddComponent<Collider2D>();
@@ -284,6 +297,7 @@ namespace hj
 	void TestScene::FixedUpdate()
 	{
 		Scene::FixedUpdate();
+		mPaintShader->OnExecute();
 	}
 
 	void TestScene::Render()

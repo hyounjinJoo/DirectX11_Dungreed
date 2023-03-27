@@ -76,6 +76,15 @@ cbuffer NumberOfLight : register(b4)
     uint numberOfLight;
 }
 
+cbuffer GlobalCBuffer : register(b5)
+{
+    float globalDeltaTime;
+    float globalAccTime;
+    float2 globalResolution;
+    float2 globalNoiseResolution;
+    float2 globalPadding;
+};
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);
@@ -85,6 +94,7 @@ StructuredBuffer<LightAttribute> lightAttributes : register(t13);
 Texture2D defaultTexture : register(t0);
 //Texture2D defaultTexture2 : register(t1);
 //Texture2D defaultTexture3 : register(t2);
+Texture2D noiseTexture : register(t10);
 
 //Atlas texture
 Texture2D atlasTexture : register(t12);

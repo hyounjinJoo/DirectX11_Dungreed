@@ -7,7 +7,7 @@ namespace hj
 	{
 	public:
 		static __forceinline float DeltaTime() { return mDeltaTime; }
-
+		static __forceinline float AccTime() { return mAccTime; }
 		static void Initialize();
 		static void Update();
 		static void Render(HDC hdc);
@@ -18,6 +18,7 @@ namespace hj
 		static LARGE_INTEGER	mCurFrequency;
 
 		static float			mDeltaTime;
+		static float			mAccTime;
 		static float			mOneSecond;
 	};
 }

@@ -108,6 +108,20 @@ namespace hj::renderer
 		UINT numberOfLight;
 	};
 
+	CBUFFER(GlobalCB, CBSLOT_GLOBAL)
+	{
+		// 0 ~ 4
+		float globalDeltaTime;
+		// 4 ~ 8
+		float globalAccTime;
+		// 8 ~ 16
+		Vector2 globalResolution;
+		// 16 ~ 24
+		Vector2 globalNoiseResolution;
+		// 24 ~ 32
+		Vector2 padding;
+	};
+
 #pragma region extern Variables
 	extern Vertex vertexes[4];
 	extern Camera* mainCamera;

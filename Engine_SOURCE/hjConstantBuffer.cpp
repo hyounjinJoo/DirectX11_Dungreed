@@ -31,7 +31,7 @@ namespace hj::graphics
 	}
 	void ConstantBuffer::SetPipeline(eShaderStage stage)
 	{
-		GetDevice()->SetConstantBuffer(stage, mType, buffer.Get());
+		GetDevice()->BindConstantBuffer(stage, mType, buffer.Get());
 	}
 
 	void ConstantBuffer::Clear()
@@ -41,7 +41,7 @@ namespace hj::graphics
 		UINT stageCount = static_cast<UINT>(eShaderStage::Count);
 		for(UINT stage = 0; stage < stageCount; ++stage)
 		{
-			GetDevice()->SetConstantBuffer(static_cast<eShaderStage>(stage), mType, buffer.Get());
+			GetDevice()->BindConstantBuffer(static_cast<eShaderStage>(stage), mType, buffer.Get());
 		}
 	}
 }
