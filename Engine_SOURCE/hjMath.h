@@ -335,6 +335,7 @@ namespace hj::math
         Vector4() noexcept : XMFLOAT4(0.f, 0.f, 0.f, 0.f) {}
         constexpr explicit Vector4(float ix) noexcept : XMFLOAT4(ix, ix, ix, ix) {}
         constexpr Vector4(float ix, float iy, float iz, float iw) noexcept : XMFLOAT4(ix, iy, iz, iw) {}
+        constexpr Vector4(Vector3 vec3, float iw) noexcept : XMFLOAT4(vec3.x, vec3.y, vec3.z, iw) {}
         explicit Vector4(_In_reads_(4) const float* pArray) noexcept : XMFLOAT4(pArray) {}
         Vector4(FXMVECTOR V) noexcept { XMStoreFloat4(this, V); }
         Vector4(const XMFLOAT4& V) noexcept { this->x = V.x; this->y = V.y; this->z = V.z; this->w = V.w; }
