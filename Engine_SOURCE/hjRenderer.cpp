@@ -658,8 +658,7 @@ namespace hj::renderer
 
 		// Sprite
 		//std::shared_ptr<Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"DefaultSprite.png");
-		//texture = TEX_FIND("DefaultSprite");
-		texture = TEX_FIND("PaintTexture");
+		texture = TEX_FIND("DefaultSprite");
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
 		material->SetShader(shader);
