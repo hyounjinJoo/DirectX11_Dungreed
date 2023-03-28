@@ -62,8 +62,9 @@ namespace hj::graphics
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> renderTarget;
 		// Get RenderTarget for SwapChain
 		hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)renderTarget.GetAddressOf());
-		// Leak 발생====================================================================================================================
-		mRenderTargetTexture->Create(renderTarget);
+		if (!mRenderTargetTexture->Create(renderTarget))
+			return;
+
 		// Create RenderTarget View
 		//hr = mDevice->CreateRenderTargetView(renderTarget.Get(), nullptr, mRenderTargetTexture->GetRTV().GetAddressOf());
 
@@ -84,18 +85,9 @@ namespace hj::graphics
 		depthBuffer.MiscFlags			= static_cast<UINT>(0);
 
 		mDepthStencilTexture = std::make_shared<Texture>();
-		// Leak 발생==============================================================================================================================
-		mDepthStencilTexture->Create(1600, 900, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL);
-
-		// Create Depth Stencil Buffer
-		if (!CreateTexture(&depthBuffer, mDepthStencilTexture->GetTexture().GetAddressOf()))
+		if (!mDepthStencilTexture->Create(1600, 900, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL))
 			return;
-
-		// Create Depth Stencil View
-		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilTexture->GetTexture().Get()
-													, nullptr, mDepthStencilTexture->GetDSV().GetAddressOf())))
-			return;
-
+		
 		// 뷰포트 좌표계 설정
 		// (0 , 0)             (right - left , 0)
 		// |------------------------------------|
