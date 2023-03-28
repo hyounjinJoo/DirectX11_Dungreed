@@ -123,9 +123,9 @@ namespace hj
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
 		
-		//Vector2 texSize = material->GetTexture()->GetTexSize();
-		//mObj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
-		Vector2 texSize = Vector2(500.f, 500.f);
+		Vector2 texSize = material->GetTexture()->GetTexSize();
+		mObj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
+		//Vector2 texSize = Vector2(500.f, 500.f);
 		mObj->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 		mObj->AddComponent(mr);
 		
