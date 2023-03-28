@@ -16,8 +16,6 @@ using namespace DirectX::PackedVector;
 
 namespace hj::math
 {
-    static float PI = 3.14159f;
-
     struct Vector2;
     struct Vector4;
     struct Matrix;

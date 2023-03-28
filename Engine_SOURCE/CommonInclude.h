@@ -110,3 +110,16 @@ constexpr bool has_flag(E lhs, E rhs)
 }
 
 //#include "hjMath.h"
+#define	PI	3.14159f
+
+static float DegreeToRadian(float Degree)
+{
+	// (각도 * PI) / 180.f를 이용해서 Radian 값으로 변환
+	return Degree * PI / 180.f;
+}
+
+static float RadianToDegree(float Radian)
+{
+	// (라디안 * 180.f) / PI를 이용해서 Radian 값으로 변환
+	return Radian * 180.f / PI;
+}
