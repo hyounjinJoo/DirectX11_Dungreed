@@ -122,8 +122,5 @@ namespace hj
 		Vector3 cameraPos = cameraComp->GetOwner()->GetComponent<Transform>()->GetPosition();
 
 		mMouseWorldPosition = mMousePosition + Vector2(cameraPos.x, cameraPos.y);
-	
-		DEBUG_PRINT("Mouse Pos : (%4.f, %4.f) Mouse WorldPos : (%4.f, %4.f)"
-			, mMousePosition.x, mMousePosition.y, mMouseWorldPosition.x, mMouseWorldPosition.y);
 	}
 }
