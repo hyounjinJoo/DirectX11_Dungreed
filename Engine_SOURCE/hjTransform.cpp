@@ -6,16 +6,17 @@ namespace hj
 {
 	Transform::Transform()
 		: Component(eComponentType::Transform)
-		, mForward(Vector3::Forward)
-		, mRight(Vector3::Right)
-		, mUp(Vector3::Up)
-		, mScale(Vector3::One)
-		, mRotation(Vector3::Zero)
-		, mPosition(Vector3::One)
+		, mRelativeForward(Vector3::Forward)
+		, mRelativeRight(Vector3::Right)
+		, mRelativeUp(Vector3::Up)
+		, mWorldForward(Vector3::Forward)
+		, mWorldRight(Vector3::Right)
+		, mWorldUp(Vector3::Up)
+		, mRelativeScale(Vector3::One)
+		, mRelativeRotation(Vector3::Zero)
+		, mRelativePosition(Vector3::One)
 		, mParent(nullptr)
 		, mInheritParentScale(false)
-		, mInheritParentRotation(false)
-		, mInheritParentPosition(false)
 	{
 	}
 
@@ -34,84 +35,60 @@ namespace hj
 	void Transform::FixedUpdate()
 	{
 		// 렌더링에 사용될 위치값을 업데이트.
-
 		// 1. 월드 행렬 생성
 		// - 크기 변환 행렬
-		Matrix scale = Matrix::CreateScale(mScale);
-		mWorldScale = mScale;
+		Matrix scale = Matrix::CreateScale(mRelativeScale);
+		mWorldScale = mRelativeScale;
 
 		// - 회전 변환 행렬
 		Matrix rotation;
-		rotation = Matrix::CreateFromYawPitchRoll(mRotation.y, mRotation.x, mRotation.z);
-		mWorldRotation = mRotation;
+		rotation = Matrix::CreateRotationX(mRelativeRotation.x);
+		rotation *= Matrix::CreateRotationY(mRelativeRotation.y);
+		rotation *= Matrix::CreateRotationZ(mRelativeRotation.z);
+		mWorldRotation = mRelativeRotation;
 
 		// - 이동 변환 행렬
 		Matrix position;
-		position.Translation(mPosition);
-		mWorldPosition = mPosition;
+		position.Translation(mRelativePosition);
+		mWorldPosition = mRelativePosition;
 
-		Matrix localTransform = scale * rotation * position;
-		
-		// - 최종 계산을 거쳐 사용될 행렬, 상속을 처리하지 않을 경우에 대비해 localTransform 행렬을 먼저 대입.
-		Matrix combinedTransform = localTransform;
+		mWorld = scale * rotation * position;
+		mWorldForward = mRelativeForward = XMVector3TransformNormal(Vector3::Forward, rotation);
+		mWorldRight = mRelativeRight = XMVector3TransformNormal(Vector3::Right, rotation);
+		mWorldUp = mRelativeUp = XMVector3TransformNormal(Vector3::Up, rotation);
 
-		if (mParent && (mInheritParentScale || mInheritParentRotation || mInheritParentPosition))
+		if (mParent)
 		{
 			Matrix parentWorld = mParent->GetWorldMatrix();
 
 			if (!mInheritParentScale)
 			{
-				Matrix parentWorldScale = XMMatrixScalingFromVector(mParent->mWorldScale);
-				Matrix parentWorldScaleInv = XMMatrixInverse(nullptr, parentWorldScale);
-
-				parentWorld = parentWorldScaleInv * parentWorld;
+				Vector3 worldPos, worldScale;
+				Quaternion worldRot;
+				parentWorld.Decompose(worldScale, worldRot, worldPos);
+				Matrix parentWorldNoScale = Matrix::CreateScale(1.f) * Matrix::CreateFromQuaternion(worldRot) * Matrix::CreateTranslation(worldPos);
+				mWorld = mWorld * parentWorldNoScale;
 			}
-
-			if (!mInheritParentRotation)
+			else
 			{
-				Vector3 parentRotation = mParent->mWorldRotation;
-				Matrix parentWorldRotation = XMMatrixRotationRollPitchYaw(parentRotation.z, parentRotation.x, parentRotation.y);
-				Matrix parentWorldRotationInv = XMMatrixInverse(nullptr, parentWorldRotation);
-				parentWorld = parentWorldRotationInv * parentWorld;
+				mWorld *= parentWorld;
 			}
-
-			if (!mInheritParentPosition)
-			{
-				Matrix parentRotation = Matrix::CreateWorld(mParent->mWorldPosition, mParent->mUp, mParent->mForward);
-				Vector3 origin = Vector3::Zero;
-				
-				memcpy(&parentWorld._41, &origin, sizeof(Vector3));
-			}
-
-			combinedTransform *= parentWorld;
 
 			// - 월드 좌표, 크기, 회전 갱신
 			Vector3 worldPos, worldScale;
 			Quaternion worldRot;
-			combinedTransform.Decompose(worldScale, worldRot, worldPos);
-			mWorldPosition = worldPos;
+			mWorld.Decompose(worldScale, worldRot, worldPos);
+			mWorldPosition = mWorld.Translation();
 			Vector3 quatToRadRot = worldRot.ToEuler();
 			mWorldRotation = quatToRadRot;
 			mWorldScale = worldScale;
-		}
 
-		// - 월드 행렬 갱신
-		mWorld = combinedTransform;
-
-		// - 기저 벡터 갱신
-		if (nullptr != mParent && (mInheritParentRotation || mInheritParentPosition))
-		{
-			Matrix rotation = Matrix::CreateFromYawPitchRoll(mWorldRotation.y, mWorldRotation.x, mWorldRotation.z);
-
-			mForward = Vector3::TransformNormal(Vector3::Forward, rotation);
-			mRight = Vector3::TransformNormal(Vector3::Right, rotation);
-			mUp = Vector3::TransformNormal(Vector3::Up, rotation);
-		}
-		else
-		{
-			mForward = Vector3::TransformNormal(Vector3::Forward, rotation);
-			mRight = Vector3::TransformNormal(Vector3::Right, rotation);
-			mUp = Vector3::TransformNormal(Vector3::Up, rotation);
+			mWorldForward = XMVector3TransformNormal(mRelativeForward, rotation);
+			mWorldRight = XMVector3TransformNormal(mRelativeRight, rotation);
+			mWorldUp = XMVector3TransformNormal(mRelativeUp, rotation);
+			mWorldForward.Normalize();
+			mWorldRight.Normalize();
+			mWorldUp.Normalize();
 		}
 	}
 

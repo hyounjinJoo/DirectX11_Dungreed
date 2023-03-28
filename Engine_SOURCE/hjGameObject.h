@@ -189,6 +189,9 @@ namespace hj
 		Vector3 Right() { return GetTransform()->Right(); }
 		Vector3 Up() { return GetTransform()->Up(); }
 
+		Vector3 WorldForward() { return GetTransform()->WorldForward(); }
+		Vector3 WorldRight() { return GetTransform()->WorldRight(); }
+		Vector3 WorldUp() { return GetTransform()->WorldUp(); }
 		//void SetInheritParentTransform(bool inherit) { GetTransform()->SetInheritParentTransform(inherit); }
 
 		const math::Matrix& GetWorldMatrix() { return GetTransform()->GetWorldMatrix(); }
