@@ -7,14 +7,18 @@
 #include "hjInput.h"
 #include "hjCollider2D.h"
 #include "hjObject.h"
+#include "hjArmRotatorScript.h"
 
 namespace hj
 {
 	Player::Player()
 		: GameObject()
+		, mCenterObj(nullptr)
 		, mLeftHand(nullptr)
 		, mState(ePlayerState::End)
 	{
+		SetName(WIDE("플레이어"));
+
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Char_Adventurer");
 		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
@@ -35,9 +39,17 @@ namespace hj
 		mPlayerScript = AddComponent<PlayerScript>();
 		AddComponent<Collider2D>();
 
-		//mLeftHand = object::Instantiate<PlayerHand>(eLayerType::Player, Vector3(GetScaleX() * 0.5f, 0.f, 0.f));
-		//mLeftHand->GetTransform()->SetParent(GetTransform());
-		//mLeftHand->GetTransform()->SetInheritParentPosition(true);
+		mCenterObj = object::Instantiate<GameObject>(eLayerType::Player, Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+		mCenterObj->SetName(WIDE("플레이어 센터"));
+		mCenterObj->GetTransform()->SetParent(GetTransform());
+		mCenterObj->AddComponent<Collider2D>();
+		ArmRotatorScript* armScript = mCenterObj->AddComponent<ArmRotatorScript>();
+
+		mLeftHand = object::Instantiate<PlayerHand>(eLayerType::Player, Vector3(GetScaleX() * 0.5f, 0.f, 0.f));
+		mLeftHand->GetTransform()->SetParent(mCenterObj->GetTransform());
+
+		armScript->SetTarget(mLeftHand);
+		armScript->SetUsingMouseRotation(true);
 	}
 
 	Player::~Player()

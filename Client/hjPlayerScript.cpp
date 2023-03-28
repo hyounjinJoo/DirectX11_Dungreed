@@ -160,7 +160,6 @@ namespace hj
 			objectPosInScreen.x = (objectPosNDC.x + 1.0f) * 0.5f * width - (width * 0.5f);
 			objectPosInScreen.y = (height * 0.5f) - (1.0f - objectPosNDC.y) * 0.5f * height;
 
-			DEBUG_PRINT("Player Pos : (%4.f, %4.f)" , objectPosInScreen.x, objectPosInScreen.y);
 
 			return objectPosInScreen;
 		}

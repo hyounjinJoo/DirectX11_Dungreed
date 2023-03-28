@@ -50,6 +50,7 @@ namespace hj
         class PlayerHand* GetHand() { return mLeftHand; }
 
     private:
+        GameObject* mCenterObj;
         class PlayerHand* mLeftHand;
         ePlayerState mState;
         class Animator* mAnimator;

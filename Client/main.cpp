@@ -107,7 +107,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     editor.Release();
 
 #ifdef _DEBUG
-    D3DMemoryLeakCheck();
+    //D3DMemoryLeakCheck();
 #endif
     return (int)msg.wParam;
 }

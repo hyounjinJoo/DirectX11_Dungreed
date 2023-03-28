@@ -13,7 +13,6 @@ namespace hj
 	{
 		AddComponent<Collider2D>();
 		SetScaleXY(Vector2(25.f, 25.f));
-
 	}
 
 	PlayerHand::~PlayerHand()

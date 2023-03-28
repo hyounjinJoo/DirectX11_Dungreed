@@ -74,6 +74,33 @@
     <Filter Include="Contents\GameObject\Play\Item\Accessory">
       <UniqueIdentifier>{5c41a52c-9ba9-4d56-ac9e-53117d710b59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\Player">
+      <UniqueIdentifier>{4c1c4c96-2989-4eaf-8b52-a48b4bf95229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\01. Common">
+      <UniqueIdentifier>{c69745a8-ebbd-45ab-88f6-02574e534fc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\04. Legendary">
+      <UniqueIdentifier>{3a8132ff-18a6-41af-af3a-7cf54ac50ae9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\03. Rare">
+      <UniqueIdentifier>{2e2269f5-5d4f-4f36-bc78-5892ed1c6160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\02. UnCommon">
+      <UniqueIdentifier>{9a7c2540-4308-456a-833b-3dafd420517c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\01. Common">
+      <UniqueIdentifier>{a00d4254-7b52-4c40-bcdd-406b96d9fc90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\02. UnCommon">
+      <UniqueIdentifier>{48c874c6-1cf8-49ff-86cd-834b675efe51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\03. Rare">
+      <UniqueIdentifier>{154c7117-122e-4aba-9bfc-de71a9e90fa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\04. Legendary">
+      <UniqueIdentifier>{0a11ccc9-83f5-40ba-aa7f-39ac24995b22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -107,9 +134,6 @@
       <Filter>Contents\Script</Filter>
     </ClInclude>
     <ClInclude Include="hjGridScript.h">
-      <Filter>Contents\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="hjPlayerScript.h">
       <Filter>Contents\Script</Filter>
     </ClInclude>
     <ClInclude Include="hjDungeonScene.h">
@@ -157,6 +181,12 @@
     <ClInclude Include="hjItem.h">
       <Filter>Contents\GameObject\Play\Item</Filter>
     </ClInclude>
+    <ClInclude Include="hjPlayerScript.h">
+      <Filter>Contents\Script\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="hjArmRotatorScript.h">
+      <Filter>Contents\Script\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -189,9 +219,6 @@
       <Filter>Contents\Script</Filter>
     </ClCompile>
     <ClCompile Include="hjGridScript.cpp">
-      <Filter>Contents\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="hjPlayerScript.cpp">
       <Filter>Contents\Script</Filter>
     </ClCompile>
     <ClCompile Include="hjDungeonScene.cpp">
@@ -238,6 +265,12 @@
     </ClCompile>
     <ClCompile Include="hjItem.cpp">
       <Filter>Contents\GameObject\Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerScript.cpp">
+      <Filter>Contents\Script\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="hjArmRotatorScript.cpp">
+      <Filter>Contents\Script\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

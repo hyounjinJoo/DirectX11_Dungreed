@@ -114,21 +114,21 @@ namespace hj
 		rot = Vector3::Zero;
 		//GameObject* obj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
 		mObj = object::Instantiate<GameObject>(eLayerType::Monster, pos, rot, scale);
-
+		
 		mObj->SetName(L"Test Obj");
-
+		
 		MeshRenderer* mr = new MeshRenderer();
 		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Sprite");
 		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
-
+		
 		//Vector2 texSize = material->GetTexture()->GetTexSize();
 		//mObj->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 		Vector2 texSize = Vector2(500.f, 500.f);
 		mObj->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 		mObj->AddComponent(mr);
-
+		
 		Collider2D* collider = mObj->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Rect);
 
@@ -162,26 +162,23 @@ namespace hj
 		pos = Vector3(100.f, 100.f, 1.f);
 		TestMonster* testMonster = object::Instantiate<TestMonster>(eLayerType::Monster, pos, rot, scale);
 		testMonster->SetName(L"Test Monster for Collision");
-
+		
 		sr = testMonster->AddComponent<SpriteRenderer>();
 		material = MTRL_FIND("MTRL_Weapon_Legendary_DemonSword");
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
-
+		
 		texSize = material->GetTexture()->GetTexSize();
 		texSize *= 4.f;
 		testMonster->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
 		testMonster->GetTransform()->SetParent(player->GetTransform());
 		//testMonster->GetTransform()->SetInheritParentPosition(true);
-		testMonster->GetTransform()->SetInheritParentRotation(true);
-
+		
 		collider = testMonster->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Circle);
 		collider->SetSize(texSize);
 #pragma endregion
 		mObj->GetTransform()->SetParent(testMonster->GetTransform());
-		mObj->GetTransform()->SetInheritParentPosition(true);
-		mObj->GetTransform()->SetInheritParentRotation(true);
 #pragma endregion
 #pragma region Test Transform Inherit Object
 		//pos = Vector3(0.5f, 0.5f, 0.f);
@@ -268,30 +265,30 @@ namespace hj
 			SceneManager::LoadScene(eSceneType::Title);
 		}
 
-		if (Input::GetKeyPressed(eKeyCode::I))
-		{
-			mObj->AddPositionY(100.f * Time::DeltaTime());
-		}
-		if (Input::GetKeyPressed(eKeyCode::K))
-		{
-			mObj->AddPositionY(-100.f * Time::DeltaTime());
-		}
-		if (Input::GetKeyPressed(eKeyCode::J))
-		{
-			mObj->AddPositionX(-100.f * Time::DeltaTime());
-		}
-		if (Input::GetKeyPressed(eKeyCode::L))
-		{
-			mObj->AddPositionX(100.f * Time::DeltaTime());
-		}
-		if (Input::GetKeyPressed(eKeyCode::U))
-		{
-			mObj->AddRotationZ(10.f * Time::DeltaTime());
-		}
-		if (Input::GetKeyPressed(eKeyCode::O))
-		{
-			mObj->AddRotationZ(-10.f * Time::DeltaTime());
-		}
+		//if (Input::GetKeyPressed(eKeyCode::I))
+		//{
+		//	mObj->AddPositionY(100.f * Time::DeltaTime());
+		//}
+		//if (Input::GetKeyPressed(eKeyCode::K))
+		//{
+		//	mObj->AddPositionY(-100.f * Time::DeltaTime());
+		//}
+		//if (Input::GetKeyPressed(eKeyCode::J))
+		//{
+		//	mObj->AddPositionX(-100.f * Time::DeltaTime());
+		//}
+		//if (Input::GetKeyPressed(eKeyCode::L))
+		//{
+		//	mObj->AddPositionX(100.f * Time::DeltaTime());
+		//}
+		//if (Input::GetKeyPressed(eKeyCode::U))
+		//{
+		//	mObj->AddRotationZ(10.f * Time::DeltaTime());
+		//}
+		//if (Input::GetKeyPressed(eKeyCode::O))
+		//{
+		//	mObj->AddRotationZ(-10.f * Time::DeltaTime());
+		//}
 	}
 
 	void TestScene::FixedUpdate()
