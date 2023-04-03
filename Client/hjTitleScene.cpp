@@ -51,6 +51,13 @@ namespace hj
 #pragma endregion
 
 #pragma region Setting
+
+		{
+			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, Vector3(0.f, 0.f, -100.f));
+			Light* lightComp = directionalLight->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(1.f, 1.f, 1.f, 1.f));
+		}
 	#pragma region Layer Object
 		#pragma region Background
 			std::shared_ptr<Material> material = MTRL_FIND("MTRL_ColorRect");
