@@ -6,6 +6,15 @@
 
 #define arraysize(a) (sizeof(a) / sizeof(a[0]))
 #define WIDE(x) L##x
+#define ENUM_TO_STRING(member) \
+    ([]() -> std::string { \
+        std::string name = #member; \
+        size_t pos = name.find("::"); \
+        if (pos != std::string::npos) { \
+            name.erase(0, pos + 2); \
+        } \
+        return name; \
+    })()
 
 #ifdef _DEBUG
 	#include <chrono>
@@ -109,7 +118,6 @@ constexpr bool has_flag(E lhs, E rhs)
 	return (lhs & rhs) == rhs;
 }
 
-//#include "hjMath.h"
 #define	PI	3.14159f
 
 static float DegreeToRadian(float Degree)
@@ -122,4 +130,22 @@ static float RadianToDegree(float Radian)
 {
 	// (라디안 * 180.f) / PI를 이용해서 Radian 값으로 변환
 	return Radian * 180.f / PI;
+}
+
+static std::wstring StringToWideString(const std::string& str)
+{
+	int numChars = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
+	if (numChars == 0) 
+	{
+		return L"";
+	}
+	
+	std::wstring wideStr(numChars, 0);
+	
+	if (!MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &wideStr[0], numChars)) 
+	{
+		return L"";
+	}
+	
+	return wideStr;
 }
