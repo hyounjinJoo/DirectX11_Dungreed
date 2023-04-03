@@ -396,7 +396,7 @@ namespace hj::renderer
 		shader = SHADER_NEW();
 		shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
-
+		shader->SetRSState(eRSType::SolidNone);
 		SHADER_INSERT("Shader_Sprite", shader);
 
 		// Shift
