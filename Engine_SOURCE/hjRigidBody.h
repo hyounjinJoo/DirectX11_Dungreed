@@ -21,11 +21,15 @@ namespace hj
 		bool IsGround() { return mbGround; }
 		Vector2 GetVelocity() { return mVelocity; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
+		void ClearVelocityY() { mVelocity.y = 0.f; }
 
 		void OnFriction(bool isOn) { mbOnFriction = isOn; }
 		void OnHorizonAccelMove(bool isOn) { mbHorizonAccelMove = isOn; }
 
 		eMoveDir GetMoveDir() { return mMoveDir; }
+
+		void SetJumpStartPos(float posY) { mJumpStartPosY = posY; }
+		float GetJumpStartPos() { return mJumpStartPosY; }
 
 	private:
 		// 힘과 마찰력을 이용한 이동
@@ -43,6 +47,10 @@ namespace hj
 		bool mbGround;
 		Vector2 mLimitVelocity;
 
+		float mJumpStartPosY;
+		float mLimitMaxJump;
+
 		eMoveDir mMoveDir;
+
 	};
 }
