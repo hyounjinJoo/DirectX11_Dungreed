@@ -34,6 +34,26 @@
                 canvasSize.y = canvasSize.y >= sizeY ? canvasSize.y : sizeY;\
 				sheet.push_back(var)
 
+// offsetX는 0.5f를 기준으로 해당 프레임의 크기를 비율로 하여 이동시켜줄 지를 나타낸다.
+// ex) 프레임이 가운데를 피봇으로 하는 경우
+// offsetX가 0.6f이면 (0.6f - 0.5f) * 프레임의 x 크기가 된다.
+#define FRAME_ADD_OFFSETX(var, ltX, ltY, sizeX, sizeY, offsetX, sheet) \
+				var.leftTop = Vector2(ltX, ltY);\
+				var.size = Vector2(sizeX, sizeY);\
+                var.offset = Vector2((static_cast<float>(offsetX) - 0.5f) * sizeX, 0.f);\
+                canvasSize.x = canvasSize.x >= sizeX ? canvasSize.x : sizeX;\
+                canvasSize.y = canvasSize.y >= sizeY ? canvasSize.y : sizeY;\
+				sheet.push_back(var)
+
+#define FRAME_ADD_OFFSET(var, ltX, ltY, sizeX, sizeY, offsetX, offsetY, sheet) \
+				var.leftTop = Vector2(ltX, ltY);\
+				var.size = Vector2(sizeX, sizeY);\
+                var.offset = Vector2((static_cast<float>(offsetX) - 0.5f) * sizeX, (static_cast<float>(offsetY) - 1.f) * sizeY);\
+                canvasSize.x = canvasSize.x >= sizeX ? canvasSize.x : sizeX;\
+                canvasSize.y = canvasSize.y >= sizeY ? canvasSize.y : sizeY;\
+				sheet.push_back(var)
+
+
 #define AUTO_OFFSET_CALC(spriteSheetVarName) \
 		for (auto& spriteFrame : spriteSheetVarName)\
 		{\
@@ -50,6 +70,29 @@
 			else\
 				spriteFrame.offset.y = 0.f;\
 		}\
+
+#define AUTO_OFFSET_CALC_X(spriteSheetVarName) \
+		for (auto& spriteFrame : spriteSheetVarName)\
+		{\
+			if (spriteFrame.size.x != canvasSize.x)\
+			{\
+				spriteFrame.offset.x = (canvasSize.x - spriteFrame.size.x) / 2.f - canvasSize.x * 0.13f;\
+			}\
+			else\
+				spriteFrame.offset.x = 0.f;\
+		}\
+
+#define AUTO_OFFSET_CALC_Y(spriteSheetVarName) \
+		for (auto& spriteFrame : spriteSheetVarName)\
+		{\
+			if (spriteFrame.size.y != canvasSize.y)\
+            {\
+            spriteFrame.offset.y = -(canvasSize.y - spriteFrame.size.y) / 2.f; \
+            }\
+            else\
+            spriteFrame.offset.y = 0.f; \
+		}\
+
 
 namespace hj
 {
