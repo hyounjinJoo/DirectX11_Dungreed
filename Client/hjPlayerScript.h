@@ -17,5 +17,14 @@ namespace hj
 		Vector2 GetOwnerScreenPos();
 	private:
 		class RigidBody* mOwnerRigid;
+		
+		bool mbCanJump;
+		bool mbIsJump;
+		bool mbCanDoubleJump;
+		bool mbIsDoubleJump;
+
+		float mJumpStartTime;
+		float mDoubleJumpStartTime;
+		float mLimitJumpKeyInput;
 	};
 }

@@ -15,6 +15,7 @@ namespace hj
 {
 	PlayerScript::PlayerScript()
 		: Script()
+		, mLimitJumpKeyInput(0.1f)
 	{
 	}
 
@@ -50,11 +51,49 @@ namespace hj
 		{
 			mOwnerRigid->AddForce(Vector2(-2000.f, 0.f));
 		}
-		if (Input::GetKeyState(eKeyCode::W) == eKeyState::PRESSED)
+
+
+
+		bool isGround = mOwnerRigid->IsGround();
+
+		Vector2 JumpForce = Vector2(0.f, 25000.f);
+		if (isGround && Input::GetKeyDown(eKeyCode::W))
 		{
-			mOwnerRigid->AddForce(Vector2(0.f, 4000.f));
+			mOwnerRigid->AddForce(JumpForce);
 			mOwnerRigid->SetGround(false);
+			mOwnerRigid->SetJumpStartPos(pos.y);
+			mJumpStartTime = Time::AccTime();
+			mbIsJump = true;
 		}
+		if (mbIsJump && Input::GetKeyPressed(eKeyCode::W))
+		{
+			float accTime = Time::AccTime();
+			if (mJumpStartTime + mLimitJumpKeyInput >= accTime)
+				mOwnerRigid->AddForce(JumpForce);
+			else
+				mbIsJump = false;
+		}
+		if (mbIsJump && Input::GetKeyUp(eKeyCode::W))
+		{
+			mbIsJump = false;
+		}
+		if (!mbIsJump && !isGround && Input::GetKeyDown(eKeyCode::W))
+		{
+			mOwnerRigid->ClearVelocityY();
+			mOwnerRigid->AddForce(JumpForce * 10.f);
+			mOwnerRigid->SetJumpStartPos(pos.y);
+			mDoubleJumpStartTime = Time::AccTime();
+			mbIsDoubleJump = true;
+		}
+		if(!mbIsJump && !isGround && mbIsDoubleJump)
+		{
+			float accTime = Time::AccTime();
+			if (mDoubleJumpStartTime + mLimitJumpKeyInput >= accTime)
+				mOwnerRigid->AddForce(JumpForce);
+			else
+				mbIsDoubleJump = false;
+		}
+
 		if (Input::GetKeyState(eKeyCode::S) == eKeyState::PRESSED)
 		{
 			pos.y -= 100.f * Time::DeltaTime();
@@ -67,27 +106,36 @@ namespace hj
 		{
 			pos.z -= 3.0f * Time::DeltaTime();
 		}
+		if (Input::GetKeyState(eKeyCode::NUM_3) == eKeyState::PRESSED)
+		{
+			mOwnerRigid->SetGround(true);
+			mbIsJump = false;
+			mbCanDoubleJump = false;
+			mbIsDoubleJump = false;
+			mJumpStartTime = 0.f;
+		}
+		if (Input::GetKeyState(eKeyCode::NUM_6) == eKeyState::DOWN)
+		{
+			Player* player = dynamic_cast<Player*>(GetOwner());
+			if (player)
+			{
+				ePlayerCostume nextCostume = player->GetCurrentCostume();
+				static_cast<UINT>(nextCostume) == static_cast<UINT>(ePlayerCostume::SunsetGunman) ?	nextCostume = ePlayerCostume::Adventurer : nextCostume = static_cast<ePlayerCostume>(static_cast<UINT>(nextCostume) + 1);
+				player->ChangeCostume(nextCostume);
+			}
+		}
+		if (Input::GetKeyState(eKeyCode::NUM_4) == eKeyState::DOWN)
+		{
+			Player* player = dynamic_cast<Player*>(GetOwner());
+			if (player)
+			{
+				ePlayerCostume nextCostume = player->GetCurrentCostume();
+				static_cast<UINT>(nextCostume) == static_cast<UINT>(ePlayerCostume::Adventurer) ? nextCostume = ePlayerCostume::SunsetGunman : nextCostume = static_cast<ePlayerCostume>(static_cast<UINT>(nextCostume) - 1);
+				player->ChangeCostume(nextCostume);
+			}
+		}
 
 		tr->SetPosition(pos);
-
-
-//		BaseRenderer* baseRenderer = GetOwner()->GetComponent<BaseRenderer>();
-//		if (baseRenderer)
-//		{
-//			std::shared_ptr<Material> mtrl = baseRenderer->GetMaterial();
-//			if (mtrl)
-//			{
-//
-//#define INVERSE -1
-//#define NORMAL 1
-//
-//				Vector2 mousePos = Input::GetMousePosition();
-//				Vector2 playerPos = CalcScreenPos();
-//				int isInverse = mousePos.x < playerPos.x ? INVERSE : NORMAL;
-//
-//				mtrl->SetData(eGPUParam::Int_1, &isInverse);
-//			}
-//		}
 	}
 
 	void PlayerScript::FixedUpdate()

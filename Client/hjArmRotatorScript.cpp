@@ -2,14 +2,17 @@
 #include "hjMath.h"
 #include "hjInput.h"
 #include "hjPlayerHand.h"
+#include "hjAnimator.h"
 
 namespace hj
 {
 	ArmRotatorScript::ArmRotatorScript()
 		: mbUsingMouseRotation(false)
-		, mMinDistance(20.f)
-		, mMaxDistance(40.f)
-		, mOffsetAngle(50.f)
+		, mMinDistanceX(20.f)
+		, mMaxDistanceX(0.f)
+		, mMinDistanceY(0.f)
+		, mMaxDistanceY(30.f)
+		, mOffsetAngle(20.f)
 	{
 		SetName(WIDE("ArmRotatorScript"));
 	}
@@ -26,16 +29,16 @@ namespace hj
 	void ArmRotatorScript::Update()
 	{
 		Script::Update();
-
-		if(mbUsingMouseRotation)
-		{			
-			RotateArm(Input::GetMouseWorldPosition());
-		}
 	}
 
 	void ArmRotatorScript::FixedUpdate()
 	{
 		Script::FixedUpdate();
+
+		if (mbUsingMouseRotation)
+		{
+			RotateArm(Input::GetMouseWorldPosition());
+		}
 	}
 
 	void ArmRotatorScript::Render()
@@ -49,8 +52,9 @@ namespace hj
 			return;
 
 		Vector3 armPos = GetOwner()->GetWorldPosition();
+		Vector3 bodyPos = mBody->GetWorldPosition();
 
-		Vector3 dir = Vector3(targetWorldPos.x, targetWorldPos.y, 0.f) - armPos;
+		Vector3 dir = Vector3(targetWorldPos.x, targetWorldPos.y, 0.f) - bodyPos;
 		dir.z = 0.f;
 		dir.Normalize();
 
@@ -58,33 +62,23 @@ namespace hj
 		float angle = RadianToDegree(acosf(dot));
 		Vector3 cross = Vector3::Right.Cross(dir);
 
-#define STRAIGHTANGLE 180.f
-#define RIGHTANGLE 90.f
+#define STRAIGHT_ANGLE 180.f
+#define RIGHT_ANGLE 90.f
+#define ANGLE_CORRECTION 60.f
 
-		float distanceFromCenter = 0.f;
 		if (dir.x > 0.f)
 		{
 			angle = (cross.z < 0.f) ? -angle + mOffsetAngle : angle + mOffsetAngle;
-
-			distanceFromCenter = std::lerp(mMinDistance, mMaxDistance, (angle + mMaxDistance) / STRAIGHTANGLE);
 		}
 		else
 		{
-			angle = (cross.z < 0.f) ? -angle - mOffsetAngle : angle - mOffsetAngle;
-
-			float midPoint = (mMaxDistance - mMinDistance) * 0.5f + mMinDistance;
-
-			if (-(STRAIGHTANGLE - mOffsetAngle) > angle && angle > -(STRAIGHTANGLE + mOffsetAngle))
-			{
-				distanceFromCenter = std::lerp(midPoint, mMinDistance, (angle + (STRAIGHTANGLE + mOffsetAngle)) / RIGHTANGLE);
-			}
-			else
-			{
-				distanceFromCenter = std::lerp(mMaxDistance, midPoint, (angle - (RIGHTANGLE - mOffsetAngle)) / RIGHTANGLE);
-			}
+			angle = (cross.z < 0.f) ? angle - STRAIGHT_ANGLE + mOffsetAngle : -angle + STRAIGHT_ANGLE + mOffsetAngle;
 		}
 
-		mGrappedObject->SetPositionX(distanceFromCenter);
+		float distanceFromCenterX = std::lerp(mMinDistanceX, mMaxDistanceX, (angle + ANGLE_CORRECTION) / STRAIGHT_ANGLE);
+		float distanceFromCenterY = std::lerp(mMinDistanceY, mMaxDistanceY, (angle + ANGLE_CORRECTION) / STRAIGHT_ANGLE);
+		
+		mGrappedObject->SetPositionXY(Vector2(distanceFromCenterX, distanceFromCenterY));
 		GetOwner()->SetRotationZ(DegreeToRadian(angle));
 	}
 }

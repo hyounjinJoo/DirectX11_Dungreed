@@ -22,11 +22,16 @@ namespace hj
 		void Render() override;
 
 		void SetHandOwner(Player* owner);
+
+	private:
+		void CreateAnimation();
+
 	private:
 		Player* mHandOwner;
 		Transform* mHandOwnerTR;
 		Transform* mHandTransform;
 		handState mHandState;
+		Animator* mAnimator;
 	};
 }
 

@@ -14,20 +14,24 @@ namespace hj
 		void FixedUpdate() override;
 		void Render() override;
 
+		void SetBody(class GameObject* body) { mBody = body; }
 		void SetTarget(class GameObject* target) { mGrappedObject = target; }
 
 		void SetUsingMouseRotation(bool use) { mbUsingMouseRotation = use; }
 		void SetOffsetAngle(bool degree) { mOffsetAngle = degree; }
+	
+	private:
+		void RotateArm(const math::Vector2& targetPos);
 
 	private:
-		void RotateArm(const Vector2& targetPos);
-
-	private:
+		class GameObject* mBody;
 		class GameObject* mGrappedObject;
 		bool mbUsingMouseRotation;
 
 		float mOffsetAngle;
-		float mMinDistance;
-		float mMaxDistance;
+		float mMinDistanceX;
+		float mMaxDistanceX;
+		float mMinDistanceY;
+		float mMaxDistanceY;
 	};
 }

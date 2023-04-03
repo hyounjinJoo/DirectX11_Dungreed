@@ -16,9 +16,9 @@ namespace hj
 		, mJumpStartPosY(0.f)
 	{
 		mLimitVelocity.x = 400.f;
-		mLimitVelocity.y = 1000.f;
+		mLimitVelocity.y = 10000.f;
 		mbGround = false;
-		mGravity = Vector2(0.0f, 2000.0f);
+		mGravity = Vector2(0.0f, 3000.0f);
 	}
 	RigidBody::~RigidBody()
 	{
