@@ -101,6 +101,7 @@ namespace hj
         void Reset();
         void Clear();
 
+        bool IsInverse() { return mbInverse; }
         bool IsComplete() { return mbComplete; }
         std::wstring& AnimationName() { return mAnimationName; }
 

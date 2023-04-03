@@ -124,6 +124,16 @@ namespace hj
 		return true;
 	}
 
+	bool Animator::Create(const std::string& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration, bool reversePlay)
+	{
+		return Create(StringToWideString(name), atlas, leftTop, size, offset, spriteLength, duration, reversePlay);
+	}
+
+	bool Animator::Create(const std::string& name, std::shared_ptr<Texture> atlas, const std::vector<Animation::Sprite>& sprite, Vector2 canvasSize, bool reversePlay)
+	{
+		return Create(StringToWideString(name), atlas, sprite, canvasSize, reversePlay);
+	}
+
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
 		std::map<std::wstring, Animation*>::iterator iter
@@ -169,6 +179,11 @@ namespace hj
 
 		if (events)
 			events->mStartEvent();
+	}
+
+	void Animator::Play(const std::string& name, bool loop)
+	{
+		Play(StringToWideString(name), loop);
 	}
 
 	void Animator::Inverse(bool inverse)
