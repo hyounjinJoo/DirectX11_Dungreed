@@ -220,8 +220,8 @@ namespace hj
 		if (nullptr == srcTR || nullptr == destTR)
 			return false;
 
-		float srcZ = srcTR->GetPosition().z;
-		float destZ = destTR->GetPosition().z;
+		float srcZ = srcTR->GetWorldPosition().z;
+		float destZ = destTR->GetWorldPosition().z;
 
 		return srcZ > destZ;
 	}
