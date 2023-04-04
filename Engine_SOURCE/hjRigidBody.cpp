@@ -12,10 +12,8 @@ namespace hj
 		, mbOnFriction(false)
 		, mbHorizonAccelMove(false)
 		, mMoveDir(eMoveDir::End)
-		, mLimitMaxJump(320.f)
-		, mJumpStartPosY(0.f)
 	{
-		mLimitVelocity.x = 400.f;
+		mLimitVelocity.x = 600.f;
 		mLimitVelocity.y = 10000.f;
 		mbGround = false;
 		mGravity = Vector2(0.0f, 3000.0f);
@@ -54,7 +52,6 @@ namespace hj
 			// 잠시 대기
 			mVelocity -= mGravity * Time::DeltaTime();
 		}
-
 
 		// 최대 속도 제한
 		Vector2 gravity = mGravity;
@@ -102,10 +99,9 @@ namespace hj
 
 		// 속도에 맞게 물체를 이동시킨다.
 		Vector2 pos = GetOwner()->GetPositionXY();
-		if (pos.y + mVelocity.y * Time::DeltaTime() >= mJumpStartPosY + mLimitMaxJump)
-			mVelocity.y = 0.f;
+		Vector2 curFrameDeltaMove = mVelocity * Time::DeltaTime();
 
-		pos = pos + mVelocity * Time::DeltaTime();
+		pos = pos + curFrameDeltaMove;
 		GetOwner()->SetPositionXY(pos);
 		mForce = Vector2::Zero;
 		

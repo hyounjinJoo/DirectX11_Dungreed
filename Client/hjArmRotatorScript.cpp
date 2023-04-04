@@ -3,6 +3,7 @@
 #include "hjInput.h"
 #include "hjPlayerHand.h"
 #include "hjAnimator.h"
+#include "hjPlayer.h"
 
 namespace hj
 {
@@ -13,6 +14,7 @@ namespace hj
 		, mMinDistanceY(0.f)
 		, mMaxDistanceY(30.f)
 		, mOffsetAngle(20.f)
+		, mbInverseX(false)
 	{
 		SetName(WIDE("ArmRotatorScript"));
 	}
@@ -39,11 +41,88 @@ namespace hj
 		{
 			RotateArm(Input::GetMouseWorldPosition());
 		}
+
+		float handWorldZ = mGrappedObject->GetWorldPositionZ();
+		float handLocalZ = mGrappedObject->GetPositionZ();
+		float weaponWorldPosZ = 0.f;
+		if (dynamic_cast<PlayerHand*>(mGrappedObject))
+		{
+			Transform* weaponTR = dynamic_cast<PlayerHand*>(mGrappedObject)->GetWeaponTR();
+			weaponWorldPosZ = weaponTR->GetWorldPositionZ();
+
+			bool isBodyFlip = dynamic_cast<Player*>(mBody)->IsFlip();
+
+			if (isBodyFlip)
+			{
+				if (0.95f <= handWorldZ && handWorldZ <= 2.05f)
+				{
+					mGrappedObject->SetPositionZ(-1.f);
+					weaponTR->SetPositionZ(-1.f);
+				}
+				else
+				{
+					mGrappedObject->SetPositionZ(-2.f);
+					weaponTR->SetPositionZ(1.f);
+				}
+			}
+			else
+			{
+				if (0.95f <= handWorldZ && handWorldZ <= 2.05f)
+				{
+					mGrappedObject->SetPositionZ(1.f);
+					weaponTR->SetPositionZ(1.f);
+				}
+				else
+				{
+					mGrappedObject->SetPositionZ(2.f);
+					weaponTR->SetPositionZ(-1.f);
+				}
+			}
+		}
 	}
 
 	void ArmRotatorScript::Render()
 	{
 		Script::Render();
+	}
+
+	void ArmRotatorScript::InverseArmAxis(Axis axis)
+	{
+		Vector3 ownerRot = GetOwner()->GetRotation();
+		switch (axis)
+		{
+		case hj::Axis::X:
+			ownerRot.x = ownerRot.x + PI;
+			if (ownerRot.x >= 2 * PI && ownerRot.x < 0.f)
+			{
+				ownerRot.x = 0.f;
+			}
+
+			mbInverseX = !mbInverseX;
+			if (dynamic_cast<PlayerHand*>(mGrappedObject))
+			{
+				dynamic_cast<PlayerHand*>(mGrappedObject)->InverseHandPosZ(mbInverseX);
+			}
+			if (mbInverseX)
+			{
+				mOffsetAngle = 45.f;
+			}
+			else
+			{
+				mOffsetAngle = 20.f;
+			}
+			break;
+		case hj::Axis::Y:
+			ownerRot.y = ownerRot.y + PI;
+			break;
+		case hj::Axis::Z:
+			ownerRot.z = ownerRot.z + PI;
+			break;
+		case hj::Axis::End:
+		default:
+			return;
+		}
+		GetOwner()->SetRotation(ownerRot);
 	}
 
 	void ArmRotatorScript::RotateArm(const Vector2& targetWorldPos)
@@ -63,16 +142,31 @@ namespace hj
 		Vector3 cross = Vector3::Right.Cross(dir);
 
 #define STRAIGHT_ANGLE 180.f
+#define EQUIANGULAR_ANGLE 120.f
 #define RIGHT_ANGLE 90.f
 #define ANGLE_CORRECTION 60.f
 
-		if (dir.x > 0.f)
+		if (mbInverseX)
 		{
-			angle = (cross.z < 0.f) ? -angle + mOffsetAngle : angle + mOffsetAngle;
+			if (dir.x > 0.f)
+			{
+				angle = (cross.z < 0.f) ? -angle - mOffsetAngle : angle - mOffsetAngle;
+			}
+			else
+			{
+				angle = (cross.z < 0.f) ? angle - STRAIGHT_ANGLE - mOffsetAngle : -angle + STRAIGHT_ANGLE - mOffsetAngle;
+			}
 		}
 		else
 		{
-			angle = (cross.z < 0.f) ? angle - STRAIGHT_ANGLE + mOffsetAngle : -angle + STRAIGHT_ANGLE + mOffsetAngle;
+			if (dir.x > 0.f)
+			{
+				angle = (cross.z < 0.f) ? -angle + mOffsetAngle : angle + mOffsetAngle;
+			}
+			else
+			{
+				angle = (cross.z < 0.f) ? angle - STRAIGHT_ANGLE + mOffsetAngle : -angle + STRAIGHT_ANGLE + mOffsetAngle;
+			}
 		}
 
 		float distanceFromCenterX = std::lerp(mMinDistanceX, mMaxDistanceX, (angle + ANGLE_CORRECTION) / STRAIGHT_ANGLE);

@@ -22,11 +22,15 @@ namespace hj
 		void Render() override;
 
 		void SetHandOwner(Player* owner);
+		void InverseHandPosZ(bool inverse);
+
+		Transform* GetWeaponTR() { return mWeapon->GetTransform(); }
 
 	private:
 		void CreateAnimation();
 
 	private:
+		GameObject* mWeapon;
 		Player* mHandOwner;
 		Transform* mHandOwnerTR;
 		Transform* mHandTransform;

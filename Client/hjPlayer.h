@@ -64,7 +64,8 @@ namespace hj
         ePlayerCostume GetCurrentCostume() { return mCurrentCostume; }
 
         class PlayerHand* GetHand() { return mLeftHand; }
-
+        class GameObject* GetCenter() { return mCenterObj; }
+        bool IsFlip() { return mbIsFlip; }
     private:
         GameObject* mCenterObj;
         class PlayerHand* mLeftHand;
@@ -74,6 +75,7 @@ namespace hj
         class Animator* mAnimator;
         class RigidBody* mRigidBody;
         class PlayerScript* mPlayerScript;
+        bool mbIsFlip;
 
         void GetCurrentCostumeString(std::string& stringToGet) const;
 		void GetCostumeString(UINT costumeNumber, std::string& stringToGet) const;

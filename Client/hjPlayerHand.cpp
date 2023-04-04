@@ -34,7 +34,7 @@ namespace hj
 			}
 		}
 
-		GameObject* testWeapon = object::Instantiate<GameObject>(eLayerType::Monster);
+		GameObject* testWeapon = object::Instantiate<GameObject>(eLayerType::Player);
 		testWeapon->SetName(L"Test Monster for Collision");
 
 		sr = testWeapon->AddComponent<SpriteRenderer>();
@@ -49,6 +49,7 @@ namespace hj
 		testWeapon->GetTransform()->SetPositionY(texSize.y * 0.4f);
 		testWeapon->GetTransform()->SetParent(GetTransform());
 		//testMonster->GetTransform()->SetInheritParentPosition(true);
+		mWeapon = testWeapon;
 
 		Collider2D* collider = testWeapon->AddComponent<Collider2D>();
 		collider->SetType(eColliderType::Circle);
@@ -87,6 +88,16 @@ namespace hj
 
 		mHandOwner = player;
 		mHandOwnerTR = player->GetTransform();
+	}
+
+	void PlayerHand::InverseHandPosZ(bool inverse)
+	{
+		float pos = GetPositionZ();
+
+		if (inverse) pos *= -1.f;
+		else pos *= -1.f;
+
+		SetPositionZ(pos);
 	}
 
 	void PlayerHand::CreateAnimation()

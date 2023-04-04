@@ -28,9 +28,6 @@ namespace hj
 
 		eMoveDir GetMoveDir() { return mMoveDir; }
 
-		void SetJumpStartPos(float posY) { mJumpStartPosY = posY; }
-		float GetJumpStartPos() { return mJumpStartPosY; }
-
 	private:
 		// 힘과 마찰력을 이용한 이동
 		float mMass;
@@ -47,10 +44,6 @@ namespace hj
 		bool mbGround;
 		Vector2 mLimitVelocity;
 
-		float mJumpStartPosY;
-		float mLimitMaxJump;
-
 		eMoveDir mMoveDir;
-
 	};
 }

@@ -1,8 +1,22 @@
 #pragma once
 #include "hjScript.h"
+#include "hjInput.h"
 
 namespace hj
 {
+	enum class playerKeyAction
+	{
+		MOVE_LEFT = 0,
+		MOVE_RIGHT,
+		MOVE_DOWN,
+		MOVE_JUMP,
+		MOVE_LBTN,
+		MOVE_RBTN,
+
+		END,
+	};
+
+
 	class PlayerScript : public Script
 	{
 	public:
@@ -15,16 +29,27 @@ namespace hj
 		virtual void Render() override;
 
 		Vector2 GetOwnerScreenPos();
-	private:
-		class RigidBody* mOwnerRigid;
-		
-		bool mbCanJump;
-		bool mbIsJump;
-		bool mbCanDoubleJump;
-		bool mbIsDoubleJump;
 
-		float mJumpStartTime;
-		float mDoubleJumpStartTime;
-		float mLimitJumpKeyInput;
+	private:
+		void HandleMovementInput();
+		void HandleJumpInput();
+		void HandleDownInput();
+		void HandleMouseInput();
+		void HandleOtherInput();
+
+
+		void InitialKeyBind();
+		void ChangeKeyBind(playerKeyAction targetAction, eKeyCode bindedKey);
+
+		void HandleTestInput();
+		void FakeGroundApply();
+
+		void ActionMouseLBTN();
+		void ActionMouseRBTN();
+
+	private:
+		Vector2 mRunForce;
+		class RigidBody* mOwnerRigid;
+		std::vector<eKeyCode> mKeyBindings;
 	};
 }

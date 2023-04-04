@@ -2,6 +2,14 @@
 #include <hjScript.h>
 namespace hj
 {
+	enum class Axis
+	{
+		X,
+		Y,
+		Z,
+		End,
+	};
+
 	class ArmRotatorScript :
 		public Script
 	{
@@ -19,14 +27,15 @@ namespace hj
 
 		void SetUsingMouseRotation(bool use) { mbUsingMouseRotation = use; }
 		void SetOffsetAngle(bool degree) { mOffsetAngle = degree; }
+		void InverseArmAxis(Axis axis);
 	
 	private:
 		void RotateArm(const math::Vector2& targetPos);
-
 	private:
 		class GameObject* mBody;
 		class GameObject* mGrappedObject;
 		bool mbUsingMouseRotation;
+		bool mbInverseX;
 
 		float mOffsetAngle;
 		float mMinDistanceX;
