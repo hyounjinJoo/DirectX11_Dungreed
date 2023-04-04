@@ -75,13 +75,10 @@ namespace hj
 			}
 
 			// - 월드 좌표, 크기, 회전 갱신
-			Vector3 worldPos, worldScale;
 			Quaternion worldRot;
-			mWorld.Decompose(worldScale, worldRot, worldPos);
-			mWorldPosition = mWorld.Translation();
+			mWorld.Decompose(mWorldScale, worldRot, mWorldPosition);
 			Vector3 quatToRadRot = worldRot.ToEuler();
 			mWorldRotation = quatToRadRot;
-			mWorldScale = worldScale;
 
 			mWorldForward = XMVector3TransformNormal(mRelativeForward, rotation);
 			mWorldRight = XMVector3TransformNormal(mRelativeRight, rotation);
