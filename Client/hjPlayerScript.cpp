@@ -17,6 +17,10 @@ namespace hj
 	PlayerScript::PlayerScript()
 		: Script()
 		, mRunForce(Vector2(2000.f, 0.f))
+		, mbDash(false)
+		, mDashStartedTime(0.f)
+		, mMaxDashTime(0.1f)
+		, mDashPower(5000.f)
 	{
 		InitialKeyBind();
 	}
@@ -45,6 +49,7 @@ namespace hj
 	void PlayerScript::FixedUpdate()
 	{
 		FakeGroundApply();
+		Dash();
 	}
 
 	void PlayerScript::Render()
@@ -104,21 +109,6 @@ namespace hj
 		}
 	}
 
-	void PlayerScript::HandleJumpInput()
-	{
-		if (!mOwnerRigid)
-			return;
-
-
-		bool isGround = mOwnerRigid->IsGround();
-		Vector2 JumpForce = Vector2(0.f, 25000.f);
-
-		if (Input::GetKeyPressed(mKeyBindings[(UINT)playerKeyAction::MOVE_JUMP]))
-		{
-			//mOwnerRigid->AddForce(Vector2(2000.f, 0.f));
-		}
-	}
-
 	void PlayerScript::HandleDownInput()
 	{
 		if (Input::GetKeyPressed(mKeyBindings[(UINT)playerKeyAction::MOVE_DOWN]))
@@ -148,7 +138,7 @@ namespace hj
 
 	void PlayerScript::HandleTestInput()
 	{
-		if (Input::GetKeyState(eKeyCode::NUM_6) == eKeyState::DOWN)
+		if (Input::GetKeyDown(eKeyCode::NUM_6))
 		{
 			Player* player = dynamic_cast<Player*>(GetOwner());
 			if (player)
@@ -158,7 +148,7 @@ namespace hj
 				player->ChangeCostume(nextCostume);
 			}
 		}
-		if (Input::GetKeyState(eKeyCode::NUM_4) == eKeyState::DOWN)
+		if (Input::GetKeyDown(eKeyCode::NUM_4))
 		{
 			Player* player = dynamic_cast<Player*>(GetOwner());
 			if (player)
@@ -226,6 +216,167 @@ namespace hj
 	}
 
 	void PlayerScript::ActionMouseRBTN()
+	{
+		// Dash 중이지 않은 경우에만 동작시켜준다.
+		if (!mbDash)
+		{
+			mDashStartedTime = Time::AccTime();
+			mbDash = true;
+		}
+	}
+
+	void PlayerScript::Dash()
+	{
+		if (!mbDash)
+			return;
+
+		if (mbDash)
+		{
+			float curTime = Time::AccTime();
+
+			if (curTime > mDashStartedTime + mMaxDashTime)
+			{
+				mbDash = false;
+				return;
+			}
+		}
+		Vector3 bodyPos = GetOwner()->GetWorldPosition();
+		Vector2 mousePos = Input::GetMouseWorldPosition();
+
+		Vector3 dir = Vector3(mousePos.x, mousePos.y, 0.f) - bodyPos;
+		dir.Normalize();
+
+		// 대쉬 로직
+		Vector2 nextPos = Vector2(dir.x * mDashPower * Time::DeltaTime(), dir.y * mDashPower * Time::DeltaTime());
+		//Vector2 nextPos = Vector2(dir.x * mDashPower, dir.y * mDashPower);
+		//
+		//mOwnerRigid->SetGround(false);
+		//Vector2 curVel = mOwnerRigid->GetVelocity();
+		//mOwnerRigid->SetVelocity(Vector2(curVel.x, curVel.y + dir.y * mDashPower * 0.1f));
+		//mOwnerRigid->AddForce(nextPos);
+
+		GetOwner()->AddPositionXY(nextPos);
+		mOwnerRigid->ClearVelocityY();
+		mOwnerRigid->SetGround(false);
+	}
+
+	void PlayerScript::HandleJumpInput()
+	{
+		if (!mOwnerRigid)
+			return;
+
+		bool bIsGround = mOwnerRigid->IsGround();
+
+		static bool bCanInputSingleJump = true;
+		static bool bCanInputDoubleJump = false;
+		static bool bSingleJumping = false;
+		static bool bDoubleJumping = false;
+
+		static float singleJumpInputedTime = 0.f;
+
+		eKeyState jumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_JUMP]);
+
+		static int count = 0;
+		switch (jumpKeyState)
+		{
+		// when Jump key State is changed to None to Down.(push)
+		case DOWN:
+		{
+			if (bIsGround && bCanInputSingleJump)
+			{
+				singleJumpInputedTime = Time::AccTime();
+				bCanInputSingleJump = false;
+				bSingleJumping = true;
+				JumpStart();
+			}
+			else if (!bIsGround && bCanInputDoubleJump)
+			{
+				bCanInputDoubleJump = false;
+				bDoubleJumping = true;
+				DoubleJumpStart();				
+			}
+		}
+		break;
+		// When Down Jump button is still Pushed
+		case PRESSED:
+		{
+			if (!bSingleJumping)
+				break;
+
+			static float maxJumpInputTime = 0.5f;
+			float curAccTime = Time::AccTime();
+			if (singleJumpInputedTime + maxJumpInputTime > curAccTime)
+			{
+				Jumping();
+			}
+			else
+			{
+				bSingleJumping = false;
+			}
+		}
+		break;
+		// When Pressed Jump button released
+		case UP:
+		{
+			if (bSingleJumping)
+			{
+				bCanInputSingleJump = bIsGround;
+				bCanInputDoubleJump = !bIsGround;
+				bSingleJumping = false;
+				bDoubleJumping = false;
+				singleJumpInputedTime = 0.f;
+			}
+			else if (!bSingleJumping)
+			{
+				if (!bDoubleJumping) bCanInputDoubleJump = true;
+
+			}
+			else if (bDoubleJumping)
+			{
+				bDoubleJumping = false;
+			}
+		}
+		break;
+		// After Key Up
+		case NONE:
+			if (bIsGround && !bSingleJumping)
+			{
+				bDoubleJumping = false;
+				bCanInputSingleJump = true;
+				bCanInputDoubleJump = false;
+				singleJumpInputedTime = 0.f;
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	void PlayerScript::JumpStart()
+	{
+		mOwnerRigid->SetGround(false);
+
+		Vector2 jumpForce = Vector2(0.f, 30000.f);
+		mOwnerRigid->AddForce(jumpForce);
+		Vector2 curVel = mOwnerRigid->GetVelocity();
+		mOwnerRigid->SetVelocity(Vector2(curVel.x, 300.f));
+	}
+
+	void PlayerScript::DoubleJumpStart()
+	{
+		Vector2 jumpForce = Vector2(0.f, 25000.f);
+		mOwnerRigid->AddForce(jumpForce);
+		Vector2 curVel = mOwnerRigid->GetVelocity();
+		mOwnerRigid->SetVelocity(Vector2(curVel.x, 1000.f));
+	}
+
+	void PlayerScript::Jumping()
+	{
+		Vector2 jumpForce = Vector2(0.f, 5000.f);
+		mOwnerRigid->AddForce(jumpForce);
+	}
+
+	void PlayerScript::ResetJump()
 	{
 	}
 

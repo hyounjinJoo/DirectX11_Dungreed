@@ -77,22 +77,22 @@ namespace hj
 		GameObject::FixedUpdate();
 
 		FlipBasedOnMousePos();
-		Vector3 centerPos = mCenterObj->GetWorldPosition();
-		Vector3 centerRot = mCenterObj->GetWorldRotation();
+		//Vector3 centerPos = mCenterObj->GetWorldPosition();
+		//Vector3 centerRot = mCenterObj->GetWorldRotation();
 
-		Vector3 handPos = mLeftHand->GetWorldPosition();
-		Vector3 handRot = mLeftHand->GetWorldRotation();
+		//Vector3 handPos = mLeftHand->GetWorldPosition();
+		//Vector3 handRot = mLeftHand->GetWorldRotation();
 
-		Vector3 weaponPos = mLeftHand->GetWeaponTR()->GetWorldPosition();
-		Vector3 weaponRot = mLeftHand->GetWeaponTR()->GetWorldRotation();
+		//Vector3 weaponPos = mLeftHand->GetWeaponTR()->GetWorldPosition();
+		//Vector3 weaponRot = mLeftHand->GetWeaponTR()->GetWorldRotation();
 
-		Vector3 playerPos = GetWorldPosition();
-		Vector3 handLocalPos = mLeftHand->GetPosition();
-		DEBUG_PRINT("Player Pos : % 3.2f % 3.2f % 3.2f", playerPos.x, playerPos.y, playerPos.z);
-		DEBUG_PRINT("Center Pos : %3.2f %3.2f %3.2f  Hand Pos : %3.2f %3.2f %3.2f  Weapon Pos : %3.2f %3.2f %3.2f", centerPos.x, centerPos.y, centerPos.z  ,handPos.x, handPos.y, handPos.z, weaponPos.x, weaponPos.y, weaponPos.z);
-		DEBUG_PRINT("Center Rot : %3.2f %3.2f %3.2f  Hand Rot : %3.2f %3.2f %3.2f  Weapon Rot : %3.2f %3.2f %3.2f", RadianToDegree(centerRot.x), RadianToDegree(centerRot.y), RadianToDegree(centerRot.z), RadianToDegree(handRot.x), RadianToDegree(handRot.y), RadianToDegree(handRot.z), RadianToDegree(weaponRot.x), RadianToDegree(weaponRot.y), RadianToDegree(weaponRot.z));
+		//Vector3 playerPos = GetWorldPosition();
+		//Vector3 handLocalPos = mLeftHand->GetPosition();
+		//DEBUG_PRINT("Player Pos : % 3.2f % 3.2f % 3.2f", playerPos.x, playerPos.y, playerPos.z);
+		//DEBUG_PRINT("Center Pos : %3.2f %3.2f %3.2f  Hand Pos : %3.2f %3.2f %3.2f  Weapon Pos : %3.2f %3.2f %3.2f", centerPos.x, centerPos.y, centerPos.z  ,handPos.x, handPos.y, handPos.z, weaponPos.x, weaponPos.y, weaponPos.z);
+		//DEBUG_PRINT("Center Rot : %3.2f %3.2f %3.2f  Hand Rot : %3.2f %3.2f %3.2f  Weapon Rot : %3.2f %3.2f %3.2f", RadianToDegree(centerRot.x), RadianToDegree(centerRot.y), RadianToDegree(centerRot.z), RadianToDegree(handRot.x), RadianToDegree(handRot.y), RadianToDegree(handRot.z), RadianToDegree(weaponRot.x), RadianToDegree(weaponRot.y), RadianToDegree(weaponRot.z));
 
-		DEBUG_PRINT("Hand local : %3.2f %3.2f %3.2f", handLocalPos.x, handLocalPos.y, handLocalPos.z);
+		//DEBUG_PRINT("Hand local : %3.2f %3.2f %3.2f", handLocalPos.x, handLocalPos.y, handLocalPos.z);
 	}
 
 	void Player::Render()

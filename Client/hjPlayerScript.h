@@ -47,9 +47,21 @@ namespace hj
 		void ActionMouseLBTN();
 		void ActionMouseRBTN();
 
+		void Dash();
+
+		void JumpStart();
+		void DoubleJumpStart();
+		void Jumping();
+		void ResetJump();
+
 	private:
 		Vector2 mRunForce;
 		class RigidBody* mOwnerRigid;
 		std::vector<eKeyCode> mKeyBindings;
+
+		bool mbDash;
+		float mDashStartedTime = 0.f;
+		float mMaxDashTime = 0.1f;
+		float mDashPower = 5000.f;
 	};
 }
