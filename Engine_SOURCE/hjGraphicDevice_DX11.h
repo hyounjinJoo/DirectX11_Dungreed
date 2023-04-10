@@ -59,6 +59,7 @@ namespace hj::graphics
 
 		void Draw();
 		void DrawIndexed(UINT indexCount, UINT startIndexLocation, UINT baseVertexLocation);
+		void DrawIndexedInstanced(UINT indexCountPerInstance, UINT instanceCount, UINT startIndexLocation, UINT baseVertexLocation, UINT startInstanceLocation);
 
 		void Present();
 	#pragma endregion

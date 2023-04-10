@@ -20,6 +20,7 @@ namespace hj
 		bool CreateIndexBuffer(void* data, UINT count);
 		void BindBuffer();
 		void Render();
+		void RenderInstanced(UINT count);
 #pragma endregion
 
 	private:

@@ -52,7 +52,7 @@ namespace hj::graphics
 		return true;
 	}
 	
-	void StructuredBuffer::Bind(void* data, UINT bufferCount)
+	void StructuredBuffer::SetData(void* data, UINT bufferCount)
 	{
 		if (mStride < bufferCount)
 		{
@@ -64,7 +64,7 @@ namespace hj::graphics
 		}
 	}
 	
-	void StructuredBuffer::SetPipeline(eShaderStage stage, UINT slot)
+	void StructuredBuffer::Bind(eShaderStage stage, UINT slot)
 	{
 		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}

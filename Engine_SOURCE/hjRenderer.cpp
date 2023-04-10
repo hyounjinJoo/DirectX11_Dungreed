@@ -812,17 +812,17 @@ namespace hj::renderer
 	void BindLights()
 	{
 		// Structured Buffer Binding
-		lightsBuffer->Bind(lights.data(), static_cast<UINT>(lights.size()));
-		lightsBuffer->SetPipeline(eShaderStage::VS, 13);
-		lightsBuffer->SetPipeline(eShaderStage::PS, 13);
+		lightsBuffer->SetData(lights.data(), static_cast<UINT>(lights.size()));
+		lightsBuffer->Bind(eShaderStage::VS, 13);
+		lightsBuffer->Bind(eShaderStage::PS, 13);
 
 		// Constant Buffer Binding
 		LightCB trCb = {};
 		trCb.numberOfLight = static_cast<UINT>(lights.size());
 
 		ConstantBuffer* cb = constantBuffers[(UINT)eCBType::Light];
-		cb->Bind(&trCb);
-		cb->SetPipeline(eShaderStage::VS);
-		cb->SetPipeline(eShaderStage::PS);
+		cb->SetData(&trCb);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS);
 	}
 }

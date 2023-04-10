@@ -36,8 +36,8 @@ void hj::graphics::PaintShader::Binds()
 	globalCb.globalAccTime = Time::AccTime();
 
 	ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Global];
-	cb->Bind(&globalCb);
-	cb->SetPipeline(eShaderStage::CS);
+	cb->SetData(&globalCb);
+	cb->Bind(eShaderStage::CS);
 
 
 	mTarget->BindUnorderedAccessView(0);

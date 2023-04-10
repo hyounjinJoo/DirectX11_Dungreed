@@ -154,8 +154,8 @@ namespace hj
 		info.canvasUsed = mbCanvasUsed;
 		info.used = mbUsed;
 
-		pCB->Bind(&info);
-		pCB->SetPipeline(eShaderStage::PS);
+		pCB->SetData(&info);
+		pCB->Bind(eShaderStage::PS);
 	}
 
 	void Animation::Reset()

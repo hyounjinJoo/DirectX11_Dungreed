@@ -11,8 +11,8 @@ namespace hj::graphics
 		~StructuredBuffer();
 
 		bool Create(UINT size, UINT stride, eSRVType type, void* data);
-		void Bind(void* data, UINT bufferCount);
-		void SetPipeline(eShaderStage stage, UINT slot);
+		void SetData(void* data, UINT bufferCount);
+		void Bind(eShaderStage stage, UINT slot);
 
 		UINT GetSize() { return mSize; }
 		UINT GetStride() { return mStride; }

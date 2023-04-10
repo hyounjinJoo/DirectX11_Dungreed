@@ -449,8 +449,14 @@ namespace hj::graphics
 		mContext->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
 	}
 
+	void GraphicDevice_DX11::DrawIndexedInstanced(UINT indexCountPerInstance, UINT instanceCount, UINT startIndexLocation, UINT baseVertexLocation, UINT startInstanceLocation)
+	{
+		mContext->DrawIndexedInstanced(indexCountPerInstance, instanceCount, startIndexLocation, baseVertexLocation, startInstanceLocation);
+	}
+
 	void GraphicDevice_DX11::Present()
 	{
 		mSwapChain->Present(0, 0);
 	}
+
 }
