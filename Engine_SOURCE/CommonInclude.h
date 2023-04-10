@@ -3,6 +3,7 @@
 #include <cstring>
 #include <cstdint>
 #include <type_traits>
+#include <Windows.h>
 
 #define arraysize(a) (sizeof(a) / sizeof(a[0]))
 #define WIDE(x) L##x

@@ -79,7 +79,7 @@ namespace hj
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent(cameraComp);
-		mainCamera = cameraComp;
+		renderer::mainCamera = cameraComp;
 
 		cameraObj->AddComponent(new CameraScript());
 		object::DontDestroyOnLoad(cameraObj);

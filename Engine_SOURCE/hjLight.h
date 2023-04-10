@@ -1,8 +1,11 @@
 #pragma once
 #include "hjComponent.h"
+#include "hjGraphics.h"
 
 namespace hj
 {
+	using namespace math;
+
     class Light :
         public Component
     {
