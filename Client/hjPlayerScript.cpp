@@ -350,7 +350,7 @@ namespace hj
 			if (!bSingleJumping)
 				break;
 
-			static float maxJumpInputTime = 0.1f;
+			static float maxJumpInputTime = 0.2f;
 			float curAccTime = Time::AccTime();
 			if (singleJumpInputedTime + maxJumpInputTime > curAccTime)
 			{
@@ -405,7 +405,7 @@ namespace hj
 		GetOwner()->AddPositionY(1.f);
 		mOwnerRigid->AddForce(mJumpForce);
 		Vector2 curVel = mOwnerRigid->GetVelocity();
-		mOwnerRigid->SetVelocity(Vector2(curVel.x, mJumpForce.y * mJumpRatio));
+		mOwnerRigid->SetVelocity(Vector2(curVel.x, mJumpForce.y * mJumpingRatio));
 	}
 
 	void PlayerScript::DoubleJumpStart()
@@ -417,7 +417,7 @@ namespace hj
 
 	void PlayerScript::Jumping()
 	{
-		mOwnerRigid->AddForce(Vector2(mJumpForce.x, mJumpForce.y * mJumpingRatio));
+		mOwnerRigid->AddForce(Vector2(mJumpForce.x, mJumpForce.y * mJumpingRatio * 10.f));
 	}
 
 	void PlayerScript::ResetJump()
