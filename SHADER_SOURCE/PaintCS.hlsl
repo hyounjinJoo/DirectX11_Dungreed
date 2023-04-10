@@ -1,4 +1,4 @@
-#include "functions.hlsli"
+#include "globals.hlsli"
 
 RWTexture2D<float4> tex : register(u0);
 

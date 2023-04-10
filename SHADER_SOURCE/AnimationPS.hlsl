@@ -1,4 +1,4 @@
-#include "functions.hlsli"
+#include "globals.hlsli"
 
 struct VSOut
 {
@@ -9,7 +9,7 @@ struct VSOut
 };
 
 float4 main(VSOut In) : SV_TARGET
-{
+{    
     float4 Out = (float) 0.f;
     float2 UV = (float) 0.f;
     
@@ -62,7 +62,7 @@ float4 main(VSOut In) : SV_TARGET
     
     if (Out.a == 0.f)
         discard;
-    
+        
     LightColor lightColor = (LightColor) 0.f;
     for (uint i = 0; i < numberOfLight; ++i)
     {
@@ -70,6 +70,9 @@ float4 main(VSOut In) : SV_TARGET
     }
     
     Out *= lightColor.diffuse;
+    
+    if (cbiData4 == true)
+        Out = cbxyzw1;
     
     return Out;
 }

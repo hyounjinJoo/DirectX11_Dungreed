@@ -1,70 +1,96 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="VS">
-      <UniqueIdentifier>{8ce28a94-7aef-412a-a4cd-a549a26f6110}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PS">
+    <Filter Include="02. PS">
       <UniqueIdentifier>{53fc9855-4394-4aa0-812e-ac351f028cbf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CS">
+    <Filter Include="00. Global">
+      <UniqueIdentifier>{1b987923-4038-4c69-b345-d0d166acfd95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. CS">
       <UniqueIdentifier>{29e0a9ef-f220-4265-9b14-cfe6b5f0917e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. VS">
+      <UniqueIdentifier>{8ce28a94-7aef-412a-a4cd-a549a26f6110}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Global\01. Functions">
+      <UniqueIdentifier>{d042ff4c-c6d9-4a95-9704-69862f868d56}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="$(MSBuildThisFileDirectory)TriangleVS.hlsl">
-      <Filter>VS</Filter>
+      <Filter>01. VS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)TrianglePS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVS.hlsl">
-      <Filter>VS</Filter>
+      <Filter>01. VS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)SpritePS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)UserInterfaceVS.hlsl">
-      <Filter>VS</Filter>
+      <Filter>01. VS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)UserInterfacePS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl">
-      <Filter>VS</Filter>
+      <Filter>01. VS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)FadeVS.hlsl">
-      <Filter>VS</Filter>
+      <Filter>01. VS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)FadePS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugPS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl">
-      <Filter>VS</Filter>
+      <Filter>01. VS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)ShiftPS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)ColorPS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl">
-      <Filter>PS</Filter>
+      <Filter>02. PS</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl">
-      <Filter>CS</Filter>
+      <Filter>03. CS</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
-    <None Include="$(MSBuildThisFileDirectory)functions.hlsli" />
-    <None Include="$(MSBuildThisFileDirectory)Light.hlsli" />
-    <None Include="$(MSBuildThisFileDirectory)defines.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)ConstantBuffer.hlsli">
+      <Filter>00. Global</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)defines.hlsli">
+      <Filter>00. Global</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Sampler.hlsli">
+      <Filter>00. Global</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Resource.hlsli">
+      <Filter>00. Global</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)globals.hlsli">
+      <Filter>00. Global</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Blur.hlsli">
+      <Filter>00. Global\01. Functions</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)functions.hlsli">
+      <Filter>00. Global\01. Functions</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Light.hlsli">
+      <Filter>00. Global\01. Functions</Filter>
+    </None>
   </ItemGroup>
 </Project>
