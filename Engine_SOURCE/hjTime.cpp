@@ -49,11 +49,6 @@ namespace hj
         {
             mDeltaTime = 0.f;
         }
-#ifdef _DEBUG
-        //if (mDeltaTime > (1.f / static_cast<float>(mCpuFrequency.QuadPart)))
-        //    mDeltaTime = 1.f / static_cast<float>(mCpuFrequency.QuadPart);
-#else
-#endif
     }
 
     void Time::Render(HDC hdc)
