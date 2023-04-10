@@ -111,7 +111,7 @@ namespace hj
 
 
 	public:
-		Transform* GetTransform() 
+		Transform* GetTransform() const
 		{ 
 			if(mComponents[(UINT)eComponentType::Transform])
 				return static_cast<Transform*>(mComponents[(UINT)eComponentType::Transform]); 
@@ -119,23 +119,23 @@ namespace hj
 			return nullptr;
 		}
 		
-		Vector3 GetPosition() { return GetTransform()->GetPosition(); }
-		float GetPositionX() { return GetTransform()->GetPositionX(); }
-		float GetPositionY() { return GetTransform()->GetPositionY(); }
-		float GetPositionZ() { return GetTransform()->GetPositionZ(); }
-		Vector2 GetPositionXY() { return GetTransform()->GetPositionXY(); }
+		Vector3 GetPosition() const { return GetTransform()->GetPosition(); }
+		float GetPositionX() const{ return GetTransform()->GetPositionX(); }
+		float GetPositionY() const{ return GetTransform()->GetPositionY(); }
+		float GetPositionZ() const{ return GetTransform()->GetPositionZ(); }
+		Vector2 GetPositionXY() const { return GetTransform()->GetPositionXY(); }
 
-		Vector3 GetRotation() { return GetTransform()->GetRotation(); }
-		float GetRotationX() { return GetTransform()->GetRotationX(); }
-		float GetRotationY() { return GetTransform()->GetRotationY(); }
-		float GetRotationZ() { return GetTransform()->GetRotationZ(); }
-		Vector2 GetRotationXY() { return GetTransform()->GetRotationXY(); }
+		Vector3 GetRotation() const { return GetTransform()->GetRotation(); }
+		float GetRotationX() const{ return GetTransform()->GetRotationX(); }
+		float GetRotationY() const{ return GetTransform()->GetRotationY(); }
+		float GetRotationZ() const{ return GetTransform()->GetRotationZ(); }
+		Vector2 GetRotationXY() const { return GetTransform()->GetRotationXY(); }
 		
-		Vector3 GetScale() { return GetTransform()->GetScale(); }
-		float GetScaleX() { return GetTransform()->GetScaleX(); }
-		float GetScaleY() { return GetTransform()->GetScaleY(); }
-		float GetScaleZ() { return GetTransform()->GetScaleZ(); }
-		Vector2 GetScaleXY() { return GetTransform()->GetScaleXY(); }
+		Vector3 GetScale() const { return GetTransform()->GetScale(); }
+		float GetScaleX() const{ return GetTransform()->GetScaleX(); }
+		float GetScaleY() const{ return GetTransform()->GetScaleY(); }
+		float GetScaleZ() const{ return GetTransform()->GetScaleZ(); }
+		Vector2 GetScaleXY() const { return GetTransform()->GetScaleXY(); }
 
 		void SetPosition(const Vector3& position) { GetTransform()->SetPosition(position); }
 		void SetPositionX(const float posX) { GetTransform()->SetPositionX(posX); }
@@ -171,29 +171,29 @@ namespace hj
 		void AddScaleY(const float scaleY) { GetTransform()->AddScaleY(scaleY); }
 		void AddScaleZ(const float scaleZ) { GetTransform()->AddScaleZ(scaleZ); }
 
-		const Vector3& GetWorldPosition() { return GetTransform()->GetWorldPosition(); }
-		const Vector3& GetWorldRotation() { return GetTransform()->GetWorldRotation(); }
-		const Vector3& GetWorldScale() { return GetTransform()->GetWorldScale(); }
+		Vector3 GetWorldPosition() const { return GetTransform()->GetWorldPosition(); }
+		Vector3 GetWorldRotation() const { return GetTransform()->GetWorldRotation(); }
+		Vector3 GetWorldScale() const { return GetTransform()->GetWorldScale(); }
 
-		float GetWorldPositionX() { return GetTransform()->GetWorldPositionX(); }
-		float GetWorldPositionY() { return GetTransform()->GetWorldPositionY(); }
-		float GetWorldPositionZ() { return GetTransform()->GetWorldPositionZ(); }
-		float GetWorldRotationX() { return GetTransform()->GetWorldRotationX(); }
-		float GetWorldRotationY() { return GetTransform()->GetWorldRotationY(); }
-		float GetWorldRotationZ() { return GetTransform()->GetWorldRotationZ(); }
-		float GetWorldScaleX() { return GetTransform()->GetWorldScaleX(); }
-		float GetWorldScaleY() { return GetTransform()->GetWorldScaleY(); }
-		float GetWorldScaleZ() { return GetTransform()->GetWorldScaleZ(); }
+		float GetWorldPositionX() const{ return GetTransform()->GetWorldPositionX(); }
+		float GetWorldPositionY() const{ return GetTransform()->GetWorldPositionY(); }
+		float GetWorldPositionZ() const{ return GetTransform()->GetWorldPositionZ(); }
+		Vector2 GetWorldPositionXY() const { return GetTransform()->GetWorldPositionXY(); }
+		float GetWorldRotationX() const { return GetTransform()->GetWorldRotationX(); }
+		float GetWorldRotationY() const { return GetTransform()->GetWorldRotationY(); }
+		float GetWorldRotationZ() const { return GetTransform()->GetWorldRotationZ(); }
+		float GetWorldScaleX() const{ return GetTransform()->GetWorldScaleX(); }
+		float GetWorldScaleY() const{ return GetTransform()->GetWorldScaleY(); }
+		float GetWorldScaleZ() const{ return GetTransform()->GetWorldScaleZ(); }
 
-		Vector3 Forward() { return GetTransform()->Forward(); }
-		Vector3 Right() { return GetTransform()->Right(); }
-		Vector3 Up() { return GetTransform()->Up(); }
+		Vector3 Forward() const { return GetTransform()->Forward(); }
+		Vector3 Right() const { return GetTransform()->Right(); }
+		Vector3 Up() const { return GetTransform()->Up(); }
 
-		Vector3 WorldForward() { return GetTransform()->WorldForward(); }
-		Vector3 WorldRight() { return GetTransform()->WorldRight(); }
-		Vector3 WorldUp() { return GetTransform()->WorldUp(); }
-		//void SetInheritParentTransform(bool inherit) { GetTransform()->SetInheritParentTransform(inherit); }
-
-		const math::Matrix& GetWorldMatrix() { return GetTransform()->GetWorldMatrix(); }
+		Vector3 WorldForward() const { return GetTransform()->WorldForward(); }
+		Vector3 WorldRight() const { return GetTransform()->WorldRight(); }
+		Vector3 WorldUp() const { return GetTransform()->WorldUp(); }
+		
+		const math::Matrix& GetWorldMatrix() const { return GetTransform()->GetWorldMatrix(); }
 	};
 }

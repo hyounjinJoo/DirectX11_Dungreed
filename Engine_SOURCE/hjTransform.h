@@ -21,23 +21,23 @@ namespace hj
 		void SetParent(Transform* parent) { mParent = parent; }
 		Transform* GetParent() { return mParent; }
 
-		Vector3 GetPosition() { return mRelativePosition; }
-		float GetPositionX() { return mRelativePosition.x; }
-		float GetPositionY() { return mRelativePosition.y; }
-		float GetPositionZ() { return mRelativePosition.z; }
-		Vector2 GetPositionXY() { return Vector2(mRelativePosition.x, mRelativePosition.y); }
+		Vector3 GetPosition() const { return mRelativePosition; }
+		float GetPositionX() const { return mRelativePosition.x; }
+		float GetPositionY() const { return mRelativePosition.y; }
+		float GetPositionZ() const { return mRelativePosition.z; }
+		Vector2 GetPositionXY() const { return Vector2(mRelativePosition.x, mRelativePosition.y); }
 
-		Vector3 GetRotation() { return mRelativeRotation; }
-		float GetRotationX() { return mRelativeRotation.x; }
-		float GetRotationY() { return mRelativeRotation.y; }
-		float GetRotationZ() { return mRelativeRotation.z; }
-		Vector2 GetRotationXY() { return Vector2(mRelativeRotation.x, mRelativeRotation.y); }
+		Vector3 GetRotation() const { return mRelativeRotation; }
+		float GetRotationX() const { return mRelativeRotation.x; }
+		float GetRotationY() const { return mRelativeRotation.y; }
+		float GetRotationZ() const { return mRelativeRotation.z; }
+		Vector2 GetRotationXY() const { return Vector2(mRelativeRotation.x, mRelativeRotation.y); }
 
-		Vector3 GetScale() { return mRelativeScale; }
-		float GetScaleX() { return mRelativeScale.x; }
-		float GetScaleY() { return mRelativeScale.y; }
-		float GetScaleZ() { return mRelativeScale.z; }
-		Vector2 GetScaleXY() { return Vector2(mRelativeScale.x, mRelativeScale.y); }
+		Vector3 GetScale() const { return mRelativeScale; }
+		float GetScaleX() const { return mRelativeScale.x; }
+		float GetScaleY() const { return mRelativeScale.y; }
+		float GetScaleZ() const { return mRelativeScale.z; }
+		Vector2 GetScaleXY() const { return Vector2(mRelativeScale.x, mRelativeScale.y); }
 
 		void SetPosition(const Vector3& position) { mRelativePosition = position; }
 		void SetPositionX(const float posX) { mRelativePosition.x = posX; }
@@ -73,30 +73,31 @@ namespace hj
 		void AddScaleY(const float scaleY) { mRelativeScale.y += scaleY; }
 		void AddScaleZ(const float scaleZ) { mRelativeScale.z += scaleZ; }
 
-		const Vector3& Forward() { return mRelativeForward; }
-		const Vector3& Right() { return mRelativeRight; }
-		const Vector3& Up() { return mRelativeUp; }
-		const Vector3& WorldForward() { return mWorldForward; }
-		const Vector3& WorldRight() { return mWorldRight; }
-		const Vector3& WorldUp() { return mWorldUp; }
+		const Vector3& Forward() const { return mRelativeForward; }
+		const Vector3& Right() const { return mRelativeRight; }
+		const Vector3& Up() const { return mRelativeUp; }
+		const Vector3& WorldForward() const { return mWorldForward; }
+		const Vector3& WorldRight() const { return mWorldRight; }
+		const Vector3& WorldUp() const { return mWorldUp; }
 
 		void SetInheritParentScale(bool inherit) { mInheritParentScale = inherit; }
 
-		const Matrix& GetWorldMatrix() { return mWorld; }
+		const Matrix& GetWorldMatrix() const { return mWorld; }
 
-		const Vector3& GetWorldPosition() { return mWorldPosition; }
-		const Vector3& GetWorldRotation() { return mWorldRotation; }
-		const Vector3& GetWorldScale() { return mWorldScale; }
+		const Vector3& GetWorldPosition() const { return mWorldPosition; }
+		const Vector3& GetWorldRotation() const { return mWorldRotation; }
+		const Vector3& GetWorldScale() const { return mWorldScale; }
 
-		float GetWorldPositionX() { return mWorldPosition.x; }
-		float GetWorldPositionY() { return mWorldPosition.y; }
-		float GetWorldPositionZ() { return mWorldPosition.z; }
-		float GetWorldRotationX() { return mWorldRotation.x; }
-		float GetWorldRotationY() { return mWorldRotation.y; }
-		float GetWorldRotationZ() { return mWorldRotation.z; }
-		float GetWorldScaleX() { return mWorldScale.x; }
-		float GetWorldScaleY() { return mWorldScale.y; }
-		float GetWorldScaleZ() { return mWorldScale.z; }
+		float GetWorldPositionX() const { return mWorldPosition.x; }
+		float GetWorldPositionY() const { return mWorldPosition.y; }
+		float GetWorldPositionZ() const { return mWorldPosition.z; }
+		Vector2 GetWorldPositionXY() const { return Vector2(mWorldPosition.x, mWorldPosition.y); }
+		float GetWorldRotationX() const { return mWorldRotation.x; }
+		float GetWorldRotationY() const { return mWorldRotation.y; }
+		float GetWorldRotationZ() const { return mWorldRotation.z; }
+		float GetWorldScaleX() const { return mWorldScale.x; }
+		float GetWorldScaleY() const { return mWorldScale.y; }
+		float GetWorldScaleZ() const { return mWorldScale.z; }
 
 	private:
 		Transform* mParent;
