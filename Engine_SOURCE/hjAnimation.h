@@ -123,6 +123,7 @@ namespace hj
         };
 
         Animation();
+        Animation(const Animation&);
         virtual ~Animation();
 
         UINT Update();
@@ -149,6 +150,10 @@ namespace hj
         std::wstring& AnimationName() { return mAnimationName; }
 
         void SetAnimator(class Animator* animator);
+
+        int GetSheetSize() { return static_cast<int>(mSpriteSheet.size()); }
+
+        Animation* Clone();
 
 	private:
         class Animator* mAnimator;

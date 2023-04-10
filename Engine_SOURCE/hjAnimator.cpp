@@ -134,6 +134,25 @@ namespace hj
 		return Create(StringToWideString(name), atlas, sprite, canvasSize, reversePlay);
 	}
 
+	bool Animator::AddAnimation(Animation* const anim)
+	{
+		Animation* animation = FindAnimation(anim->AnimationName());
+		if (animation != nullptr)
+			return false;
+
+		animation = anim;
+		std::wstring animName = anim->AnimationName();
+
+		mAnimations.insert(std::make_pair(animName, animation));
+		animation->SetAnimator(this);
+
+		Events* events = new Events();
+		events->mEvents.resize(anim->GetSheetSize());
+		mEvents.insert(std::make_pair(animName, events));
+
+		return true;
+	}
+
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
 		std::map<std::wstring, Animation*>::iterator iter

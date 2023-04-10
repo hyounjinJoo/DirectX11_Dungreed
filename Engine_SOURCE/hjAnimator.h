@@ -61,6 +61,8 @@ namespace hj
 		bool Create(const std::string& name, std::shared_ptr<Texture> atlas
 			, const std::vector<Animation::Sprite>& sprite, Vector2 canvasSize, bool reversePlay);
 
+        bool AddAnimation(Animation* const anim);
+
         Animation* FindAnimation(const std::wstring& name);
         Events* FindEvents(const std::wstring& name);
 		void Play(const std::wstring& name, bool loop = true);

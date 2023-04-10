@@ -21,6 +21,24 @@ namespace hj
 	{
 	}
 
+	Animation::Animation(const Animation& anim)
+		: mAnimator(nullptr)
+		, mAtlas(anim.mAtlas)
+		, mShader(anim.mShader)
+		, mCanvasSize(anim.mCanvasSize)
+		, mIndex(-1)
+		, mTime(0.f)
+		, mbComplete(false)
+		, mbReversePlay(anim.mbReversePlay)
+		, mbUsed(anim.mbUsed)
+		, mbCanvasUsed(anim.mbCanvasUsed)
+		, mbInverse(false)
+	{
+		mAnimationName = anim.mAnimationName;
+		mSpriteSheet.resize(anim.mSpriteSheet.size());
+		std::copy(anim.mSpriteSheet.begin(), anim.mSpriteSheet.end(), mSpriteSheet.begin());
+	}
+
 	Animation::~Animation()
 	{
 	}
@@ -165,4 +183,10 @@ namespace hj
 	{
 		mAnimator = animator;
 	}
+
+	Animation* Animation::Clone()
+	{
+		return new Animation(*this);
+	}
+
 }
