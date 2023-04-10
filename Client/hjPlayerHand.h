@@ -21,7 +21,7 @@ namespace hj
 		void FixedUpdate() override;
 		void Render() override;
 
-		void SetHandOwner(Player* owner);
+		void SetHandOwner(class Player* owner);
 		void InverseHandPosZ(bool inverse);
 
 		Transform* GetWeaponTR() { return mWeapon->GetTransform(); }
@@ -35,7 +35,7 @@ namespace hj
 		Transform* mHandOwnerTR;
 		Transform* mHandTransform;
 		handState mHandState;
-		Animator* mAnimator;
+		class Animator* mAnimator;
 	};
 }
 

@@ -21,6 +21,6 @@ namespace hj
 
 	private:
 		class GameObject* mObj;
-		std::shared_ptr<PaintShader> mPaintShader;
+		std::shared_ptr<graphics::PaintShader> mPaintShader;
     };
 }

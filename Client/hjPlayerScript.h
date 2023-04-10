@@ -4,6 +4,8 @@
 
 namespace hj
 {
+	using namespace math;
+
 	enum class playerKeyAction
 	{
 		MOVE_LEFT = 0,
