@@ -105,7 +105,12 @@ namespace hj
 		GetCostumeString(static_cast<UINT>(mCurrentCostume), stringToGet);
 	}
 
-	void Player::GetCostumeString(UINT costumeNumber, std::string& stringToGet) const
+	void Player::GetCurrentCostumeString(std::wstring& stringToGet) const
+	{
+		GetCostumeString(static_cast<UINT>(mCurrentCostume), stringToGet);
+	}
+
+	void Player::GetCostumeString(UINT costumeNumber, std::string& stringToGet)
 	{
 		switch ((ePlayerCostume)costumeNumber)
 		{
@@ -154,7 +159,7 @@ namespace hj
 		}
 	}
 
-	void Player::GetCostumeString(UINT costumeNumber, std::wstring& wstringToGet) const
+	void Player::GetCostumeString(UINT costumeNumber, std::wstring& wstringToGet)
 	{
 		std::string stringToGet;
 		GetCostumeString(costumeNumber, stringToGet);
@@ -242,7 +247,8 @@ namespace hj
 #pragma region Create Animation
 	void Player::CreateAnimation()
 	{
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Char_Adventurer");
+		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+		std::shared_ptr<Material> material = sr->GetMaterial();
 		std::shared_ptr<Texture> texture = material->GetTexture();
 		Vector2 atlasTexSize = texture->GetTexSize();
 

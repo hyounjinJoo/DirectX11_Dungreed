@@ -66,6 +66,12 @@ namespace hj
         class PlayerHand* GetHand() { return mLeftHand; }
         class GameObject* GetCenter() { return mCenterObj; }
         bool IsFlip() { return mbIsFlip; }
+
+		static void GetCostumeString(UINT costumeNumber, std::string& stringToGet);
+		static void GetCostumeString(UINT costumeNumber, std::wstring& stringToGet);
+
+		void GetCurrentCostumeString(std::string& stringToGet) const;
+		void GetCurrentCostumeString(std::wstring& stringToGet) const;
     private:
         GameObject* mCenterObj;
         class PlayerHand* mLeftHand;
@@ -77,9 +83,6 @@ namespace hj
         class PlayerScript* mPlayerScript;
         bool mbIsFlip;
 
-        void GetCurrentCostumeString(std::string& stringToGet) const;
-		void GetCostumeString(UINT costumeNumber, std::string& stringToGet) const;
-		void GetCostumeString(UINT costumeNumber, std::wstring& stringToGet) const;
         void FlipBasedOnMousePos();
 
         void Idle();

@@ -187,6 +187,9 @@
     <ClInclude Include="hjArmRotatorScript.h">
       <Filter>Contents\Script\Player</Filter>
     </ClInclude>
+    <ClInclude Include="hjPlayerTrail.h">
+      <Filter>Contents\GameObject\Play\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="hjArmRotatorScript.cpp">
       <Filter>Contents\Script\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerTrail.cpp">
+      <Filter>Contents\GameObject\Play\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include "hjScript.h"
 #include "hjInput.h"
+#include "hjPlayer.h"
 
 namespace hj
 {
@@ -17,7 +18,6 @@ namespace hj
 
 		END,
 	};
-
 
 	class PlayerScript : public Script
 	{
@@ -44,12 +44,15 @@ namespace hj
 		void ChangeKeyBind(playerKeyAction targetAction, eKeyCode bindedKey);
 
 		void HandleTestInput();
+		void ChangeTrailCostume(ePlayerCostume nextCostume);
 		void FakeGroundApply();
 
 		void ActionMouseLBTN();
 		void ActionMouseRBTN();
 
 		void Dash();
+		void InitialDashTrail();
+		void ActiveDashTrail();
 
 		void JumpStart();
 		void DoubleJumpStart();
@@ -62,8 +65,19 @@ namespace hj
 		std::vector<eKeyCode> mKeyBindings;
 
 		bool mbDash;
-		float mDashStartedTime = 0.f;
-		float mMaxDashTime = 0.1f;
-		float mDashPower = 5000.f;
+		float mDashStartedTime;
+		float mDashCoolTime;
+		float mMaxDashTime;
+		float mDashPower;
+		int mDashTrailCount;
+		int mCurActivatedTrailIndex;
+		float mDashTrailCreateInterval;
+		float mDashTrailRenderTimer;
+		float mLastDashTrailTime;
+		std::vector<class PlayerTrail*> mDashTrailObj;
+
+		Vector2 mJumpForce;
+		float mJumpRatio;
+		float mJumpingRatio;
 	};
 }

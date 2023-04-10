@@ -6,10 +6,11 @@
 #include "hjSpriteRenderer.h"
 #include "hjBaseRenderer.h"
 #include "hjRigidBody.h"
-#include "hjPlayer.h"
 #include "hjApplication.h"
 #include "CommonInclude.h"
 #include "hjArmRotatorScript.h"
+#include "hjObject.h"
+#include "hjPlayerTrail.h"
 
 extern hj::Application application;
 namespace hj
@@ -19,9 +20,18 @@ namespace hj
 		, mRunForce(Vector2(2000.f, 0.f))
 		, mbDash(false)
 		, mDashStartedTime(0.f)
+		, mDashCoolTime(0.3f)
 		, mMaxDashTime(0.1f)
+		, mDashTrailCount(3)
 		, mDashPower(5000.f)
+		, mLastDashTrailTime(0.f)
+		, mCurActivatedTrailIndex(0)
+		, mJumpRatio(0.05f)
+		, mJumpingRatio(0.025f)
+		, mJumpForce(Vector2(0.f, 20000.f))
 	{
+		mDashTrailRenderTimer = 0.1f;
+		mDashTrailCreateInterval = mMaxDashTime / mDashTrailCount;
 		InitialKeyBind();
 	}
 
@@ -32,7 +42,9 @@ namespace hj
 	void PlayerScript::Initialize()
 	{
 		if (GetOwner()->GetComponent<RigidBody>())
-			mOwnerRigid = GetOwner()->GetComponent<RigidBody>();			
+			mOwnerRigid = GetOwner()->GetComponent<RigidBody>();		
+
+		InitialDashTrail();
 	}
 
 	void PlayerScript::Update()
@@ -44,12 +56,12 @@ namespace hj
 		HandleTestInput();
 
 		HandleOtherInput();
+		Dash();
 	}
 
 	void PlayerScript::FixedUpdate()
 	{
 		FakeGroundApply();
-		Dash();
 	}
 
 	void PlayerScript::Render()
@@ -146,7 +158,9 @@ namespace hj
 				ePlayerCostume nextCostume = player->GetCurrentCostume();
 				static_cast<UINT>(nextCostume) == static_cast<UINT>(ePlayerCostume::SunsetGunman) ? nextCostume = ePlayerCostume::Adventurer : nextCostume = static_cast<ePlayerCostume>(static_cast<UINT>(nextCostume) + 1);
 				player->ChangeCostume(nextCostume);
+				ChangeTrailCostume(nextCostume);
 			}
+
 		}
 		if (Input::GetKeyDown(eKeyCode::NUM_4))
 		{
@@ -156,9 +170,19 @@ namespace hj
 				ePlayerCostume nextCostume = player->GetCurrentCostume();
 				static_cast<UINT>(nextCostume) == static_cast<UINT>(ePlayerCostume::Adventurer) ? nextCostume = ePlayerCostume::SunsetGunman : nextCostume = static_cast<ePlayerCostume>(static_cast<UINT>(nextCostume) - 1);
 				player->ChangeCostume(nextCostume);
+				ChangeTrailCostume(nextCostume);
 			}
 		}
 
+	}
+
+	void PlayerScript::ChangeTrailCostume(ePlayerCostume nextCostume)
+	{
+		auto iter = mDashTrailObj.begin();
+		auto iterEnd = mDashTrailObj.end();
+
+		for (; iter != iterEnd; ++iter)
+			(*iter)->ChangeCostume(static_cast<UINT>(nextCostume));
 	}
 
 	void PlayerScript::FakeGroundApply()
@@ -217,12 +241,16 @@ namespace hj
 
 	void PlayerScript::ActionMouseRBTN()
 	{
+		if (Time::AccTime() - mDashStartedTime < mDashCoolTime)
+			return;
 		// Dash 중이지 않은 경우에만 동작시켜준다.
 		if (!mbDash)
 		{
 			mDashStartedTime = Time::AccTime();
+			mLastDashTrailTime = mDashStartedTime;
 			mbDash = true;
 		}
+
 	}
 
 	void PlayerScript::Dash()
@@ -230,16 +258,32 @@ namespace hj
 		if (!mbDash)
 			return;
 
-		if (mbDash)
-		{
-			float curTime = Time::AccTime();
+		float curTime = Time::AccTime();
 
-			if (curTime > mDashStartedTime + mMaxDashTime)
-			{
-				mbDash = false;
-				return;
-			}
+		if (curTime > mDashStartedTime + mMaxDashTime)
+		{
+			mbDash = false;
+			return;
 		}
+
+		bool isNeedToActiveTrail = false;
+		if (mLastDashTrailTime == mDashStartedTime)
+		{
+			isNeedToActiveTrail = true;
+			mLastDashTrailTime += mDashTrailCreateInterval;
+		}
+
+		if (curTime > mLastDashTrailTime)
+		{
+			isNeedToActiveTrail = true;
+			mLastDashTrailTime += mDashTrailCreateInterval;
+		}
+		
+		if (isNeedToActiveTrail)
+		{
+			ActiveDashTrail();
+		}
+
 		Vector3 bodyPos = GetOwner()->GetWorldPosition();
 		Vector2 mousePos = Input::GetMouseWorldPosition();
 
@@ -248,16 +292,20 @@ namespace hj
 
 		// 대쉬 로직
 		Vector2 nextPos = Vector2(dir.x * mDashPower * Time::DeltaTime(), dir.y * mDashPower * Time::DeltaTime());
-		//Vector2 nextPos = Vector2(dir.x * mDashPower, dir.y * mDashPower);
-		//
-		//mOwnerRigid->SetGround(false);
-		//Vector2 curVel = mOwnerRigid->GetVelocity();
-		//mOwnerRigid->SetVelocity(Vector2(curVel.x, curVel.y + dir.y * mDashPower * 0.1f));
-		//mOwnerRigid->AddForce(nextPos);
 
 		GetOwner()->AddPositionXY(nextPos);
 		mOwnerRigid->ClearVelocityY();
 		mOwnerRigid->SetGround(false);
+	}
+
+	void PlayerScript::ActiveDashTrail()
+	{
+		Vector3 bodyPos = GetOwner()->GetWorldPosition();
+		mDashTrailObj[mCurActivatedTrailIndex]->SetPositionXY(Vector2(bodyPos.x, bodyPos.y));
+		mDashTrailObj[mCurActivatedTrailIndex++]->ActivateTrail(true);
+
+		if (mCurActivatedTrailIndex >= mDashTrailCount)
+			mCurActivatedTrailIndex = 0;
 	}
 
 	void PlayerScript::HandleJumpInput()
@@ -279,7 +327,6 @@ namespace hj
 		static int count = 0;
 		switch (jumpKeyState)
 		{
-		// when Jump key State is changed to None to Down.(push)
 		case DOWN:
 		{
 			if (bIsGround && bCanInputSingleJump)
@@ -303,7 +350,7 @@ namespace hj
 			if (!bSingleJumping)
 				break;
 
-			static float maxJumpInputTime = 0.5f;
+			static float maxJumpInputTime = 0.1f;
 			float curAccTime = Time::AccTime();
 			if (singleJumpInputedTime + maxJumpInputTime > curAccTime)
 			{
@@ -355,29 +402,49 @@ namespace hj
 	void PlayerScript::JumpStart()
 	{
 		mOwnerRigid->SetGround(false);
-
-		Vector2 jumpForce = Vector2(0.f, 30000.f);
-		mOwnerRigid->AddForce(jumpForce);
+		GetOwner()->AddPositionY(1.f);
+		mOwnerRigid->AddForce(mJumpForce);
 		Vector2 curVel = mOwnerRigid->GetVelocity();
-		mOwnerRigid->SetVelocity(Vector2(curVel.x, 300.f));
+		mOwnerRigid->SetVelocity(Vector2(curVel.x, mJumpForce.y * mJumpRatio));
 	}
 
 	void PlayerScript::DoubleJumpStart()
 	{
-		Vector2 jumpForce = Vector2(0.f, 25000.f);
-		mOwnerRigid->AddForce(jumpForce);
+		mOwnerRigid->AddForce(mJumpForce);
 		Vector2 curVel = mOwnerRigid->GetVelocity();
-		mOwnerRigid->SetVelocity(Vector2(curVel.x, 1000.f));
+		mOwnerRigid->SetVelocity(Vector2(curVel.x, mJumpForce.y * mJumpRatio));
 	}
 
 	void PlayerScript::Jumping()
 	{
-		Vector2 jumpForce = Vector2(0.f, 5000.f);
-		mOwnerRigid->AddForce(jumpForce);
+		mOwnerRigid->AddForce(Vector2(mJumpForce.x, mJumpForce.y * mJumpingRatio));
 	}
 
 	void PlayerScript::ResetJump()
 	{
+	}
+
+	void PlayerScript::InitialDashTrail()
+	{
+		if (1 <= mDashTrailObj.size())
+		{
+			std::vector<PlayerTrail*>::iterator iter = mDashTrailObj.begin();
+			std::vector<PlayerTrail*>::iterator iterEnd = mDashTrailObj.end();
+			while (iter != iterEnd)
+			{
+				iter = mDashTrailObj.erase(iter);
+			}
+		}
+
+		for (int index = 0; index < mDashTrailCount; ++index)
+		{
+			PlayerTrail* trail = object::Instantiate<PlayerTrail>(eLayerType::Player);
+			trail->DontDestroy(true);
+			Player* owner = dynamic_cast<Player*>(GetOwner());
+			trail->SetOwner(owner);
+			trail->SetActivateTimer(mDashTrailRenderTimer);
+			mDashTrailObj.push_back(trail);
+		}
 	}
 
 	void PlayerScript::InitialKeyBind()
