@@ -483,6 +483,11 @@ namespace hj::renderer
 		SUB_FOLDER_ALLCLEAR();
 		#pragma endregion
 #pragma endregion
+#pragma region _08_FX
+		MAIN_FOLDER("08_FX");
+		LOAD_TEX("08_FX", "08_FX.png");
+		FOLDER_ALLCLEAR();
+#pragma endregion
 #pragma region 01_TitleScene
 	#pragma region 00_Layers
 			MAIN_FOLDER("01_Scene\\00_TitleScene");
@@ -674,6 +679,15 @@ namespace hj::renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Char_Adventurer", material);
+
+		// Sprite/08_FX/FX
+		texture = TEX_FIND("08_FX");
+		shader = SHADER_FIND("Shader_Sprite");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_FX", material);
 
 		// Sprite/Weapon/Legendary/DemonSword
 		texture = TEX_FIND("Weapon_Legendary_DemonSword_00");

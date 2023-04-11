@@ -184,6 +184,18 @@ namespace hj
 		mAnimator = animator;
 	}
 
+	void Animation::ChangePlayDuration(float duration)
+	{
+		if (mSpriteSheet.empty())
+			return;
+
+		size_t sheetSize = mSpriteSheet.size();
+		for (size_t iter = 0; iter < sheetSize; ++iter)
+		{
+			mSpriteSheet[iter].duration = duration;
+		}
+	}
+
 	Animation* Animation::Clone()
 	{
 		return new Animation(*this);

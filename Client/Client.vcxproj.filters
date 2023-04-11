@@ -101,6 +101,9 @@
     <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\04. Legendary">
       <UniqueIdentifier>{0a11ccc9-83f5-40ba-aa7f-39ac24995b22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Play\Player\Effect">
+      <UniqueIdentifier>{e50c7040-22ef-4224-b526-593a044cfe5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -187,8 +190,14 @@
     <ClInclude Include="hjArmRotatorScript.h">
       <Filter>Contents\Script\Player</Filter>
     </ClInclude>
-    <ClInclude Include="hjPlayerTrail.h">
-      <Filter>Contents\GameObject\Play\Player</Filter>
+    <ClInclude Include="hjFxPlayerDust.h">
+      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFxPlayerTrail.h">
+      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFxPlayerJump.h">
+      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,8 +284,14 @@
     <ClCompile Include="hjArmRotatorScript.cpp">
       <Filter>Contents\Script\Player</Filter>
     </ClCompile>
-    <ClCompile Include="hjPlayerTrail.cpp">
-      <Filter>Contents\GameObject\Play\Player</Filter>
+    <ClCompile Include="hjFxPlayerDust.cpp">
+      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFxPlayerTrail.cpp">
+      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFxPlayerJump.cpp">
+      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

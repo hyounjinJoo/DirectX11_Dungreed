@@ -74,7 +74,7 @@ namespace hj
 		float mDashTrailCreateInterval;
 		float mDashTrailRenderTimer;
 		float mLastDashTrailTime;
-		std::vector<class PlayerTrail*> mDashTrailObj;
+		std::vector<class FxPlayerTrail*> mDashTrailObj;
 
 		Vector2 mJumpForce;
 		float mJumpRatio;

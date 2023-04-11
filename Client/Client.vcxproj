@@ -153,9 +153,11 @@
     <ClInclude Include="hjLayerObject.h" />
     <ClInclude Include="hjLinearMoveScript.h" />
     <ClInclude Include="hjPlayer.h" />
+    <ClInclude Include="hjFxPlayerDust.h" />
     <ClInclude Include="hjPlayerHand.h" />
     <ClInclude Include="hjArmRotatorScript.h" />
-    <ClInclude Include="hjPlayerTrail.h" />
+    <ClInclude Include="hjFxPlayerJump.h" />
+    <ClInclude Include="hjFxPlayerTrail.h" />
     <ClInclude Include="hjTitleBird.h" />
     <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjTestMonster.h" />
@@ -182,9 +184,11 @@
     <ClCompile Include="hjLayerObject.cpp" />
     <ClCompile Include="hjLinearMoveScript.cpp" />
     <ClCompile Include="hjPlayer.cpp" />
+    <ClCompile Include="hjFxPlayerDust.cpp" />
     <ClCompile Include="hjPlayerHand.cpp" />
     <ClCompile Include="hjArmRotatorScript.cpp" />
-    <ClCompile Include="hjPlayerTrail.cpp" />
+    <ClCompile Include="hjFxPlayerJump.cpp" />
+    <ClCompile Include="hjFxPlayerTrail.cpp" />
     <ClCompile Include="hjTitleBird.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjTestMonster.cpp" />

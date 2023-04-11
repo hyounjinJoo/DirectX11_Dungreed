@@ -70,9 +70,12 @@ float4 main(VSOut In) : SV_TARGET
     }
     
     Out *= lightColor.diffuse;
+
+#define USE_ONLY_DIFFUSE_COLOR cbiData4
+#define DIFFUSE_COLOR cbxyzw1
     
-    if (cbiData4 == true)
-        Out = cbxyzw1;
+    if (USE_ONLY_DIFFUSE_COLOR == true)
+        Out = DIFFUSE_COLOR;
     
     return Out;
 }

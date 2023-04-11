@@ -18,6 +18,7 @@ namespace hj
 		, mState(ePlayerState::End)
 		, mCurrentCostume(ePlayerCostume::Adventurer)
 		, mbIsFlip(false)
+		, mSecondStepDustCreatedIndex(4)
 	{
 		SetName(WIDE("플레이어"));
 
@@ -43,7 +44,7 @@ namespace hj
 		AddComponent<Collider2D>();
 
 		mCenterObj = object::Instantiate<GameObject>(eLayerType::Player, Vector3(30.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
-		mCenterObj->SetName(WIDE("플레이어 핸드 센터"));
+		mCenterObj->SetName(WIDE("플레이어 핸드 소켓"));
 		mCenterObj->GetTransform()->SetParent(GetTransform());
 		mCenterObj->AddComponent<Collider2D>();
 		ArmRotatorScript* armScript = mCenterObj->AddComponent<ArmRotatorScript>();
@@ -55,10 +56,35 @@ namespace hj
 
 		armScript->SetTarget(mLeftHand);
 		armScript->SetUsingMouseRotation(true);
+
+		for (int iter = 0; iter < 2; ++iter)
+		{
+			FxPlayerDust* dust = object::Instantiate<FxPlayerDust>(eLayerType::Player, Vector3(0.f, 0.f, -0.1f));
+			dust->SetOwner(this);
+			mPlayerDusts.push_back(dust);
+		}
+
+		mPlayerJump = object::Instantiate<FxPlayerJump>(eLayerType::Player, Vector3(0.f, 0.f, 0.1f));
+		mPlayerJump->SetOwner(this);
 	}
 
 	Player::~Player()
 	{
+		{
+			auto iter = mCostume.begin();
+			auto iterEnd = mCostume.end();
+
+			for (; iter != iterEnd; ++iter)
+			{
+				if (*iter)
+				{
+					delete *iter;
+					*iter = nullptr;
+				}
+			}
+
+			mCostume.clear();
+		}
 	}
 
 	void Player::Initialize()
@@ -186,6 +212,9 @@ namespace hj
 
 	void Player::ChangeState(ePlayerState state)
 	{
+		if(mState == ePlayerState::Run)
+			CreateDustIfNeed();
+
 		if (mState == state)
 			return;
 
@@ -220,28 +249,78 @@ namespace hj
 			return;
 
 		mCurrentCostume = costume;
-		SetScaleXY(mCostume[static_cast<UINT>(mCurrentCostume)].costumeSize);
+		SetScaleXY(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeSize);
 		Idle();
+
+		ChangeDustSpecificAttribute();
+	}
+
+	void Player::ChangeDustSpecificAttribute()
+	{
+		Animation* runAnim = mAnimator->FindAnimation(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeRunAnim);
+		if (!runAnim)
+			return;
+
+		int runSheetSize = runAnim->GetSheetSize();
+		float runDuration = runAnim->GetDuration();
+		if (runDuration == 0.f)
+			return;
+
+		int frameCountInStep = static_cast<int>(std::floorf(static_cast<float>(runSheetSize) * 0.5f));
+		mSecondStepDustCreatedIndex = frameCountInStep;
+		float newDustPlayTime = frameCountInStep * runDuration;
+
+		for (int iter = 0; iter < 2; ++iter)
+		{
+			mPlayerDusts[iter]->ChangeAnimationDuration(newDustPlayTime);
+		}
 	}
 
 	void Player::Idle()
 	{
-		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)].costumeIdleAnim);
+		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeIdleAnim);
 	}
 
 	void Player::Run()
 	{
-		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)].costumeRunAnim);
+		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeRunAnim);
 	}
 
 	void Player::Jump()
 	{
-		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)].costumeJumpAnim);
+		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeJumpAnim);
 	}
 
 	void Player::Die()
 	{
-		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)].costumeDieAnim);
+		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeDieAnim);
+	}
+
+	void Player::CreateDustIfNeed()
+	{
+#define LEFT_STEP_FRAME_INDEX 0
+
+		Animation* currentAnimation = mAnimator->GetCurrentAnimation();
+		if (nullptr == currentAnimation)
+			return;
+
+		int frameIndex = currentAnimation->GetCurrentFrameNumber();
+		if (frameIndex == LEFT_STEP_FRAME_INDEX)
+		{
+			mPlayerDusts[0]->ActivateEffect();
+		}
+		if (frameIndex == mSecondStepDustCreatedIndex)
+		{
+			mPlayerDusts[1]->ActivateEffect();
+		}
+	}
+
+	void Player::JumpEffectActive(JumpEffect jumpEffect)
+	{
+		if (!mPlayerJump)
+			return;
+
+		mPlayerJump->ActivateEffect(jumpEffect);
 	}
 
 #pragma region Create Animation
@@ -266,8 +345,8 @@ namespace hj
 		CreateRiderHAnimation(material, texture, atlasTexSize);
 		CreateSunsetGunmanAnimation(material, texture, atlasTexSize);
 
-		GetTransform()->SetScaleXY(mCostume[static_cast<UINT>(mCurrentCostume)].costumeSize);
-		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)].costumeIdleAnim);
+		GetTransform()->SetScaleXY(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeSize);
+		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeIdleAnim);
 	}
 
 	void Player::CreateAdventurerAnimation(std::shared_ptr<Material> material, std::shared_ptr<Texture> texture, const Vector2& atlasTexSize)
@@ -308,14 +387,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::Adventurer);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume adventurerCostume = {};
+		Costume* adventurerCostume = new Costume();
 
-		std::wstring idleAnimWstr = adventurerCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = adventurerCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = adventurerCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = adventurerCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = adventurerCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = adventurerCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = adventurerCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = adventurerCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		adventurerCostume.costumeSize = canvasSize;
+		adventurerCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animAdventurerIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animAdventurerDie, canvasSize, false);
@@ -360,14 +439,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::Alice);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume aliceCostume = {};
+		Costume* aliceCostume = new Costume();
 
-		std::wstring idleAnimWstr = aliceCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = aliceCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = aliceCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = aliceCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = aliceCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = aliceCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = aliceCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = aliceCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		aliceCostume.costumeSize = canvasSize;
+		aliceCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animAliceIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animAliceDie, canvasSize, false);
@@ -414,14 +493,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::ArmoredWarrior);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume armoredWarriorCostume = {};
+		Costume* armoredWarriorCostume = new Costume();
 
-		std::wstring idleAnimWstr = armoredWarriorCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = armoredWarriorCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = armoredWarriorCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = armoredWarriorCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = armoredWarriorCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = armoredWarriorCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = armoredWarriorCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = armoredWarriorCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		armoredWarriorCostume.costumeSize = canvasSize;
+		armoredWarriorCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animArmoredWarriorIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animArmoredWarriorDie, canvasSize, false);
@@ -466,14 +545,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::CriminalSilhouette);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume criminalSilhouetteCostume = {};
+		Costume* criminalSilhouetteCostume = new Costume();
 
-		std::wstring idleAnimWstr = criminalSilhouetteCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = criminalSilhouetteCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = criminalSilhouetteCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = criminalSilhouetteCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = criminalSilhouetteCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = criminalSilhouetteCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = criminalSilhouetteCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = criminalSilhouetteCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		criminalSilhouetteCostume.costumeSize = canvasSize;
+		criminalSilhouetteCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animCriminalSilhouetteIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animCriminalSilhouetteDie, canvasSize, false);
@@ -520,21 +599,21 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::DevilSwordsman);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume fatsoCostume = {};
+		Costume* DevilSwordsManCostume = new Costume();
 
-		std::wstring idleAnimWstr = fatsoCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = fatsoCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = fatsoCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = fatsoCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = DevilSwordsManCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = DevilSwordsManCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = DevilSwordsManCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = DevilSwordsManCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		fatsoCostume.costumeSize = canvasSize;
+		DevilSwordsManCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animDevilSwordsManIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animDevilSwordsManDie, canvasSize, false);
 		mAnimator->Create(jumpAnimWstr, texture, animDevilSwordsManJump, canvasSize, false);
 		mAnimator->Create(runAnimWstr, texture, animDevilSwordsManRun, canvasSize, false);
 
-		mCostume.push_back(fatsoCostume);
+		mCostume.push_back(DevilSwordsManCostume);
 	}
 
 	void Player::CreateFatsoAnimation(std::shared_ptr<Material> material, std::shared_ptr<Texture> texture, const Vector2& atlasTexSize)
@@ -574,14 +653,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::Fatso);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume fatsoCostume = {};
+		Costume* fatsoCostume = new Costume();
 
-		std::wstring idleAnimWstr = fatsoCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = fatsoCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = fatsoCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = fatsoCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = fatsoCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = fatsoCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = fatsoCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = fatsoCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		fatsoCostume.costumeSize = canvasSize;
+		fatsoCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animFatsoIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animFatsoDie, canvasSize, false);
@@ -628,14 +707,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::HumanLasley);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume humanLasleyCostume = {};
+		Costume* humanLasleyCostume = new Costume();
 
-		std::wstring idleAnimWstr = humanLasleyCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = humanLasleyCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = humanLasleyCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = humanLasleyCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = humanLasleyCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = humanLasleyCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = humanLasleyCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = humanLasleyCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		humanLasleyCostume.costumeSize = canvasSize;
+		humanLasleyCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animHumanLasleyIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animHumanLasleyDie, canvasSize, false);
@@ -680,14 +759,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::IkinaBear);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume ikinaBearCostume = {};
+		Costume* ikinaBearCostume = new Costume();
 
-		std::wstring idleAnimWstr = ikinaBearCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = ikinaBearCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = ikinaBearCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = ikinaBearCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = ikinaBearCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = ikinaBearCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = ikinaBearCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = ikinaBearCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		ikinaBearCostume.costumeSize = canvasSize;
+		ikinaBearCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animIkinaBearIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animIkinaBearDie, canvasSize, false);
@@ -734,14 +813,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::KingOfPickaxes);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume kingOfPickaxesCostume = {};
+		Costume* kingOfPickaxesCostume = new Costume();
 
-		std::wstring idleAnimWstr = kingOfPickaxesCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = kingOfPickaxesCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = kingOfPickaxesCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = kingOfPickaxesCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = kingOfPickaxesCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = kingOfPickaxesCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = kingOfPickaxesCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = kingOfPickaxesCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		kingOfPickaxesCostume.costumeSize = canvasSize;
+		kingOfPickaxesCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animKingOfPickaxesIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animKingOfPickaxesDie, canvasSize, false);
@@ -786,14 +865,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::Lotus);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume lotusCostume = {};
+		Costume* lotusCostume = new Costume();
 
-		std::wstring idleAnimWstr = lotusCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = lotusCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = lotusCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = lotusCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = lotusCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = lotusCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = lotusCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = lotusCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		lotusCostume.costumeSize = canvasSize;
+		lotusCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animLotusIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animLotusDie, canvasSize, false);
@@ -840,14 +919,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::MasterChef);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume masterChefCostume = {};
+		Costume* masterChefCostume = new Costume();
 
-		std::wstring idleAnimWstr = masterChefCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = masterChefCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = masterChefCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = masterChefCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = masterChefCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = masterChefCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = masterChefCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = masterChefCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		masterChefCostume.costumeSize = canvasSize;
+		masterChefCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animMasterChefIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animMasterChefDie, canvasSize, false);
@@ -888,15 +967,15 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::RiderH);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume riderHCostume = {};
+		Costume* riderHCostume = new Costume();
 
-		std::wstring idleAnimWstr = riderHCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = riderHCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = riderHCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = riderHCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = riderHCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = riderHCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = riderHCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = riderHCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
 		canvasSize = Vector2(128.f, canvasSize.y);
-		riderHCostume.costumeSize = canvasSize;
+		riderHCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animRiderHIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animRiderHDie, canvasSize, false);
@@ -944,14 +1023,14 @@ namespace hj
 		UINT costumeNumber = static_cast<UINT>(ePlayerCostume::SunsetGunman);
 		GetCostumeString(costumeNumber, costumeString);
 
-		Costume sunsetGunmanCostume = {};
+		Costume* sunsetGunmanCostume = new Costume();
 
-		std::wstring idleAnimWstr = sunsetGunmanCostume.costumeIdleAnim = costumeString + WIDE("_Idle");
-		std::wstring dieAnimWstr = sunsetGunmanCostume.costumeDieAnim = costumeString + WIDE("_Die");
-		std::wstring jumpAnimWstr = sunsetGunmanCostume.costumeJumpAnim = costumeString + WIDE("_Jump");
-		std::wstring runAnimWstr = sunsetGunmanCostume.costumeRunAnim = costumeString + WIDE("_Run");
+		std::wstring idleAnimWstr = sunsetGunmanCostume->costumeIdleAnim = costumeString + WIDE("_Idle");
+		std::wstring dieAnimWstr = sunsetGunmanCostume->costumeDieAnim = costumeString + WIDE("_Die");
+		std::wstring jumpAnimWstr = sunsetGunmanCostume->costumeJumpAnim = costumeString + WIDE("_Jump");
+		std::wstring runAnimWstr = sunsetGunmanCostume->costumeRunAnim = costumeString + WIDE("_Run");
 
-		sunsetGunmanCostume.costumeSize = canvasSize;
+		sunsetGunmanCostume->costumeSize = canvasSize;
 
 		mAnimator->Create(idleAnimWstr, texture, animSunsetGunmanIdle, canvasSize, false);
 		mAnimator->Create(dieAnimWstr, texture, animSunsetGunmanDie, canvasSize, false);

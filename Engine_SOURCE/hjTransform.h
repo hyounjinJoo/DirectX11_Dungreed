@@ -99,6 +99,15 @@ namespace hj
 		float GetWorldScaleY() const { return mWorldScale.y; }
 		float GetWorldScaleZ() const { return mWorldScale.z; }
 
+		Vector2 GetWorldCenterUp() const { return Vector2(mWorldPosition.x, mWorldPosition.y + mWorldScale.y * 0.5f); }
+		Vector2 GetWorldCenterBottom() const { return Vector2(mWorldPosition.x, mWorldPosition.y - mWorldScale.y * 0.5f); }
+		Vector2 GetWorldLeftUp() const { return Vector2(mWorldPosition.x - mWorldScale.x * 0.5f, mWorldPosition.y + mWorldScale.y * 0.5f); }
+		Vector2 GetWorldLeftCenter() const { return Vector2(mWorldPosition.x - mWorldScale.x * 0.5f, mWorldPosition.y); }
+		Vector2 GetWorldLeftBottom() const { return Vector2(mWorldPosition.x - mWorldScale.x * 0.5f, mWorldPosition.y - mWorldScale.y * 0.5f); }
+		Vector2 GetWorldRightUp() const { return Vector2(mWorldPosition.x + mWorldScale.x * 0.5f, mWorldPosition.y + mWorldScale.y * 0.5f); }
+		Vector2 GetWorldRightCenter() const { return Vector2(mWorldPosition.x + mWorldScale.x * 0.5f, mWorldPosition.y); }
+		Vector2 GetWorldRightBottom() const { return Vector2(mWorldPosition.x + mWorldScale.x * 0.5f, mWorldPosition.y - mWorldScale.y * 0.5f); }
+
 	private:
 		Transform* mParent;
 

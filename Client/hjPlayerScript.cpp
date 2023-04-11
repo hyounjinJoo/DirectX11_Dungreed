@@ -10,7 +10,8 @@
 #include "CommonInclude.h"
 #include "hjArmRotatorScript.h"
 #include "hjObject.h"
-#include "hjPlayerTrail.h"
+#include "hjFxPlayerTrail.h"
+#include "hjFxPlayerJump.h"
 
 extern hj::Application application;
 namespace hj
@@ -110,6 +111,8 @@ namespace hj
 		if (!mOwnerRigid)
 			return;
 
+		if (mbDash)
+			return;
 
 		if (Input::GetKeyPressed(mKeyBindings[(UINT)playerKeyAction::MOVE_RIGHT]))
 		{
@@ -406,6 +409,11 @@ namespace hj
 		mOwnerRigid->AddForce(mJumpForce);
 		Vector2 curVel = mOwnerRigid->GetVelocity();
 		mOwnerRigid->SetVelocity(Vector2(curVel.x, mJumpForce.y * mJumpingRatio));
+		Player* owner = dynamic_cast<Player*>(GetOwner());
+		if (owner)
+		{
+			owner->JumpEffectActive(JumpEffect::Single);
+		}
 	}
 
 	void PlayerScript::DoubleJumpStart()
@@ -413,6 +421,11 @@ namespace hj
 		mOwnerRigid->AddForce(mJumpForce);
 		Vector2 curVel = mOwnerRigid->GetVelocity();
 		mOwnerRigid->SetVelocity(Vector2(curVel.x, mJumpForce.y * mJumpRatio));
+		Player* owner = dynamic_cast<Player*>(GetOwner());
+		if (owner)
+		{
+			owner->JumpEffectActive(JumpEffect::Double);
+		}
 	}
 
 	void PlayerScript::Jumping()
@@ -428,8 +441,8 @@ namespace hj
 	{
 		if (1 <= mDashTrailObj.size())
 		{
-			std::vector<PlayerTrail*>::iterator iter = mDashTrailObj.begin();
-			std::vector<PlayerTrail*>::iterator iterEnd = mDashTrailObj.end();
+			std::vector<FxPlayerTrail*>::iterator iter = mDashTrailObj.begin();
+			std::vector<FxPlayerTrail*>::iterator iterEnd = mDashTrailObj.end();
 			while (iter != iterEnd)
 			{
 				iter = mDashTrailObj.erase(iter);
@@ -438,7 +451,7 @@ namespace hj
 
 		for (int index = 0; index < mDashTrailCount; ++index)
 		{
-			PlayerTrail* trail = object::Instantiate<PlayerTrail>(eLayerType::Player);
+			FxPlayerTrail* trail = object::Instantiate<FxPlayerTrail>(eLayerType::Player);
 			trail->DontDestroy(true);
 			Player* owner = dynamic_cast<Player*>(GetOwner());
 			trail->SetOwner(owner);

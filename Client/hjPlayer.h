@@ -4,6 +4,9 @@
 #include "hjAnimator.h"
 #include "hjMaterial.h"
 #include "hjTexture.h"
+#include "hjFxPlayerDust.h"
+#include "hjFxPlayerJump.h"
+
 namespace hj
 {
     enum class ePlayerCostume
@@ -59,8 +62,12 @@ namespace hj
         void Update() override;
         void FixedUpdate() override;
         void Render() override;
+
         void ChangeState(ePlayerState state);
         void ChangeCostume(ePlayerCostume costume);
+        void ChangeDustSpecificAttribute();
+		void JumpEffectActive(JumpEffect jumpEffect);
+
         ePlayerCostume GetCurrentCostume() { return mCurrentCostume; }
 
         class PlayerHand* GetHand() { return mLeftHand; }
@@ -77,11 +84,14 @@ namespace hj
         class PlayerHand* mLeftHand;
         ePlayerState mState;
         ePlayerCostume mCurrentCostume;
-        std::vector<Costume> mCostume;
+        std::vector<Costume*> mCostume;
         class Animator* mAnimator;
         class RigidBody* mRigidBody;
         class PlayerScript* mPlayerScript;
         bool mbIsFlip;
+        std::vector<FxPlayerDust*> mPlayerDusts;
+        int mSecondStepDustCreatedIndex;
+        FxPlayerJump* mPlayerJump;
 
         void FlipBasedOnMousePos();
 
@@ -89,6 +99,8 @@ namespace hj
         void Run();
         void Jump();
         void Die();
+
+        void CreateDustIfNeed();
 
         void CreateAnimation();
 		void CreateAdventurerAnimation(std::shared_ptr<hj::graphics::Material> material, std::shared_ptr<hj::graphics::Texture> texture, const Vector2& atlasTexSize);

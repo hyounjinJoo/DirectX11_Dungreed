@@ -195,5 +195,14 @@ namespace hj
 		Vector3 WorldUp() const { return GetTransform()->WorldUp(); }
 		
 		const math::Matrix& GetWorldMatrix() const { return GetTransform()->GetWorldMatrix(); }
+
+		Vector2 GetWorldCenterUp() const { return GetTransform()->GetWorldCenterUp(); }
+		Vector2 GetWorldCenterBottom() const { return GetTransform()->GetWorldCenterBottom(); }
+		Vector2 GetWorldLeftUp() const { return GetTransform()->GetWorldLeftUp(); }
+		Vector2 GetWorldLeftCenter() const { return GetTransform()->GetWorldLeftCenter(); }
+		Vector2 GetWorldLeftBottom() const { return GetTransform()->GetWorldLeftBottom(); }
+		Vector2 GetWorldRightUp() const { return GetTransform()->GetWorldRightUp(); }
+		Vector2 GetWorldRightCenter() const { return GetTransform()->GetWorldRightCenter(); }
+		Vector2 GetWorldRightBottom() const { return GetTransform()->GetWorldRightBottom(); }
 	};
 }

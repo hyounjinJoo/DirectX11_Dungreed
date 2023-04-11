@@ -148,10 +148,18 @@ namespace hj
         bool IsInverse() { return mbInverse; }
         bool IsComplete() { return mbComplete; }
         std::wstring& AnimationName() { return mAnimationName; }
-
+        int GetCurrentFrameNumber() { return mIndex; }
         void SetAnimator(class Animator* animator);
-
         int GetSheetSize() { return static_cast<int>(mSpriteSheet.size()); }
+        float GetDuration() 
+        {
+            if (mSpriteSheet.empty()) 
+                return 0.f;
+
+            return mSpriteSheet[0].duration;
+        }
+
+        void ChangePlayDuration(float duration);
 
         Animation* Clone();
 
