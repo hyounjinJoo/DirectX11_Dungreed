@@ -30,7 +30,7 @@ namespace hj
 		Vector2 atlasTexSize = texture->GetTexSize();
 
 		float duration = 0.f;
-		duration = 1.f / 120.f;
+		duration = 1.f / 14.f;
 		CREATE_ANIM(animPlayerJump, frame, atlasTexSize, duration);
 		FRAME_ADD_OFFSETX(frame, 3781.f, 0.f, 36.f, 8.f, 0.5f, animPlayerJump);
 		FRAME_ADD_OFFSETX(frame, 440.f, 20.f, 24.f, 20.f, 0.583333f, animPlayerJump);
@@ -41,6 +41,7 @@ namespace hj
 
 		CREATE_SHEET(animPlayerDoubleJump);
 
+		duration = 1.f / 14.f;
 		FRAME_ADD_OFFSETX(frame, 6697.f, 0.f, 20.f, 16.f, 0.5f, animPlayerDoubleJump);
 		FRAME_ADD_OFFSETX(frame, 3644.f, 20.f, 36.f, 32.f, 0.5f, animPlayerDoubleJump);
 		FRAME_ADD_OFFSETX(frame, 2048.f, 20.f, 28.f, 24.f, 0.5f, animPlayerDoubleJump);
@@ -55,7 +56,6 @@ namespace hj
 		mAnimator->Create(WIDE("FX_PlayerDoubleJump"), texture, animPlayerDoubleJump, canvasSize, false);
 
 		SetScaleXY(canvasSize);
-		mOffsetPos.x = canvasSize.x * 0.5f;
 		mOffsetPos.y = canvasSize.y * 0.5f;
 	}
 	FxPlayerJump::~FxPlayerJump()
@@ -69,17 +69,7 @@ namespace hj
 	{
 		GameObject::Update();
 
-		if (!mbActivateEffect)
-		{
-			if (mOwner)
-			{
-				if(mOwner->IsFlip())
-					SetPositionXY(mOwner->GetWorldRightBottom() + Vector2(-mOffsetPos.x, mOffsetPos.y));
-				else
-					SetPositionXY(mOwner->GetWorldLeftBottom() + mOffsetPos);
-			}
-		}
-		else
+		if (mAnimator->GetCurrentAnimation())
 		{
 			if (mAnimator->GetCurrentAnimation()->IsComplete())
 				mbActivateEffect = false;
@@ -104,9 +94,7 @@ namespace hj
 
 	void FxPlayerJump::ActivateEffect(JumpEffect jumpEffect)
 	{
-		if (mbActivateEffect)
-			return;
-
+		SetPositionXY(mOwner->GetWorldCenterBottom() + mOffsetPos);
 		mbActivateEffect = true;
 		switch (jumpEffect)
 		{

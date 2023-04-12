@@ -64,7 +64,7 @@ namespace hj
 			mPlayerDusts.push_back(dust);
 		}
 
-		mPlayerJump = object::Instantiate<FxPlayerJump>(eLayerType::Player, Vector3(0.f, 0.f, 0.1f));
+		mPlayerJump = object::Instantiate<FxPlayerJump>(eLayerType::Player, Vector3(0.f, 0.f, -0.1f));
 		mPlayerJump->SetOwner(this);
 	}
 

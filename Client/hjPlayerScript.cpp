@@ -327,7 +327,6 @@ namespace hj
 
 		eKeyState jumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_JUMP]);
 
-		static int count = 0;
 		switch (jumpKeyState)
 		{
 		case DOWN:
@@ -343,7 +342,7 @@ namespace hj
 			{
 				bCanInputDoubleJump = false;
 				bDoubleJumping = true;
-				DoubleJumpStart();				
+				DoubleJumpStart();
 			}
 		}
 		break;
@@ -430,7 +429,7 @@ namespace hj
 
 	void PlayerScript::Jumping()
 	{
-		mOwnerRigid->AddForce(Vector2(mJumpForce.x, mJumpForce.y * mJumpingRatio * 10.f));
+		mOwnerRigid->AddForce(Vector2(mJumpForce.x, mJumpForce.y * mJumpingRatio * 7.f));
 	}
 
 	void PlayerScript::ResetJump()
@@ -452,7 +451,6 @@ namespace hj
 		for (int index = 0; index < mDashTrailCount; ++index)
 		{
 			FxPlayerTrail* trail = object::Instantiate<FxPlayerTrail>(eLayerType::Player);
-			trail->DontDestroy(true);
 			Player* owner = dynamic_cast<Player*>(GetOwner());
 			trail->SetOwner(owner);
 			trail->SetActivateTimer(mDashTrailRenderTimer);
