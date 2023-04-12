@@ -39,7 +39,7 @@ namespace hj
             float deviceNumerator = static_cast<float>(hj::graphics::GetDevice()->GetSwapChainNumerator());
 
             if (deviceNumerator <= 0.f)
-                deviceNumerator = 60.f;
+                deviceNumerator = 144.f;
             if (mDeltaTime >= 1.f / deviceNumerator)
             {
                 mDeltaTime = 1.f / deviceNumerator;

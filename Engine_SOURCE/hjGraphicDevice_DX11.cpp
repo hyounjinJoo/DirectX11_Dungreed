@@ -44,7 +44,7 @@ namespace hj::graphics
 		swapChainDesc.BufferDesc.Width						= application.GetWidth();
 		swapChainDesc.BufferDesc.Height						= application.GetHeight();
 		swapChainDesc.BufferDesc.Format						= DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
-		swapChainDesc.BufferDesc.RefreshRate.Numerator		= static_cast<UINT>(240);
+		swapChainDesc.BufferDesc.RefreshRate.Numerator		= static_cast<UINT>(144);
 		swapChainDesc.BufferDesc.RefreshRate.Denominator	= static_cast<UINT>(1);
 		swapChainDesc.BufferDesc.ScanlineOrdering			= DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 		swapChainDesc.BufferDesc.Scaling					= DXGI_MODE_SCALING_UNSPECIFIED;
