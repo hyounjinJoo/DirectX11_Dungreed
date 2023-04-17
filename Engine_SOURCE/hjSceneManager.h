@@ -15,10 +15,13 @@ namespace hj
 		static void Release();
 
 		static void CreateScene(eSceneType type, Scene* scene);
-		static void LoadScene(eSceneType type);
+		static void LoadScene();
 		static Scene* GetActiveScene() { return mActiveScene; }
+		static void NeedToLoad(eSceneType type);
+		static bool IsNeedToLoadScene();
 	private:
 		static std::vector<Scene*> mScenes;
 		static Scene* mActiveScene;
+		static Scene* mNextLoadScene;
 	};
 }

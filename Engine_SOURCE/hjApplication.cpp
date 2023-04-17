@@ -77,6 +77,8 @@ namespace hj
         FixedUpdate();
         Render();
         Destroy();
+        if (SceneManager::IsNeedToLoadScene())
+            SceneManager::LoadScene();
     }
 
     void Application::Present()

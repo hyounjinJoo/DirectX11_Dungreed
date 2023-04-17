@@ -4,6 +4,7 @@ namespace hj
 {
 	std::vector<Scene*> SceneManager::mScenes = {};
 	Scene* SceneManager::mActiveScene = nullptr;
+	Scene* SceneManager::mNextLoadScene = nullptr;
 	
 
 	void SceneManager::InitialResize()
@@ -14,7 +15,8 @@ namespace hj
 	void SceneManager::Initialize()
 	{
 		//mActiveScene->Initialize();
-		LoadScene(eSceneType::Test);
+		mNextLoadScene = mScenes[(UINT)eSceneType::Title];
+		LoadScene();
 		mActiveScene->CreateDefaultCamera();
 		//for (Scene* scene : mScenes)
 		//{
@@ -25,22 +27,26 @@ namespace hj
 
 	void SceneManager::Update()
 	{
-		mActiveScene->Update();
+		if(mActiveScene)
+			mActiveScene->Update();
 	}
 
 	void SceneManager::FixedUpdate()
 	{
-		mActiveScene->FixedUpdate();
+		if (mActiveScene)
+			mActiveScene->FixedUpdate();
 	}
 
 	void SceneManager::Render()
 	{
-		mActiveScene->Render();
+		if (mActiveScene)
+			mActiveScene->Render();
 	}
 
 	void SceneManager::Destroy()
 	{
-		mActiveScene->Destroy();
+		if (mActiveScene)
+			mActiveScene->Destroy();
 	}
 
 	void SceneManager::Release()
@@ -67,7 +73,7 @@ namespace hj
 		mScenes[static_cast<UINT>(type)] = scene;
 	}
 
-	void SceneManager::LoadScene(eSceneType type)
+	void SceneManager::LoadScene()
 	{
 		if (mActiveScene)
 			mActiveScene->OnExit();
@@ -81,7 +87,8 @@ namespace hj
 			mActiveScene->Destroy();
 		}
 		
-		mActiveScene = mScenes[(UINT)type];
+		mActiveScene = mNextLoadScene;
+		mNextLoadScene = nullptr;
 
 		if (gameObjects.empty() == false)
 		{
@@ -93,4 +100,23 @@ namespace hj
 		}
 		mActiveScene->OnEnter();
 	}
+
+	void SceneManager::NeedToLoad(eSceneType type)
+	{
+		if(mScenes[static_cast<UINT>(type)])
+			mNextLoadScene = mScenes[static_cast<UINT>(type)];
+	}
+
+	bool SceneManager::IsNeedToLoadScene()
+	{
+		bool isNeedTo = false;
+
+		if (mNextLoadScene)
+		{
+			isNeedTo = true;
+		}
+
+		return isNeedTo;
+	}
+
 }
