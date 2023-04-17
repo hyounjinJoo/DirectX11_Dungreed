@@ -226,10 +226,6 @@ namespace hj
 	void TitleScene::Update()
 	{
 		Scene::Update();
-		if (Input::GetKeyDown(eKeyCode::N))
-		{
-			SceneManager::LoadScene(eSceneType::Test);
-		}
 	}
 
 	void TitleScene::FixedUpdate()

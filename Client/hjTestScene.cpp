@@ -262,7 +262,7 @@ namespace hj
 		
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::LoadScene(eSceneType::Title);
+			SceneManager::NeedToLoad(eSceneType::Title);
 		}
 
 		//if (Input::GetKeyPressed(eKeyCode::I))
