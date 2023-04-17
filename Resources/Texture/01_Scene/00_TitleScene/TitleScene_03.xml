@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:9dfd7be954136bfe900e0bfa5fc40ed7:625462bb1cc4feb421916b8937056e37:c520f26696f420b3320888c884138c65$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="TitleScene_03.png" width="806" height="62">
+    <sprite n="ExitOff" x="0" y="0" w="101" h="62"/>
+    <sprite n="ExitOn" x="101" y="0" w="101" h="62"/>
+    <sprite n="OptionOff" x="202" y="0" w="91" h="62"/>
+    <sprite n="OptionOn" x="293" y="0" w="91" h="62"/>
+    <sprite n="PlayOff" x="384" y="0" w="211" h="62"/>
+    <sprite n="PlayOn" x="595" y="0" w="211" h="62"/>
+</TextureAtlas>
