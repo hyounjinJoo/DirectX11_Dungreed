@@ -26,6 +26,14 @@ namespace hj
 		virtual void OnTriggerStay(Collider* collider) override;
 		virtual void OnTriggerExit(Collider* collider) override;
 
+		virtual void OnCollisionMouseEnter(const Vector2& mousePos) override;
+		virtual void OnCollisionMouseStay(const Vector2& mousePos) override;
+		virtual void OnCollisionMouseExit(const Vector2& mousePos) override;
+
+		virtual void OnTriggerMouseEnter(const Vector2& mousePos) override;
+		virtual void OnTriggerMouseStay(const Vector2& mousePos) override;
+		virtual void OnTriggerMouseExit(const Vector2& mousePos) override;
+
         const Vector3& GetPosition() { return mPosition; }
         const Vector2& GetSize()
         {

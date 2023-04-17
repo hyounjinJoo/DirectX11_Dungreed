@@ -2,12 +2,14 @@
 
 namespace hj
 {
-	UINT32 Collider::colliderID = 0;
+	UINT32 Collider::colliderID = 1;
 
 	Collider::Collider()
 		: Component(eComponentType::Collider)
 		, mType(eColliderType::None)
 		, mbTrigger(false)
+		, mbMouseTrigger(false)
+		, mbUseMouseCollision(false)
 		, mColliderID(colliderID++)
 	{
 	}

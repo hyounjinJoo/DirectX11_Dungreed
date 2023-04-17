@@ -140,4 +140,52 @@ namespace hj
 			script->OnTriggerExit(collider);
 		}
 	}
+	void Collider2D::OnCollisionMouseEnter(const Vector2& mousePos)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnCollisionMouseEnter(mousePos);
+		}
+	}
+	void Collider2D::OnCollisionMouseStay(const Vector2& mousePos)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnCollisionMouseStay(mousePos);
+		}
+	}
+	void Collider2D::OnCollisionMouseExit(const Vector2& mousePos)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnCollisionMouseExit(mousePos);
+		}
+	}
+	void Collider2D::OnTriggerMouseEnter(const Vector2& mousePos)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnTriggerMouseEnter(mousePos);
+		}
+	}
+	void Collider2D::OnTriggerMouseStay(const Vector2& mousePos)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnTriggerMouseStay(mousePos);
+		}
+	}
+	void Collider2D::OnTriggerMouseExit(const Vector2& mousePos)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (Script* script : scripts)
+		{
+			script->OnTriggerMouseExit(mousePos);
+		}
+	}
 }
