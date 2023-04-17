@@ -61,6 +61,7 @@ namespace hj
 		{
 			{
 				GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player, Vector3(0.f, 0.f, -100.f));
+				directionalLight->SetName(WIDE("Dir Light"));
 				Light* lightComp = directionalLight->AddComponent<Light>();
 				lightComp->SetType(eLightType::Directional);
 				lightComp->SetDiffuse(Vector4(1.f, 1.f, 1.f, 1.f));

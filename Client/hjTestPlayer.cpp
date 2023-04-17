@@ -5,6 +5,7 @@ namespace hj
 	TestPlayer::TestPlayer()
 		: GameObject()
 	{
+		SetName(WIDE("Test Player Obj"));
 	}
 	TestPlayer::~TestPlayer()
 	{

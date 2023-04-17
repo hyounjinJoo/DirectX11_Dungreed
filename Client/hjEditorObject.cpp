@@ -5,6 +5,7 @@ namespace hj
 	EditorObject::EditorObject()
 		: GameObject()
 	{
+		SetName(WIDE("Editor Obj"));
 	}
 	EditorObject::~EditorObject()
 	{

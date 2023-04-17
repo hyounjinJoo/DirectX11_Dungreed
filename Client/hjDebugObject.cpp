@@ -5,6 +5,7 @@ namespace hj
 	DebugObject::DebugObject()
 		: GameObject()
 	{
+		SetName(WIDE("Debug Obj"));
 	}
 
 	DebugObject::~DebugObject()

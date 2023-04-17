@@ -15,6 +15,8 @@ namespace hj
 	TitleBird::TitleBird()
 		: GameObject()
 	{
+		SetName(WIDE("Title Bird Obj"));
+
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Title_Object_Bird");
 		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
@@ -46,8 +48,6 @@ namespace hj
 
 		Transform* tr = static_cast<Transform*>(mComponents[(UINT)eComponentType::Transform]);
 		tr->SetScale(Vector3(48.f, 32.f, 1.f));
-
-		AddComponent<Collider2D>();
 	}
 	
 	TitleBird::~TitleBird()

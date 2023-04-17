@@ -15,6 +15,7 @@ namespace hj
 		, mHandTransform(nullptr)
 		, mHandState(handState::Normal)
 	{
+		SetName(WIDE("Player Hand Obj"));
 		AddComponent<Collider2D>();
 		SetScaleXY(Vector2(12.f, 12.f));
 
@@ -35,7 +36,7 @@ namespace hj
 		}
 
 		GameObject* testWeapon = object::Instantiate<GameObject>(eLayerType::Player);
-		testWeapon->SetName(L"Test Monster for Collision");
+		testWeapon->SetName(L"Test Weapon for Collision");
 
 		sr = testWeapon->AddComponent<SpriteRenderer>();
 		material = MTRL_FIND("MTRL_Weapon_Legendary_DemonSword");

@@ -7,6 +7,7 @@ namespace hj
 	TestMonster::TestMonster()
 		: GameObject()
 	{
+		SetName(WIDE("Test Monster Obj"));
 	}
 
 	TestMonster::~TestMonster()
