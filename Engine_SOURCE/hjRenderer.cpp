@@ -493,6 +493,7 @@ namespace hj::renderer
 			MAIN_FOLDER("01_Scene\\00_TitleScene");
 			LOAD_TEX("TitleScene_01", "TitleScene_01.png");
 			LOAD_TEX("TitleScene_02", "TitleScene_02.png");
+			LOAD_TEX("TitleScene_03", "TitleScene_03.png");
 
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
@@ -756,6 +757,12 @@ namespace hj::renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_Object_Bird", material);
 
+		material = MTRL_NEW();
+		texture = TEX_FIND("TitleScene_03");
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Title_UI_Text", material);
 #pragma endregion
 		//texture = TEX_FIND("Tex_Town_Layer_Sky_Day");
 		//material = MTRL_NEW();
