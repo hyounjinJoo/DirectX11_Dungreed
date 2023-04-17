@@ -40,7 +40,7 @@ namespace hj
 		Scene::Update();
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::LoadScene(eSceneType::Title);
+			SceneManager::NeedToLoad(eSceneType::Title);
 		}
 	}
 
