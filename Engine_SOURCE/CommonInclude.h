@@ -150,3 +150,21 @@ static std::wstring StringToWideString(const std::string& str)
 	
 	return wideStr;
 }
+
+static std::string WideStringToString(const std::wstring& str)
+{
+	int numChars = WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, NULL, 0, NULL, NULL);
+	if (numChars == 0)
+	{
+		return "";
+	}
+
+	std::string narrowStr(numChars, 0);
+
+	if (!WideCharToMultiByte(CP_UTF8, 0, str.c_str(), -1, &narrowStr[0], numChars, NULL, NULL))
+	{
+		return "";
+	}
+
+	return narrowStr;
+}
