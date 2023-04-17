@@ -30,7 +30,7 @@ namespace hj
 		if (Input::GetKeyState(eKeyCode::Y) == eKeyState::PRESSED)
 		{
 			Vector3 rot = GetTransform()->GetRotation();
-			rot.z += 10.f * Time::DeltaTime();
+			rot.z += 10.f * Time::FixedDeltaTime();
 			GetTransform()->SetRotation(rot);
 		}
 	}

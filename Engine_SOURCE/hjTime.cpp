@@ -8,9 +8,11 @@ namespace hj
     LARGE_INTEGER	Time::mCpuFrequency = {};
     LARGE_INTEGER   Time::mPrevFrequency = {};
     LARGE_INTEGER	Time::mCurFrequency = {};
-    float			Time::mDeltaTime = 0.0f;
+	float			Time::mFixedDeltaTime = 0.0f;
+	float			Time::mActualDeltaTime = 0.0f;
     float           Time::mAccTime = 0.0f;
     float			Time::mOneSecond = 0.0f;
+    static int test = 0;
 
     void Time::Initialize()
     {
@@ -23,31 +25,30 @@ namespace hj
 
     void Time::Update()
     {
+        static const float targetFrameRate = 144.f;
+        static const float targetDeltaTime = 1.f / targetFrameRate;
+        static const float targetFixedFPS = 1.f / targetDeltaTime;
         HWND activeWindow = GetFocus();
         if (activeWindow == application.GetHwnd())
         {
-
             QueryPerformanceCounter(&mCurFrequency);
 
             float differenceInFrequancy
                 = static_cast<float>((mCurFrequency.QuadPart - mPrevFrequency.QuadPart));
 
-            mDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
-            mAccTime += mDeltaTime;
+            mActualDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
+			float FPS = 1.f / mActualDeltaTime;
+            float FPSRatio = targetFixedFPS / FPS;
+			mFixedDeltaTime = mActualDeltaTime / FPSRatio;
+            if (mFixedDeltaTime < mActualDeltaTime)
+                mFixedDeltaTime = mActualDeltaTime;
+            mAccTime += mActualDeltaTime; 
             mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
-
-            float deviceNumerator = static_cast<float>(hj::graphics::GetDevice()->GetSwapChainNumerator());
-
-            if (deviceNumerator <= 0.f)
-                deviceNumerator = 144.f;
-            if (mDeltaTime >= 1.f / deviceNumerator)
-            {
-                mDeltaTime = 1.f / deviceNumerator;
-            }
         }
         else
         {
-            mDeltaTime = 0.f;
+            mActualDeltaTime = 0.f;
+            mFixedDeltaTime = 0.f;
         }
     }
 
@@ -58,14 +59,15 @@ namespace hj
 
 
         // 1 초에 한번
-        mOneSecond += mDeltaTime;
+        mOneSecond += mActualDeltaTime;
         if (1.0f < mOneSecond)
         {
             HWND hWnd = application.GetHwnd();
 
             wchar_t szFloat[50] = {};
-            float FPS = 1.f / mDeltaTime;
-            swprintf_s(szFloat, 50, L"DeltaTime : %d", iCount);
+			float FPS = 1.f / mActualDeltaTime;
+			float FixedFPS = 1.f / mFixedDeltaTime;
+            swprintf_s(szFloat, 50, L"DeltaTime [Actual : %d], [Fixed : %d]", std::lround(FPS), std::lround(FixedFPS));
             int iLen = static_cast<int>(wcsnlen_s(szFloat, 50));
             //TextOut(_dc, 10, 10, szFloat, iLen);
 

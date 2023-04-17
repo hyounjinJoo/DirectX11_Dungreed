@@ -46,7 +46,7 @@ namespace hj
 		{
 			if (mbLoop)
 			{
-				float deltaTime = Time::DeltaTime();
+				float deltaTime = Time::FixedDeltaTime();
 
 				mCurTime += deltaTime;
 				if (mCurTime >= mLoopIntervalTime)
@@ -64,7 +64,7 @@ namespace hj
 		
 		if (mEndPos != mOwnerTr->GetPositionXY())
 		{
-			float deltaTime = Time::DeltaTime();
+			float deltaTime = Time::FixedDeltaTime();
 
 			mMoveTime += deltaTime;
 			float step = mMoveTime * mSpeed;

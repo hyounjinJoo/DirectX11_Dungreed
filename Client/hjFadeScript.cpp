@@ -53,7 +53,7 @@ namespace hj
 		switch (mFadeState)
 		{
 		case hj::FadeScript::eFadeState::FadeInStart:
-			mCurrentTime += Time::DeltaTime();
+			mCurrentTime += Time::ActualDeltaTime();
 			mCurrentColor = Vector4::Lerp(mFadeInStartColor, mFadeInEndColor, mCurrentTime / mTotalTransitionTime);
 			if (mCurrentTime >= mTotalTransitionTime)
 			{
@@ -68,7 +68,7 @@ namespace hj
 			}
 			break;
 		case hj::FadeScript::eFadeState::FadeOutStart:
-			mCurrentTime += Time::DeltaTime();
+			mCurrentTime += Time::ActualDeltaTime();
 			mCurrentColor = Vector4::Lerp(mFadeOutStartColor, mFadeOutEndColor, mCurrentTime / mTotalTransitionTime);
 			if (mCurrentTime >= mTotalTransitionTime)
 			{

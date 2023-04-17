@@ -39,7 +39,7 @@ namespace hj
 
 		if (Input::GetKeyState(eKeyCode::T) == eKeyState::PRESSED)
 		{
-			float adjustVal = 1.f * Time::DeltaTime();
+			float adjustVal = 1.f * Time::ActualDeltaTime();
 			float newCameraScale = 0.f;
 
 			if (mMeshScale + adjustVal > 2.9f)
@@ -57,7 +57,7 @@ namespace hj
 		}
 		if (Input::GetKeyState(eKeyCode::G) == eKeyState::PRESSED)
 		{
-			float adjustVal = 1.f * Time::DeltaTime();
+			float adjustVal = 1.f * Time::ActualDeltaTime();
 			float newCameraScale = 0.f;
 
 			if (mMeshScale - adjustVal < 0.1f)

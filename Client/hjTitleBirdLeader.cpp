@@ -57,7 +57,7 @@ namespace hj
 
 		if (!mbIsStart)
 		{
-			mCurTime +=	Time::DeltaTime();
+			mCurTime +=	Time::ActualDeltaTime();
 		
 			if (mCurTime >= mReservedDelayStartTime)
 			{

@@ -49,7 +49,7 @@ namespace hj
 			return -1;
 
 		// 시간 체크
-		mTime += Time::DeltaTime();
+		mTime += Time::ActualDeltaTime();
 
 		// 누적 시간이 해당 프레임의 유지시간을 넘어가면 다음 프레임으로 이동
 		if (mSpriteSheet[mIndex].duration < mTime)

@@ -294,7 +294,8 @@ namespace hj
 		dir.Normalize();
 
 		// 대쉬 로직
-		Vector2 nextPos = Vector2(dir.x * mDashPower * Time::DeltaTime(), dir.y * mDashPower * Time::DeltaTime());
+		float fixedDelta = Time::FixedDeltaTime();
+		Vector2 nextPos = Vector2(dir.x * mDashPower * fixedDelta, dir.y * mDashPower * fixedDelta);
 
 		GetOwner()->AddPositionXY(nextPos);
 		mOwnerRigid->ClearVelocityY();

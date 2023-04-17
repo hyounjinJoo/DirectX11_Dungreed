@@ -53,7 +53,7 @@ namespace hj
 		}
 		else
 		{
-			mActivateTime += Time::DeltaTime();
+			mActivateTime += Time::FixedDeltaTime();
 			if (mActivateTime >= mActivateTimer)
 			{
 				mActivateTime = 0.f;

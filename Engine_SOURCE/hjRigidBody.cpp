@@ -29,11 +29,12 @@ namespace hj
 	{
 		mAccelation = mForce / mMass;
 
+		float fixedDelta = Time::FixedDeltaTime();
 		// 속도에 가속도를 더한다
 		if (mbHorizonAccelMove)
-			mAccelation *= Time::DeltaTime();
+			mAccelation *= fixedDelta;
 		else
-			mAccelation.y *= Time::DeltaTime();
+			mAccelation.y *= fixedDelta;
 
 
 		mVelocity += mAccelation;
@@ -50,7 +51,7 @@ namespace hj
 		{
 			// 공중에 있을 때
 			// 잠시 대기
-			mVelocity -= mGravity * Time::DeltaTime();
+			mVelocity -= mGravity * fixedDelta;
 		}
 
 		// 최대 속도 제한
@@ -81,7 +82,7 @@ namespace hj
 				// 속도에 반대 방향으로 마찰력을 적용
 				Vector2 friction = -mVelocity;
 				friction.Normalize();
-				friction = friction * mFriction * mMass * Time::DeltaTime();
+				friction = friction * mFriction * mMass * fixedDelta;
 
 				// 마찰력으로 인한 속도 감소량이 현재 속도보다 더 큰 경우
 				if (mVelocity.Length() < friction.Length())
@@ -99,7 +100,7 @@ namespace hj
 
 		// 속도에 맞게 물체를 이동시킨다.
 		Vector2 pos = GetOwner()->GetPositionXY();
-		Vector2 curFrameDeltaMove = mVelocity * Time::DeltaTime();
+		Vector2 curFrameDeltaMove = mVelocity * fixedDelta;
 
 		pos = pos + curFrameDeltaMove;
 		GetOwner()->SetPositionXY(pos);

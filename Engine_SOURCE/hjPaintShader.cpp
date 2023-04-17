@@ -21,7 +21,7 @@ void hj::graphics::PaintShader::Binds()
 	if (!mTarget || !mNoiseTexture)
 		return;
 
-	mCurrentTime += Time::DeltaTime();
+	mCurrentTime += Time::ActualDeltaTime();
 	if (mCurrentTime < mThresHold)
 		return;
 
@@ -30,7 +30,7 @@ void hj::graphics::PaintShader::Binds()
 	mNoiseTexture->BindShader(eShaderStage::CS, 10);
 
 	renderer::GlobalCB globalCb = {};
-	globalCb.globalDeltaTime = Time::DeltaTime();
+	globalCb.globalDeltaTime = Time::ActualDeltaTime();
 	globalCb.globalNoiseResolution = mNoiseTexture->GetTexSize();
 	globalCb.globalResolution = Vector2(1600.f, 900.f);
 	globalCb.globalAccTime = Time::AccTime();
