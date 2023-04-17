@@ -16,6 +16,9 @@ struct VSOut
 #define RIGHT       2
 #define BOTTOM      3
 
+#define SPRITEUVSTART cbxy1
+#define SPRITEUVEND   cbxy2
+
 float4 main(VSOut In) : SV_TARGET
 {
     float4 color = (float) 0.f;
@@ -24,19 +27,52 @@ float4 main(VSOut In) : SV_TARGET
     switch (MOVE_DIR)
     {
         case LEFT:
-            movedUV.x += MOVED;
-            break;
+            {                
+                movedUV.x += MOVED;
+                if (SPRITEUVEND.x < movedUV.x)
+                {
+                    movedUV.x -= SPRITEUVEND.x;
+                    movedUV.x += SPRITEUVSTART.x;
+                }
+            }
+        break;
         case TOP:
-            movedUV.y += MOVED;
+            {                
+                movedUV.y += MOVED;
+                if (SPRITEUVEND.y < movedUV.y)
+                {
+                    movedUV.y -= SPRITEUVEND.y;
+                    movedUV.y += SPRITEUVSTART.y;
+                }
+            }
             break;
         case RIGHT:
-            movedUV.x += -MOVED;
+            {                
+                movedUV.x += -MOVED;
+                if (movedUV.x < SPRITEUVSTART.x)
+                {
+                    movedUV.x = SPRITEUVSTART.x - movedUV.x;
+                    movedUV.x = SPRITEUVEND.x - movedUV.x;
+                }
+            }
             break;
         case BOTTOM:
-            movedUV.y += -MOVED;
+            {
+                movedUV.y += -MOVED;
+                if (movedUV.y < SPRITEUVSTART.y)
+                {
+                    movedUV.y = SPRITEUVSTART.y - movedUV.y;
+                    movedUV.y = SPRITEUVEND.y - movedUV.y;
+                }
+            }
             break;
         default:
             break;
+    }
+    
+    if (movedUV.x < SPRITEUVSTART.x || SPRITEUVEND.x < movedUV.x || movedUV.y < SPRITEUVSTART.y || SPRITEUVEND.y < movedUV.y)
+    {
+        discard;
     }
     
     color = defaultTexture.Sample(pointSampler, movedUV);

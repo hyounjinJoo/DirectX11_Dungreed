@@ -736,26 +736,32 @@ namespace hj::renderer
 		shader = SHADER_FIND("Shader_Shift");
 		shader->SetBSState(eBSType::AlphaBlend);
 		
-		texture = TEX_FIND("Tex_Title_Layer_BackCloud");
+		texture = TEX_FIND("TitleScene_02");
 		material = MTRL_NEW();
 		material->SetTexture(texture);
 		material->SetShader(shader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
-		MTRL_INSERT("MTRL_Title_Layer_BackCloud", material);
-		
-		texture = TEX_FIND("Tex_Title_Layer_FrontCloud");
-		material = MTRL_NEW();
-		material->SetTexture(texture);
-		material->SetShader(shader);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		MTRL_INSERT("MTRL_Title_Layer_FrontCloud", material);
+		MTRL_INSERT("MTRL_Title_Layer_Cloud", material);
 
-		texture = TEX_FIND("TitleScene_01");
 		material = MTRL_NEW();
+		texture = TEX_FIND("TitleScene_01");
 		material->SetTexture(texture);
 		material->SetShader(SHADER_FIND("Shader_Sprite"));
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_Object_Bird", material);
+
+		shader = SHADER_FIND("Shader_UI");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Title_UI", material);
+
+		material = MTRL_NEW();
+		material->SetTexture(texture);
+		material->SetShader(SHADER_FIND("Shader_Sprite"));
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Title_Object", material);
 
 		material = MTRL_NEW();
 		texture = TEX_FIND("TitleScene_03");

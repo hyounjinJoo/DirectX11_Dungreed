@@ -145,6 +145,7 @@ namespace hj
         void Reset();
         void Clear();
 
+        void UseCanvas(bool use) { mbCanvasUsed = use; }
         bool IsInverse() { return mbInverse; }
         bool IsComplete() { return mbComplete; }
         std::wstring& AnimationName() { return mAnimationName; }

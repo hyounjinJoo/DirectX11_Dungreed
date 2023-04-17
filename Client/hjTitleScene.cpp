@@ -20,6 +20,10 @@
 #include "hjLayerObject.h"
 #include "hjTitleBirdLeader.h"
 #include "hjTitleBirdFollower.h"
+#include "hjMainLogo.h"
+#include "hjTitleGameStart.h"
+#include "hjTitleOption.h"
+#include "hjTitleExit.h"
 
 extern hj::Application application;
 
@@ -79,30 +83,36 @@ namespace hj
 			layerObj->SetMove(false);
 		#pragma endregion
 		#pragma region BackCloud
-			material = MTRL_FIND("MTRL_Title_Layer_BackCloud");
+			material = MTRL_FIND("MTRL_Title_Layer_Cloud");
 			std::shared_ptr<Texture> texture = material->GetTexture();
 			Vector2 texSize = texture->GetTexSize();
 			scale = Vector3(texSize.x, texSize.y, 1.f);
+			float ratio = height / texSize.y;
+			scale *= ratio * 2.f;
+			pos.y = -450.f;
 			pos.z = 3.f;
 			
 			layerObj = object::Instantiate<LayerObject>(eLayerType::BackGround, pos, rot, scale);
 			layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
-			layerObj->SetName(WIDE("Title_BackCloud"));
+			layerObj->SetName(WIDE("Title_Layer_BackCloud"));
 			layerObj->SetMove(true);
 			layerObj->SetMoveSpeed(0.004f);
+			layerObj->SetStartUV(Vector2(0.f, 0.f));
+			layerObj->SetEndUV(Vector2(1.f, 0.5f));
+
 		#pragma endregion
 		#pragma region FrondCloud
-			material = MTRL_FIND("MTRL_Title_Layer_FrontCloud");
 			texture = material->GetTexture();
-			texSize = texture->GetTexSize();
-			scale = Vector3(texSize.x, texSize.y, 1.f);
 			pos.z = 1.f;
-		
+			pos.y = 450.f;
+			
 			layerObj = object::Instantiate<LayerObject>(eLayerType::ForeGround, pos, rot, scale);
 			layerObj->GetComponent<SpriteRenderer>()->SetMaterial(material);
 			layerObj->SetName(WIDE("Title_Layer_FrontCloud"));
 			layerObj->SetMove(true);
 			layerObj->SetMoveSpeed(0.025f);
+			layerObj->SetStartUV(Vector2(0.f, 0.5f));
+			layerObj->SetEndUV(Vector2(1.f, 1.f));
 		#pragma endregion
 	#pragma endregion
 
@@ -218,7 +228,10 @@ namespace hj
 		#pragma endregion
 	#pragma endregion
 #pragma region UI
-	
+			MainLogo* mainLogo = object::Instantiate<MainLogo>(eLayerType::UI);
+			TitleGameStart* startButton = object::Instantiate<TitleGameStart>(eLayerType::UI);
+			TitleOption* optionButton = object::Instantiate<TitleOption>(eLayerType::UI);
+			TitleExit* exitButton = object::Instantiate<TitleExit>(eLayerType::UI);
 #pragma endregion
 		Scene::Initialize();
 	}

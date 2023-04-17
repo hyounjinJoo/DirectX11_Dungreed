@@ -33,10 +33,10 @@ namespace hj
 	void LayerObject::FixedUpdate()
 	{
 		GameObject::FixedUpdate();
-
-		if (false == mMove)
-			return;
-
+	}
+	
+	void LayerObject::Render()
+	{
 		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 
 		if (sr)
@@ -45,19 +45,23 @@ namespace hj
 
 			if (material)
 			{
-				mTotalMove += Time::DeltaTime() * mMoveSpeed;
-				if (mTotalMove >= 1.f)
-					mTotalMove = 0.f;
 
-				material->SetData(eGPUParam::Float_1, &mTotalMove);
-				int moveDir = static_cast<int>(mMoveDir);
-				material->SetData(eGPUParam::Int_1, &moveDir);
+				if (mMove)
+				{
+					mTotalMove += Time::FixedDeltaTime() * mMoveSpeed;
+					if (mTotalMove >= 1.f)
+						mTotalMove = 0.f;
+
+					material->SetData(eGPUParam::Float_1, &mTotalMove);
+					int moveDir = static_cast<int>(mMoveDir);
+					material->SetData(eGPUParam::Int_1, &moveDir);
+				}
+
+				material->SetData(eGPUParam::Vector2_1, &mStartUV);
+				material->SetData(eGPUParam::Vector2_2, &mEndUV);
 			}
 		}
-	}
-	
-	void LayerObject::Render()
-	{
+
 		GameObject::Render();
 	}
 }

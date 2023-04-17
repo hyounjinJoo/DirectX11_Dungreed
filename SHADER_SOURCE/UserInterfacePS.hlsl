@@ -7,10 +7,35 @@ struct VSOut
     float2 UV : TEXCOORD;
 };
 
+#define USE_UV      cbiData1
+#define SPRITE_START    cbxy1
+#define SPRITE_END      cbxy2
+#define USE_CANVAS  cbiData2
+#define SIZE_CANVAS  cbxy3
+#define SIZE_ATLAS   cbxy4
+
+
 float4 main(VSOut In) : SV_TARGET
 {
     float4 color = (float) 0.f;
-    color = defaultTexture.Sample(pointSampler, In.UV);
+    float2 UV = In.UV;
+    
+    if (USE_UV)
+    {
+        float2 renderCanvasSize = SIZE_CANVAS / SIZE_ATLAS;
+        float2 spriteSize = (SPRITE_END - SPRITE_START) / SIZE_ATLAS;
+        float2 spriteLT = SPRITE_START / SIZE_ATLAS;
+            
+        UV = UV * renderCanvasSize;
+        UV = UV - (renderCanvasSize - spriteSize) / 2.f + spriteLT;
+            
+        if (UV.x < spriteLT.x || spriteLT.x + spriteSize.x < UV.x || UV.y < spriteLT.y || spriteLT.y + spriteSize.y < UV.y)
+        {
+            discard;
+        }
+    }
+
+    color = defaultTexture.Sample(pointSampler, UV);
     
     if (color.a == 0.f)
         discard;

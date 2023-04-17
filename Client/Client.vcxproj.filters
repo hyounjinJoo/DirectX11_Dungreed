@@ -35,12 +35,6 @@
     <Filter Include="Contents\GameObject\TitleScene">
       <UniqueIdentifier>{abc96cb4-2a4f-4392-b24e-388fd3795db9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Layer">
-      <UniqueIdentifier>{6eed3863-e244-49ab-95dd-e8e1140799cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\TitleScene\Bird">
-      <UniqueIdentifier>{bd5d56b1-4093-488b-a858-4c857ee4519d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\Play">
       <UniqueIdentifier>{e1e4ddca-5b81-42f0-ad31-578424d92821}</UniqueIdentifier>
     </Filter>
@@ -104,6 +98,33 @@
     <Filter Include="Contents\GameObject\Play\Player\Effect">
       <UniqueIdentifier>{e50c7040-22ef-4224-b526-593a044cfe5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\TitleScene\UI">
+      <UniqueIdentifier>{c330c46d-56dd-4845-a8d7-14489c832fbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\TitleScene\Object">
+      <UniqueIdentifier>{3f4d450b-e6bd-4f2a-bb29-94a657c1675d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\TitleScene\Object\Bird">
+      <UniqueIdentifier>{bd5d56b1-4093-488b-a858-4c857ee4519d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\TitleScene\UI\MainLogo">
+      <UniqueIdentifier>{91a8febc-f2ac-4f1b-8ba4-003a81c0f43b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BaseObject">
+      <UniqueIdentifier>{c60b16ce-ac7f-4d2d-beb5-3702730f6169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BaseObject\UI">
+      <UniqueIdentifier>{575e3480-8673-4332-90fb-03de091bc16e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BaseObject\Layer">
+      <UniqueIdentifier>{6eed3863-e244-49ab-95dd-e8e1140799cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BaseObject\UI\Button">
+      <UniqueIdentifier>{58b485f2-15f0-4ebd-a97e-9378b65e74d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\TitleScene\UI\Menu">
+      <UniqueIdentifier>{7e941c7c-e64b-437b-b9ab-e74bfcb9ee46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -155,22 +176,19 @@
       <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="hjLayerObject.h">
-      <Filter>Contents\GameObject\Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="hjTitleCloud.h">
-      <Filter>Contents\GameObject\TitleScene</Filter>
+      <Filter>Contents\GameObject\BaseObject\Layer</Filter>
     </ClInclude>
     <ClInclude Include="hjLinearMoveScript.h">
       <Filter>Contents\Script\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="hjTitleBird.h">
-      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+      <Filter>Contents\GameObject\TitleScene\Object\Bird</Filter>
     </ClInclude>
     <ClInclude Include="hjTitleBirdLeader.h">
-      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+      <Filter>Contents\GameObject\TitleScene\Object\Bird</Filter>
     </ClInclude>
     <ClInclude Include="hjTitleBirdFollower.h">
-      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+      <Filter>Contents\GameObject\TitleScene\Object\Bird</Filter>
     </ClInclude>
     <ClInclude Include="hjPlayer.h">
       <Filter>Contents\GameObject\Play\Player</Filter>
@@ -198,6 +216,27 @@
     </ClInclude>
     <ClInclude Include="hjFxPlayerJump.h">
       <Filter>Contents\GameObject\Play\Player\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTitleMidCloud.h">
+      <Filter>Contents\GameObject\TitleScene\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="hjMainLogo.h">
+      <Filter>Contents\GameObject\TitleScene\UI\MainLogo</Filter>
+    </ClInclude>
+    <ClInclude Include="hjUIBase.h">
+      <Filter>Contents\GameObject\BaseObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="hjUIButton.h">
+      <Filter>Contents\GameObject\BaseObject\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTitleGameStart.h">
+      <Filter>Contents\GameObject\TitleScene\UI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTitleOption.h">
+      <Filter>Contents\GameObject\TitleScene\UI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTitleExit.h">
+      <Filter>Contents\GameObject\TitleScene\UI\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -249,22 +288,19 @@
       <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="hjLayerObject.cpp">
-      <Filter>Contents\GameObject\Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="hjTitleCloud.cpp">
-      <Filter>Contents\GameObject\TitleScene</Filter>
+      <Filter>Contents\GameObject\BaseObject\Layer</Filter>
     </ClCompile>
     <ClCompile Include="hjLinearMoveScript.cpp">
       <Filter>Contents\Script\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="hjTitleBird.cpp">
-      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+      <Filter>Contents\GameObject\TitleScene\Object\Bird</Filter>
     </ClCompile>
     <ClCompile Include="hjTitleBirdLeader.cpp">
-      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+      <Filter>Contents\GameObject\TitleScene\Object\Bird</Filter>
     </ClCompile>
     <ClCompile Include="hjTitleBirdFollower.cpp">
-      <Filter>Contents\GameObject\TitleScene\Bird</Filter>
+      <Filter>Contents\GameObject\TitleScene\Object\Bird</Filter>
     </ClCompile>
     <ClCompile Include="hjPlayer.cpp">
       <Filter>Contents\GameObject\Play\Player</Filter>
@@ -292,6 +328,27 @@
     </ClCompile>
     <ClCompile Include="hjFxPlayerJump.cpp">
       <Filter>Contents\GameObject\Play\Player\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTitleMidCloud.cpp">
+      <Filter>Contents\GameObject\TitleScene\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMainLogo.cpp">
+      <Filter>Contents\GameObject\TitleScene\UI\MainLogo</Filter>
+    </ClCompile>
+    <ClCompile Include="hjUIBase.cpp">
+      <Filter>Contents\GameObject\BaseObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="hjUIButton.cpp">
+      <Filter>Contents\GameObject\BaseObject\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTitleGameStart.cpp">
+      <Filter>Contents\GameObject\TitleScene\UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTitleOption.cpp">
+      <Filter>Contents\GameObject\TitleScene\UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTitleExit.cpp">
+      <Filter>Contents\GameObject\TitleScene\UI\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

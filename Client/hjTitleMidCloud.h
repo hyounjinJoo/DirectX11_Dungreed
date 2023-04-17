@@ -3,12 +3,12 @@
 
 namespace hj
 {
-    class TitleCloud :
+    class TitleMidCloud :
         public GameObject
     {
     public:
-        TitleCloud();
-        virtual ~TitleCloud();
+        TitleMidCloud();
+        virtual ~TitleMidCloud();
 
         virtual void Initialize() override;
         virtual void Update() override;

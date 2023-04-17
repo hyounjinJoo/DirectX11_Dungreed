@@ -152,6 +152,7 @@
     <ClInclude Include="hjItem.h" />
     <ClInclude Include="hjLayerObject.h" />
     <ClInclude Include="hjLinearMoveScript.h" />
+    <ClInclude Include="hjMainLogo.h" />
     <ClInclude Include="hjPlayer.h" />
     <ClInclude Include="hjFxPlayerDust.h" />
     <ClInclude Include="hjPlayerHand.h" />
@@ -164,9 +165,14 @@
     <ClInclude Include="hjTestPlayer.h" />
     <ClInclude Include="hjTestScene.h" />
     <ClInclude Include="hjTitleBirdLeader.h" />
-    <ClInclude Include="hjTitleCloud.h" />
+    <ClInclude Include="hjTitleExit.h" />
+    <ClInclude Include="hjTitleGameStart.h" />
+    <ClInclude Include="hjTitleMidCloud.h" />
     <ClInclude Include="hjTitleBirdFollower.h" />
+    <ClInclude Include="hjTitleOption.h" />
     <ClInclude Include="hjTitleScene.h" />
+    <ClInclude Include="hjUIBase.h" />
+    <ClInclude Include="hjUIButton.h" />
     <ClInclude Include="hjWeapon.h" />
     <ClInclude Include="hjWidget.h" />
     <ClInclude Include="Resource.h" />
@@ -183,6 +189,7 @@
     <ClCompile Include="hjItem.cpp" />
     <ClCompile Include="hjLayerObject.cpp" />
     <ClCompile Include="hjLinearMoveScript.cpp" />
+    <ClCompile Include="hjMainLogo.cpp" />
     <ClCompile Include="hjPlayer.cpp" />
     <ClCompile Include="hjFxPlayerDust.cpp" />
     <ClCompile Include="hjPlayerHand.cpp" />
@@ -195,9 +202,14 @@
     <ClCompile Include="hjTestPlayer.cpp" />
     <ClCompile Include="hjTestScene.cpp" />
     <ClCompile Include="hjTitleBirdLeader.cpp" />
-    <ClCompile Include="hjTitleCloud.cpp" />
+    <ClCompile Include="hjTitleExit.cpp" />
+    <ClCompile Include="hjTitleGameStart.cpp" />
+    <ClCompile Include="hjTitleMidCloud.cpp" />
     <ClCompile Include="hjTitleBirdFollower.cpp" />
+    <ClCompile Include="hjTitleOption.cpp" />
     <ClCompile Include="hjTitleScene.cpp" />
+    <ClCompile Include="hjUIBase.cpp" />
+    <ClCompile Include="hjUIButton.cpp" />
     <ClCompile Include="hjWeapon.cpp" />
     <ClCompile Include="hjWidget.cpp" />
     <ClCompile Include="main.cpp" />
