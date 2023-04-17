@@ -221,6 +221,9 @@ namespace hj::math
         Vector3(Vector3&&) = default;
         Vector3& operator=(Vector3&&) = default;
 
+        constexpr Vector3(const Vector2 v) noexcept : XMFLOAT3(v.x, v.y, 0.f) {}
+        constexpr Vector3(const Vector2 v, float iz) noexcept : XMFLOAT3(v.x, v.y, iz) {}
+
         operator XMVECTOR() const noexcept { return XMLoadFloat3(this); }
 
         // Comparison operators
