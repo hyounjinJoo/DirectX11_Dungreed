@@ -66,8 +66,6 @@ namespace hj
 
 	void TitleGameStart::StartGame()
 	{
-		//SceneManager::LoadScene(eSceneType::Test);
 		SceneManager::NeedToLoad(eSceneType::Test);
 	}
-
 }
