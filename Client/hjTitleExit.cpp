@@ -2,6 +2,9 @@
 #include "hjResources.h"
 #include "hjMaterial.h"
 #include "hjSpriteRenderer.h"
+#include "hjApplication.h"
+
+extern hj::Application application;
 
 namespace hj
 {
@@ -35,6 +38,8 @@ namespace hj
 		}
 		SetScale(Vector2(84.f, 52.f));
 		SetPositionY(-255.f);
+
+		SetClickCallback(this, &TitleExit::ExitGame);
 	}
 
 	TitleExit::~TitleExit()
@@ -59,5 +64,12 @@ namespace hj
 	void TitleExit::Render()
 	{
 		UIButton::Render();
+	}
+
+	void TitleExit::ExitGame()
+	{
+		HWND hWnd = application.GetHwnd();
+		if (hWnd)
+			DestroyWindow(hWnd);
 	}
 }

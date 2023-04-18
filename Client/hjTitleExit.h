@@ -15,6 +15,7 @@ namespace hj
 		void FixedUpdate() override;
 		void Render() override;
 
+		void ExitGame();
 	private:
 	};
 }
