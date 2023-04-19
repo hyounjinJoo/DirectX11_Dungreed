@@ -483,151 +483,27 @@ namespace hj::renderer
 		SUB_FOLDER_ALLCLEAR();
 		#pragma endregion
 #pragma endregion
+#pragma region 01_Scene
+		MAIN_FOLDER("01_Scene");
+	#pragma region 00_TitleScene
+			SUB_FOLDER(1, "00_TitleScene");
+			LOAD_TEX("TitleScene_01", "TitleScene_01.png");
+			LOAD_TEX("TitleScene_02", "TitleScene_02.png");
+			LOAD_TEX("TitleScene_03", "TitleScene_03.png");
+	#pragma endregion
+	#pragma region 01_TownScene
+	
+	#pragma endregion
+	#pragma region 02_DungeonScene
+	
+	#pragma endregion
+	#pragma region 03_EndingScene
+	
+	#pragma endregion
 #pragma region _08_FX
 		MAIN_FOLDER("08_FX");
 		LOAD_TEX("08_FX", "08_FX.png");
 		FOLDER_ALLCLEAR();
-#pragma endregion
-#pragma region 01_TitleScene
-	#pragma region 00_Layers
-			MAIN_FOLDER("01_Scene\\00_TitleScene");
-			LOAD_TEX("TitleScene_01", "TitleScene_01.png");
-			LOAD_TEX("TitleScene_02", "TitleScene_02.png");
-			LOAD_TEX("TitleScene_03", "TitleScene_03.png");
-
-		RECT winRect;
-		GetClientRect(application.GetHwnd(), &winRect);
-
-		float height = static_cast<float>(winRect.bottom - winRect.top);
-
-		MAIN_FOLDER("01_Scene\\00_TitleScene\\00_Layers");
-		std::shared_ptr<Texture> texture = nullptr;
-		texture = LOAD_TEX("Tex_Title_Layer_BackCloud", "BackCloud.png");
-		Vector2 texSize = TEX_FIND("Tex_Title_Layer_BackCloud")->GetTexSize();
-		float layerRatio = height / texSize.y;
-		texSize *= layerRatio;
-		texture->SetTexSize(texSize);
-
-		texture = LOAD_TEX("Tex_Title_Layer_FrontCloud", "FrontCloud.png");
-		texSize = texture->GetTexSize() * layerRatio;
-		texture->SetTexSize(texSize);
-	#pragma endregion
-
-	#pragma region 01_Object
-		MAIN_FOLDER("01_Scene\\00_TitleScene\\01_Object");
-		#pragma region Cloud
-			SUB_FOLDER(1, "Cloud");
-			texture = LOAD_TEX("Tex_Title_Object_MidCloud", "MidCloud0.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-		#pragma endregion
-		#pragma region Bird
-			SUB_FOLDER(1, "Bird");
-			
-			texture = LOAD_TEX("Tex_Title_Object_Bird_0", "Bird0.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-			texture = LOAD_TEX("Tex_Title_Object_Bird_1", "Bird1.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-			texture = LOAD_TEX("Tex_Title_Object_Bird_2", "Bird2.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-			texture = LOAD_TEX("Tex_Title_Object_Bird_3", "Bird3.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-			texture = LOAD_TEX("Tex_Title_Object_Bird_4", "Bird4.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-			texture = LOAD_TEX("Tex_Title_Object_Bird_5", "Bird5.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-			texture = LOAD_TEX("Tex_Title_Object_Bird_6", "Bird6.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-			texture = LOAD_TEX("Tex_Title_Object_Bird_7", "Bird7.png");
-			texSize = texture->GetTexSize() * layerRatio;
-			texture->SetTexSize(texSize);
-		#pragma endregion
-	#pragma endregion
-	#pragma region 02_UI
-		MAIN_FOLDER("01_Scene\\00_TitleScene\\02_UI");
-			#pragma region Logo
-				SUB_FOLDER(1, "Logo");
-				texture = LOAD_TEX("Tex_Title_UI_MainLogo", "MainLogo.png");
-				texSize = texture->GetTexSize() * layerRatio;
-				texture->SetTexSize(texSize);
-			#pragma endregion
-			#pragma region Text
-				SUB_FOLDER(1, "Text");
-				#pragma region 00_Play_KOR
-					SUB_FOLDER(2, "00_Play_KOR");
-					texture = LOAD_TEX("Tex_Title_UI_Text_Play_On", "PlayOn_Kor.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-					texture = LOAD_TEX("Tex_Title_UI_Text_Play_Off", "PlayOff_Kor.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-			#pragma endregion
-				#pragma region 01_Option_KOR
-					SUB_FOLDER(2, "01_Option_KOR");
-					texture = LOAD_TEX("Tex_Title_UI_Text_Option_On", "OptionOn_Kor.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-					texture = LOAD_TEX("Tex_Title_UI_Text_Option_Off", "OptionOff_Kor.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-			#pragma endregion
-				#pragma region 02_Exit_KOR
-					SUB_FOLDER(2, "02_Exit_KOR");
-					texture = LOAD_TEX("Tex_Title_UI_Text_Exit_On", "ExitOn_Kor.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-					texture = LOAD_TEX("Tex_Title_UI_Text_Exit_Off", "ExitOff_Kor.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-				#pragma endregion
-				SUB_FOLDER_CLEAR(2);
-				SUB_FOLDER_CLEAR(1);
-			#pragma endregion
-			#pragma region Slot
-				SUB_FOLDER(1, "Slot");
-				#pragma region Base
-					SUB_FOLDER(2, "Base");
-
-					texture = LOAD_TEX("Tex_Title_UI_Slot_Base_NoneSelected", "SlotBase.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-					texture = LOAD_TEX("Tex_Title_UI_Slot_Base_Selected", "SlotBase_Selected.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-				#pragma endregion
-				#pragma region Delete
-					SUB_FOLDER(2, "DeleteButton");
-
-					texture = LOAD_TEX("Tex_Title_UI_Slot_DeleteButton", "SlotDeleteButton.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-					texture = LOAD_TEX("Tex_Title_UI_Slot_DeleteButton_White", "SlotDeleteButtonWhite.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-				#pragma endregion
-				#pragma region Text
-					SUB_FOLDER(2, "Text");
-
-					texture = LOAD_TEX("Tex_Title_UI_Slot_Text_SlotText1", "SlotText1_EN.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-					texture = LOAD_TEX("Tex_Title_UI_Slot_Text_SlotText2", "SlotText2_EN.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-					texture = LOAD_TEX("Tex_Title_UI_Slot_Text_SlotText3", "SlotText3_EN.png");
-					texSize = texture->GetTexSize() * layerRatio;
-					texture->SetTexSize(texSize);
-				#pragma endregion
-				SUB_FOLDER_ALLCLEAR();
-			#pragma endregion
-	#pragma endregion
 #pragma endregion
 
 		FOLDER_ALLCLEAR();
