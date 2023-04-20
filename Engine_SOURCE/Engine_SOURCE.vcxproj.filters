@@ -109,6 +109,15 @@
     <Filter Include="Resource\Shader\CS">
       <UniqueIdentifier>{ed9644cc-6e77-4e3c-8b3c-d8220e3a7d83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External">
+      <UniqueIdentifier>{c316497b-a05e-4677-a719-b0c46eb74a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\Parser">
+      <UniqueIdentifier>{59a1944d-ef16-4242-ac8e-447969c2d15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\Parser\XML">
+      <UniqueIdentifier>{80da97a7-e471-4ef5-b86a-4e0303db5853}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -221,6 +230,12 @@
     </ClCompile>
     <ClCompile Include="hjPaintShader.cpp">
       <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTileMap.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="hjXmlParser.cpp">
+      <Filter>External\Parser\XML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +364,12 @@
     </ClInclude>
     <ClInclude Include="hjPaintShader.h">
       <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTileMap.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="hjXmlParser.h">
+      <Filter>External\Parser\XML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

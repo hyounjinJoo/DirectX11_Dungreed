@@ -16,6 +16,7 @@ namespace hj::graphics
 
 		UINT GetSize() { return mSize; }
 		UINT GetStride() { return mStride; }
+		UINT GetTotalSize() { return mSize * mStride; }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;

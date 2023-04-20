@@ -38,6 +38,7 @@ namespace hj::enums
 		RigidBody,
 		MeshRenderer,
 		SpriteRenderer,
+		TileMap,
 		Animator,
 		Light,
 		UI,

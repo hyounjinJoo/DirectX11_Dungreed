@@ -66,6 +66,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl">
       <Filter>03. CS</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TileMapPS.hlsl">
+      <Filter>02. PS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)ConstantBuffer.hlsli">

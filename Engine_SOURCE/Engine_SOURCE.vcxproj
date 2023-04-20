@@ -192,11 +192,13 @@
     <ClInclude Include="hjSpriteRenderer.h" />
     <ClInclude Include="hjStructuredBuffer.h" />
     <ClInclude Include="hjTexture.h" />
+    <ClInclude Include="hjTileMap.h" />
     <ClInclude Include="hjTime.h" />
     <ClInclude Include="hjApplication.h" />
     <ClInclude Include="hjGraphicDevice_DX11.h" />
     <ClInclude Include="hjMath.h" />
     <ClInclude Include="hjTransform.h" />
+    <ClInclude Include="hjXmlParser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjAnimation.cpp" />
@@ -231,11 +233,13 @@
     <ClCompile Include="hjSpriteRenderer.cpp" />
     <ClCompile Include="hjStructuredBuffer.cpp" />
     <ClCompile Include="hjTexture.cpp" />
+    <ClCompile Include="hjTileMap.cpp" />
     <ClCompile Include="hjTime.cpp" />
     <ClCompile Include="hjApplication.cpp" />
     <ClCompile Include="hjGraphicDevice_DX11.cpp" />
     <ClCompile Include="hjMath.cpp" />
     <ClCompile Include="hjTransform.cpp" />
+    <ClCompile Include="hjXmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hjMath.inl" />

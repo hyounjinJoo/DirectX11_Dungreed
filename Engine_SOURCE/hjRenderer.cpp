@@ -185,6 +185,13 @@ namespace hj::renderer
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
+		// TileMap Shader
+		shader = SHADER_FIND("Shader_TileMap");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
+
 		delete[] arrLayoutDesc;
 
 		arrLayoutDesc = new D3D11_INPUT_ELEMENT_DESC[2];
@@ -216,7 +223,7 @@ namespace hj::renderer
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 2
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
-			, shader->GetInputLayoutAddressOf());
+			, shader->GetInputLayoutAddressOf());				
 
 		delete[] arrLayoutDesc;
 #pragma endregion
@@ -442,6 +449,16 @@ namespace hj::renderer
 		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		Resources::Insert<PaintShader>(WIDE("Shader_Paint"), paintShader);
+
+		// TileMap Shader
+		shader = SHADER_NEW();
+		shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");
+		shader->SetRSState(eRSType::SolidNone);
+		shader->SetDSState(eDSType::LessEqual);
+		shader->SetBSState(eBSType::AlphaBlend);
+
+		SHADER_INSERT("Shader_TileMap", shader);
 	}
 
 
@@ -474,6 +491,7 @@ namespace hj::renderer
 #pragma region Default
 		LOAD_TEX("LightSprite", "Light.png");
 		LOAD_TEX("DefaultSprite", "DungeonEat08.png");
+		LOAD_TEX("MapTile", "Map4X.png");
 #pragma endregion
 
 #pragma region 00_Character
@@ -490,6 +508,7 @@ namespace hj::renderer
 			LOAD_TEX("TitleScene_01", "TitleScene_01.png");
 			LOAD_TEX("TitleScene_02", "TitleScene_02.png");
 			LOAD_TEX("TitleScene_03", "TitleScene_03.png");
+			SUB_FOLDER_ALLCLEAR();
 	#pragma endregion
 	#pragma region 01_TownScene
 	
@@ -645,6 +664,14 @@ namespace hj::renderer
 		material->SetTexture(texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_UI_Text", material);
+#pragma endregion
+#pragma region
+		material = MTRL_NEW();
+		texture = TEX_FIND("MapTile");
+		material->SetShader(SHADER_FIND("Shader_TileMap"));
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Map_Tile", material);
 #pragma endregion
 		//texture = TEX_FIND("Tex_Town_Layer_Sky_Day");
 		//material = MTRL_NEW();

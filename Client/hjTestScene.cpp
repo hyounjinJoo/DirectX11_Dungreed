@@ -22,6 +22,8 @@
 #include "hjTime.h"
 #include "hjLight.h"
 #include "hjPaintShader.h"
+#include "hjTileMap.h"
+#include "hjXmlParser.h"
 
 
 extern hj::Application application;
@@ -254,6 +256,49 @@ namespace hj
 		//	mesh = Resources::Find<Mesh>(L"Mesh_Rect");
 		//	spriteRender->SetMesh(mesh);
 		//}
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::BackGround);
+			obj->SetName(L"TileMap");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPositionZ(5.f);
+			tr->AddPositionY(64.f * 8.f);
+			tr->SetScale(Vector3(64.f * 114.f, 64.f * 24.f, 1.f));
+			TileMap* tilemap = obj->AddComponent<TileMap>();
+			std::shared_ptr<Material> material = MTRL_FIND("MTRL_Map_Tile");
+			tilemap->SetMaterial(material);
+			tilemap->SetMesh(MESH_FIND("Mesh_Rect"));
+			tilemap->SetAtlasTex(material->GetTexture());
+			tilemap->SetTileSize(Vector2(64.f, 64.f));
+			tilemap->SetTileMapCount(114, 24);
+			//Test(tilemap);
+			//tilemap->SetAllTileData(88);
+			bool xmlTest = false;
+			XmlParser* testParser = new XmlParser;
+			xmlTest = testParser->LoadFile(WIDE("TileMap\\00_Town.xml"));
+			if (xmlTest)
+			{
+				xmlTest = testParser->FindElem(WIDE("map"));
+				testParser->IntoElem();
+				xmlTest = testParser->FindElem(WIDE("layer"));
+				testParser->IntoElem();
+				xmlTest = testParser->FindElem(WIDE("data"));
+				testParser->IntoElem();
+
+				int tileIdx = 0;
+				while (testParser->FindElem("tile"))
+				{
+					if (testParser->HasAttribute("gid"))
+					{
+						int imgIdx = testParser->GetIntAttribute("gid") - 1;
+						tilemap->SetTileData(tileIdx, imgIdx);
+					}
+					tileIdx++;
+				}
+			}
+
+			delete testParser;
+		}
+
 		Scene::Initialize();
 	}
 
