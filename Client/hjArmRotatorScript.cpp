@@ -15,6 +15,8 @@ namespace hj
 		, mMaxDistanceY(30.f)
 		, mOffsetAngle(20.f)
 		, mbInverseX(false)
+		, mBody(nullptr)
+		, mGrappedObject(nullptr)
 	{
 		SetName(WIDE("ArmRotatorScript"));
 	}
