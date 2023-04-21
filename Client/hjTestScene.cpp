@@ -310,6 +310,21 @@ namespace hj
 		{
 			SceneManager::NeedToLoad(eSceneType::Title);
 		}
+		if (Input::GetKeyDown(eKeyCode::I))
+		{
+			Camera* camera = renderer::mainCamera;
+			GameObject* cameraObj = camera->GetOwner();
+			std::vector<Script*> scripts = cameraObj->GetScripts();
+
+			for (auto iter : scripts)
+			{
+				if (dynamic_cast<CameraScript*>(iter))
+				{
+					CameraScript* script = static_cast<CameraScript*>(iter);
+					script->Shake();
+				}
+			}
+		}
 
 		//if (Input::GetKeyPressed(eKeyCode::I))
 		//{
