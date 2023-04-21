@@ -125,6 +125,8 @@ namespace hj
 			return;
 		}
 		GetOwner()->SetRotation(ownerRot);
+
+		FixedUpdate();
 	}
 
 	void ArmRotatorScript::RotateArm(const Vector2& targetWorldPos)
