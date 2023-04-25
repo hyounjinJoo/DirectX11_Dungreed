@@ -19,12 +19,12 @@ float4 main(VSOut In) : SV_TARGET
 
     // 타일을 포함한 한 칸의 크기를 나타낸다.
     // 33이 100과 매핑된다.
-    const float width = 42.6f;
-    const float height = 42.6f;
+    const float width = 52.8f;
+    const float height = 52.8f;
 
     // 연산 문제로 329.9f 설정
-    const float widthX10 = 426.f;
-    const float heightX10 = 426.f;
+    const float widthX10 = 528.f;
+    const float heightX10 = 528.f;
     
     // 픽셀의 월드 좌표
     int worldX = (int)In.WorldPos.x;

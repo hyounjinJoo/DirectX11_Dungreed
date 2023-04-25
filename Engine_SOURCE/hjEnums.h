@@ -19,7 +19,9 @@ namespace hj::enums
 		Camera,
 		Grid,
 		Monster,
+		MonsterHas,
 		Player,
+		PlayerHas,
 		BackGround,
 		MidGround,
 		ForeGround,
@@ -58,6 +60,7 @@ namespace hj::enums
 		GraphicShader,
 		ComputeShader,
 		Script,
+		MapData,
 		End,
 	};
 

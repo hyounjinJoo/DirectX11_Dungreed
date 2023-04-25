@@ -204,5 +204,6 @@ namespace hj
 		Vector2 GetWorldRightUp() const { return GetTransform()->GetWorldRightUp(); }
 		Vector2 GetWorldRightCenter() const { return GetTransform()->GetWorldRightCenter(); }
 		Vector2 GetWorldRightBottom() const { return GetTransform()->GetWorldRightBottom(); }
+		Vector4 GetWorldLTRB() const { return GetTransform()->GetWorldLTRB(); }
 	};
 }

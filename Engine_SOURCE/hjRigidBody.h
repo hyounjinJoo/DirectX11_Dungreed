@@ -20,8 +20,10 @@ namespace hj
 		void SetGround(bool isGround) { mbGround = isGround; }
 		bool IsGround() { return mbGround; }
 		Vector2 GetVelocity() { return mVelocity; }
+		Vector2 GetForce() { return mForce; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
 		void ClearVelocityY() { mVelocity.y = 0.f; }
+		void ClearVelocityX() { mVelocity.x = 0.f; }
 
 		void OnFriction(bool isOn) { mbOnFriction = isOn; }
 		void OnHorizonAccelMove(bool isOn) { mbHorizonAccelMove = isOn; }

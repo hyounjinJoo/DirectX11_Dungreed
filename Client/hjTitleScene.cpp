@@ -62,6 +62,13 @@ namespace hj
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(1.f, 1.f, 1.f, 1.f));
 		}
+		{
+			if (nullptr != renderer::mainCamera)
+			{
+				Camera* mainCamera = renderer::mainCamera;
+				mainCamera->GetOwner()->SetPositionXY(Vector2(0.f, 0.f));
+			}
+		}
 	#pragma region Layer Object
 		#pragma region Background
 			std::shared_ptr<Material> material = MTRL_FIND("MTRL_ColorRect");

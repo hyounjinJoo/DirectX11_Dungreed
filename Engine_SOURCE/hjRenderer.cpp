@@ -5,6 +5,7 @@
 #include "hjSceneManager.h"
 #include "hjApplication.h"
 #include "hjPaintShader.h"
+#include "hjMap.h"
 
 extern hj::Application application;
 namespace hj::renderer
@@ -491,7 +492,7 @@ namespace hj::renderer
 #pragma region Default
 		LOAD_TEX("LightSprite", "Light.png");
 		LOAD_TEX("DefaultSprite", "DungeonEat08.png");
-		LOAD_TEX("MapTile", "Map4X.png");
+		LOAD_TEX("MapTile", "Map5x.png");
 #pragma endregion
 
 #pragma region 00_Character
@@ -689,6 +690,25 @@ namespace hj::renderer
 
 	}
 
+	void LoadMapData()
+	{
+		std::shared_ptr<Map> map = std::make_shared<Map>();
+		map->Load(WIDE("TileMap\\00_Town.xml")); 
+		Resources::Insert<Map>(WIDE("MAP_00_Town"), map);
+
+		map = std::make_shared<Map>();
+		map->Load(WIDE("TileMap\\01_BossRoom.xml"));
+		Resources::Insert<Map>(WIDE("MAP_01_BossRoom"), map);
+
+		map = std::make_shared<Map>();
+		map->Load(WIDE("TileMap\\01_LR1.xml"));
+		Resources::Insert<Map>(WIDE("MAP_01_LR1"), map);
+
+		map = std::make_shared<Map>();
+		map->Load(WIDE("TileMap\\01_LR2.xml"));
+		Resources::Insert<Map>(WIDE("MAP_01_LR2"), map);
+	}
+
 	void Initialize()
 	{
 		LoadMesh();
@@ -697,6 +717,7 @@ namespace hj::renderer
 		LoadBuffer();
 		LoadTexture();
 		LoadMaterial();
+		LoadMapData();
 	}
 
 	void Render()

@@ -12,6 +12,9 @@ namespace hj
 		, mbOnFriction(false)
 		, mbHorizonAccelMove(false)
 		, mMoveDir(eMoveDir::End)
+		, mVelocity(Vector2::Zero)
+		, mForce(Vector2::Zero)
+		, mAccelation(Vector2::Zero)
 	{
 		mLimitVelocity.x = 600.f;
 		mLimitVelocity.y = 10000.f;
@@ -102,6 +105,10 @@ namespace hj
 		Vector2 pos = GetOwner()->GetPositionXY();
 		Vector2 curFrameDeltaMove = mVelocity * fixedDelta;
 
+		if (mForce.y != 0.f)
+		{
+			int a = 0;
+		}
 		pos = pos + curFrameDeltaMove;
 		GetOwner()->SetPositionXY(pos);
 		mForce = Vector2::Zero;

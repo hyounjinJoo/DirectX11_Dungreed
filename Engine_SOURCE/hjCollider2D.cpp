@@ -12,6 +12,8 @@ namespace hj
 		, mCenter(Vector2::Zero)
 		, mPosition(Vector3::Zero)
 		, mRadius(50.f)
+		, mPrevPos(Vector3::Zero)
+		, mLTRBPos(Vector4::Zero)
 	{
 		SetType(eColliderType::Rect);
 	}
@@ -27,6 +29,17 @@ namespace hj
 
 	void Collider2D::Update()
 	{
+		if (mPrevPos != mPosition)
+		{
+			mPrevPos = mPosition;
+			
+			Vector3 scale = mTransform->GetWorldScale();
+			scale *= Vector3(mSize.x, mSize.y, 1.f);
+			mLTRBPos.x = mPosition.x - fabsf(scale.x * 0.5f);
+			mLTRBPos.y = mPosition.y + fabsf(scale.y * 0.5f);
+			mLTRBPos.z = mPosition.x + fabsf(scale.x * 0.5f);
+			mLTRBPos.w = mPosition.y - fabsf(scale.y * 0.5f);
+		}
 	}
 
 	void Collider2D::FixedUpdate()

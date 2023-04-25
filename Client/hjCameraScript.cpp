@@ -12,6 +12,7 @@ namespace hj
 	CameraScript::CameraScript()
 		: Script()
 		, mbMoveLimit(true)
+		, mbFollowPlayer(true)
 		, mLimitLTRB(Vector4(-1600.f, 900.f, 1600.f, -900.f))
 		, mRectHalfScale(Vector2(800.f, 450.f))
 		, mShakeDuration(0.1f)
@@ -34,6 +35,31 @@ namespace hj
 	{	
 		UpdateCameraPos();
 		UpdateShakedCameraPos();
+
+		if (Input::GetKeyDown(eKeyCode::N_0))
+		{
+			mbFollowPlayer = !mbFollowPlayer;
+			mbMoveLimit = !mbMoveLimit;
+		}
+		if (!mbFollowPlayer)
+		{
+			if (Input::GetKeyPressed(eKeyCode::U))
+			{
+				GetOwner()->AddPositionY(300.f * Time::ActualDeltaTime());
+			}
+			if (Input::GetKeyPressed(eKeyCode::J))
+			{
+				GetOwner()->AddPositionY(-300.f * Time::ActualDeltaTime());
+			}
+			if (Input::GetKeyPressed(eKeyCode::H))
+			{
+				GetOwner()->AddPositionX(-300.f * Time::ActualDeltaTime());
+			}
+			if (Input::GetKeyPressed(eKeyCode::K))
+			{
+				GetOwner()->AddPositionX(300.f * Time::ActualDeltaTime());
+			}
+		}
 	}
 
 	void CameraScript::Render()
@@ -61,7 +87,11 @@ namespace hj
 		if (!player)
 			return;
 
-		Vector2 nextCameraPos = player->GetPositionXY();
+		Vector2 nextCameraPos = GetOwner()->GetPositionXY();
+		
+		if (mbFollowPlayer)
+			nextCameraPos = player->GetPositionXY();
+
 		if (mbMoveLimit)
 		{
 			// 카메라의 현 위치 + 반절크기만큼 더 확장한 것이 좌,상,우,하의 제한을 넘어가는지 확인하면 된다.
@@ -95,6 +125,7 @@ namespace hj
 
 			nextCameraPos += correctionValue;
 		}
+
 
 		GetOwner()->SetPositionXY(nextCameraPos);
 		mOriginPos = nextCameraPos;

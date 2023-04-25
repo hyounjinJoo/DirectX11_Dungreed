@@ -159,6 +159,8 @@
     <ClInclude Include="hjArmRotatorScript.h" />
     <ClInclude Include="hjFxPlayerJump.h" />
     <ClInclude Include="hjFxPlayerTrail.h" />
+    <ClInclude Include="hjRoomNotPass.h" />
+    <ClInclude Include="hjRoomRectFloor.h" />
     <ClInclude Include="hjTitleBird.h" />
     <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjTestMonster.h" />
@@ -196,6 +198,8 @@
     <ClCompile Include="hjArmRotatorScript.cpp" />
     <ClCompile Include="hjFxPlayerJump.cpp" />
     <ClCompile Include="hjFxPlayerTrail.cpp" />
+    <ClCompile Include="hjRoomNotPass.cpp" />
+    <ClCompile Include="hjRoomRectFloor.cpp" />
     <ClCompile Include="hjTitleBird.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjTestMonster.cpp" />

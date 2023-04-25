@@ -175,6 +175,7 @@
     <ClInclude Include="hjInput.h" />
     <ClInclude Include="hjLayer.h" />
     <ClInclude Include="hjLight.h" />
+    <ClInclude Include="hjMap.h" />
     <ClInclude Include="hjMaterial.h" />
     <ClInclude Include="hjMesh.h" />
     <ClInclude Include="hjMeshRenderer.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="hjInput.cpp" />
     <ClCompile Include="hjLayer.cpp" />
     <ClCompile Include="hjLight.cpp" />
+    <ClCompile Include="hjMap.cpp" />
     <ClCompile Include="hjMaterial.cpp" />
     <ClCompile Include="hjMesh.cpp" />
     <ClCompile Include="hjMeshRenderer.cpp" />

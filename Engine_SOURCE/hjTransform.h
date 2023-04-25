@@ -107,7 +107,8 @@ namespace hj
 		Vector2 GetWorldRightUp() const { return Vector2(mWorldPosition.x + mWorldScale.x * 0.5f, mWorldPosition.y + mWorldScale.y * 0.5f); }
 		Vector2 GetWorldRightCenter() const { return Vector2(mWorldPosition.x + mWorldScale.x * 0.5f, mWorldPosition.y); }
 		Vector2 GetWorldRightBottom() const { return Vector2(mWorldPosition.x + mWorldScale.x * 0.5f, mWorldPosition.y - mWorldScale.y * 0.5f); }
-
+		Vector4 GetWorldLTRB() const { return Vector4(mWorldPosition.x - mWorldScale.x * 0.5f, mWorldPosition.y + mWorldScale.y * 0.5f
+													, mWorldPosition.x + mWorldScale.x * 0.5f, mWorldPosition.y - mWorldScale.y * 0.5f); }
 	private:
 		Transform* mParent;
 

@@ -3,7 +3,10 @@
 #include "hjMaterial.h"
 #include "hjSpriteRenderer.h"
 #include "hjSceneManager.h"
+#include "hjXmlParser.h"
+#include "hjApplication.h"
 
+extern hj::Application application;
 namespace hj
 {
 	TitleGameStart::TitleGameStart()
@@ -19,22 +22,59 @@ namespace hj
 
 		if (texture)
 		{
-			//    <sprite n="PlayOff" x="384" y="0" w="211" h="62"/>
-			//    <sprite n="PlayOn" x="595" y="0" w="211" h="62"/>
+			XmlParser* parser = new XmlParser;
+			std::wstring path = WIDE("01_Scene/00_TitleScene/TitleScene_03.xml");
+			bool parseResult = parser->LoadFile(path);
 
-			SetSameSizeAll(Vector2(211.f, 62.f));
-			SetUVIdle(Vector2(384.f, 0.f), mIdleSize);
-			SetUVHoverPressedDown(Vector2(595.f, 0.f), mHoverSize);
+			Vector2 size = Vector2::Zero;
+			Vector2 idleStartPos = Vector2::Zero;
+			Vector2 hoverStartPos = Vector2::Zero;
+			if (parseResult)
+			{
+				parseResult = parser->FindElem(WIDE("TextureAtlas"));
+				parseResult = parser->IntoElem();
+
+				std::wstring nameWstr;
+				while (parseResult)
+				{
+					parseResult = parser->FindElem(WIDE("sprite"));
+					nameWstr = parser->GetWstringAttribute(WIDE("n"));
+					if (nameWstr == WIDE("PlayOff"))
+					{
+						idleStartPos.x = static_cast<float>(parser->GetIntAttribute(WIDE("x")));
+						idleStartPos.y = static_cast<float>(parser->GetIntAttribute(WIDE("y"))); 
+						size.x = static_cast<float>(parser->GetIntAttribute(WIDE("w")));
+						size.y = static_cast<float>(parser->GetIntAttribute(WIDE("h")));
+					}
+					else if (nameWstr == WIDE("PlayOn"))
+					{
+						hoverStartPos.x = static_cast<float>(parser->GetIntAttribute(WIDE("x")));
+						hoverStartPos.y = static_cast<float>(parser->GetIntAttribute(WIDE("y")));
+					}
+				}
+			}
+
+			SetSameSizeAll(size);
+			SetUVIdle(idleStartPos, size);
+			SetUVHoverPressedDown(hoverStartPos, size);
 
 			mStartUV = mButtonUVInfo.idleStartUV;
 			mEndUV = mButtonUVInfo.idleEndUV;
 
-			mIdleSize = Vector2(176.f, 52.f);
-			mHoverSize = Vector2(176.f, 52.f);
-			mPressedSize = Vector2(176.f, 52.f);
-			mDownSize = Vector2(176.f, 52.f);
+			float width = static_cast<float>(application.GetWidth());
+			size *= (width / 1920.f);
+			size.x = std::roundf(size.x);
+			size.y = std::roundf(size.y);
+			
+			mIdleSize = size;
+			mHoverSize = size;
+			mPressedSize = size;
+			mDownSize = size;
+
+			SetScale(Vector2(176.f, 52.f));
+			delete parser;
 		}
-		SetScale(Vector2(176.f, 52.f));
+
 		SetPositionY(-135.f);
 
 		SetClickCallback(this, &TitleGameStart::StartGame);

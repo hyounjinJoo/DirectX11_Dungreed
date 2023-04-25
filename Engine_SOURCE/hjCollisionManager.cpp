@@ -16,6 +16,10 @@ namespace hj
 	}
 
 	void CollisionManager::Update()
+	{		
+	}
+
+	void CollisionManager::FixedUpdate()
 	{
 		Scene* scene = SceneManager::GetActiveScene();
 
@@ -35,10 +39,6 @@ namespace hj
 
 		// UI에 대한 Mouse Collision 수행
 		MouseCollision(scene, eLayerType::UI);
-	}
-
-	void CollisionManager::FixedUpdate()
-	{
 	}
 
 	void CollisionManager::Render()

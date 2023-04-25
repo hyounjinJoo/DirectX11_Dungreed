@@ -37,7 +37,6 @@ namespace hj
     {
         Time::Update();
         Input::Update();
-
 		CollisionManager::Update();
         SceneManager::Update();
     }

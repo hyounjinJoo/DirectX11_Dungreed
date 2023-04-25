@@ -24,6 +24,9 @@
 #include "hjPaintShader.h"
 #include "hjTileMap.h"
 #include "hjXmlParser.h"
+#include "hjMap.h"
+#include "hjRoomRectFloor.h"
+#include "hjRoomNotPass.h"
 
 
 extern hj::Application application;
@@ -160,6 +163,8 @@ namespace hj
 		
 		Player* player = object::Instantiate<Player>(eLayerType::Player, pos);
 		player->SetName(L"Player");
+		Vector2 testScale = player->GetScaleXY();
+		player->SetScaleXY(testScale * 1.25f);
 #pragma endregion
 #pragma region Collision Object - 2
 		//pos = Vector3(100.f, 100.f, 1.f);
@@ -227,6 +232,17 @@ namespace hj
 
 		std::shared_ptr<Mesh> hpBarBaseMesh = MESH_FIND("Mesh_Rect");
 		std::shared_ptr<Material> hpBarBaseMaterial = MTRL_FIND("MTRL_UI");
+		int useUV = 1;
+		Vector2 startUV = Vector2::Zero;
+		Vector2 endUV = Vector2::One;
+
+		hpBarBaseMaterial->SetData(eGPUParam::Int_1, &useUV);
+		hpBarBaseMaterial->SetData(eGPUParam::Int_2, &useUV);
+		hpBarBaseMaterial->SetData(eGPUParam::Vector2_1, &startUV);
+		Vector2 canvasSize = hpBarBaseMaterial->GetTexture()->GetTexSize();
+		hpBarBaseMaterial->SetData(eGPUParam::Vector2_2, &canvasSize);
+		hpBarBaseMaterial->SetData(eGPUParam::Vector2_3, &canvasSize);
+		hpBarBaseMaterial->SetData(eGPUParam::Vector2_4, &canvasSize);
 		hpBarBaseSR->SetMesh(hpBarBaseMesh);
 		hpBarBaseSR->SetMaterial(hpBarBaseMaterial);
 #pragma endregion
@@ -257,46 +273,65 @@ namespace hj
 		//	spriteRender->SetMesh(mesh);
 		//}
 		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::BackGround);
-			obj->SetName(L"TileMap");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPositionZ(5.f);
-			tr->AddPositionY(64.f * 8.f);
-			tr->SetScale(Vector3(64.f * 114.f, 64.f * 24.f, 1.f));
-			TileMap* tilemap = obj->AddComponent<TileMap>();
-			std::shared_ptr<Material> material = MTRL_FIND("MTRL_Map_Tile");
-			tilemap->SetMaterial(material);
-			tilemap->SetMesh(MESH_FIND("Mesh_Rect"));
-			tilemap->SetAtlasTex(material->GetTexture());
-			tilemap->SetTileSize(Vector2(64.f, 64.f));
-			tilemap->SetTileMapCount(114, 24);
-			//Test(tilemap);
-			//tilemap->SetAllTileData(88);
-			bool xmlTest = false;
-			XmlParser* testParser = new XmlParser;
-			xmlTest = testParser->LoadFile(WIDE("TileMap\\00_Town.xml"));
-			if (xmlTest)
+			std::shared_ptr<Map> mapData = Resources::Find<Map>(WIDE("MAP_01_BossRoom"));
+			if (mapData)
 			{
-				xmlTest = testParser->FindElem(WIDE("map"));
-				testParser->IntoElem();
-				xmlTest = testParser->FindElem(WIDE("layer"));
-				testParser->IntoElem();
-				xmlTest = testParser->FindElem(WIDE("data"));
-				testParser->IntoElem();
+				UINT layerCount = mapData->GetLayerCount();
+				Vector4 mapLTRBlimit = Vector4::Zero;
+				Vector2 mapSize = mapData->GetTileMapSize();
+				mapLTRBlimit.x = -mapSize.x * 0.5f;
+				mapLTRBlimit.y = mapSize.y * 0.5f;
+				mapLTRBlimit.z = mapSize.x * 0.5f;
+				mapLTRBlimit.w = -mapSize.y * 0.5f;
 
-				int tileIdx = 0;
-				while (testParser->FindElem("tile"))
+				if (renderer::mainCamera)
 				{
-					if (testParser->HasAttribute("gid"))
+					std::vector<Script*> scripts = renderer::mainCamera->GetOwner()->GetScripts();
+					for (auto script : scripts)
 					{
-						int imgIdx = testParser->GetIntAttribute("gid") - 1;
-						tilemap->SetTileData(tileIdx, imgIdx);
+						CameraScript* cameraScript = dynamic_cast<CameraScript*>(script);
+						if (cameraScript)
+						{
+							cameraScript->SetLimitSpace(mapLTRBlimit);
+						}
 					}
-					tileIdx++;
+				}
+
+				for (UINT layerIdx = 0; layerIdx < layerCount; ++layerIdx)
+				{
+					GameObject* obj = object::Instantiate<GameObject>(eLayerType::BackGround);
+					obj->SetName(L"TileMap");
+					Transform* tr = obj->GetComponent<Transform>();
+					tr->SetPositionZ(5.f - (float)layerIdx);
+					tr->SetScale(Vector3(mapData->GetTileMapSize(), 1.f));
+					//tr->AddPositionY(mapData->GetTileMapSize().y * 0.5f - mapData->GetTileSize().y * 3.f);
+
+					TileMap* tilemap = obj->AddComponent<TileMap>();
+					std::shared_ptr<Material> material = MTRL_FIND("MTRL_Map_Tile");
+					tilemap->SetMaterial(material);
+					tilemap->SetMesh(MESH_FIND("Mesh_Rect"));
+					tilemap->SetAtlasTex(material->GetTexture());
+					tilemap->SetTileSize(mapData->GetTileSize());
+					tilemap->SetTileMapCount(mapData->GetTileCount());
+
+					const tileLayer* layer = mapData->GetTileMapLayer(layerIdx);
+					tilemap->SetAllTileData(layer->tileData);
 				}
 			}
+		}
+		{
+			RoomNotPass* floor = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(0.f, -760.f, 0.f));
+			floor->SetScale(Vector3(1760.f, 240.f, 1.f));
+			RoomNotPass* notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(800.f, 280.f, 0.f));
+			notPass->SetScale(Vector3(160.f, 1200.f, 1.f));
 
-			delete testParser;
+			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(-800.f, 280.f, 0.f));
+			notPass->SetScale(Vector3(160.f, 1200.f, 1.f));
+
+			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(0.f, 800.f, 0.f));
+			notPass->SetScale(Vector3(1760.f, 160.f, 1.f));
+
+			CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
 		}
 
 		Scene::Initialize();

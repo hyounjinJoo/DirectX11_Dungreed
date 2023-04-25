@@ -45,7 +45,7 @@ namespace hj
 
 		void HandleTestInput();
 		void ChangeTrailCostume(ePlayerCostume nextCostume);
-		void FakeGroundApply();
+		void GroundMove();
 
 		void ActionMouseLBTN();
 		void ActionMouseRBTN();
@@ -68,6 +68,7 @@ namespace hj
 		float mDashStartedTime;
 		float mDashCoolTime;
 		float mMaxDashTime;
+		Vector3 mDashDir;
 		float mDashPower;
 		int mDashTrailCount;
 		int mCurActivatedTrailIndex;
@@ -79,5 +80,12 @@ namespace hj
 		Vector2 mJumpForce;
 		float mJumpRatio;
 		float mJumpingRatio;
+
+		bool mbCanInputSingleJump;
+		bool mbCanInputDoubleJump;
+		bool mbSingleJumping;
+		bool mbDoubleJumping;
+		float mSingleJumpInputedTime; 
+		float mMaxJumpInputTime;
 	};
 }

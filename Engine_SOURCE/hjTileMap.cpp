@@ -144,4 +144,22 @@ namespace hj
 		}
 	}
 
+	void TileMap::SetAllTileData(const std::vector<TileData>& data)
+	{
+		ClearTileData();
+
+		mTileData.resize(static_cast<size_t>(mTileCountX * mTileCountY));
+		std::copy(data.begin(), data.end(), mTileData.begin());
+
+		// 구조화 버퍼도 크기에 대응한다.
+		size_t bufferSize = static_cast<size_t>(mTileCountX * mTileCountY) * sizeof(TileData);
+
+		if (mBuffer->GetTotalSize() < bufferSize)
+		{
+			//UINT size, UINT stride, eSRVType type, void* data
+			mBuffer->Create(sizeof(TileData), mTileCountX * mTileCountY, eSRVType::None, nullptr);
+		}
+
+		mbBufferUpdated = false;
+	}
 }

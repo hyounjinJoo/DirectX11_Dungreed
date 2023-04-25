@@ -118,6 +118,9 @@
     <Filter Include="External\Parser\XML">
       <UniqueIdentifier>{80da97a7-e471-4ef5-b86a-4e0303db5853}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Map">
+      <UniqueIdentifier>{064b8b35-31a0-451d-9d06-4b1aac1f1b16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="hjXmlParser.cpp">
       <Filter>External\Parser\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMap.cpp">
+      <Filter>Resource\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -370,6 +376,9 @@
     </ClInclude>
     <ClInclude Include="hjXmlParser.h">
       <Filter>External\Parser\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="hjMap.h">
+      <Filter>Resource\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

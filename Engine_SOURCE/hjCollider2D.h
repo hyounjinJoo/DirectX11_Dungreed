@@ -47,6 +47,8 @@ namespace hj
             return mSize; 
         }
 
+        const Vector4& GetLTRB() { return mLTRBPos; }
+
     private:
         Transform* mTransform;
 
@@ -54,5 +56,8 @@ namespace hj
         Vector2 mSize;
         Vector2 mCenter;
         float   mRadius;
+
+        Vector3 mPrevPos;
+        Vector4 mLTRBPos;
     };
 }

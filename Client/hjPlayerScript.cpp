@@ -24,12 +24,19 @@ namespace hj
 		, mDashCoolTime(0.3f)
 		, mMaxDashTime(0.1f)
 		, mDashTrailCount(3)
+		, mDashDir(Vector3::Zero)
 		, mDashPower(5000.f)
 		, mLastDashTrailTime(0.f)
 		, mCurActivatedTrailIndex(0)
 		, mJumpRatio(0.05f)
 		, mJumpingRatio(0.025f)
 		, mJumpForce(Vector2(0.f, 20000.f))
+		, mbCanInputSingleJump(true)
+		, mbCanInputDoubleJump(false)
+		, mbSingleJumping(false)
+		, mbDoubleJumping(false)
+		, mSingleJumpInputedTime(0.f)
+		, mMaxJumpInputTime(0.2f)
 	{
 		mDashTrailRenderTimer = 0.1f;
 		mDashTrailCreateInterval = mMaxDashTime / mDashTrailCount;
@@ -62,7 +69,7 @@ namespace hj
 
 	void PlayerScript::FixedUpdate()
 	{
-		FakeGroundApply();
+		GroundMove();
 	}
 
 	void PlayerScript::Render()
@@ -126,10 +133,10 @@ namespace hj
 
 	void PlayerScript::HandleDownInput()
 	{
-		if (Input::GetKeyPressed(mKeyBindings[(UINT)playerKeyAction::MOVE_DOWN]))
-		{
-			mOwnerRigid->AddForce(Vector2(-2000.f, 0.f));
-		}
+		//if (Input::GetKeyPressed(mKeyBindings[(UINT)playerKeyAction::MOVE_DOWN]))
+		//{
+		//	GetOwner()->SetPositionY(-300.f * Time::ActualDeltaTime());
+		//}
 
 	}
 
@@ -188,17 +195,10 @@ namespace hj
 			(*iter)->ChangeCostume(static_cast<UINT>(nextCostume));
 	}
 
-	void PlayerScript::FakeGroundApply()
+	void PlayerScript::GroundMove()
 	{
 		if (mOwnerRigid)
-		{
-			float halfScaleY = GetOwner()->GetScaleY() * 0.5f;
-			float testY = GetOwner()->GetPositionY() - halfScaleY;
-			if (testY < 0.f && mOwnerRigid->GetVelocity().y <= 0.f)
-			{
-				GetOwner()->SetPositionY(halfScaleY);
-				mOwnerRigid->SetGround(true);
-			}
+		{			
 			eMoveDir moveDir = mOwnerRigid->GetMoveDir();
 			bool isGround = mOwnerRigid->IsGround();
 			ePlayerState state = ePlayerState::End;
@@ -252,6 +252,12 @@ namespace hj
 			mDashStartedTime = Time::AccTime();
 			mLastDashTrailTime = mDashStartedTime;
 			mbDash = true;
+
+			Vector3 bodyPos = GetOwner()->GetWorldPosition();
+			Vector2 mousePos = Input::GetMouseWorldPosition();
+
+			mDashDir = Vector3(mousePos.x, mousePos.y, 0.f) - bodyPos;
+			mDashDir.Normalize();
 		}
 
 	}
@@ -287,18 +293,14 @@ namespace hj
 			ActiveDashTrail();
 		}
 
-		Vector3 bodyPos = GetOwner()->GetWorldPosition();
-		Vector2 mousePos = Input::GetMouseWorldPosition();
-
-		Vector3 dir = Vector3(mousePos.x, mousePos.y, 0.f) - bodyPos;
-		dir.Normalize();
-
 		// 대쉬 로직
 		float fixedDelta = Time::FixedDeltaTime();
-		Vector2 nextPos = Vector2(dir.x * mDashPower * fixedDelta, dir.y * mDashPower * fixedDelta);
+		Vector2 nextPos = Vector2(mDashDir.x * mDashPower * fixedDelta, mDashDir.y * mDashPower * fixedDelta);
 
 		GetOwner()->AddPositionXY(nextPos);
 		mOwnerRigid->ClearVelocityY();
+		mOwnerRigid->SetVelocity(Vector2(mDashDir.x, mDashDir.y));
+		mOwnerRigid->AddForce(Vector2(mDashDir.x, mDashDir.y));
 		mOwnerRigid->SetGround(false);
 	}
 
@@ -318,31 +320,23 @@ namespace hj
 			return;
 
 		bool bIsGround = mOwnerRigid->IsGround();
-
-		static bool bCanInputSingleJump = true;
-		static bool bCanInputDoubleJump = false;
-		static bool bSingleJumping = false;
-		static bool bDoubleJumping = false;
-
-		static float singleJumpInputedTime = 0.f;
-
 		eKeyState jumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_JUMP]);
 
 		switch (jumpKeyState)
 		{
 		case DOWN:
 		{
-			if (bIsGround && bCanInputSingleJump)
+			if (bIsGround && mbCanInputSingleJump)
 			{
-				singleJumpInputedTime = Time::AccTime();
-				bCanInputSingleJump = false;
-				bSingleJumping = true;
+				mSingleJumpInputedTime = Time::AccTime();
+				mbCanInputSingleJump = false;
+				mbSingleJumping = true;
 				JumpStart();
 			}
-			else if (!bIsGround && bCanInputDoubleJump)
+			else if (!bIsGround && mbCanInputDoubleJump)
 			{
-				bCanInputDoubleJump = false;
-				bDoubleJumping = true;
+				mbCanInputDoubleJump = false;
+				mbDoubleJumping = true;
 				DoubleJumpStart();
 			}
 		}
@@ -350,51 +344,51 @@ namespace hj
 		// When Down Jump button is still Pushed
 		case PRESSED:
 		{
-			if (!bSingleJumping)
+			if (!mbSingleJumping)
 				break;
 
-			static float maxJumpInputTime = 0.2f;
 			float curAccTime = Time::AccTime();
-			if (singleJumpInputedTime + maxJumpInputTime > curAccTime)
+			if (mSingleJumpInputedTime + mMaxJumpInputTime > curAccTime)
 			{
 				Jumping();
 			}
 			else
 			{
-				bSingleJumping = false;
+				mbSingleJumping = false;
 			}
 		}
 		break;
 		// When Pressed Jump button released
 		case UP:
 		{
-			if (bSingleJumping)
+			if (mbSingleJumping)
 			{
-				bCanInputSingleJump = bIsGround;
-				bCanInputDoubleJump = !bIsGround;
-				bSingleJumping = false;
-				bDoubleJumping = false;
-				singleJumpInputedTime = 0.f;
+				mbCanInputSingleJump = bIsGround;
+				mbCanInputDoubleJump = !bIsGround;
+				mbSingleJumping = false;
+				mbDoubleJumping = false;
+				mSingleJumpInputedTime = 0.f;
 			}
-			else if (!bSingleJumping)
+			else if (!mbSingleJumping)
 			{
-				if (!bDoubleJumping) bCanInputDoubleJump = true;
+				if (!mbDoubleJumping) 
+					mbCanInputDoubleJump = true;
 
 			}
-			else if (bDoubleJumping)
+			else if (mbDoubleJumping)
 			{
-				bDoubleJumping = false;
+				mbDoubleJumping = false;
 			}
 		}
 		break;
 		// After Key Up
 		case NONE:
-			if (bIsGround && !bSingleJumping)
+			if (bIsGround && !mbSingleJumping)
 			{
-				bDoubleJumping = false;
-				bCanInputSingleJump = true;
-				bCanInputDoubleJump = false;
-				singleJumpInputedTime = 0.f;
+				mbDoubleJumping = false;
+				mbCanInputSingleJump = true;
+				mbCanInputDoubleJump = false;
+				mSingleJumpInputedTime = 0.f;
 			}
 			break;
 		default:

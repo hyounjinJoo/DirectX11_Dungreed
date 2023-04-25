@@ -43,14 +43,14 @@ namespace hj
 		mPlayerScript = AddComponent<PlayerScript>();
 		AddComponent<Collider2D>();
 
-		mCenterObj = object::Instantiate<GameObject>(eLayerType::Player, Vector3(30.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+		mCenterObj = object::Instantiate<GameObject>(eLayerType::PlayerHas, Vector3(30.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
 		mCenterObj->SetName(WIDE("플레이어 핸드 소켓"));
 		mCenterObj->GetTransform()->SetParent(GetTransform());
 		mCenterObj->AddComponent<Collider2D>();
 		ArmRotatorScript* armScript = mCenterObj->AddComponent<ArmRotatorScript>();
 		armScript->SetBody(this);
 
-		mLeftHand = object::Instantiate<PlayerHand>(eLayerType::Player, Vector3(GetScaleX() * 0.5f, 0.f, 1.f));
+		mLeftHand = object::Instantiate<PlayerHand>(eLayerType::PlayerHas, Vector3(GetScaleX() * 0.5f, 0.f, 1.f));
 		mLeftHand->GetTransform()->SetParent(mCenterObj->GetTransform());
 		mLeftHand->GetTransform()->SetInheritParentScale(false);
 
@@ -59,12 +59,12 @@ namespace hj
 
 		for (int iter = 0; iter < 2; ++iter)
 		{
-			FxPlayerDust* dust = object::Instantiate<FxPlayerDust>(eLayerType::Player, Vector3(0.f, 0.f, -0.1f));
+			FxPlayerDust* dust = object::Instantiate<FxPlayerDust>(eLayerType::PlayerHas, Vector3(0.f, 0.f, -0.1f));
 			dust->SetOwner(this);
 			mPlayerDusts.push_back(dust);
 		}
 
-		mPlayerJump = object::Instantiate<FxPlayerJump>(eLayerType::Player, Vector3(0.f, 0.f, -0.1f));
+		mPlayerJump = object::Instantiate<FxPlayerJump>(eLayerType::PlayerHas, Vector3(0.f, 0.f, -0.1f));
 		mPlayerJump->SetOwner(this);
 	}
 

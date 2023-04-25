@@ -125,6 +125,9 @@
     <Filter Include="Contents\GameObject\TitleScene\UI\Menu">
       <UniqueIdentifier>{7e941c7c-e64b-437b-b9ab-e74bfcb9ee46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\BaseObject\ColliderObject">
+      <UniqueIdentifier>{dedd4e86-47fb-4413-9abc-524bc96d061a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -238,6 +241,12 @@
     <ClInclude Include="hjTitleExit.h">
       <Filter>Contents\GameObject\TitleScene\UI\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="hjRoomRectFloor.h">
+      <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjRoomNotPass.h">
+      <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -349,6 +358,12 @@
     </ClCompile>
     <ClCompile Include="hjTitleExit.cpp">
       <Filter>Contents\GameObject\TitleScene\UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRoomRectFloor.cpp">
+      <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRoomNotPass.cpp">
+      <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

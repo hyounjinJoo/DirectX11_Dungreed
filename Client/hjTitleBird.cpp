@@ -8,6 +8,7 @@
 #include "hjAnimator.h"
 #include "hjAnimation.h"
 #include "hjCollider2D.h"
+#include "hjXmlParser.h"
 
 extern hj::Application application;
 namespace hj
@@ -26,28 +27,42 @@ namespace hj
 		Animator* animator = AddComponent<Animator>();
 		if (animator)
 		{
-			CREATE_ANIM(birdIdleAnimSheet, birdIdleFrame, material->GetTexture()->GetTexSize(), 0.0625f);
-			FRAME_ADD(birdIdleFrame, 240.f, 0.f, 48.f, 32.f,birdIdleAnimSheet);
-			FRAME_ADD(birdIdleFrame, 48.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
-			FRAME_ADD(birdIdleFrame, 96.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
-			FRAME_ADD(birdIdleFrame, 288.f, 0.f, 48.f, 32.f,birdIdleAnimSheet);
-			FRAME_ADD(birdIdleFrame, 336.f, 0.f, 48.f, 32.f,birdIdleAnimSheet);
-			FRAME_ADD(birdIdleFrame, 144.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
-			FRAME_ADD(birdIdleFrame, 0.f, 0.f, 48.f, 24.f,birdIdleAnimSheet);
-			FRAME_ADD(birdIdleFrame, 192.f, 0.f, 48.f, 28.f,birdIdleAnimSheet);
+			XmlParser* parser = new XmlParser;
+			std::wstring path = WIDE("01_Scene/00_TitleScene/TitleScene_01.xml");
+			bool parseResult = parser->LoadFile(path);
 
-			AUTO_OFFSET_CALC(birdIdleAnimSheet);
-
-			bool isCreate = animator->Create(WIDE("Bird_Idle"), material->GetTexture(), birdIdleAnimSheet, canvasSize, false);
-
-			if(isCreate)
+			if (parseResult)
 			{
-				animator->Play(L"Bird_Idle");
+				CREATE_ANIM(birdIdleAnimSheet, birdIdleFrame, material->GetTexture()->GetTexSize(), 0.0625f);
+				parseResult = parser->FindElem(WIDE("TextureAtlas"));
+				parseResult = parser->IntoElem();
+				Vector2 startPos = Vector2::Zero;
+				Vector2 size = Vector2::Zero;
+
+				for (int i = 0; i < 8; ++i)
+				{
+					parser->FindElem(WIDE("sprite"));
+					startPos.x = static_cast<float>(parser->GetIntAttribute(WIDE("x")));
+					startPos.y = static_cast<float>(parser->GetIntAttribute(WIDE("y")));
+					size.x = static_cast<float>(parser->GetIntAttribute(WIDE("w")));
+					size.y = static_cast<float>(parser->GetIntAttribute(WIDE("h")));
+					FRAME_ADD(birdIdleFrame, startPos.x, startPos.y, size.x, size.y, birdIdleAnimSheet);
+				}
+
+				AUTO_OFFSET_CALC(birdIdleAnimSheet);
+
+				bool isCreate = animator->Create(WIDE("Bird_Idle"), material->GetTexture(), birdIdleAnimSheet, canvasSize, false);
+
+				if (isCreate)
+				{
+					animator->Play(L"Bird_Idle");
+				}
 			}
+			delete parser;
 		}
 
 		Transform* tr = static_cast<Transform*>(mComponents[(UINT)eComponentType::Transform]);
-		tr->SetScale(Vector3(48.f, 32.f, 1.f));
+		tr->SetScale(Vector3(60.f, 40.f, 1.f));
 	}
 	
 	TitleBird::~TitleBird()

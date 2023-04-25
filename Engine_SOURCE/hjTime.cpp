@@ -29,14 +29,16 @@ namespace hj
         static const float targetDeltaTime = 1.f / targetFrameRate;
         static const float targetFixedFPS = 1.f / targetDeltaTime;
         HWND activeWindow = GetFocus();
-        if (activeWindow == application.GetHwnd())
-        {
+        //if (activeWindow == application.GetHwnd())
+        //{
             QueryPerformanceCounter(&mCurFrequency);
 
             float differenceInFrequancy
                 = static_cast<float>((mCurFrequency.QuadPart - mPrevFrequency.QuadPart));
 
             mActualDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
+            if (mActualDeltaTime > 1.f / targetFrameRate * 2.f)
+                mActualDeltaTime = 1.f / targetFrameRate * 2.f;
 			float FPS = 1.f / mActualDeltaTime;
             float FPSRatio = targetFixedFPS / FPS;
 			mFixedDeltaTime = mActualDeltaTime / FPSRatio;
@@ -44,12 +46,12 @@ namespace hj
                 mFixedDeltaTime = mActualDeltaTime;
             mAccTime += mActualDeltaTime; 
             mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
-        }
-        else
-        {
-            mActualDeltaTime = 0.f;
-            mFixedDeltaTime = 0.f;
-        }
+        //}
+        //else
+        //{
+        //    mActualDeltaTime = 0.f;
+        //    mFixedDeltaTime = 0.f;
+        //}
     }
 
     void Time::Render(HDC hdc)

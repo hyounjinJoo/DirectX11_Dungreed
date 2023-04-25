@@ -24,6 +24,8 @@ namespace hj
 		void UpdateShakedCameraPos();
 		Vector2 CalcRandomShakeValue();
 
+		bool mbFollowPlayer;
+
 		bool mbMoveLimit;
 		Vector4 mLimitLTRB;
 		Vector2 mRectHalfScale;

@@ -35,7 +35,7 @@ namespace hj
 			}
 		}
 
-		GameObject* testWeapon = object::Instantiate<GameObject>(eLayerType::Player);
+		GameObject* testWeapon = object::Instantiate<GameObject>(eLayerType::PlayerHas);
 		testWeapon->SetName(L"Test Weapon for Collision");
 
 		sr = testWeapon->AddComponent<SpriteRenderer>();
