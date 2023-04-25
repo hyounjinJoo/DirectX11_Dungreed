@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="22" height="21" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="1">
- <tileset firstgid="1" source="MapTile.tsx"/>
- <layer id="4" name="Tile Layer_0" width="22" height="21">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="22" height="22" tilewidth="80" tileheight="80" infinite="0" nextlayerid="3">
+ <tileset firstgid="1" source="Map5x.tsx"/>
+ <layer id="4" name="Tile Layer_0" width="22" height="22">
   <data>
    <tile gid="706"/>
    <tile gid="706"/>
@@ -465,9 +465,31 @@
    <tile gid="706"/>
    <tile gid="706"/>
    <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
+   <tile gid="706"/>
   </data>
  </layer>
- <layer id="6" name="Tile Layer_1" width="22" height="21">
+ <layer id="6" name="Tile Layer_1" width="22" height="22">
   <data>
    <tile/>
    <tile/>
@@ -931,9 +953,31 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
   </data>
  </layer>
- <layer id="5" name="Tile Layer_2" width="22" height="21">
+ <layer id="5" name="Tile Layer_2" width="22" height="22">
   <data>
    <tile/>
    <tile/>
@@ -1375,6 +1419,28 @@
    <tile gid="578"/>
    <tile gid="578"/>
    <tile gid="578"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>

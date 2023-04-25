@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3">
  <editorsettings>
   <chunksize width="64" height="64"/>
  </editorsettings>
  <tileset firstgid="1" source="MapTile.tsx"/>
- <layer id="1" name="Tile Layer_0" width="30" height="12">
+ <layer id="0" name="Tile Layer_0" width="30" height="12">
   <data>
    <tile gid="706"/>
    <tile gid="706"/>
@@ -368,7 +368,7 @@
    <tile gid="706"/>
   </data>
  </layer>
- <layer id="3" name="Tile Layer_1" width="30" height="12">
+ <layer id="1" name="Tile Layer_1" width="30" height="12">
   <data>
    <tile/>
    <tile/>

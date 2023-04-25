@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:b0955a8c9eb243af7d4fee7eff3e2fb8:bf2ac5000dda69719b567fc58740d3ed:74e9a8bd5c4dfc14ae4e57671e5be92b$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="TitleScene_01.png" width="960" height="1320">
+    <sprite n="Bird0" x="0" y="0" w="60" h="40" pX="0.5" pY="1"/>
+    <sprite n="Bird1" x="60" y="0" w="60" h="35" pX="0.5" pY="1"/>
+    <sprite n="Bird2" x="120" y="0" w="60" h="35" pX="0.5" pY="1"/>
+    <sprite n="Bird3" x="180" y="0" w="60" h="40" pX="0.5" pY="1"/>
+    <sprite n="Bird4" x="240" y="0" w="60" h="40" pX="0.5" pY="1"/>
+    <sprite n="Bird5" x="300" y="0" w="60" h="35" pX="0.5" pY="1"/>
+    <sprite n="Bird6" x="360" y="0" w="60" h="30" pX="0.5" pY="1"/>
+    <sprite n="Bird7" x="420" y="0" w="60" h="35" pX="0.5" pY="1"/>
+    <sprite n="Exit_KOR/ExitOff_Kor" x="570" y="0" w="95" h="50" pX="0.5" pY="1"/>
+    <sprite n="Exit_KOR/ExitOn_Kor" x="765" y="0" w="105" h="60" pX="0.5" pY="1"/>
+    <sprite n="Logo/MainLogo" x="0" y="945" w="780" h="375" pX="0.5" pY="1"/>
+    <sprite n="MidCloud0" x="0" y="120" w="225" h="110" pX="0.5" pY="1"/>
+    <sprite n="Option_KOR/OptionOff_Kor" x="480" y="0" w="90" h="50" pX="0.5" pY="1"/>
+    <sprite n="Option_KOR/OptionOn_Kor" x="665" y="0" w="100" h="60" pX="0.5" pY="1"/>
+    <sprite n="Play_KOR/PlayOff_Kor" x="0" y="60" w="170" h="50" pX="0.5" pY="1"/>
+    <sprite n="Play_KOR/PlayOn_Kor" x="345" y="60" w="180" h="60" pX="0.5" pY="1"/>
+    <sprite n="Slot/Base/SlotBase" x="0" y="230" w="480" h="715" pX="0.5" pY="1"/>
+    <sprite n="Slot/Base/SlotBase_Selected" x="480" y="230" w="480" h="715" pX="0.5" pY="1"/>
+    <sprite n="Slot/Delete/SlotDeleteButton" x="225" y="120" w="310" h="85" pX="0.5" pY="1"/>
+    <sprite n="Slot/Delete/SlotDeleteButtonWhite" x="535" y="120" w="310" h="85" pX="0.5" pY="1"/>
+    <sprite n="Slot/Text/SlotText1.EN" x="170" y="60" w="175" h="60" pX="0.5" pY="1"/>
+    <sprite n="Slot/Text/SlotText2.EN" x="525" y="60" w="190" h="60" pX="0.5" pY="1"/>
+    <sprite n="Slot/Text/SlotText3.EN" x="715" y="60" w="190" h="60" pX="0.5" pY="1"/>
+</TextureAtlas>

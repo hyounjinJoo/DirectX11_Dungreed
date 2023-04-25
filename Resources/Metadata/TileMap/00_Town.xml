@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="114" height="24" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="2">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="114" height="24" tilewidth="80" tileheight="80" infinite="0" nextlayerid="1">
  <tileset firstgid="1" source="MapTile.tsx"/>
- <layer id="1" name="Tile Layer 1" width="114" height="24">
+ <layer id="0" name="Tile Layer 1" width="114" height="24">
   <data>
    <tile/>
    <tile/>

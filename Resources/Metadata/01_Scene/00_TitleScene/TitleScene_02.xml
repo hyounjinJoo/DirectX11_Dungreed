@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
-<!-- $TexturePacker:SmartUpdate:cd9b9a533f75288374cbf2b6a21746e9:1cc6de16badb17c254f1fd133b922397:3d13bbf2aa1c04d37cbbbd83e5bb0ebc$ -->
+<!-- $TexturePacker:SmartUpdate:48328b0f520d6ba480836608e8ba0423:1cc6de16badb17c254f1fd133b922397:3d13bbf2aa1c04d37cbbbd83e5bb0ebc$ -->
 <!--Format:
 n  => name of the sprite
 x  => sprite x pos in texture
@@ -19,7 +19,7 @@ vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
 verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
 triangles  => sprite triangulation, 3 vertex indices per triangle
 -->
-<TextureAtlas imagePath="TitleScene_02.png" width="2560" height="1440">
-    <sprite n="BackCloud.png" x="0" y="0" w="2560" h="720" pX="0.5" pY="1"/>
-    <sprite n="FrontCloud.png" x="0" y="720" w="2284" h="720" pX="0.5" pY="1"/>
+<TextureAtlas imagePath="TitleScene_02.png" width="3200" height="1800">
+    <sprite n="BackCloud.png" x="0" y="0" w="3200" h="900" pX="0.5" pY="1"/>
+    <sprite n="FrontCloud.png" x="0" y="900" w="2855" h="900" pX="0.5" pY="1"/>
 </TextureAtlas>
