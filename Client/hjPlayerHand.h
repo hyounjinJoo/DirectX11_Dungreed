@@ -24,7 +24,13 @@ namespace hj
 		void SetHandOwner(class Player* owner);
 		void InverseHandPosZ(bool inverse);
 
-		Transform* GetWeaponTR() { return mWeapon->GetTransform(); }
+		Transform* GetWeaponTR() 
+		{
+			if (mWeapon)
+				return mWeapon->GetTransform();
+			else
+				return nullptr;
+		}
 
 	private:
 		void CreateAnimation();

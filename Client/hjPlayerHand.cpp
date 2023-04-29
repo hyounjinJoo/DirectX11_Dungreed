@@ -35,26 +35,8 @@ namespace hj
 			}
 		}
 
-		GameObject* testWeapon = object::Instantiate<GameObject>(eLayerType::PlayerHas);
-		testWeapon->SetName(L"Test Weapon for Collision");
+		//mWeapon = testWeapon;
 
-		sr = testWeapon->AddComponent<SpriteRenderer>();
-		material = MTRL_FIND("MTRL_Weapon_Legendary_DemonSword");
-		sr->SetMaterial(material);
-		sr->SetMesh(mesh);
-
-		Vector2 texSize = material->GetTexture()->GetTexSize();
-		texSize *= 4.f;
-		testWeapon->GetComponent<Transform>()->SetScale(Vector3(texSize.x, texSize.y, 1.f));
-		testWeapon->GetTransform()->AddPositionX(9.f);
-		testWeapon->GetTransform()->SetPositionY(texSize.y * 0.4f);
-		testWeapon->GetTransform()->SetParent(GetTransform());
-		//testMonster->GetTransform()->SetInheritParentPosition(true);
-		mWeapon = testWeapon;
-
-		Collider2D* collider = testWeapon->AddComponent<Collider2D>();
-		collider->SetType(eColliderType::Circle);
-		collider->SetSize(texSize);
 	}
 
 	PlayerHand::~PlayerHand()
@@ -151,7 +133,7 @@ namespace hj
 		mAnimator->Create(WIDE("charHand2"), texture, charHand2, canvasSize, false);
 		mAnimator->Create(WIDE("charHand3"), texture, charHand3, canvasSize, false);
 		mAnimator->Create(WIDE("charHand4"), texture, charHand4, canvasSize, false);
-		mAnimator->Create(WIDE("charHand5"), texture, charHand5, Vector2(16.f, 16.f), false);
+		mAnimator->Create(WIDE("charHand5"), texture, charHand5, Vector2(20.f, 20.f), false);
 		mAnimator->Create(WIDE("charHand6"), texture, charHand6, canvasSize, false);
 		mAnimator->Create(WIDE("charHand7"), texture, charHand7, canvasSize, false);
 		mAnimator->Play(WIDE("charHand5"), true);

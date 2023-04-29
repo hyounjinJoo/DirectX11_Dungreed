@@ -44,43 +44,31 @@ namespace hj
 			RotateArm(Input::GetMouseWorldPosition());
 		}
 
-		float handWorldZ = mGrappedObject->GetWorldPositionZ();
-		float handLocalZ = mGrappedObject->GetPositionZ();
-		float weaponWorldPosZ = 0.f;
-		if (dynamic_cast<PlayerHand*>(mGrappedObject))
+		if (nullptr == dynamic_cast<PlayerHand*>(mGrappedObject))
+			return;
+
+		if (nullptr == dynamic_cast<Player*>(mBody))
+			return;
+
+
+
+		bool isWeaponExist = false;
+		Transform* weaponTR = dynamic_cast<PlayerHand*>(mGrappedObject)->GetWeaponTR();
+		if (weaponTR)
 		{
-			Transform* weaponTR = dynamic_cast<PlayerHand*>(mGrappedObject)->GetWeaponTR();
-			weaponWorldPosZ = weaponTR->GetWorldPositionZ();
-
-			bool isBodyFlip = dynamic_cast<Player*>(mBody)->IsFlip();
-
-			if (isBodyFlip)
-			{
-				if (0.95f <= handWorldZ && handWorldZ <= 2.05f)
-				{
-					mGrappedObject->SetPositionZ(-1.f);
-					weaponTR->SetPositionZ(-1.f);
-				}
-				else
-				{
-					mGrappedObject->SetPositionZ(-2.f);
-					weaponTR->SetPositionZ(1.f);
-				}
-			}
-			else
-			{
-				if (0.95f <= handWorldZ && handWorldZ <= 2.05f)
-				{
-					mGrappedObject->SetPositionZ(1.f);
-					weaponTR->SetPositionZ(1.f);
-				}
-				else
-				{
-					mGrappedObject->SetPositionZ(2.f);
-					weaponTR->SetPositionZ(-1.f);
-				}
-			}
+			isWeaponExist = true;
 		}
+
+		const float handWorldZ = mGrappedObject->GetWorldPositionZ();
+		const bool isBodyFlip = dynamic_cast<Player*>(mBody)->IsFlip();
+		const bool isInRange = (0.95f <= handWorldZ && handWorldZ <= 2.05f);
+
+		const float objPosZ = isInRange ? ((isBodyFlip) ? -1.f : 1.f) : ((isBodyFlip) ? -2.f : 2.f);
+		const float weaponPosZ = isInRange ? ((isBodyFlip) ? -1.f : 1.f) : ((isBodyFlip) ? 1.f : -1.f);
+
+		mGrappedObject->SetPositionZ(objPosZ);
+		if (isWeaponExist)
+			weaponTR->SetPositionZ(weaponPosZ);
 	}
 
 	void ArmRotatorScript::Render()
