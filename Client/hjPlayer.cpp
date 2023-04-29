@@ -355,28 +355,28 @@ namespace hj
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animAdventurerIdle, frame, atlasTexSize, duration);
 
-		FRAME_ADD_OFFSETX(frame, 128.f, 0.f, 52.f, 76.f, 0.538462f, animAdventurerIdle);
-		FRAME_ADD_OFFSETX(frame, 180.f, 0.f, 52.f, 80.f, 0.538462f, animAdventurerIdle);
-		FRAME_ADD_OFFSETX(frame, 232.f, 0.f, 56.f, 80.f, 0.5f, animAdventurerIdle);
-		FRAME_ADD_OFFSETX(frame, 288.f, 0.f, 60.f, 76.f, 0.466667f, animAdventurerIdle);
-		FRAME_ADD_OFFSETX(frame, 348.f, 0.f, 56.f, 76.f, 0.5f, animAdventurerIdle);
+		FRAME_ADD_OFFSETX(frame, 160.f, 0.f, 65.f, 95.f, 0.538462f, animAdventurerIdle);
+		FRAME_ADD_OFFSETX(frame, 225.f, 0.f, 65.f, 100.f, 0.538462f, animAdventurerIdle);
+		FRAME_ADD_OFFSETX(frame, 290.f, 0.f, 70.f, 100.f, 0.5f, animAdventurerIdle);
+		FRAME_ADD_OFFSETX(frame, 360.f, 0.f, 75.f, 95.f, 0.466667f, animAdventurerIdle);
+		FRAME_ADD_OFFSETX(frame, 435.f, 0.f, 70.f, 95.f, 0.5f, animAdventurerIdle);
 
 		CREATE_SHEET(animAdventurerDie);
-		FRAME_ADD_OFFSETX(frame, 52.f, 0.f, 76.f, 48.f, 0.473684f, animAdventurerDie);
+		FRAME_ADD_OFFSETX(frame, 65.f, 0.f, 95.f, 60.f, 0.473684f, animAdventurerDie);
 
 		CREATE_SHEET(animAdventurerJump);
-		FRAME_ADD_OFFSETX(frame, 404.f, 0.f, 52.f, 76.f, 0.538462f, animAdventurerJump);
+		FRAME_ADD_OFFSETX(frame, 505.f, 0.f, 65.f, 95.f, 0.538462f, animAdventurerJump);
 
 		CREATE_SHEET(animAdventurerRun);
 		frame.duration = 1.f / 16.f;
-		FRAME_ADD_OFFSETX(frame, 456.f, 0.f, 68.f, 76.f, 0.470588f, animAdventurerRun);
-		FRAME_ADD_OFFSETX(frame, 524.f, 0.f, 56.f, 80.f, 0.5f, animAdventurerRun);
-		FRAME_ADD_OFFSETX(frame, 580.f, 0.f, 56.f, 80.f, 0.428571f, animAdventurerRun);
-		FRAME_ADD_OFFSETX(frame, 636.f, 0.f, 60.f, 76.f, 0.4f, animAdventurerRun);
-		FRAME_ADD_OFFSETX(frame, 696.f, 0.f, 60.f, 76.f, 0.4f, animAdventurerRun);
-		FRAME_ADD_OFFSETX(frame, 756.f, 0.f, 52.f, 80.f, 0.461538f, animAdventurerRun);
-		FRAME_ADD_OFFSETX(frame, 808.f, 0.f, 56.f, 80.f, 0.428571f, animAdventurerRun);
-		FRAME_ADD_OFFSETX(frame, 864.f, 0.f, 64.f, 76.f, 0.4375f, animAdventurerRun);
+		FRAME_ADD_OFFSETX(frame, 570.f, 0.f, 85.f, 95.f, 0.470588f, animAdventurerRun);
+		FRAME_ADD_OFFSETX(frame, 655.f, 0.f, 70.f, 100.f, 0.5f, animAdventurerRun);
+		FRAME_ADD_OFFSETX(frame, 725.f, 0.f, 70.f, 100.f, 0.428571f, animAdventurerRun);
+		FRAME_ADD_OFFSETX(frame, 795.f, 0.f, 75.f, 95.f, 0.4f, animAdventurerRun);
+		FRAME_ADD_OFFSETX(frame, 870.f, 0.f, 75.f, 95.f, 0.4f, animAdventurerRun);
+		FRAME_ADD_OFFSETX(frame, 945.f, 0.f, 65.f, 100.f, 0.461538f, animAdventurerRun);
+		FRAME_ADD_OFFSETX(frame, 0.f, 105.f, 70.f, 100.f, 0.428571f, animAdventurerRun);
+		FRAME_ADD_OFFSETX(frame, 70.f, 105.f, 80.f, 95.f, 0.4375f, animAdventurerRun);
 
 		AUTO_OFFSET_CALC_Y(animAdventurerIdle);
 		AUTO_OFFSET_CALC_Y(animAdventurerDie);
@@ -409,26 +409,26 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animAliceIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 0.f, 84.f, 52.f, 76.f,   0.5f, animAliceIdle);
-		FRAME_ADD_OFFSETX(frame, 52.f, 84.f, 52.f, 76.f,  0.5f, animAliceIdle);
-		FRAME_ADD_OFFSETX(frame, 104.f, 84.f, 52.f, 76.f, 0.5f, animAliceIdle);
-		FRAME_ADD_OFFSETX(frame, 156.f, 84.f, 52.f, 72.f, 0.5f, animAliceIdle);
-		FRAME_ADD_OFFSETX(frame, 208.f, 84.f, 52.f, 72.f, 0.5f, animAliceIdle);
+		FRAME_ADD_OFFSETX(frame, 245.f, 105.f, 65.f, 95.f, 0.5f, animAliceIdle);
+		FRAME_ADD_OFFSETX(frame, 310.f, 105.f, 65.f, 95.f, 0.5f, animAliceIdle);
+		FRAME_ADD_OFFSETX(frame, 375.f, 105.f, 65.f, 95.f, 0.5f, animAliceIdle);
+		FRAME_ADD_OFFSETX(frame, 440.f, 105.f, 65.f, 90.f, 0.5f, animAliceIdle);
+		FRAME_ADD_OFFSETX(frame, 505.f, 105.f, 65.f, 90.f, 0.5f, animAliceIdle);
 
 		CREATE_SHEET(animAliceDie);
-		FRAME_ADD_OFFSETX(frame, 928.f, 0.f, 76.f, 40.f, 0.473684f, animAliceDie);
+		FRAME_ADD_OFFSETX(frame, 150, 105.f, 95.f, 50.f, 0.473684f, animAliceDie);
 
 		CREATE_SHEET(animAliceJump);
-		FRAME_ADD_OFFSETX(frame, 260.f, 84.f, 52.f, 76.f, 0.461538f, animAliceJump);
+		FRAME_ADD_OFFSETX(frame, 570.f, 105.f, 65.f, 95.f, 0.461538f, animAliceJump);
 
 		CREATE_SHEET(animAliceRun);
 		frame.duration = 1.f / 12.f;
-		FRAME_ADD_OFFSETX(frame, 312.f, 84.f, 60.f, 68.f, 0.4f, animAliceRun);
-		FRAME_ADD_OFFSETX(frame, 372.f, 84.f, 60.f, 72.f, 0.4f, animAliceRun);
-		FRAME_ADD_OFFSETX(frame, 432.f, 84.f, 60.f, 72.f, 0.4f, animAliceRun);
-		FRAME_ADD_OFFSETX(frame, 492.f, 84.f, 60.f, 68.f, 0.4f, animAliceRun);
-		FRAME_ADD_OFFSETX(frame, 552.f, 84.f, 60.f, 72.f, 0.4f, animAliceRun);
-		FRAME_ADD_OFFSETX(frame, 612.f, 84.f, 60.f, 72.f, 0.4f, animAliceRun);
+		FRAME_ADD_OFFSETX(frame, 635.f, 105.f, 75.f, 85.f, 0.4f, animAliceRun);
+		FRAME_ADD_OFFSETX(frame, 710.f, 105.f, 75.f, 90.f, 0.4f, animAliceRun);
+		FRAME_ADD_OFFSETX(frame, 785.f, 105.f, 75.f, 90.f, 0.4f, animAliceRun);
+		FRAME_ADD_OFFSETX(frame, 860.f, 105.f, 75.f, 85.f, 0.4f, animAliceRun);
+		FRAME_ADD_OFFSETX(frame, 935.f, 105.f, 75.f, 90.f, 0.4f, animAliceRun);
+		FRAME_ADD_OFFSETX(frame, 0.f,   205.f, 75.f, 90.f, 0.4f, animAliceRun);
 
 		AUTO_OFFSET_CALC_Y(animAliceIdle);
 		AUTO_OFFSET_CALC_Y(animAliceDie);
@@ -461,28 +461,28 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animArmoredWarriorIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 80.f, 168.f, 52.f, 80.f,  0.461538f,animArmoredWarriorIdle);
-		FRAME_ADD_OFFSETX(frame, 132.f, 168.f, 52.f, 80.f, 0.461538f,animArmoredWarriorIdle);
-		FRAME_ADD_OFFSETX(frame, 184.f, 168.f, 52.f, 80.f, 0.461538f,animArmoredWarriorIdle);
-		FRAME_ADD_OFFSETX(frame, 236.f, 168.f, 52.f, 76.f, 0.461538f,animArmoredWarriorIdle);
-		FRAME_ADD_OFFSETX(frame, 288.f, 168.f, 52.f, 76.f, 0.461538f,animArmoredWarriorIdle);
+		FRAME_ADD_OFFSETX(frame, 535.f, 205.f, 65.f, 100.f,  0.461538f,animArmoredWarriorIdle);
+		FRAME_ADD_OFFSETX(frame, 600.f, 205.f, 65.f, 100.f, 0.461538f,animArmoredWarriorIdle);
+		FRAME_ADD_OFFSETX(frame, 665.f, 205.f, 65.f, 100.f, 0.461538f,animArmoredWarriorIdle);
+		FRAME_ADD_OFFSETX(frame, 730.f, 205.f, 65.f, 95.f, 0.461538f,animArmoredWarriorIdle);
+		FRAME_ADD_OFFSETX(frame, 795.f, 205.f, 65.f, 95.f, 0.461538f,animArmoredWarriorIdle);
 
 		CREATE_SHEET(animArmoredWarriorDie);
-		FRAME_ADD_OFFSETX(frame, 0.f, 168.f, 80.f, 44.f, 0.5f,animArmoredWarriorDie);
+		FRAME_ADD_OFFSETX(frame, 435.f, 205.f, 100.f, 55.f, 0.5f,animArmoredWarriorDie);
 
 		CREATE_SHEET(animArmoredWarriorJump);
-		FRAME_ADD_OFFSETX(frame, 340.f, 168.f, 52.f, 80.f, 0.538462f,animArmoredWarriorJump);
+		FRAME_ADD_OFFSETX(frame, 860.f, 205.f, 65.f, 100.f, 0.538462f,animArmoredWarriorJump);
 
 		CREATE_SHEET(animArmoredWarriorRun);
 		frame.duration = 1.f / 16.f;
-		FRAME_ADD_OFFSETX(frame, 392.f, 168.f, 56.f, 76.f, 0.571429f, animArmoredWarriorRun);
-		FRAME_ADD_OFFSETX(frame, 448.f, 168.f, 52.f, 80.f, 0.538462f, animArmoredWarriorRun);
-		FRAME_ADD_OFFSETX(frame, 500.f, 168.f, 48.f, 80.f, 0.5f, animArmoredWarriorRun);
-		FRAME_ADD_OFFSETX(frame, 548.f, 168.f, 48.f, 76.f, 0.5f, animArmoredWarriorRun);
-		FRAME_ADD_OFFSETX(frame, 596.f, 168.f, 48.f, 76.f, 0.5f, animArmoredWarriorRun);
-		FRAME_ADD_OFFSETX(frame, 644.f, 168.f, 48.f, 80.f, 0.5f, animArmoredWarriorRun);
-		FRAME_ADD_OFFSETX(frame, 692.f, 168.f, 52.f, 80.f, 0.538462f, animArmoredWarriorRun);
-		FRAME_ADD_OFFSETX(frame, 744.f, 168.f, 52.f, 76.f, 0.538462f,animArmoredWarriorRun);
+		FRAME_ADD_OFFSETX(frame, 925.f, 205.f, 70.f, 95.f, 0.571429f, animArmoredWarriorRun);
+		FRAME_ADD_OFFSETX(frame, 0.f, 310.f, 65.f, 100.f, 0.538462f, animArmoredWarriorRun);
+		FRAME_ADD_OFFSETX(frame, 65.f, 310.f, 60.f, 100.f, 0.5f, animArmoredWarriorRun);
+		FRAME_ADD_OFFSETX(frame, 125.f, 310.f, 60.f, 95.f, 0.5f, animArmoredWarriorRun);
+		FRAME_ADD_OFFSETX(frame, 185.f, 310.f, 60.f, 95.f, 0.5f, animArmoredWarriorRun);
+		FRAME_ADD_OFFSETX(frame, 245.f, 310.f, 60.f, 100.f, 0.5f, animArmoredWarriorRun);
+		FRAME_ADD_OFFSETX(frame, 305.f, 310.f, 65.f, 100.f, 0.538462f, animArmoredWarriorRun);
+		FRAME_ADD_OFFSETX(frame, 370.f, 310.f, 65.f, 95.f, 0.538462f,animArmoredWarriorRun);
 
 		AUTO_OFFSET_CALC_Y(animArmoredWarriorIdle);
 		AUTO_OFFSET_CALC_Y(animArmoredWarriorDie);
@@ -515,26 +515,26 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animCriminalSilhouetteIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 872.f, 168.f, 44.f, 76.f, 0.454545f, animCriminalSilhouetteIdle);
-		FRAME_ADD_OFFSETX(frame, 916.f, 168.f, 44.f, 76.f, 0.454545f, animCriminalSilhouetteIdle);
-		FRAME_ADD_OFFSETX(frame, 960.f, 168.f, 44.f, 76.f, 0.454545f, animCriminalSilhouetteIdle);
-		FRAME_ADD_OFFSETX(frame, 0.f, 248.f, 44.f, 72.f, 0.454545f, animCriminalSilhouetteIdle);
-		FRAME_ADD_OFFSETX(frame, 44.f, 248.f, 44.f, 72.f, 0.454545f,animCriminalSilhouetteIdle);
+		FRAME_ADD_OFFSETX(frame, 530.f, 310.f, 55.f, 95.f, 0.454545f, animCriminalSilhouetteIdle);
+		FRAME_ADD_OFFSETX(frame, 585.f, 310.f, 55.f, 95.f, 0.454545f, animCriminalSilhouetteIdle);
+		FRAME_ADD_OFFSETX(frame, 640.f, 310.f, 55.f, 95.f, 0.454545f, animCriminalSilhouetteIdle);
+		FRAME_ADD_OFFSETX(frame, 695.f, 310.f, 55.f, 90.f, 0.454545f, animCriminalSilhouetteIdle);
+		FRAME_ADD_OFFSETX(frame, 750.f, 310.f, 55.f, 90.f, 0.454545f,animCriminalSilhouetteIdle);
 
 		CREATE_SHEET(animCriminalSilhouetteDie);
-		FRAME_ADD_OFFSETX(frame, 796.f, 168.f, 76.f, 40.f, 0.473684f, animCriminalSilhouetteDie);
+		FRAME_ADD_OFFSETX(frame, 435.f, 310.f, 95.f, 50.f, 0.473684f, animCriminalSilhouetteDie);
 
 		CREATE_SHEET(animCriminalSilhouetteJump);
-		FRAME_ADD_OFFSETX(frame, 88.f, 248.f, 48.f, 76.f, 0.416667f,animCriminalSilhouetteJump);
+		FRAME_ADD_OFFSETX(frame, 805.f, 310.f, 60.f, 95.f, 0.416667f,animCriminalSilhouetteJump);
 
 		CREATE_SHEET(animCriminalSilhouetteRun);
 		frame.duration = 1.f / 12.f;
-		FRAME_ADD_OFFSETX(frame, 136.f, 248.f, 52.f, 72.f, 0.384615f, animCriminalSilhouetteRun);
-		FRAME_ADD_OFFSETX(frame, 188.f, 248.f, 48.f, 76.f, 0.333333f, animCriminalSilhouetteRun);
-		FRAME_ADD_OFFSETX(frame, 236.f, 248.f, 48.f, 76.f, 0.333333f, animCriminalSilhouetteRun);
-		FRAME_ADD_OFFSETX(frame, 284.f, 248.f, 48.f, 72.f, 0.333333f, animCriminalSilhouetteRun);
-		FRAME_ADD_OFFSETX(frame, 332.f, 248.f, 48.f, 76.f, 0.333333f, animCriminalSilhouetteRun);
-		FRAME_ADD_OFFSETX(frame, 380.f, 248.f, 48.f, 76.f, 0.333333f,animCriminalSilhouetteRun);
+		FRAME_ADD_OFFSETX(frame, 865.f, 310.f, 65.f, 90.f, 0.384615f, animCriminalSilhouetteRun);
+		FRAME_ADD_OFFSETX(frame, 930.f, 310.f, 60.f, 95.f, 0.333333f, animCriminalSilhouetteRun);
+		FRAME_ADD_OFFSETX(frame, 0.f,   410.f, 60.f, 95.f, 0.333333f, animCriminalSilhouetteRun);
+		FRAME_ADD_OFFSETX(frame, 60.f,  410.f, 60.f, 90.f, 0.333333f, animCriminalSilhouetteRun);
+		FRAME_ADD_OFFSETX(frame, 120.f, 410.f, 60.f, 95.f, 0.333333f, animCriminalSilhouetteRun);
+		FRAME_ADD_OFFSETX(frame, 180.f, 410.f, 60.f, 95.f, 0.333333f,animCriminalSilhouetteRun);
 
 		AUTO_OFFSET_CALC_Y(animCriminalSilhouetteIdle);
 		AUTO_OFFSET_CALC_Y(animCriminalSilhouetteDie);
@@ -567,28 +567,28 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animDevilSwordsManIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 512.f, 248.f, 56.f, 84.f, 0.5f, animDevilSwordsManIdle);
-		FRAME_ADD_OFFSETX(frame, 568.f, 248.f, 56.f, 80.f, 0.5f, animDevilSwordsManIdle);
-		FRAME_ADD_OFFSETX(frame, 624.f, 248.f, 56.f, 80.f, 0.5f, animDevilSwordsManIdle);
-		FRAME_ADD_OFFSETX(frame, 680.f, 248.f, 56.f, 80.f, 0.5f, animDevilSwordsManIdle);
-		FRAME_ADD_OFFSETX(frame, 736.f, 248.f, 56.f, 84.f, 0.5f,animDevilSwordsManIdle);
+		FRAME_ADD_OFFSETX(frame, 345.f, 410.f, 70.f, 105.f, 0.5f, animDevilSwordsManIdle);
+		FRAME_ADD_OFFSETX(frame, 415.f, 410.f, 70.f, 100.f, 0.5f, animDevilSwordsManIdle);
+		FRAME_ADD_OFFSETX(frame, 485.f, 410.f, 70.f, 100.f, 0.5f, animDevilSwordsManIdle);
+		FRAME_ADD_OFFSETX(frame, 555.f, 410.f, 70.f, 100.f, 0.5f, animDevilSwordsManIdle);
+		FRAME_ADD_OFFSETX(frame, 625.f, 410.f, 70.f, 105.f, 0.5f,animDevilSwordsManIdle);
 
 		CREATE_SHEET(animDevilSwordsManDie);
-		FRAME_ADD_OFFSETX(frame, 428.f, 248.f, 84.f, 48.f, 0.47619f,animDevilSwordsManDie);
+		FRAME_ADD_OFFSETX(frame, 240.f, 410.f, 105.f, 60.f, 0.47619f,animDevilSwordsManDie);
 
 		CREATE_SHEET(animDevilSwordsManJump);
-		FRAME_ADD_OFFSETX(frame, 792.f, 248.f, 56.f, 84.f, 0.5f,animDevilSwordsManJump);
+		FRAME_ADD_OFFSETX(frame, 695.f, 410.f, 70.f, 105.f, 0.5f,animDevilSwordsManJump);
 
 		CREATE_SHEET(animDevilSwordsManRun);
 		frame.duration = 1.f / 16.f;
-		FRAME_ADD_OFFSETX(frame, 848.f, 248.f, 68.f, 76.f, 0.470588f, animDevilSwordsManRun);
-		FRAME_ADD_OFFSETX(frame, 916.f, 248.f, 64.f, 76.f, 0.4375f, animDevilSwordsManRun);
-		FRAME_ADD_OFFSETX(frame, 0.f, 332.f, 56.f, 80.f, 0.357143f, animDevilSwordsManRun);
-		FRAME_ADD_OFFSETX(frame, 56.f, 332.f, 56.f, 76.f, 0.357143f, animDevilSwordsManRun);
-		FRAME_ADD_OFFSETX(frame, 112.f, 332.f, 60.f, 76.f, 0.4f, animDevilSwordsManRun);
-		FRAME_ADD_OFFSETX(frame, 172.f, 332.f, 60.f, 76.f, 0.4f, animDevilSwordsManRun);
-		FRAME_ADD_OFFSETX(frame, 232.f, 332.f, 60.f, 80.f, 0.4f, animDevilSwordsManRun);
-		FRAME_ADD_OFFSETX(frame, 292.f, 332.f, 64.f, 76.f, 0.4375f,animDevilSwordsManRun);
+		FRAME_ADD_OFFSETX(frame, 765.f, 410.f, 85.f, 95.f, 0.470588f, animDevilSwordsManRun);
+		FRAME_ADD_OFFSETX(frame, 850.f, 410.f, 80.f, 95.f, 0.4375f, animDevilSwordsManRun);
+		FRAME_ADD_OFFSETX(frame, 930.f, 410.f, 70.f, 100.f, 0.357143f, animDevilSwordsManRun);
+		FRAME_ADD_OFFSETX(frame, 0.f,   515.f, 70.f, 95.f, 0.357143f, animDevilSwordsManRun);
+		FRAME_ADD_OFFSETX(frame, 70.f,  515.f, 75.f, 95.f, 0.4f, animDevilSwordsManRun);
+		FRAME_ADD_OFFSETX(frame, 145.f, 515.f, 75.f, 95.f, 0.4f, animDevilSwordsManRun);
+		FRAME_ADD_OFFSETX(frame, 220.f, 515.f, 75.f, 100.f, 0.4f, animDevilSwordsManRun);
+		FRAME_ADD_OFFSETX(frame, 295.f, 515.f, 80.f, 95.f, 0.4375f,animDevilSwordsManRun);
 
 		AUTO_OFFSET_CALC_Y(animDevilSwordsManIdle);
 		AUTO_OFFSET_CALC_Y(animDevilSwordsManDie);
@@ -621,28 +621,28 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animFatsoIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 428.f, 332.f, 64.f, 72.f, 0.5f, animFatsoIdle);
-		FRAME_ADD_OFFSETX(frame, 492.f, 332.f, 64.f, 72.f, 0.5f, animFatsoIdle);
-		FRAME_ADD_OFFSETX(frame, 556.f, 332.f, 64.f, 72.f, 0.5f, animFatsoIdle);
-		FRAME_ADD_OFFSETX(frame, 620.f, 332.f, 60.f, 68.f, 0.533333f, animFatsoIdle);
-		FRAME_ADD_OFFSETX(frame, 680.f, 332.f, 60.f, 68.f, 0.533333f,animFatsoIdle);
+		FRAME_ADD_OFFSETX(frame, 465.f, 515.f, 80.f, 90.f, 0.5f, animFatsoIdle);
+		FRAME_ADD_OFFSETX(frame, 545.f, 515.f, 80.f, 90.f, 0.5f, animFatsoIdle);
+		FRAME_ADD_OFFSETX(frame, 625.f, 515.f, 80.f, 90.f, 0.5f, animFatsoIdle);
+		FRAME_ADD_OFFSETX(frame, 705.f, 515.f, 75.f, 85.f, 0.533333f, animFatsoIdle);
+		FRAME_ADD_OFFSETX(frame, 780.f, 515.f, 75.f, 85.f, 0.533333f,animFatsoIdle);
 
 		CREATE_SHEET(animFatsoDie);
-		FRAME_ADD_OFFSETX(frame, 356.f, 332.f, 72.f, 60.f, 0.5f,animFatsoDie);
+		FRAME_ADD_OFFSETX(frame, 375.f, 515.f, 90.f, 75.f, 0.5f,animFatsoDie);
 
 		CREATE_SHEET(animFatsoJump);
-		FRAME_ADD_OFFSETX(frame, 740.f, 332.f, 64.f, 72.f, 0.5f,animFatsoJump);
+		FRAME_ADD_OFFSETX(frame, 855.f, 515.f, 75.f, 85.f, 0.5f,animFatsoJump);
 
 		CREATE_SHEET(animFatsoRun);
 		frame.duration = 1.f / 16.f;
-		FRAME_ADD_OFFSETX(frame, 804.f, 332.f, 64.f, 72.f, 0.5f, animFatsoRun);
-		FRAME_ADD_OFFSETX(frame, 868.f, 332.f, 64.f, 76.f, 0.5f, animFatsoRun);
-		FRAME_ADD_OFFSETX(frame, 932.f, 332.f, 64.f, 72.f, 0.5f, animFatsoRun);
-		FRAME_ADD_OFFSETX(frame, 0.f, 412.f, 64.f, 68.f, 0.5f, animFatsoRun);
-		FRAME_ADD_OFFSETX(frame, 64.f, 412.f, 64.f, 72.f, 0.5f, animFatsoRun);
-		FRAME_ADD_OFFSETX(frame, 128.f, 412.f, 64.f, 76.f, 0.5f, animFatsoRun);
-		FRAME_ADD_OFFSETX(frame, 192.f, 412.f, 64.f, 72.f, 0.5f, animFatsoRun);
-		FRAME_ADD_OFFSETX(frame, 256.f, 412.f, 64.f, 68.f, 0.5f,animFatsoRun);
+		FRAME_ADD_OFFSETX(frame, 935.f, 515.f, 80.f, 90.f, 0.5f, animFatsoRun);
+		FRAME_ADD_OFFSETX(frame, 0.f,   615.f, 80.f, 95.f, 0.5f, animFatsoRun);
+		FRAME_ADD_OFFSETX(frame, 80.f,  615.f, 80.f, 90.f, 0.5f, animFatsoRun);
+		FRAME_ADD_OFFSETX(frame, 160.f, 615.f, 80.f, 85.f, 0.5f, animFatsoRun);
+		FRAME_ADD_OFFSETX(frame, 240.f, 615.f, 80.f, 90.f, 0.5f, animFatsoRun);
+		FRAME_ADD_OFFSETX(frame, 320.f, 615.f, 80.f, 95.f, 0.5f, animFatsoRun);
+		FRAME_ADD_OFFSETX(frame, 400.f, 615.f, 80.f, 90.f, 0.5f, animFatsoRun);
+		FRAME_ADD_OFFSETX(frame, 480.f, 615.f, 80.f, 85.f, 0.5f,animFatsoRun);
 
 		AUTO_OFFSET_CALC_Y(animFatsoIdle);
 		AUTO_OFFSET_CALC_Y(animFatsoDie);
@@ -675,28 +675,28 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animHumanLasleyIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 564.f, 412.f, 56.f, 80.f, 0.5f, animHumanLasleyIdle);
-		FRAME_ADD_OFFSETX(frame, 620.f, 412.f, 56.f, 80.f, 0.5f, animHumanLasleyIdle);
-		FRAME_ADD_OFFSETX(frame, 676.f, 412.f, 56.f, 80.f, 0.5f, animHumanLasleyIdle);
-		FRAME_ADD_OFFSETX(frame, 732.f, 412.f, 60.f, 76.f, 0.533333f, animHumanLasleyIdle);
-		FRAME_ADD_OFFSETX(frame, 792.f, 412.f, 56.f, 76.f, 0.5f, animHumanLasleyIdle);
+		FRAME_ADD_OFFSETX(frame, 865.f, 615.f, 70.f, 100.f, 0.5f, animHumanLasleyIdle);
+		FRAME_ADD_OFFSETX(frame, 935.f, 615.f, 70.f, 100.f, 0.5f, animHumanLasleyIdle);
+		FRAME_ADD_OFFSETX(frame, 0.f, 715.f, 70.f, 100.f, 0.5f, animHumanLasleyIdle);
+		FRAME_ADD_OFFSETX(frame, 70.f, 715.f, 75.f, 95.f, 0.533333f, animHumanLasleyIdle);
+		FRAME_ADD_OFFSETX(frame, 145.f, 715.f, 70.f, 95.f, 0.5f, animHumanLasleyIdle);
 
 		CREATE_SHEET(animHumanLasleyDie);
-		FRAME_ADD_OFFSETX(frame, 484.f, 412.f, 80.f, 44.f, 0.5f, animHumanLasleyDie);
+		FRAME_ADD_OFFSETX(frame, 765.f, 615.f, 100.f, 55.f, 0.5f, animHumanLasleyDie);
 
 		CREATE_SHEET(animHumanLasleyJump);
-		FRAME_ADD_OFFSETX(frame, 848.f, 412.f, 56.f, 80.f, 0.5f, animHumanLasleyJump);
+		FRAME_ADD_OFFSETX(frame, 215.f, 715.f, 70.f, 100.f, 0.5f, animHumanLasleyJump);
 
 		CREATE_SHEET(animHumanLasleyRun);
 		frame.duration = 1.f / 16.f;
-		FRAME_ADD_OFFSETX(frame, 904.f, 412.f, 68.f, 76.f, 0.529412f, animHumanLasleyRun);
-		FRAME_ADD_OFFSETX(frame, 0.f, 492.f, 64.f, 80.f, 0.5f, animHumanLasleyRun);
-		FRAME_ADD_OFFSETX(frame, 64.f, 492.f, 60.f, 80.f, 0.466667f, animHumanLasleyRun);
-		FRAME_ADD_OFFSETX(frame, 124.f, 492.f, 60.f, 76.f, 0.466667f, animHumanLasleyRun);
-		FRAME_ADD_OFFSETX(frame, 184.f, 492.f, 64.f, 76.f, 0.5f, animHumanLasleyRun);
-		FRAME_ADD_OFFSETX(frame, 248.f, 492.f, 64.f, 80.f, 0.5f, animHumanLasleyRun);
-		FRAME_ADD_OFFSETX(frame, 312.f, 492.f, 60.f, 80.f, 0.466667f, animHumanLasleyRun);
-		FRAME_ADD_OFFSETX(frame, 372.f, 492.f, 64.f, 76.f, 0.5f, animHumanLasleyRun);
+		FRAME_ADD_OFFSETX(frame, 285.f, 715.f, 85.f, 95.f, 0.529412f, animHumanLasleyRun);
+		FRAME_ADD_OFFSETX(frame, 370.f, 715.f, 80.f, 100.f, 0.5f, animHumanLasleyRun);
+		FRAME_ADD_OFFSETX(frame, 450.f, 715.f, 75.f, 100.f, 0.466667f, animHumanLasleyRun);
+		FRAME_ADD_OFFSETX(frame, 525.f, 715.f, 75.f, 95.f, 0.466667f, animHumanLasleyRun);
+		FRAME_ADD_OFFSETX(frame, 600.f, 715.f, 80.f, 95.f, 0.5f, animHumanLasleyRun);
+		FRAME_ADD_OFFSETX(frame, 680.f, 715.f, 80.f, 100.f, 0.5f, animHumanLasleyRun);
+		FRAME_ADD_OFFSETX(frame, 760.f, 715.f, 75.f, 100.f, 0.466667f, animHumanLasleyRun);
+		FRAME_ADD_OFFSETX(frame, 835.f, 715.f, 80.f, 95.f, 0.5f, animHumanLasleyRun);
 
 		AUTO_OFFSET_CALC_Y(animHumanLasleyIdle);
 		AUTO_OFFSET_CALC_Y(animHumanLasleyDie);
@@ -729,26 +729,26 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animIkinaBearIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 516.f, 492.f, 60.f, 80.f, 0.533333f, animIkinaBearIdle);
-		FRAME_ADD_OFFSETX(frame, 576.f, 492.f, 60.f, 84.f, 0.533333f, animIkinaBearIdle);
-		FRAME_ADD_OFFSETX(frame, 636.f, 492.f, 60.f, 84.f, 0.533333f, animIkinaBearIdle);
-		FRAME_ADD_OFFSETX(frame, 696.f, 492.f, 60.f, 80.f, 0.533333f, animIkinaBearIdle);
-		FRAME_ADD_OFFSETX(frame, 756.f, 492.f, 60.f, 80.f, 0.533333f, animIkinaBearIdle);
+		FRAME_ADD_OFFSETX(frame, 0.f, 815.f, 75.f, 100.f, 0.533333f, animIkinaBearIdle);
+		FRAME_ADD_OFFSETX(frame, 75.f, 815.f, 75.f, 105.f, 0.533333f, animIkinaBearIdle);
+		FRAME_ADD_OFFSETX(frame, 150.f, 815.f, 75.f, 105.f, 0.533333f, animIkinaBearIdle);
+		FRAME_ADD_OFFSETX(frame, 225.f, 815.f, 75.f, 100.f, 0.533333f, animIkinaBearIdle);
+		FRAME_ADD_OFFSETX(frame, 300.f, 815.f, 75.f, 100.f, 0.533333f, animIkinaBearIdle);
 
 		CREATE_SHEET(animIkinaBearDie);
-		FRAME_ADD_OFFSETX(frame, 436.f, 492.f, 80.f, 48.f, 0.5f, animIkinaBearDie);
+		FRAME_ADD_OFFSETX(frame, 915.f, 715.f, 100.f, 60.f, 0.5f, animIkinaBearDie);
 
 		CREATE_SHEET(animIkinaBearJump);
-		FRAME_ADD_OFFSETX(frame, 816.f, 492.f, 60.f, 80.f, 0.533333f, animIkinaBearJump);
+		FRAME_ADD_OFFSETX(frame, 375.f, 815.f, 75.f, 100.f, 0.533333f, animIkinaBearJump);
 
 		CREATE_SHEET(animIkinaBearRun);
 		frame.duration = 1.f / 12.f;
-		FRAME_ADD_OFFSETX(frame, 876.f, 492.f, 60.f, 80.f, 0.466667f, animIkinaBearRun);
-		FRAME_ADD_OFFSETX(frame, 936.f, 492.f, 60.f, 80.f, 0.466667f, animIkinaBearRun);
-		FRAME_ADD_OFFSETX(frame, 0.f, 576.f, 60.f, 84.f, 0.466667f, animIkinaBearRun);
-		FRAME_ADD_OFFSETX(frame, 60.f, 576.f, 60.f, 80.f, 0.466667f, animIkinaBearRun);
-		FRAME_ADD_OFFSETX(frame, 120.f, 576.f, 60.f, 80.f, 0.466667f, animIkinaBearRun);
-		FRAME_ADD_OFFSETX(frame, 180.f, 576.f, 60.f, 84.f, 0.466667f, animIkinaBearRun);
+		FRAME_ADD_OFFSETX(frame, 450.f, 815.f, 75.f, 100.f, 0.466667f, animIkinaBearRun);
+		FRAME_ADD_OFFSETX(frame, 525.f, 815.f, 75.f, 100.f, 0.466667f, animIkinaBearRun);
+		FRAME_ADD_OFFSETX(frame, 600.f, 815.f, 75.f, 105.f, 0.466667f, animIkinaBearRun);
+		FRAME_ADD_OFFSETX(frame, 675.f, 815.f, 75.f, 100.f, 0.466667f, animIkinaBearRun);
+		FRAME_ADD_OFFSETX(frame, 750.f, 815.f, 75.f, 100.f, 0.466667f, animIkinaBearRun);
+		FRAME_ADD_OFFSETX(frame, 825.f, 815.f, 75.f, 105.f, 0.466667f, animIkinaBearRun);
 
 		AUTO_OFFSET_CALC_Y(animIkinaBearIdle);
 		AUTO_OFFSET_CALC_Y(animIkinaBearDie);
@@ -781,28 +781,28 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animKingOfPickaxesIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 320.f, 576.f, 56.f, 80.f, 0.5f, animKingOfPickaxesIdle);
-		FRAME_ADD_OFFSETX(frame, 376.f, 576.f, 56.f, 84.f, 0.5f, animKingOfPickaxesIdle);
-		FRAME_ADD_OFFSETX(frame, 432.f, 576.f, 56.f, 84.f, 0.5f, animKingOfPickaxesIdle);
-		FRAME_ADD_OFFSETX(frame, 488.f, 576.f, 56.f, 80.f, 0.5f, animKingOfPickaxesIdle);
-		FRAME_ADD_OFFSETX(frame, 544.f, 576.f, 56.f, 76.f, 0.5f, animKingOfPickaxesIdle);
+		FRAME_ADD_OFFSETX(frame, 0.f, 920.f, 70.f, 100.f, 0.5f, animKingOfPickaxesIdle);
+		FRAME_ADD_OFFSETX(frame, 70.f, 920.f, 70.f, 105.f, 0.5f, animKingOfPickaxesIdle);
+		FRAME_ADD_OFFSETX(frame, 140.f, 920.f, 70.f, 105.f, 0.5f, animKingOfPickaxesIdle);
+		FRAME_ADD_OFFSETX(frame, 210.f, 920.f, 70.f, 100.f, 0.5f, animKingOfPickaxesIdle);
+		FRAME_ADD_OFFSETX(frame, 280.f, 920.f, 70.f, 95.f, 0.5f, animKingOfPickaxesIdle);
 
 		CREATE_SHEET(animKingOfPickaxesDie);
-		FRAME_ADD_OFFSETX(frame, 240.f, 576.f, 80.f, 48.f, 0.5f, animKingOfPickaxesDie);
+		FRAME_ADD_OFFSETX(frame, 900.f, 815.f, 100.f, 60.f, 0.5f, animKingOfPickaxesDie);
 
 		CREATE_SHEET(animKingOfPickaxesJump);
-		FRAME_ADD_OFFSETX(frame, 600.f, 576.f, 56.f, 80.f, 0.5f, animKingOfPickaxesJump);
+		FRAME_ADD_OFFSETX(frame, 350.f, 920.f, 70.f, 100.f, 0.5f, animKingOfPickaxesJump);
 
 		CREATE_SHEET(animKingOfPickaxesRun);
 		frame.duration = 1.f / 16.f;
-		FRAME_ADD_OFFSETX(frame, 656.f, 576.f, 60.f, 80.f, 0.533333f, animKingOfPickaxesRun);
-		FRAME_ADD_OFFSETX(frame, 716.f, 576.f, 56.f, 80.f, 0.5f, animKingOfPickaxesRun);
-		FRAME_ADD_OFFSETX(frame, 772.f, 576.f, 56.f, 84.f, 0.5f, animKingOfPickaxesRun);
-		FRAME_ADD_OFFSETX(frame, 828.f, 576.f, 56.f, 80.f, 0.5f, animKingOfPickaxesRun);
-		FRAME_ADD_OFFSETX(frame, 884.f, 576.f, 56.f, 80.f, 0.5f, animKingOfPickaxesRun);
-		FRAME_ADD_OFFSETX(frame, 940.f, 576.f, 56.f, 80.f, 0.5f, animKingOfPickaxesRun);
-		FRAME_ADD_OFFSETX(frame, 0.f, 660.f, 56.f, 84.f, 0.5f, animKingOfPickaxesRun);
-		FRAME_ADD_OFFSETX(frame, 56.f, 660.f, 56.f, 80.f, 0.5f, animKingOfPickaxesRun);
+		FRAME_ADD_OFFSETX(frame, 420.f, 920.f, 75.f, 100.f, 0.533333f, animKingOfPickaxesRun);
+		FRAME_ADD_OFFSETX(frame, 495.f, 920.f, 70.f, 100.f, 0.5f, animKingOfPickaxesRun);
+		FRAME_ADD_OFFSETX(frame, 565.f, 920.f, 70.f, 105.f, 0.5f, animKingOfPickaxesRun);
+		FRAME_ADD_OFFSETX(frame, 635.f, 920.f, 70.f, 100.f, 0.5f, animKingOfPickaxesRun);
+		FRAME_ADD_OFFSETX(frame, 705.f, 920.f, 70.f, 100.f, 0.5f, animKingOfPickaxesRun);
+		FRAME_ADD_OFFSETX(frame, 775.f, 920.f, 70.f, 100.f, 0.5f, animKingOfPickaxesRun);
+		FRAME_ADD_OFFSETX(frame, 845.f, 920.f, 70.f, 105.f, 0.5f, animKingOfPickaxesRun);
+		FRAME_ADD_OFFSETX(frame, 915.f, 920.f, 70.f, 100.f, 0.5f, animKingOfPickaxesRun);
 
 		AUTO_OFFSET_CALC_Y(animKingOfPickaxesIdle);
 		AUTO_OFFSET_CALC_Y(animKingOfPickaxesDie);
@@ -835,26 +835,26 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animLotusIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 196.f, 660.f, 60.f, 76.f, 0.533333f, animLotusIdle);
-		FRAME_ADD_OFFSETX(frame, 256.f, 660.f, 60.f, 80.f, 0.533333f, animLotusIdle);
-		FRAME_ADD_OFFSETX(frame, 316.f, 660.f, 60.f, 80.f, 0.533333f, animLotusIdle);
-		FRAME_ADD_OFFSETX(frame, 376.f, 660.f, 60.f, 76.f, 0.533333f, animLotusIdle);
-		FRAME_ADD_OFFSETX(frame, 436.f, 660.f, 60.f, 76.f, 0.533333f, animLotusIdle);
+		FRAME_ADD_OFFSETX(frame, 105.f, 1025.f, 75.f, 95.f, 0.533333f, animLotusIdle);
+		FRAME_ADD_OFFSETX(frame, 180.f, 1025.f, 75.f, 100.f, 0.533333f, animLotusIdle);
+		FRAME_ADD_OFFSETX(frame, 255.f, 1025.f, 75.f, 100.f, 0.533333f, animLotusIdle);
+		FRAME_ADD_OFFSETX(frame, 330.f, 1025.f, 75.f, 95.f, 0.533333f, animLotusIdle);
+		FRAME_ADD_OFFSETX(frame, 405.f, 1025.f, 75.f, 95.f, 0.533333f, animLotusIdle);
 
 		CREATE_SHEET(animLotusDie);
-		FRAME_ADD_OFFSETX(frame, 112.f, 660.f, 84.f, 40.f, 0.428571f, animLotusDie);
+		FRAME_ADD_OFFSETX(frame, 0.f, 1025.f, 105.f, 50.f, 0.428571f, animLotusDie);
 
 		CREATE_SHEET(animLotusJump);
-		FRAME_ADD_OFFSETX(frame, 496.f, 660.f, 60.f, 80.f, 0.533333f, animLotusJump);
+		FRAME_ADD_OFFSETX(frame, 480.f, 1025.f, 75.f, 100.f, 0.533333f, animLotusJump);
 
 		CREATE_SHEET(animLotusRun);
 		frame.duration = 1.f / 12.f;
-		FRAME_ADD_OFFSETX(frame, 556.f, 660.f, 60.f, 72.f, 0.4f, animLotusRun);
-		FRAME_ADD_OFFSETX(frame, 616.f, 660.f, 60.f, 72.f, 0.4f, animLotusRun);
-		FRAME_ADD_OFFSETX(frame, 676.f, 660.f, 60.f, 76.f, 0.4f, animLotusRun);
-		FRAME_ADD_OFFSETX(frame, 736.f, 660.f, 60.f, 72.f, 0.4f, animLotusRun);
-		FRAME_ADD_OFFSETX(frame, 796.f, 660.f, 60.f, 72.f, 0.4f, animLotusRun);
-		FRAME_ADD_OFFSETX(frame, 856.f, 660.f, 60.f, 76.f, 0.4f, animLotusRun);
+		FRAME_ADD_OFFSETX(frame, 555.f, 1025.f, 75.f, 90.f, 0.4f, animLotusRun);
+		FRAME_ADD_OFFSETX(frame, 630.f, 1025.f, 75.f, 90.f, 0.4f, animLotusRun);
+		FRAME_ADD_OFFSETX(frame, 705.f, 1025.f, 75.f, 95.f, 0.4f, animLotusRun);
+		FRAME_ADD_OFFSETX(frame, 780.f, 1025.f, 75.f, 90.f, 0.4f, animLotusRun);
+		FRAME_ADD_OFFSETX(frame, 855.f, 1025.f, 75.f, 90.f, 0.4f, animLotusRun);
+		FRAME_ADD_OFFSETX(frame, 930.f, 1025.f, 75.f, 95.f, 0.4f, animLotusRun);
 
 		AUTO_OFFSET_CALC_Y(animLotusIdle);
 		AUTO_OFFSET_CALC_Y(animLotusDie);
@@ -887,28 +887,28 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animMasterChefIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 0.f, 744.f, 60.f, 92.f, 0.6f, animMasterChefIdle);
-		FRAME_ADD_OFFSETX(frame, 60.f, 744.f, 60.f, 92.f, 0.6f, animMasterChefIdle);
-		FRAME_ADD_OFFSETX(frame, 120.f, 744.f, 60.f, 92.f, 0.6f, animMasterChefIdle);
-		FRAME_ADD_OFFSETX(frame, 180.f, 744.f, 60.f, 88.f, 0.6f, animMasterChefIdle);
-		FRAME_ADD_OFFSETX(frame, 240.f, 744.f, 60.f, 88.f, 0.6f, animMasterChefIdle);
+		FRAME_ADD_OFFSETX(frame, 115.f, 1125.f, 75.f, 115.f, 0.6f, animMasterChefIdle);
+		FRAME_ADD_OFFSETX(frame, 190.f, 1125.f, 75.f, 115.f, 0.6f, animMasterChefIdle);
+		FRAME_ADD_OFFSETX(frame, 265.f, 1125.f, 75.f, 115.f, 0.6f, animMasterChefIdle);
+		FRAME_ADD_OFFSETX(frame, 340.f, 1125.f, 75.f, 110.f, 0.6f, animMasterChefIdle);
+		FRAME_ADD_OFFSETX(frame, 415.f, 1125.f, 75.f, 110.f, 0.6f, animMasterChefIdle);
 
 		CREATE_SHEET(animMasterChefDie);
-		FRAME_ADD_OFFSETX(frame, 916.f, 660.f, 92.f, 48.f, 0.478261f, animMasterChefDie);
+		FRAME_ADD_OFFSETX(frame, 0.f, 1125.f, 115.f, 60.f, 0.478261f, animMasterChefDie);
 
 		CREATE_SHEET(animMasterChefJump);
-		FRAME_ADD_OFFSETX(frame, 300.f, 744.f, 60.f, 88.f, 0.6f, animMasterChefJump);
+		FRAME_ADD_OFFSETX(frame, 490.f, 1125.f, 75.f, 110.f, 0.6f, animMasterChefJump);
 
 		CREATE_SHEET(animMasterChefRun);
 		frame.duration = 1.f / 16.f;
-		FRAME_ADD_OFFSETX(frame, 360.f, 744.f, 60.f, 84.f, 0.533333f, animMasterChefRun);
-		FRAME_ADD_OFFSETX(frame, 420.f, 744.f, 60.f, 88.f, 0.533333f, animMasterChefRun);
-		FRAME_ADD_OFFSETX(frame, 480.f, 744.f, 60.f, 88.f, 0.533333f, animMasterChefRun);
-		FRAME_ADD_OFFSETX(frame, 540.f, 744.f, 60.f, 84.f, 0.533333f, animMasterChefRun);
-		FRAME_ADD_OFFSETX(frame, 600.f, 744.f, 60.f, 84.f, 0.533333f, animMasterChefRun);
-		FRAME_ADD_OFFSETX(frame, 660.f, 744.f, 60.f, 88.f, 0.533333f, animMasterChefRun);
-		FRAME_ADD_OFFSETX(frame, 720.f, 744.f, 60.f, 88.f, 0.533333f, animMasterChefRun);
-		FRAME_ADD_OFFSETX(frame, 780.f, 744.f, 60.f, 84.f, 0.533333f, animMasterChefRun);
+		FRAME_ADD_OFFSETX(frame, 565.f, 1125.f, 75.f, 105.f, 0.533333f, animMasterChefRun);
+		FRAME_ADD_OFFSETX(frame, 640.f, 1125.f, 75.f, 110.f, 0.533333f, animMasterChefRun);
+		FRAME_ADD_OFFSETX(frame, 715.f, 1125.f, 75.f, 110.f, 0.533333f, animMasterChefRun);
+		FRAME_ADD_OFFSETX(frame, 790.f, 1125.f, 75.f, 105.f, 0.533333f, animMasterChefRun);
+		FRAME_ADD_OFFSETX(frame, 865.f, 1125.f, 75.f, 105.f, 0.533333f, animMasterChefRun);
+		FRAME_ADD_OFFSETX(frame, 940.f, 1125.f, 75.f, 110.f, 0.533333f, animMasterChefRun);
+		FRAME_ADD_OFFSETX(frame, 0.f, 1240.f, 75.f, 110.f, 0.533333f, animMasterChefRun);
+		FRAME_ADD_OFFSETX(frame, 75.f, 1240.f, 75.f, 105.f, 0.533333f, animMasterChefRun);
 
 		AUTO_OFFSET_CALC_Y(animMasterChefIdle);
 		AUTO_OFFSET_CALC_Y(animMasterChefDie);
@@ -941,23 +941,23 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animRiderHIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 916.f, 744.f, 96.f, 76.f,  0.666667f, animRiderHIdle);
-		FRAME_ADD_OFFSETX(frame, 0.f, 836.f, 96.f, 76.f,  0.666667f, animRiderHIdle);
-		FRAME_ADD_OFFSETX(frame, 96.f, 836.f, 96.f, 76.f,  0.666667f, animRiderHIdle);
-		FRAME_ADD_OFFSETX(frame, 192.f, 836.f, 96.f, 72.f,  0.666667f, animRiderHIdle);
-		FRAME_ADD_OFFSETX(frame, 288.f, 836.f, 96.f, 72.f,  0.666667f, animRiderHIdle);
+		FRAME_ADD_OFFSETX(frame, 245.f, 1240.f, 120.f, 95.f,  0.666667f, animRiderHIdle);
+		FRAME_ADD_OFFSETX(frame, 365.f, 1240.f, 120.f, 95.f,  0.666667f, animRiderHIdle);
+		FRAME_ADD_OFFSETX(frame, 485.f, 1240.f, 120.f, 95.f,  0.666667f, animRiderHIdle);
+		FRAME_ADD_OFFSETX(frame, 605.f, 1240.f, 120.f, 90.f,  0.666667f, animRiderHIdle);
+		FRAME_ADD_OFFSETX(frame, 725.f, 1240.f, 120.f, 90.f,  0.666667f, animRiderHIdle);
 
 		CREATE_SHEET(animRiderHDie);
-		FRAME_ADD_OFFSETX(frame, 840.f, 744.f, 76.f, 56.f, 0.526316f, animRiderHDie);
+		FRAME_ADD_OFFSETX(frame, 150.f, 1240.f, 95.f, 70.f, 0.526316f, animRiderHDie);
 
 		CREATE_SHEET(animRiderHRun);
 		frame.duration = 1.f / 12.f;
-		FRAME_ADD_OFFSETX(frame, 384.f, 836.f, 92.f, 72.f, 0.652174f, animRiderHRun);
-		FRAME_ADD_OFFSETX(frame, 476.f, 836.f, 88.f, 72.f, 0.636364f, animRiderHRun);
-		FRAME_ADD_OFFSETX(frame, 564.f, 836.f, 92.f, 72.f, 0.652174f, animRiderHRun);
-		FRAME_ADD_OFFSETX(frame, 656.f, 836.f, 88.f, 72.f, 0.636364f, animRiderHRun);
-		FRAME_ADD_OFFSETX(frame, 744.f, 836.f, 92.f, 72.f, 0.652174f, animRiderHRun);
-		FRAME_ADD_OFFSETX(frame, 836.f, 836.f, 88.f, 72.f, 0.636364f, animRiderHRun);
+		FRAME_ADD_OFFSETX(frame, 845.f, 1240.f, 115.f, 90.f, 0.652174f, animRiderHRun);
+		FRAME_ADD_OFFSETX(frame, 0.f, 1350.f, 110.f, 90.f, 0.636364f, animRiderHRun);
+		FRAME_ADD_OFFSETX(frame, 110.f, 1350.f, 115.f, 90.f, 0.652174f, animRiderHRun);
+		FRAME_ADD_OFFSETX(frame, 225.f, 1350.f, 110.f, 90.f, 0.636364f, animRiderHRun);
+		FRAME_ADD_OFFSETX(frame, 335.f, 1350.f, 115.f, 90.f, 0.652174f, animRiderHRun);
+		FRAME_ADD_OFFSETX(frame, 450.f, 1350.f, 110.f, 90.f, 0.636364f, animRiderHRun);
 
 		AUTO_OFFSET_CALC_Y(animRiderHIdle);
 		AUTO_OFFSET_CALC_Y(animRiderHDie);
@@ -991,28 +991,28 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f / 10.f;
 		CREATE_ANIM(animSunsetGunmanIdle, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 0.f, 912.f, 68.f, 84.f, 0.470588f, animSunsetGunmanIdle);
-		FRAME_ADD_OFFSETX(frame, 68.f, 912.f, 68.f, 84.f, 0.470588f, animSunsetGunmanIdle);
-		FRAME_ADD_OFFSETX(frame, 136.f, 912.f, 68.f, 84.f, 0.470588f, animSunsetGunmanIdle);
-		FRAME_ADD_OFFSETX(frame, 204.f, 912.f, 68.f, 80.f, 0.470588f, animSunsetGunmanIdle);
-		FRAME_ADD_OFFSETX(frame, 272.f, 912.f, 68.f, 80.f, 0.470588f, animSunsetGunmanIdle);
+		FRAME_ADD_OFFSETX(frame, 665.f, 1350.f, 85.f, 105.f, 0.470588f, animSunsetGunmanIdle);
+		FRAME_ADD_OFFSETX(frame, 750.f, 1350.f, 85.f, 105.f, 0.470588f, animSunsetGunmanIdle);
+		FRAME_ADD_OFFSETX(frame, 835.f, 1350.f, 85.f, 105.f, 0.470588f, animSunsetGunmanIdle);
+		FRAME_ADD_OFFSETX(frame, 920.f, 1350.f, 85.f, 100.f, 0.470588f, animSunsetGunmanIdle);
+		FRAME_ADD_OFFSETX(frame, 0.f, 1455.f, 85.f, 100.f, 0.470588f, animSunsetGunmanIdle);
 
 		CREATE_SHEET(animSunsetGunmanDie);
-		FRAME_ADD_OFFSETX(frame, 924.f, 836.f, 84.f, 52.f, 0.47619f, animSunsetGunmanDie);
+		FRAME_ADD_OFFSETX(frame, 60.f, 1350.f, 105.f, 65.f, 0.47619f, animSunsetGunmanDie);
 
 		CREATE_SHEET(animSunsetGunmanJump);
-		FRAME_ADD_OFFSETX(frame, 340.f, 912.f, 68.f, 84.f, 0.470588f, animSunsetGunmanJump);
+		FRAME_ADD_OFFSETX(frame, 85.f, 1455.f, 85.f, 105.f, 0.470588f, animSunsetGunmanJump);
 
 		CREATE_SHEET(animSunsetGunmanRun);
 		frame.duration = 1.f / 16.f;
-		FRAME_ADD_OFFSETX(frame, 408.f, 912.f, 68.f, 80.f, 0.470588f, animSunsetGunmanRun);
-		FRAME_ADD_OFFSETX(frame, 476.f, 912.f, 68.f, 84.f, 0.470588f, animSunsetGunmanRun);
-		FRAME_ADD_OFFSETX(frame, 544.f, 912.f, 68.f, 84.f, 0.470588f, animSunsetGunmanRun);
-		FRAME_ADD_OFFSETX(frame, 612.f, 912.f, 68.f, 80.f, 0.470588f, animSunsetGunmanRun);
-		FRAME_ADD_OFFSETX(frame, 680.f, 912.f, 68.f, 80.f, 0.470588f, animSunsetGunmanRun);
-		FRAME_ADD_OFFSETX(frame, 748.f, 912.f, 68.f, 84.f, 0.470588f, animSunsetGunmanRun);
-		FRAME_ADD_OFFSETX(frame, 816.f, 912.f, 68.f, 84.f, 0.470588f, animSunsetGunmanRun);
-		FRAME_ADD_OFFSETX(frame, 884.f, 912.f, 68.f, 80.f, 0.470588f, animSunsetGunmanRun);
+		FRAME_ADD_OFFSETX(frame, 170.f, 1455.f, 85.f, 100.f, 0.470588f, animSunsetGunmanRun);
+		FRAME_ADD_OFFSETX(frame, 255.f, 1455.f, 85.f, 105.f, 0.470588f, animSunsetGunmanRun);
+		FRAME_ADD_OFFSETX(frame, 340.f, 1455.f, 85.f, 105.f, 0.470588f, animSunsetGunmanRun);
+		FRAME_ADD_OFFSETX(frame, 425.f, 1455.f, 85.f, 100.f, 0.470588f, animSunsetGunmanRun);
+		FRAME_ADD_OFFSETX(frame, 510.f, 1455.f, 85.f, 100.f, 0.470588f, animSunsetGunmanRun);
+		FRAME_ADD_OFFSETX(frame, 595.f, 1455.f, 85.f, 105.f, 0.470588f, animSunsetGunmanRun);
+		FRAME_ADD_OFFSETX(frame, 680.f, 1455.f, 85.f, 105.f, 0.470588f, animSunsetGunmanRun);
+		FRAME_ADD_OFFSETX(frame, 765.f, 1455.f, 85.f, 100.f, 0.470588f, animSunsetGunmanRun);
 
 		AUTO_OFFSET_CALC_Y(animSunsetGunmanIdle);
 		AUTO_OFFSET_CALC_Y(animSunsetGunmanDie);

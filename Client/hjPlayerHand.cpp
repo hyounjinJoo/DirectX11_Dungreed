@@ -110,38 +110,38 @@ namespace hj
 		float duration = 0.f;
 		duration = 1.f;
 		CREATE_ANIM(charHand0, frame, atlasTexSize, duration);
-		FRAME_ADD(frame, 320.f, 412.f, 12.f, 12.f, charHand0);
+		FRAME_ADD(frame, 560.f, 615.f, 15.f, 15.f, charHand0);
 
 		CREATE_SHEET(charHand1);
-		FRAME_ADD(frame, 332.f, 412.f, 12.f, 12.f, charHand1);
+		FRAME_ADD(frame, 575.f, 615.f, 15.f, 15.f, charHand1);
 
 		CREATE_SHEET(charHand2);
-		FRAME_ADD(frame, 344.f, 412.f, 12.f, 12.f, charHand2);
+		FRAME_ADD(frame, 590.f, 615.f, 15.f, 15.f, charHand2);
 
 		CREATE_SHEET(charHand3);
-		FRAME_ADD(frame, 356.f, 412.f, 12.f, 12.f, charHand3);
+		FRAME_ADD(frame, 605.f, 615.f, 15.f, 15.f, charHand3);
 
 		CREATE_SHEET(charHand4);
-		FRAME_ADD(frame, 368.f, 412.f, 12.f, 12.f, charHand4);
+		FRAME_ADD(frame, 620.f, 615.f, 15.f, 15.f, charHand4);
 
 		CREATE_SHEET(charHand5);
-		FRAME_ADD(frame, 380.f, 412.f, 16.f, 16.f, charHand5);
+		FRAME_ADD(frame, 635.f, 615.f, 20.f, 20.f, charHand5);
 
 		CREATE_SHEET(charHand6);
-		FRAME_ADD(frame, 396.f, 412.f, 12.f, 12.f, charHand6);
+		FRAME_ADD(frame, 655.f, 615.f, 15.f, 15.f, charHand6);
 
 		CREATE_SHEET(charHand7);
-		FRAME_ADD(frame, 408.f, 412.f, 12.f, 12.f, charHand7);
+		FRAME_ADD(frame, 670.f, 615.f, 15.f, 15.f, charHand7);
 
-		canvasSize = Vector2(12.f, 12.f);
+		canvasSize = Vector2(15.f, 15.f);
 		AUTO_OFFSET_CALC(charHand0);
 		AUTO_OFFSET_CALC(charHand1);
 		AUTO_OFFSET_CALC(charHand2);
 		AUTO_OFFSET_CALC(charHand3);
 		AUTO_OFFSET_CALC(charHand4);
-		canvasSize = Vector2(16.f, 16.f);
+		canvasSize = Vector2(20.f, 20.f);
 		AUTO_OFFSET_CALC(charHand5);
-		canvasSize = Vector2(12.f, 12.f);
+		canvasSize = Vector2(15.f, 15.f);
 		AUTO_OFFSET_CALC(charHand6);
 		AUTO_OFFSET_CALC(charHand7);
 

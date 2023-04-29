@@ -163,8 +163,8 @@ namespace hj
 		
 		Player* player = object::Instantiate<Player>(eLayerType::Player, pos);
 		player->SetName(L"Player");
-		Vector2 testScale = player->GetScaleXY();
-		player->SetScaleXY(testScale * 1.25f);
+		//Vector2 testScale = player->GetScaleXY();
+		//player->SetScaleXY(testScale * 1.25f);
 #pragma endregion
 #pragma region Collision Object - 2
 		//pos = Vector3(100.f, 100.f, 1.f);
