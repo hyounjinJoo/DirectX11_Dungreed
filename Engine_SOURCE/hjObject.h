@@ -27,6 +27,7 @@ namespace hj::object
 		Layer& layer = scene->GetLayer(type);
 		gameObject->SetLayerType(type);
 		layer.AddGameObject(gameObject);
+		gameObject->Initialize();
 
 		return gameObject;
 	}

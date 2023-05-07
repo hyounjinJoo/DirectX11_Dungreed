@@ -14,13 +14,14 @@ namespace hj::object::item::weapon
     struct weaponInfo
     {
         std::bitset<sizeof(UINT)> mWeaponID;
-        std::string mWeaponName;
-        int mAttack;
+        int mMinAttack;
+        int mMaxAttack;
         float mAttackPerSec;
         eWeaponType mWeaponType;
 
         weaponInfo()
-            : mAttack(1)
+            : mMinAttack(1)
+            , mMaxAttack(1)
             , mAttackPerSec(1)
             , mWeaponType(eWeaponType::None)
         {
@@ -42,6 +43,6 @@ namespace hj::object::item::weapon
 
     protected:
         std::shared_ptr<hj::graphics::Texture> mWeaponTex;
-        weaponInfo mInfo;
+        weaponInfo mWeaponInfo;
     };
 }

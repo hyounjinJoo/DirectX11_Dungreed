@@ -4,9 +4,9 @@ namespace hj::object::item::weapon
 {
 	Weapon::Weapon(eWeaponType type)
 		: Item(eItemType::Weapon)
-		, mInfo{}
+		, mWeaponInfo{}
 	{
-		mInfo.mWeaponType = type;
+		mWeaponInfo.mWeaponType = type;
 	}
 
 	Weapon::~Weapon()

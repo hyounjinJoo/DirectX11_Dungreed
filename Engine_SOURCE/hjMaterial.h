@@ -22,15 +22,15 @@ namespace hj::graphics
 
 		void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
 		std::shared_ptr<Shader> GetShader() { return mShader; }
-		void SetTexture(std::shared_ptr<Texture> texture) { mTexture = texture; }
-		std::shared_ptr<Texture> GetTexture() { return mTexture; }
+		void SetTexture(eTextureSlot slot, std::shared_ptr<Texture> texture) { mTexture[(UINT)slot] = texture; }
+		std::shared_ptr<Texture> GetTexture(eTextureSlot slot) { return mTexture[(UINT)slot]; }
 
 		eRenderingMode GetRenderingMode() { return mMode; }
 		void SetRenderingMode(eRenderingMode mode) { mMode = mode; }
 
 	private:
 		std::shared_ptr<Shader> mShader;
-		std::shared_ptr<Texture> mTexture;
+		std::shared_ptr<Texture> mTexture[(UINT)eTextureSlot::End];
 		MaterialCB mCB;
 		eRenderingMode mMode;
 	};

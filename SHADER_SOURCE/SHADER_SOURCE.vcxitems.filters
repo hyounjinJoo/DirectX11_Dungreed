@@ -16,6 +16,9 @@
     <Filter Include="00. Global\01. Functions">
       <UniqueIdentifier>{d042ff4c-c6d9-4a95-9704-69862f868d56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GS">
+      <UniqueIdentifier>{a5f6ce72-e5a0-41b9-9458-a29d377d39ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="$(MSBuildThisFileDirectory)TriangleVS.hlsl">
@@ -69,6 +72,18 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)TileMapPS.hlsl">
       <Filter>02. PS</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleVS.hlsl">
+      <Filter>01. VS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticlePS.hlsl">
+      <Filter>02. PS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleGS.hlsl">
+      <Filter>04. GS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleCS.hlsl">
+      <Filter>03. CS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)ConstantBuffer.hlsli">
@@ -94,6 +109,9 @@
     </None>
     <None Include="$(MSBuildThisFileDirectory)Light.hlsli">
       <Filter>00. Global\01. Functions</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Particle.hlsli">
+      <Filter>00. Global</Filter>
     </None>
   </ItemGroup>
 </Project>

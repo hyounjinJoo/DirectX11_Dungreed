@@ -6,6 +6,7 @@
 #include "hjApplication.h"
 #include "hjPaintShader.h"
 #include "hjMap.h"
+#include "hjParticleShader.h"
 
 extern hj::Application application;
 namespace hj::renderer
@@ -25,6 +26,14 @@ namespace hj::renderer
 
 	void LoadMesh()
 	{
+#pragma region Point Mesh
+		Vertex v = {};
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
+		MESH_INSERT("Mesh_Point", mesh);
+		mesh->CreateVertexBuffer(&v, 1);
+		UINT pointIndex = 0;
+		mesh->CreateIndexBuffer(&pointIndex, 1);
+#pragma endregion
 #pragma region RECT Mesh
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.f, 1.f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
@@ -43,7 +52,7 @@ namespace hj::renderer
 		vertexes[3].uv = Vector2(0.f, 1.f);
 
 		// Create Mesh
-		std::shared_ptr<Mesh> mesh = MESH_NEW();
+		mesh = MESH_NEW();
 		MESH_INSERT("Mesh_Rect", mesh);
 		mesh->CreateVertexBuffer(vertexes, 4);
 
@@ -188,6 +197,13 @@ namespace hj::renderer
 
 		// TileMap Shader
 		shader = SHADER_FIND("Shader_TileMap");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
+
+		// Particle Shader
+		shader = SHADER_FIND("Shader_Particle");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
@@ -377,10 +393,17 @@ namespace hj::renderer
 
 		constantBuffers[(UINT)eCBType::Global] = new ConstantBuffer(eCBType::Global);
 		constantBuffers[(UINT)eCBType::Global]->Create(sizeof(GlobalCB));
+
+		constantBuffers[(UINT)eCBType::ParticleSystem] = new ConstantBuffer(eCBType::ParticleSystem);
+		constantBuffers[(UINT)eCBType::ParticleSystem]->Create(sizeof(ParticleSystemCB));
+
+		constantBuffers[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
+		constantBuffers[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
+
 #pragma endregion
 #pragma region Structured Buffer
 		lightsBuffer = new StructuredBuffer();
-		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
+		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::SRV, nullptr, true);
 #pragma endregion
 	}
 
@@ -460,6 +483,22 @@ namespace hj::renderer
 		shader->SetBSState(eBSType::AlphaBlend);
 
 		SHADER_INSERT("Shader_TileMap", shader);
+
+		// ParticleSystem Shader
+		shader = SHADER_NEW();
+		shader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		shader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
+		shader->SetRSState(eRSType::SolidNone);
+		shader->SetDSState(eDSType::NoWrite);
+		shader->SetBSState(eBSType::AlphaBlend);
+		shader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+		SHADER_INSERT("Shader_Particle", shader);
+		
+		std::shared_ptr<ParticleShader> particleCS = std::make_shared<ParticleShader>();
+		particleCS->Create(L"ParticleCS.hlsl", "main");
+		Resources::Insert<ParticleShader>(L"Shader_ParticleCS", particleCS);
 	}
 
 
@@ -530,11 +569,16 @@ namespace hj::renderer
 
 		LOAD_TEX("HPBarTexture", "PlayerLifeBase 1.png");
 		LOAD_TEX("Weapon_Legendary_DemonSword_00", "02_Weapon\\04_Legendary\\DemonSword\\DemonSword00.png");
+		LOAD_TEX("CartoonSmoke", "particle\\CartoonSmoke.png");
 		//LOAD_TEX("Tex_Title_Layer_Sky_Day", "Sky_Day.png");
 		//LOAD_TEX("Tex_Title_Layer_Sky_Night", "Sky_Night.png");
 
 		//Compute Test
 		LOAD_TEX("NoiseTex01", "Noise_01.png");
+		LOAD_TEX("noise_01", "noise\\noise_01.png");
+		LOAD_TEX("noise_02", "noise\\noise_02.png");
+		//LOAD_TEX("noise_03", "noise\\noise_03.png");
+
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
 			| D3D11_BIND_UNORDERED_ACCESS);
@@ -548,7 +592,7 @@ namespace hj::renderer
 		std::shared_ptr<Shader> shader = SHADER_FIND("Shader_Rect");
 		std::shared_ptr<Material> material = MTRL_NEW();
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		MTRL_INSERT("MTRL_Rect", material);
 
 		// Color Rect
@@ -564,7 +608,7 @@ namespace hj::renderer
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Sprite", material);
 
@@ -573,7 +617,7 @@ namespace hj::renderer
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Char_Adventurer", material);
 
@@ -582,7 +626,7 @@ namespace hj::renderer
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_FX", material);
 
@@ -591,7 +635,7 @@ namespace hj::renderer
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Weapon_Legendary_DemonSword", material);
 
@@ -600,7 +644,7 @@ namespace hj::renderer
 		shader = SHADER_FIND("Shader_UI");
 		material = MTRL_NEW();
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_UI", material);
 
@@ -634,14 +678,14 @@ namespace hj::renderer
 		
 		texture = TEX_FIND("TitleScene_02");
 		material = MTRL_NEW();
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetShader(shader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_Layer_Cloud", material);
 
 		material = MTRL_NEW();
 		texture = TEX_FIND("TitleScene_01");
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetShader(SHADER_FIND("Shader_Sprite"));
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_Object_Bird", material);
@@ -649,12 +693,12 @@ namespace hj::renderer
 		shader = SHADER_FIND("Shader_UI");
 		material = MTRL_NEW();
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_UI", material);
 
 		material = MTRL_NEW();
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetShader(SHADER_FIND("Shader_Sprite"));
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_Object", material);
@@ -662,7 +706,7 @@ namespace hj::renderer
 		material = MTRL_NEW();
 		texture = TEX_FIND("TitleScene_03");
 		material->SetShader(shader);
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Title_UI_Text", material);
 #pragma endregion
@@ -670,9 +714,14 @@ namespace hj::renderer
 		material = MTRL_NEW();
 		texture = TEX_FIND("MapTile");
 		material->SetShader(SHADER_FIND("Shader_TileMap"));
-		material->SetTexture(texture);
+		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Map_Tile", material);
+
+		material = MTRL_NEW();
+		material->SetShader(SHADER_FIND("Shader_Particle"));
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Particle", material);
 #pragma endregion
 		//texture = TEX_FIND("Tex_Town_Layer_Sky_Day");
 		//material = MTRL_NEW();
@@ -722,6 +771,7 @@ namespace hj::renderer
 
 	void Render()
 	{
+		BindNoiseTexture();
 		BindLights();
 
 		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
@@ -764,8 +814,8 @@ namespace hj::renderer
 	{
 		// Structured Buffer Binding
 		lightsBuffer->SetData(lights.data(), static_cast<UINT>(lights.size()));
-		lightsBuffer->Bind(eShaderStage::VS, 13);
-		lightsBuffer->Bind(eShaderStage::PS, 13);
+		lightsBuffer->BindSRV(eShaderStage::VS, 13);
+		lightsBuffer->BindSRV(eShaderStage::PS, 13);
 
 		// Constant Buffer Binding
 		LightCB trCb = {};
@@ -775,5 +825,29 @@ namespace hj::renderer
 		cb->SetData(&trCb);
 		cb->Bind(eShaderStage::VS);
 		cb->Bind(eShaderStage::PS);
+	}
+
+	void BindNoiseTexture()
+	{
+		std::shared_ptr<Texture> noise = TEX_FIND("noise_01");
+		noise->BindShaderResource(eShaderStage::VS, 16);
+		noise->BindShaderResource(eShaderStage::HS, 16);
+		noise->BindShaderResource(eShaderStage::DS, 16);
+		noise->BindShaderResource(eShaderStage::GS, 16);
+		noise->BindShaderResource(eShaderStage::PS, 16);
+		noise->BindShaderResource(eShaderStage::CS, 16);
+
+		NoiseCB info = {};
+		info.noiseSize.x = static_cast<float>(noise->GetWidth());
+		info.noiseSize.y = static_cast<float>(noise->GetHeight());
+
+		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Noise];
+		cb->SetData(&info);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::HS);
+		cb->Bind(eShaderStage::DS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
 	}
 }

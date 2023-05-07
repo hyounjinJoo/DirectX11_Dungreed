@@ -161,6 +161,7 @@
     <ClInclude Include="hjFxPlayerTrail.h" />
     <ClInclude Include="hjRoomNotPass.h" />
     <ClInclude Include="hjRoomRectFloor.h" />
+    <ClInclude Include="hjSwordOfExplorer.h" />
     <ClInclude Include="hjTitleBird.h" />
     <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjTestMonster.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="hjFxPlayerTrail.cpp" />
     <ClCompile Include="hjRoomNotPass.cpp" />
     <ClCompile Include="hjRoomRectFloor.cpp" />
+    <ClCompile Include="hjSwordOfExplorer.cpp" />
     <ClCompile Include="hjTitleBird.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjTestMonster.cpp" />

@@ -16,7 +16,7 @@ namespace hj
 		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Title_UI_Text");
 		SetMaterial(material);
 
-		std::shared_ptr<Texture> texture = material->GetTexture();
+		std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 
 		mAtlasSize = texture->GetTexSize();
 

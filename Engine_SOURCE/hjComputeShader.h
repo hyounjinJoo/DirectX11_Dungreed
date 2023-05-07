@@ -7,7 +7,8 @@ namespace hj::graphics
     class ComputeShader :
         public Resource
     {
-    public:
+	public:
+		ComputeShader(UINT threadGroupX, UINT threadGroupY, UINT threadGroupZ);
         ComputeShader();
         virtual ~ComputeShader();
 

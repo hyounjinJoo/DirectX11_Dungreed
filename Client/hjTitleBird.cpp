@@ -33,7 +33,7 @@ namespace hj
 
 			if (parseResult)
 			{
-				CREATE_ANIM(birdIdleAnimSheet, birdIdleFrame, material->GetTexture()->GetTexSize(), 0.0625f);
+				CREATE_ANIM(birdIdleAnimSheet, birdIdleFrame, material->GetTexture(eTextureSlot::T0)->GetTexSize(), 0.0625f);
 				parseResult = parser->FindElem(WIDE("TextureAtlas"));
 				parseResult = parser->IntoElem();
 				Vector2 startPos = Vector2::Zero;
@@ -51,7 +51,7 @@ namespace hj
 
 				AUTO_OFFSET_CALC(birdIdleAnimSheet);
 
-				bool isCreate = animator->Create(WIDE("Bird_Idle"), material->GetTexture(), birdIdleAnimSheet, canvasSize, false);
+				bool isCreate = animator->Create(WIDE("Bird_Idle"), material->GetTexture(eTextureSlot::T0), birdIdleAnimSheet, canvasSize, false);
 
 				if (isCreate)
 				{

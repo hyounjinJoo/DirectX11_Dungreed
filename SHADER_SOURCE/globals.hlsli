@@ -4,5 +4,5 @@
 #include "Resource.hlsli"
 #include "Light.hlsli"
 #include "functions.hlsli"
-
+#include "Particle.hlsli"
 #include "Blur.hlsli"

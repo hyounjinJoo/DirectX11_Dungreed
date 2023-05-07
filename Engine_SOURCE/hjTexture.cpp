@@ -42,27 +42,38 @@ namespace hj::graphics
 		std::filesystem::path parentPath = std::filesystem::current_path().parent_path();
 		std::wstring fullPath = parentPath.wstring() + L"\\..\\Resources\\Texture\\" + name;
 
+		LoadFile(fullPath);
+		InitializeResource();
+
+		return S_OK;
+	}
+
+	void Texture::LoadFile(const std::wstring& fullPath)
+	{
 		wchar_t szExtension[256] = {};
-		_wsplitpath_s(name.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 256);
+		_wsplitpath_s(fullPath.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 256);
 
 		std::wstring extension(szExtension);
 
 		if (extension == L".dds" || extension == L".DDS")
 		{
 			if (FAILED(LoadFromDDSFile(fullPath.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
-				return S_FALSE;
+				return;
 		}
 		else if (extension == L".tga" || extension == L".TGA")
 		{
 			if (FAILED(LoadFromTGAFile(fullPath.c_str(), nullptr, mImage)))
-				return S_FALSE;
+				return;
 		}
 		else // WIC (png, jpg, jpeg, bmp )
 		{
 			if (FAILED(LoadFromWICFile(fullPath.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
-				return S_FALSE;
+				return;
 		}
+	}
 
+	void Texture::InitializeResource()
+	{
 		CreateShaderResourceView
 		(
 			GetDevice()->GetID3D11Device(),
@@ -77,11 +88,9 @@ namespace hj::graphics
 		
 		mTextureSize.x = (float)mImage.GetImages()[0].width;
 		mTextureSize.y = (float)mImage.GetImages()[0].height;
-
-		return S_OK;
 	}
 
-	void Texture::BindShader(eShaderStage stage, UINT slot)
+	void Texture::BindShaderResource(eShaderStage stage, UINT slot)
 	{
 		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}

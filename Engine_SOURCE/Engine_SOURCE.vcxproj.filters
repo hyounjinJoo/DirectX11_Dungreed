@@ -121,6 +121,18 @@
     <Filter Include="Resource\Map">
       <UniqueIdentifier>{064b8b35-31a0-451d-9d06-4b1aac1f1b16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\API">
+      <UniqueIdentifier>{e7a1a51b-f2ff-4631-ac6d-65dd7c8d676f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader\CS\Base">
+      <UniqueIdentifier>{c7377527-c6f2-404c-95be-b84fb1fc82e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader\CS\Particle">
+      <UniqueIdentifier>{a54bb68f-9f22-4c48-a7ab-b4c6cb594aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Particle">
+      <UniqueIdentifier>{b0f40acb-d1d1-4bf8-aff8-25bdd3e20bdf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -128,9 +140,6 @@
     </ClCompile>
     <ClCompile Include="hjEntity.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="hjGraphicDevice_DX11.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="hjApplication.cpp">
       <Filter>High Level Interface</Filter>
@@ -228,9 +237,6 @@
     <ClCompile Include="hjLight.cpp">
       <Filter>Component\Light</Filter>
     </ClCompile>
-    <ClCompile Include="hjComputeShader.cpp">
-      <Filter>Resource\Shader\CS</Filter>
-    </ClCompile>
     <ClCompile Include="hjPaintShader.cpp">
       <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
@@ -243,6 +249,18 @@
     <ClCompile Include="hjMap.cpp">
       <Filter>Resource\Map</Filter>
     </ClCompile>
+    <ClCompile Include="hjGraphicDevice_DX11.cpp">
+      <Filter>Graphics\API</Filter>
+    </ClCompile>
+    <ClCompile Include="hjComputeShader.cpp">
+      <Filter>Resource\Shader\CS\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="hjParticleShader.cpp">
+      <Filter>Resource\Shader\CS\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="hjParticleSystem.cpp">
+      <Filter>Renderer\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -253,9 +271,6 @@
     </ClInclude>
     <ClInclude Include="hjEntity.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="hjGraphicDevice_DX11.h">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="hjApplication.h">
       <Filter>High Level Interface</Filter>
@@ -365,9 +380,6 @@
     <ClInclude Include="hjLight.h">
       <Filter>Component\Light</Filter>
     </ClInclude>
-    <ClInclude Include="hjComputeShader.h">
-      <Filter>Resource\Shader\CS</Filter>
-    </ClInclude>
     <ClInclude Include="hjPaintShader.h">
       <Filter>Resource\Shader\CS</Filter>
     </ClInclude>
@@ -379,6 +391,18 @@
     </ClInclude>
     <ClInclude Include="hjMap.h">
       <Filter>Resource\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="hjGraphicDevice_DX11.h">
+      <Filter>Graphics\API</Filter>
+    </ClInclude>
+    <ClInclude Include="hjComputeShader.h">
+      <Filter>Resource\Shader\CS\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="hjParticleShader.h">
+      <Filter>Resource\Shader\CS\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="hjParticleSystem.h">
+      <Filter>Renderer\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

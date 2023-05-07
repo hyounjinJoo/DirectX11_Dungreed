@@ -22,7 +22,9 @@ namespace hj::graphics
 		virtual ~Texture();
 
 		virtual HRESULT Load(const std::wstring& name) override;
-		void BindShader(eShaderStage stage, UINT slot);
+		void LoadFile(const std::wstring& name);
+		void InitializeResource();
+		void BindShaderResource(eShaderStage stage, UINT slot);
 		void BindUnorderedAccessView(UINT startSlot);
 		void ClearUnorderedAccessView(UINT startSlot);
 		static void Clear(UINT slot);
@@ -33,6 +35,7 @@ namespace hj::graphics
 		size_t GetHeight() { return mDesc.Height; }
 		size_t GetWidth() { return mDesc.Width; }
 
+		void SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture) { mTexture = texture; }
 		void SetTexSize(const Vector2& textureSize) { mTextureSize = textureSize; }
 
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> GetTexture() { return mTexture; }

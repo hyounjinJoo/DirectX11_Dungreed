@@ -20,13 +20,6 @@ namespace hj
 
 	void Layer::Initialize()
 	{
-		for (GameObject* obj : mGameObjects)
-		{
-			if (obj == nullptr)
-				continue;
-
-			obj->Initialize();
-		}
 	}
 
 	void Layer::Update()

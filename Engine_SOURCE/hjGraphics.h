@@ -20,6 +20,8 @@
 #define CBSLOT_ANIMATION		3
 #define CBSLOT_NUMBEROFLIGHT	4
 #define CBSLOT_GLOBAL			5
+#define CBSLOT_PARTICLESYSTEM	6
+#define CBSLOT_NOISE			7
 
 namespace hj::graphics
 {
@@ -38,6 +40,7 @@ namespace hj::graphics
 		GS,
 		PS,
 		CS,
+		ALL,
 		Count,
 	};
 
@@ -107,6 +110,8 @@ namespace hj::graphics
 		Animation,
 		Light,
 		Global,
+		ParticleSystem,
+		Noise,
 		End,
 	};
 
@@ -140,7 +145,8 @@ namespace hj::graphics
 
 	enum class eSRVType
 	{
-		None,
+		SRV,
+		UAV,
 		End,
 	};
 
@@ -149,6 +155,26 @@ namespace hj::graphics
 		None,
 		SecondDimension,
 		ThirdDimension,
+		End,
+	};
+
+	enum class eTextureSlot
+	{
+		T0,
+		T1,
+		T2,
+		T3,
+		T4,
+		T5,
+		T6,
+		T7,
+
+		CubeT8,
+		CubeT9,
+
+		Array2DT10,
+		Array2DT11,
+
 		End,
 	};
 
@@ -177,5 +203,21 @@ namespace hj::graphics
 		float radius;
 		float angle;
 		int padding;
+	};
+
+	struct Particle
+	{
+		math::Vector4 position;
+		math::Vector4 direction;
+
+		float lifeTime;
+		float time;
+		float speed;
+		UINT active;
+	};
+
+	struct ParticleShared
+	{
+		UINT activeCount;
 	};
 }

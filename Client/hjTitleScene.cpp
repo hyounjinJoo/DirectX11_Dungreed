@@ -91,7 +91,7 @@ namespace hj
 		#pragma endregion
 		#pragma region BackCloud
 			material = MTRL_FIND("MTRL_Title_Layer_Cloud");
-			std::shared_ptr<Texture> texture = material->GetTexture();
+			std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 			Vector2 texSize = texture->GetTexSize();
 			scale = Vector3(texSize.x, texSize.y, 1.f);
 			float ratio = height / texSize.y;
@@ -109,7 +109,7 @@ namespace hj
 
 		#pragma endregion
 		#pragma region FrondCloud
-			texture = material->GetTexture();
+			texture = material->GetTexture(eTextureSlot::T0);
 			pos.z = 1.f;
 			pos.y = 450.f;
 			

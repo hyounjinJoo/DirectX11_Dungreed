@@ -24,8 +24,6 @@ namespace hj
 
 	void FxPlayerTrail::Initialize()
 	{
-		assert(mOwner);
-
 		GameObject::Initialize();
 	}
 

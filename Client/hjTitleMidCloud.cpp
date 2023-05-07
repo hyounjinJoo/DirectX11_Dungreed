@@ -24,7 +24,7 @@ namespace hj
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
 
-		Vector2 texSize = material->GetTexture()->GetTexSize();
+		Vector2 texSize = material->GetTexture(eTextureSlot::T0)->GetTexSize();
 		Vector3 scale = Vector3(texSize.x, texSize.y * 0.5f, 1.f);
 		float height = static_cast<float>(winRect.bottom - winRect.top);
 		float ratio = height / texSize.y;

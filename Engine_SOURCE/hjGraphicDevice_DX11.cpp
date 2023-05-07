@@ -65,9 +65,6 @@ namespace hj::graphics
 		if (!mRenderTargetTexture->Create(renderTarget))
 			return;
 
-		// Create RenderTarget View
-		//hr = mDevice->CreateRenderTargetView(renderTarget.Get(), nullptr, mRenderTargetTexture->GetRTV().GetAddressOf());
-
 		D3D11_TEXTURE2D_DESC depthBuffer = {};
 
 		depthBuffer.BindFlags			= D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
@@ -196,6 +193,14 @@ namespace hj::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateGeometryShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11GeometryShader** ppGeometryShader)
+	{
+		if (FAILED(mDevice->CreateGeometryShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppGeometryShader)))
+			return false;
+
+		return true;
+	}
+
 	bool GraphicDevice_DX11::CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader)
 	{
 		if (FAILED(mDevice->CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader)))
@@ -273,6 +278,21 @@ namespace hj::graphics
 		mContext->VSSetShader(pVertexShader, ppClassInstances, NumClassInstances);
 	}
 
+	void GraphicDevice_DX11::BindHullShader(ID3D11HullShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances)
+	{
+		mContext->HSSetShader(pVertexShader, ppClassInstances, NumClassInstances);
+	}
+
+	void GraphicDevice_DX11::BindDomainShader(ID3D11DomainShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances)
+	{
+		mContext->DSSetShader(pVertexShader, ppClassInstances, NumClassInstances);
+	}
+
+	void GraphicDevice_DX11::BindGeometryShader(ID3D11GeometryShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances)
+	{
+		mContext->GSSetShader(pVertexShader, ppClassInstances, NumClassInstances);
+	}
+
 	void GraphicDevice_DX11::BindPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstances, UINT NumClassInstances)
 	{
 		mContext->PSSetShader(pPixelShader, ppClassInstances, NumClassInstances);
@@ -293,7 +313,7 @@ namespace hj::graphics
 		mContext->RSSetViewports(1, viewPort);
 	}
 
-	void GraphicDevice_DX11::BindBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	void GraphicDevice_DX11::SetData(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
@@ -418,6 +438,11 @@ namespace hj::graphics
 	void GraphicDevice_DX11::BindBlendState(ID3D11BlendState* pBlendState)
 	{
 		mContext->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
+	}
+
+	void GraphicDevice_DX11::CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource)
+	{
+		mContext->CopyResource(pDstResource, pSrcResource);
 	}
 
 	void GraphicDevice_DX11::Clear()

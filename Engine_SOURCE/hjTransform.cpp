@@ -103,5 +103,10 @@ namespace hj
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
 		cb->SetData(&trCb);
 		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::HS);
+		cb->Bind(eShaderStage::DS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
 	}
 }

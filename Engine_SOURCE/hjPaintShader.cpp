@@ -27,7 +27,7 @@ void hj::graphics::PaintShader::Binds()
 
 	mCurrentTime = 0.f;
 
-	mNoiseTexture->BindShader(eShaderStage::CS, 10);
+	mNoiseTexture->BindShaderResource(eShaderStage::CS, 10);
 
 	renderer::GlobalCB globalCb = {};
 	globalCb.globalDeltaTime = Time::ActualDeltaTime();

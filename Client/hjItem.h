@@ -28,5 +28,7 @@ namespace hj::object::item
 
     protected:
         eItemType mType;
+		std::string mItemName;
+        std::string mItemDescription;
     };
 }

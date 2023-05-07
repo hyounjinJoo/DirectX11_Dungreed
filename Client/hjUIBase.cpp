@@ -26,7 +26,7 @@ namespace hj
 		mUIRenderer->SetMaterial(mMaterial);
 		mUIRenderer->SetMesh(mesh);
 
-		std::shared_ptr<Texture> texture = mMaterial->GetTexture();
+		std::shared_ptr<Texture> texture = mMaterial->GetTexture(eTextureSlot::T0);
 
 		if (!texture)
 			return;

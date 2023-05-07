@@ -34,22 +34,8 @@ namespace hj
 
 	void GameObject::Initialize()
 	{
-		for (Component* comp : mComponents)
-		{
-			if (comp == nullptr)
-				continue;
-
-			comp->Initialize();
-		}
-
-		for (Component* script : mScripts)
-		{
-			if (script == nullptr)
-				continue;
-
-			script->Initialize();
-		}
 	}
+
 	void GameObject::Update()
 	{
 		for (Component* comp : mComponents)
@@ -119,5 +105,7 @@ namespace hj
 			mScripts.push_back(dynamic_cast<Script*>(comp));
 			comp->SetOwner(this);
 		}
+
+		comp->Initialize();
 	}
 }

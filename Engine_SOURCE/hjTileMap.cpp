@@ -69,7 +69,7 @@ namespace hj
 			mbBufferUpdated = true;
 		}
 		
-		mBuffer->Bind(eShaderStage::PS, 16);
+		mBuffer->BindSRV(eShaderStage::PS, 16);
 	}
 
 	void TileMap::Render()
@@ -129,7 +129,7 @@ namespace hj
 		if (mBuffer->GetTotalSize() < bufferSize)
 		{
 			//UINT size, UINT stride, eSRVType type, void* data
-			mBuffer->Create(sizeof(TileData), mTileCountX * mTileCountY, eSRVType::None, nullptr);
+			mBuffer->Create(sizeof(TileData), mTileCountX * mTileCountY, eSRVType::SRV, nullptr, true);
 		}
 
 		mbBufferUpdated = false;
@@ -157,7 +157,7 @@ namespace hj
 		if (mBuffer->GetTotalSize() < bufferSize)
 		{
 			//UINT size, UINT stride, eSRVType type, void* data
-			mBuffer->Create(sizeof(TileData), mTileCountX * mTileCountY, eSRVType::None, nullptr);
+			mBuffer->Create(sizeof(TileData), mTileCountX * mTileCountY, eSRVType::SRV, nullptr, true);
 		}
 
 		mbBufferUpdated = false;

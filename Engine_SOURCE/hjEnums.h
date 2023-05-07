@@ -25,6 +25,7 @@ namespace hj::enums
 		BackGround,
 		MidGround,
 		ForeGround,
+		Particle,
 		UI,
 		End = 16,
 	};
@@ -42,6 +43,7 @@ namespace hj::enums
 		SpriteRenderer,
 		TileMap,
 		Animator,
+		ParticleSystem,
 		Light,
 		UI,
 		Script,

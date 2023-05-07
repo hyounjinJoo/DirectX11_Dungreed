@@ -32,39 +32,39 @@ namespace hj::renderer
 
 	CBUFFER(MaterialCB, CBSLOT_MATERIAL)
 	{
-		int iData1;
-		int iData2;
-		int iData3;
-		int iData4;
+		int iData1 = -1;
+		int iData2 = -1;
+		int iData3 = -1;
+		int iData4 = -1;
 
-		float fData1;
-		float fData2;
-		float fData3;
-		float fData4;
+		float fData1 = -1.f;
+		float fData2 = -1.f;
+		float fData3 = -1.f;
+		float fData4 = -1.f;
 
-		Vector2 xy1;
-		Vector2 xy2;
-		Vector2 xy3;
-		Vector2 xy4;
+		Vector2 xy1 = {};
+		Vector2 xy2 = {};
+		Vector2 xy3 = {};
+		Vector2 xy4 = {};
 
-		Vector3 xyz1;
-		float	xyzPadding1;
-		Vector3 xyz2;
-		float	xyzPadding2;
-		Vector3 xyz3;
-		float	xyzPadding3;
-		Vector3 xyz4;
-		float	xyzPadding4;
+		Vector3 xyz1 = {};
+		float	xyzPadding1 = -1;
+		Vector3 xyz2 = {};
+		float	xyzPadding2 = -1;
+		Vector3 xyz3 = {};
+		float	xyzPadding3 = -1;
+		Vector3 xyz4 = {};
+		float	xyzPadding4 = -1;
 
-		Vector4 xyzw1;
-		Vector4 xyzw2;
-		Vector4 xyzw3;
-		Vector4 xyzw4;
+		Vector4 xyzw1 = {};
+		Vector4 xyzw2 = {};
+		Vector4 xyzw3 = {};
+		Vector4 xyzw4 = {};
 
-		Matrix matrix1;
-		Matrix matrix2;
-		Matrix matrix3;
-		Matrix matrix4;
+		Matrix matrix1 = {};
+		Matrix matrix2 = {};
+		Matrix matrix3 = {};
+		Matrix matrix4 = {};
 	};
 
 	CBUFFER(GridCB, CBSLOT_GRID)
@@ -122,6 +122,32 @@ namespace hj::renderer
 		Vector2 padding;
 	};
 
+	CBUFFER(ParticleSystemCB, CBSLOT_PARTICLESYSTEM)
+	{
+		// 0 ~ 48
+		Vector4 worldPosition;
+		Vector4 startColor;
+		Vector4 startSize;
+
+		// 48 ~ 64
+		UINT maxParticles;
+		UINT simulationSpace;
+		float radius;
+		float startSpeed;
+
+		// 64 ~ 80
+		float startLifeTime;
+		float deltaTime;
+		float elapsedTime; //누적시간
+		int padding;
+	}; 
+		
+	CBUFFER(NoiseCB, CBSLOT_NOISE)
+	{
+		// 0 ~ 16
+		Vector4 noiseSize;
+	};
+
 #pragma region extern Variables
 	extern Vertex vertexes[4];
 	extern Camera* mainCamera;
@@ -143,4 +169,5 @@ namespace hj::renderer
 
 	void PushLightAttribute(LightAttribute lightAttribute);
 	void BindLights();
+	void BindNoiseTexture();
 }

@@ -181,6 +181,8 @@
     <ClInclude Include="hjMeshRenderer.h" />
     <ClInclude Include="hjObject.h" />
     <ClInclude Include="hjPaintShader.h" />
+    <ClInclude Include="hjParticleShader.h" />
+    <ClInclude Include="hjParticleSystem.h" />
     <ClInclude Include="hjPrefab.h" />
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
@@ -223,6 +225,8 @@
     <ClCompile Include="hjMesh.cpp" />
     <ClCompile Include="hjMeshRenderer.cpp" />
     <ClCompile Include="hjPaintShader.cpp" />
+    <ClCompile Include="hjParticleShader.cpp" />
+    <ClCompile Include="hjParticleSystem.cpp" />
     <ClCompile Include="hjPrefab.cpp" />
     <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />

@@ -27,6 +27,7 @@
 #include "hjMap.h"
 #include "hjRoomRectFloor.h"
 #include "hjRoomNotPass.h"
+#include "hjParticleSystem.h"
 
 
 extern hj::Application application;
@@ -239,7 +240,7 @@ namespace hj
 		hpBarBaseMaterial->SetData(eGPUParam::Int_1, &useUV);
 		hpBarBaseMaterial->SetData(eGPUParam::Int_2, &useUV);
 		hpBarBaseMaterial->SetData(eGPUParam::Vector2_1, &startUV);
-		Vector2 canvasSize = hpBarBaseMaterial->GetTexture()->GetTexSize();
+		Vector2 canvasSize = hpBarBaseMaterial->GetTexture(eTextureSlot::T0)->GetTexSize();
 		hpBarBaseMaterial->SetData(eGPUParam::Vector2_2, &canvasSize);
 		hpBarBaseMaterial->SetData(eGPUParam::Vector2_3, &canvasSize);
 		hpBarBaseMaterial->SetData(eGPUParam::Vector2_4, &canvasSize);
@@ -283,7 +284,7 @@ namespace hj
 				mapLTRBlimit.y = mapSize.y * 0.5f;
 				mapLTRBlimit.z = mapSize.x * 0.5f;
 				mapLTRBlimit.w = -mapSize.y * 0.5f;
-
+		
 				if (renderer::mainCamera)
 				{
 					std::vector<Script*> scripts = renderer::mainCamera->GetOwner()->GetScripts();
@@ -296,7 +297,7 @@ namespace hj
 						}
 					}
 				}
-
+		
 				for (UINT layerIdx = 0; layerIdx < layerCount; ++layerIdx)
 				{
 					GameObject* obj = object::Instantiate<GameObject>(eLayerType::BackGround);
@@ -305,15 +306,15 @@ namespace hj
 					tr->SetPositionZ(5.f - (float)layerIdx);
 					tr->SetScale(Vector3(mapData->GetTileMapSize(), 1.f));
 					//tr->AddPositionY(mapData->GetTileMapSize().y * 0.5f - mapData->GetTileSize().y * 3.f);
-
+		
 					TileMap* tilemap = obj->AddComponent<TileMap>();
 					std::shared_ptr<Material> material = MTRL_FIND("MTRL_Map_Tile");
 					tilemap->SetMaterial(material);
 					tilemap->SetMesh(MESH_FIND("Mesh_Rect"));
-					tilemap->SetAtlasTex(material->GetTexture());
+					tilemap->SetAtlasTex(material->GetTexture(eTextureSlot::T0));
 					tilemap->SetTileSize(mapData->GetTileSize());
 					tilemap->SetTileMapCount(mapData->GetTileCount());
-
+		
 					const tileLayer* layer = mapData->GetTileMapLayer(layerIdx);
 					tilemap->SetAllTileData(layer->tileData);
 				}
@@ -322,18 +323,24 @@ namespace hj
 		{
 			RoomNotPass* floor = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(0.f, -760.f, 0.f));
 			floor->SetScale(Vector3(1760.f, 240.f, 1.f));
-			RoomNotPass* notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(800.f, 280.f, 0.f));
-			notPass->SetScale(Vector3(160.f, 1200.f, 1.f));
+			RoomNotPass* notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(880.f, 280.f, 0.f));
+			notPass->SetScale(Vector3(320.f, 1200.f, 1.f));
 
-			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(-800.f, 280.f, 0.f));
-			notPass->SetScale(Vector3(160.f, 1200.f, 1.f));
+			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(-880.f, 280.f, 0.f));
+			notPass->SetScale(Vector3(320.f, 1200.f, 1.f));
 
 			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(0.f, 800.f, 0.f));
 			notPass->SetScale(Vector3(1760.f, 160.f, 1.f));
 
 			CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
 		}
-
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
+			obj->SetName(L"PARTICLE");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-200.0f, 0.0f, -100.0f));
+			obj->AddComponent<ParticleSystem>();
+		}
 		Scene::Initialize();
 	}
 

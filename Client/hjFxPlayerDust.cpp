@@ -25,7 +25,7 @@ namespace hj
 		sr->SetMesh(mesh);
 
 		mAnimator = AddComponent<Animator>();
-		std::shared_ptr<Texture> texture = material->GetTexture();
+		std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 		Vector2 atlasTexSize = texture->GetTexSize();		
 		
 		float duration = 0.f;

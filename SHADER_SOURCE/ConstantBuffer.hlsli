@@ -82,3 +82,20 @@ cbuffer GlobalCBuffer : register(b5)
     float2 globalNoiseResolution;
     float2 globalPadding;
 };
+
+cbuffer ParticleSystem : register(b6)
+{
+    float4 worldPosition;
+    float4 startColor;
+    float4 startSize;
+    
+    uint maxParticles;
+    uint simulationSpace;
+    float radius;
+    float startSpeed;
+    
+    float startLifeTime;
+    float deltaTime;
+    float elapsedTime; //누적시간
+    int padding;
+}

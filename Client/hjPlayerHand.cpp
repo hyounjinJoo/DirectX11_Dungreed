@@ -28,7 +28,7 @@ namespace hj
 		mAnimator = AddComponent<Animator>();
 		if (material && mAnimator)
 		{
-			std::shared_ptr<Texture> texture = material->GetTexture();
+			std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 			if (texture)
 			{
 				CreateAnimation();
@@ -86,7 +86,7 @@ namespace hj
 	void PlayerHand::CreateAnimation()
 	{
 		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Char_Adventurer");
-		std::shared_ptr<Texture> texture = material->GetTexture();
+		std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 		Vector2 atlasTexSize = texture->GetTexSize();
 
 		float duration = 0.f;

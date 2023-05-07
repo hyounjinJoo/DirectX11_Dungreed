@@ -31,7 +31,7 @@ namespace hj
 		mAnimator = AddComponent<Animator>();
 		if (material && mAnimator)
 		{
-			std::shared_ptr<Texture> texture = material->GetTexture();
+			std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 			if (texture)
 			{
 				mCostume.reserve(static_cast<size_t>(ePlayerCostume::End));
@@ -328,7 +328,7 @@ namespace hj
 	{
 		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 		std::shared_ptr<Material> material = sr->GetMaterial();
-		std::shared_ptr<Texture> texture = material->GetTexture();
+		std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 		Vector2 atlasTexSize = texture->GetTexSize();
 
 		CreateAdventurerAnimation(material, texture, atlasTexSize);
