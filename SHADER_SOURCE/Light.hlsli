@@ -20,6 +20,7 @@ struct LightAttribute
 
 
 StructuredBuffer<LightAttribute> lightAttributes : register(t13);
+StructuredBuffer<LightAttribute> lightAttributes3D : register(t14);
 
 
 #define DIRECTIONALLIGHT 0
