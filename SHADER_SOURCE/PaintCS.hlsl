@@ -19,8 +19,8 @@ void main(uint3 DTid : SV_DispatchThreadID)
     float posX = floor(DTid.x / intervalSize);    
     float posY = floor(DTid.y / intervalSize);
         
-    float RandTestR = Rand(posX);
-    float RandTestG = Rand(posY);
-    float RandTestB = Rand(posX * posY);
-    tex[DTid.xy] = float4(RandTestR, RandTestG, RandTestB, 1.0f);
+    //float RandTestR = Rand(posX);
+    //float RandTestG = Rand(posY);
+    //float RandTestB = Rand(posX * posY);
+    tex[DTid.xy] = float4(1.f, 0.f, 0.f, 1.0f);
 }
