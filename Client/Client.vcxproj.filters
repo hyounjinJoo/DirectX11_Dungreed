@@ -128,6 +128,9 @@
     <Filter Include="Contents\GameObject\BaseObject\ColliderObject">
       <UniqueIdentifier>{dedd4e86-47fb-4413-9abc-524bc96d061a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Room">
+      <UniqueIdentifier>{24b903c7-f00c-423c-a98b-37ab90bc9dfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -250,6 +253,12 @@
     <ClInclude Include="hjSwordOfExplorer.h">
       <Filter>Contents\GameObject\Play\Item\Weapon\Melee\01. Common</Filter>
     </ClInclude>
+    <ClInclude Include="hjRoomInfo.h">
+      <Filter>Contents\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="hjRoomPassThrough.h">
+      <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -370,6 +379,12 @@
     </ClCompile>
     <ClCompile Include="hjSwordOfExplorer.cpp">
       <Filter>Contents\GameObject\Play\Item\Weapon\Melee\01. Common</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRoomInfo.cpp">
+      <Filter>Contents\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRoomPassThrough.cpp">
+      <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

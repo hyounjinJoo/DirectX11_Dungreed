@@ -15,6 +15,7 @@ namespace hj
 		MOVE_JUMP,
 		MOVE_LBTN,
 		MOVE_RBTN,
+		MOVE_SECONDJUMP,
 
 		END,
 	};
@@ -32,6 +33,7 @@ namespace hj
 
 		Vector2 GetOwnerScreenPos();
 
+		bool IsDash() { return mbDash; }
 	private:
 		void HandleMovementInput();
 		void HandleJumpInput();
@@ -54,6 +56,7 @@ namespace hj
 		void InitialDashTrail();
 		void ActiveDashTrail();
 
+		void ProcessJumpKey(eKeyState jumpKeyState);
 		void JumpStart();
 		void DoubleJumpStart();
 		void Jumping();

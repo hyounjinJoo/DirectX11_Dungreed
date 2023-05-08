@@ -137,7 +137,6 @@ namespace hj
 		//{
 		//	GetOwner()->SetPositionY(-300.f * Time::ActualDeltaTime());
 		//}
-
 	}
 
 	void PlayerScript::HandleMouseInput()
@@ -302,6 +301,7 @@ namespace hj
 		mOwnerRigid->SetVelocity(Vector2(mDashDir.x, mDashDir.y));
 		mOwnerRigid->AddForce(Vector2(mDashDir.x, mDashDir.y));
 		mOwnerRigid->SetGround(false);
+		mOwnerRigid->SetPathThroughFloor(false);
 	}
 
 	void PlayerScript::ActiveDashTrail()
@@ -319,8 +319,34 @@ namespace hj
 		if (!mOwnerRigid)
 			return;
 
-		bool bIsGround = mOwnerRigid->IsGround();
 		eKeyState jumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_JUMP]);
+		ProcessJumpKey(jumpKeyState);
+		jumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_SECONDJUMP]);
+		ProcessJumpKey(jumpKeyState);
+	}
+
+	void PlayerScript::ProcessJumpKey(eKeyState jumpKeyState)
+	{
+		bool bIsGround = mOwnerRigid->IsGround();
+
+		if (bIsGround)
+		{
+			bool bIsOnPathThrough = mOwnerRigid->IsOnPathThroughFloor();
+			bool bDownKeyClicked = Input::GetKeyDown(mKeyBindings[(UINT)playerKeyAction::MOVE_DOWN]) || Input::GetKeyPressed(mKeyBindings[(UINT)playerKeyAction::MOVE_DOWN]);
+			bool bJumpKeyClickAndPress = (jumpKeyState == eKeyState::DOWN || jumpKeyState == eKeyState::PRESSED);
+
+			// 바닥이 pathThrough인 경우에만 동작할 것.
+			// Down과 jumpKey가 동시에 눌린 경우
+			// 처리하고 탈출
+			if (bIsOnPathThrough && bDownKeyClicked && bJumpKeyClickAndPress)
+			{
+				mOwnerRigid->SetGround(false);
+				mOwnerRigid->SetPathThroughFloor(false);
+				GetOwner()->AddPositionY(-13.f);
+				return;
+			}
+
+		}
 
 		switch (jumpKeyState)
 		{
@@ -371,7 +397,7 @@ namespace hj
 			}
 			else if (!mbSingleJumping)
 			{
-				if (!mbDoubleJumping) 
+				if (!mbDoubleJumping)
 					mbCanInputDoubleJump = true;
 
 			}
@@ -482,6 +508,10 @@ namespace hj
 
 		// Mouse R Button
 		key = eKeyCode::RBTN;
+
+		mKeyBindings.push_back(key);
+
+		key = eKeyCode::SPACE;
 
 		mKeyBindings.push_back(key);
 		

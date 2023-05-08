@@ -72,6 +72,7 @@ namespace hj
 
         class PlayerHand* GetHand() { return mLeftHand; }
         class GameObject* GetCenter() { return mCenterObj; }
+        class PlayerScript* GetPlayerScript() { return mPlayerScript; }
         bool IsFlip() { return mbIsFlip; }
 
 		static void GetCostumeString(UINT costumeNumber, std::string& stringToGet);
@@ -87,7 +88,7 @@ namespace hj
         std::vector<Costume*> mCostume;
         class Animator* mAnimator;
         class RigidBody* mRigidBody;
-        class PlayerScript* mPlayerScript;
+        PlayerScript* mPlayerScript;
         bool mbIsFlip;
         std::vector<FxPlayerDust*> mPlayerDusts;
         int mSecondStepDustCreatedIndex;

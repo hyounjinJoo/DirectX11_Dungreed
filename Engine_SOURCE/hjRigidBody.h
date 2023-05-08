@@ -19,6 +19,9 @@ namespace hj
 		void SetMass(float mass) { mMass = mass; }
 		void SetGround(bool isGround) { mbGround = isGround; }
 		bool IsGround() { return mbGround; }
+		void SetPathThroughFloor(bool isOnFloor) { mbOnPathThroughFloor = isOnFloor; }
+		bool IsOnPathThroughFloor() { return mbOnPathThroughFloor; }
+
 		Vector2 GetVelocity() { return mVelocity; }
 		Vector2 GetForce() { return mForce; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
@@ -44,6 +47,8 @@ namespace hj
 		// 중력 이용한 점프
 		Vector2 mGravity;
 		bool mbGround;
+		bool mbOnPathThroughFloor;
+
 		Vector2 mLimitVelocity;
 
 		eMoveDir mMoveDir;

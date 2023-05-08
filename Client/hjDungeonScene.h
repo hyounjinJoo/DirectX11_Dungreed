@@ -19,5 +19,6 @@ namespace hj
 		void OnExit() override;
 
 	private:
+		//std::vector<RoomInfo*> mRooms;
 	};
 }

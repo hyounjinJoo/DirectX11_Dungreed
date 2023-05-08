@@ -159,7 +159,9 @@
     <ClInclude Include="hjArmRotatorScript.h" />
     <ClInclude Include="hjFxPlayerJump.h" />
     <ClInclude Include="hjFxPlayerTrail.h" />
+    <ClInclude Include="hjRoomInfo.h" />
     <ClInclude Include="hjRoomNotPass.h" />
+    <ClInclude Include="hjRoomPassThrough.h" />
     <ClInclude Include="hjRoomRectFloor.h" />
     <ClInclude Include="hjSwordOfExplorer.h" />
     <ClInclude Include="hjTitleBird.h" />
@@ -199,7 +201,9 @@
     <ClCompile Include="hjArmRotatorScript.cpp" />
     <ClCompile Include="hjFxPlayerJump.cpp" />
     <ClCompile Include="hjFxPlayerTrail.cpp" />
+    <ClCompile Include="hjRoomInfo.cpp" />
     <ClCompile Include="hjRoomNotPass.cpp" />
+    <ClCompile Include="hjRoomPassThrough.cpp" />
     <ClCompile Include="hjRoomRectFloor.cpp" />
     <ClCompile Include="hjSwordOfExplorer.cpp" />
     <ClCompile Include="hjTitleBird.cpp" />
