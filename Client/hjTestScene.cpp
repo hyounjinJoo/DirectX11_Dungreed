@@ -333,8 +333,29 @@ namespace hj
 			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(0.f, 800.f, 0.f));
 			notPass->SetScale(Vector3(1760.f, 160.f, 1.f));
 
-			RoomPassThrough* passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(0.f, -512.f, 0.f));
-			passThrough->SetScale(Vector3(640.f, 64.f, 1.f));
+			RoomPassThrough* passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-1.f, -508.f, 0.f));
+			passThrough->SetScale(Vector3(636.f, 56.f, 1.f));
+
+			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-441.f, -267.f, 0.f));
+			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
+
+			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(440.f, -267.f, 0.f));
+			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
+
+			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-521.f, -27.f, 0.f));
+			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
+
+			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(518.f, -27.f, 0.f));
+			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
+
+			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-521.f, 213.f, 0.f));
+			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
+
+			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(518.f, 213.f, 0.f));
+			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
+
+			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-1.f, 372.f, 0.f));
+			passThrough->SetScale(Vector3(314.f, 56.f, 1.f));
 
 			CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
 		}

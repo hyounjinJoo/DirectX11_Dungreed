@@ -131,6 +131,9 @@
     <Filter Include="Contents\Room">
       <UniqueIdentifier>{24b903c7-f00c-423c-a98b-37ab90bc9dfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Play\Room">
+      <UniqueIdentifier>{2a36bddb-5417-4a3a-beb5-db2b5858a5a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -259,6 +262,9 @@
     <ClInclude Include="hjRoomPassThrough.h">
       <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
     </ClInclude>
+    <ClInclude Include="hjRoomDoor.h">
+      <Filter>Contents\GameObject\Play\Room</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -385,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="hjRoomPassThrough.cpp">
       <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRoomDoor.cpp">
+      <Filter>Contents\GameObject\Play\Room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

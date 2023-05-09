@@ -2,6 +2,7 @@
 #include "hjEngine.h"
 #include "hjMath.h"
 #include "hjRoomNotPass.h"
+#include "hjRoomPassThrough.h"
 
 namespace hj
 {
@@ -9,22 +10,35 @@ namespace hj
 	{
 		enum class DoorType
 		{
-			None,
-			Door2,
-			Door3,
-			Door4,
-			End,
+			L,
+			LT,
+			LR,
+			LB,
+			LTR,
+			LTB,
+			LRB,
+			LTRB,
+			T,
+			TR,
+			TRB,
+			R,
+			RB,
+			B,
+			END,
 		};
 		enum class RoomType
 		{
-			None,
 			Start,
 			Normal,
 			Shop,
 			Inn,
+			BossEntrance,
 			BossLobby,
-			Boss,
-			End,
+			Boss1,
+			Boss2,
+			Boss3,
+			Ending,
+			END,
 		};
 
 	public:
@@ -41,8 +55,8 @@ namespace hj
 		DoorType mDoorType;
 		RoomType mRoomType;
 
-		std::vector<RoomNotPass*> mNotPassColliders;
-		//std::vector<RoomPassThrough> mPassThroughColliders;
+		std::vector<class RoomNotPass*> mNotPassColliders;
+		std::vector<class RoomPassThrough*> mPassThroughColliders;
 		//std::vector<RoomDoor> mDoorColliders;
 	};
 }

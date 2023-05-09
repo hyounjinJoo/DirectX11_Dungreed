@@ -4,16 +4,17 @@
 
 namespace hj
 {
+	enum class eFadeState
+	{
+		FadeInStart = 0,
+		FadeInEnd,
+		FadeOutStart,
+		FadeOutEnd,
+		End,
+	};
+
 	class FadeScript : public Script
 	{
-		enum class eFadeState
-		{
-			FadeInStart = 0,
-			FadeInEnd,
-			FadeOutStart,
-			FadeOutEnd,
-			End,
-		};
 
 	public:
 		FadeScript();
@@ -26,6 +27,9 @@ namespace hj
 
 		void SetTotalTransitionTime(float time) { mTotalTransitionTime = time; }
 		void SetFadeColor(eFadeState state, const Vector4& color);
+		void FadeOutStart() { mFadeState = eFadeState::FadeOutStart; };
+		void FadeInStart() { mFadeState = eFadeState::FadeInStart; };
+		eFadeState GetFadeState() { return mFadeState; }
 
 	private:
 		eFadeState mFadeState;

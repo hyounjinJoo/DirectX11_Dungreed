@@ -6,8 +6,8 @@ namespace hj
 		: mTileMapObj(nullptr)
 		, mTileMapFileName()
 		, mLayerCount(0)
-		, mDoorType(DoorType::None)
-		, mRoomType(RoomType::None)
+		, mDoorType(DoorType::END)
+		, mRoomType(RoomType::END)
 	{
 	}
 	RoomInfo::~RoomInfo()
