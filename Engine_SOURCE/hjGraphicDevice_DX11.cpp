@@ -448,7 +448,7 @@ namespace hj::graphics
 	void GraphicDevice_DX11::Clear()
 	{
 		// 렌더 타겟 뷰를 지정된 색상으로 클리어 시켜준다.
-		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+		FLOAT backgroundColor[4] = { 0.199f, 0.191f, 0.261f, 1.0f };
 		mContext->ClearRenderTargetView(mRenderTargetTexture->GetRTV().Get(), backgroundColor);
 		mContext->ClearDepthStencilView(mDepthStencilTexture->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 	}
