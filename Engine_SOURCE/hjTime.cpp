@@ -41,9 +41,10 @@ namespace hj
                 mActualDeltaTime = 1.f / targetFrameRate * 2.f;
 			float FPS = 1.f / mActualDeltaTime;
             float FPSRatio = targetFixedFPS / FPS;
-			mFixedDeltaTime = mActualDeltaTime / FPSRatio;
-            if (mFixedDeltaTime < mActualDeltaTime)
-                mFixedDeltaTime = mActualDeltaTime;
+			//mFixedDeltaTime = mActualDeltaTime / FPSRatio;
+			mFixedDeltaTime = targetDeltaTime;
+            if (mFixedDeltaTime > mActualDeltaTime)
+                mFixedDeltaTime = 1.f / 144.f * static_cast<float>((mActualDeltaTime / targetDeltaTime));
             mAccTime += mActualDeltaTime; 
             mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
         //}
