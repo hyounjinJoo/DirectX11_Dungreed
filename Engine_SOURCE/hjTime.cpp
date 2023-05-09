@@ -13,6 +13,7 @@ namespace hj
     float           Time::mAccTime = 0.0f;
     float			Time::mOneSecond = 0.0f;
     static int test = 0;
+    bool            Time::mbStopDeltaTimeUpdate = false;
 
     void Time::Initialize()
     {
@@ -29,8 +30,10 @@ namespace hj
         static const float targetDeltaTime = 1.f / targetFrameRate;
         static const float targetFixedFPS = 1.f / targetDeltaTime;
         HWND activeWindow = GetFocus();
-        //if (activeWindow == application.GetHwnd())
-        //{
+        if (!mbStopDeltaTimeUpdate)
+		{
+		//if (activeWindow == application.GetHwnd())
+		//{
             QueryPerformanceCounter(&mCurFrequency);
 
             float differenceInFrequancy
@@ -46,13 +49,15 @@ namespace hj
             if (mFixedDeltaTime > mActualDeltaTime)
                 mFixedDeltaTime = 1.f / 144.f * static_cast<float>((mActualDeltaTime / targetDeltaTime));
             mAccTime += mActualDeltaTime; 
-            mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
-        //}
-        //else
-        //{
-        //    mActualDeltaTime = 0.f;
-        //    mFixedDeltaTime = 0.f;
-        //}
+			mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
+
+		//}
+		//else
+		//{
+		//    mActualDeltaTime = 0.f;
+		//    mFixedDeltaTime = 0.f;
+		//}
+		}
     }
 
     void Time::Render(HDC hdc)
