@@ -57,6 +57,9 @@ namespace hj
 
 	void PlayerScript::Update()
 	{
+		if (Time::IsStopped())
+			return;
+
 		HandleMovementInput();
 		HandleJumpInput();
 		HandleDownInput();
@@ -69,6 +72,9 @@ namespace hj
 
 	void PlayerScript::FixedUpdate()
 	{
+		if (Time::IsStopped())
+			return;
+
 		GroundMove();
 	}
 

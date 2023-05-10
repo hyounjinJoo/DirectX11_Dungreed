@@ -30,6 +30,9 @@ namespace hj
 
 	void RigidBody::Update()
 	{
+		if (Time::IsStopped())
+			return;
+
 		mAccelation = mForce / mMass;
 
 		float fixedDelta = Time::FixedDeltaTime();
