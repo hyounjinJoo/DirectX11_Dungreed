@@ -134,6 +134,78 @@
     <Filter Include="Contents\GameObject\Play\Room">
       <UniqueIdentifier>{2a36bddb-5417-4a3a-beb5-db2b5858a5a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\Room">
+      <UniqueIdentifier>{b9644326-2ac3-4796-b4d5-50c4d9b979c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Test">
+      <UniqueIdentifier>{29512fa4-f95a-4441-b254-03afbdeb7731}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\FunctionObject">
+      <UniqueIdentifier>{80ff9180-b418-4bd6-980d-423056be0f40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Dungeon">
+      <UniqueIdentifier>{6fa55ed6-a527-46b2-8baf-30b1fdfead82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Dungeon\Boss">
+      <UniqueIdentifier>{334d29f2-91c4-4d57-9979-d13c8cb01641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Dungeon\Boss\01. EntranceRoom">
+      <UniqueIdentifier>{510ec5ea-c3e1-47af-b1ae-81018b2333e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Dungeon\Boss\02. BossRoom">
+      <UniqueIdentifier>{f4fb0508-b82e-4f15-8930-11d34121c804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Dungeon\Boss\03. ExitRoom">
+      <UniqueIdentifier>{3c4a7f41-4540-44ed-8e15-be1c17dfe6c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal">
+      <UniqueIdentifier>{c20e52da-55f7-4efd-814c-069f0d465b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\01. L">
+      <UniqueIdentifier>{fd7260f1-d73e-4643-9e72-35aeb890b5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\02. LT">
+      <UniqueIdentifier>{b5ba9fc0-dca4-433c-9114-ce8ec876df07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\03. LR">
+      <UniqueIdentifier>{642d5d09-4f4e-4216-9288-639b53f2f557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\04. LB">
+      <UniqueIdentifier>{a70ec177-db3f-45ca-a37a-c8f71c473f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\05. LTR">
+      <UniqueIdentifier>{b13fb895-ea03-4019-9110-0444aedd51a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\06. LTB">
+      <UniqueIdentifier>{b8f11a53-1e98-4e12-a9f3-639bc9fb51fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\07. LRB">
+      <UniqueIdentifier>{34213dab-7648-4c55-bff6-e3c6d505a7e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\08. LTRB">
+      <UniqueIdentifier>{cfac61af-6036-423d-9eda-30e2080be96b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\09. T">
+      <UniqueIdentifier>{9c5bda6c-3666-459a-a15f-4309f4c5f1f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\10. TR">
+      <UniqueIdentifier>{59863938-01cd-42fd-8359-3c67a3e07e36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\11. TB">
+      <UniqueIdentifier>{13cf5e1f-9a08-4414-8c15-db7c3275934d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\12. TRB">
+      <UniqueIdentifier>{962e13b1-c79a-466a-938e-ca863772b971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\13. R">
+      <UniqueIdentifier>{950260da-a498-416b-bfdc-6803402d8903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\14. RB">
+      <UniqueIdentifier>{b6aab2d1-acb1-4798-9970-7c430fa47cf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Normal\15. B">
+      <UniqueIdentifier>{7f45a263-a81d-434d-a6b1-1a4144bd8ff5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -174,12 +246,6 @@
     </ClInclude>
     <ClInclude Include="hjTitleScene.h">
       <Filter>Contents\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="hjTestPlayer.h">
-      <Filter>Contents\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="hjTestMonster.h">
-      <Filter>Contents\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="hjTestScene.h">
       <Filter>Contents\Scene</Filter>
@@ -265,6 +331,21 @@
     <ClInclude Include="hjRoomDoor.h">
       <Filter>Contents\GameObject\Play\Room</Filter>
     </ClInclude>
+    <ClInclude Include="hjTestMonster.h">
+      <Filter>Contents\GameObject\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTestPlayer.h">
+      <Filter>Contents\GameObject\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFadeObject.h">
+      <Filter>Contents\GameObject\FunctionObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1BossRoom.h">
+      <Filter>Contents\Room\Dungeon\Boss\02. BossRoom</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDoorScript.h">
+      <Filter>Contents\Script\Room</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -304,12 +385,6 @@
     </ClCompile>
     <ClCompile Include="hjTitleScene.cpp">
       <Filter>Contents\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="hjTestPlayer.cpp">
-      <Filter>Contents\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="hjTestMonster.cpp">
-      <Filter>Contents\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="hjTestScene.cpp">
       <Filter>Contents\Scene</Filter>
@@ -394,6 +469,21 @@
     </ClCompile>
     <ClCompile Include="hjRoomDoor.cpp">
       <Filter>Contents\GameObject\Play\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTestMonster.cpp">
+      <Filter>Contents\GameObject\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTestPlayer.cpp">
+      <Filter>Contents\GameObject\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFadeObject.cpp">
+      <Filter>Contents\GameObject\FunctionObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1BossRoom.cpp">
+      <Filter>Contents\Room\Dungeon\Boss\02. BossRoom</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDoorScript.cpp">
+      <Filter>Contents\Script\Room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

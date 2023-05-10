@@ -26,12 +26,14 @@ namespace hj
 
 		void SetDoorPlaced(UINT place) { SetDoorPlaced(static_cast<DoorPlaced>(place)); }
 		void SetDoorPlaced(DoorPlaced place);
+		DoorPlaced GetDoorPlacedType() { return mDoorPlaced; }
 
 		void SetExitDoor(RoomDoor* exitDoor) { mExitDoor = exitDoor; }
-		Vector2 GetExitDoorsExitPos();
+		Vector2 GetExitPos() { return mExitPos; }
 		
+		void SetFadeScript(class FadeScript* fadeScript);
 
-		void FadeOutStart();
+		void FadeOutStart(class Player* player);
 		void FadeInStart();
 
 		void CheckFadeOutComplete();

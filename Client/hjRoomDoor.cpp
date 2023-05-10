@@ -2,6 +2,8 @@
 #include "hjCollider2D.h"
 #include "hjFadeScript.h"
 #include "hjTime.h"
+#include "hjPlayer.h"
+#include "hjDoorScript.h"
 
 namespace hj
 {
@@ -15,14 +17,23 @@ namespace hj
 		, mbFadeInComplete(false)
 		, mDoorPlaced(DoorPlaced::None)
 	{
+		mDoorCollider = AddComponent<Collider2D>();
+		AddComponent<DoorScript>();
+
+		Vector2 scale = Vector2(80.f, 320.f);
+		SetScaleXY(scale);
 	}
 
 	RoomDoor::~RoomDoor()
 	{
+		mFadeScript = nullptr;
+		mDoorCollider = nullptr;
+		mExitDoor = nullptr;
 	}
 
 	void RoomDoor::Initialize()
 	{
+		int a = 0;
 	}
 
 	void RoomDoor::Update()
@@ -73,49 +84,19 @@ namespace hj
 	void RoomDoor::SetDoorPlaced(DoorPlaced place)
 	{
 		mDoorPlaced = place;
-
-		Vector4 thisLTRB = GetWorldLTRB();
-#define OFFSET 10.f
-#define LEFT thisLTRB.x
-#define TOP thisLTRB.y
-#define RIGHT thisLTRB.z
-#define BOTTOM thisLTRB.w
-
-		switch (place)
-		{
-		case hj::DoorPlaced::L:
-			mExitPos = Vector2(RIGHT + OFFSET, 0.f);
-			break;
-		case hj::DoorPlaced::T:
-			mExitPos = Vector2(0.f, BOTTOM + OFFSET);
-			break;
-		case hj::DoorPlaced::R:
-			mExitPos = Vector2(LEFT - OFFSET, 0.f);
-			break;
-		case hj::DoorPlaced::B:
-			mExitPos = Vector2(0.f, TOP - OFFSET);
-			break;
-		case hj::DoorPlaced::None:
-			mExitPos = Vector2::Zero;
-			break;
-		default:
-			break;
-		}
 	}
 
-	Vector2 RoomDoor::GetExitDoorsExitPos()
+	void RoomDoor::SetFadeScript(class FadeScript* fadeScript)
 	{
-		Vector2 result = Vector2::Zero;
-		if (mExitDoor)
-		{
-			result = mExitDoor->GetExitDoorsExitPos();
-		}
-
-		return result;
+		if (fadeScript)
+			mFadeScript = fadeScript;
 	}
 
-	void RoomDoor::FadeOutStart()
+	void RoomDoor::FadeOutStart(class Player* player)
 	{
+		if (!mFadeScript || !player || !mExitDoor)
+			return;
+
 		mbEntryStart = true;
 		mbFadeOutComplete = false;
 
@@ -127,14 +108,47 @@ namespace hj
 
 		// Move Process Start
 		// 1. GetExitDoor's exit pos
-		// 2. verify exit pos
-		//    - if exit pos's x, y component are 0, then return
-		// 3. GetPlayer 
-		// 4. player pos setted verified exit pos
+		DoorPlaced exitDoorPlace = mExitDoor->GetDoorPlacedType();
+		// 2. player pos setted verified exit pos
+
+		Vector4 exitDoorLTRB = mExitDoor->GetWorldLTRB();
+#define OFFSET 1.f
+#define LEFT exitDoorLTRB.x
+#define TOP exitDoorLTRB.y
+#define RIGHT exitDoorLTRB.z
+#define BOTTOM exitDoorLTRB.w
+
+		Vector2 exitPos = Vector2::Zero;
+		switch (exitDoorPlace)
+		{
+		case DoorPlaced::L:
+			exitPos.x = RIGHT + OFFSET + player->GetWorldScaleX() * 0.5f;
+			exitPos.y = player->GetWorldPositionY();
+			break;
+		case DoorPlaced::R:
+			exitPos.x = LEFT - OFFSET - player->GetWorldScaleX() * 0.5f;
+			exitPos.y = player->GetWorldPositionY();
+			break;
+		case DoorPlaced::T:
+			exitPos.x = player->GetWorldPositionX();
+			exitPos.y = BOTTOM - OFFSET - player->GetWorldScaleY() * 0.5f;
+			break;
+		case DoorPlaced::B:
+			exitPos.x = player->GetWorldPositionX();
+			exitPos.y = TOP + OFFSET + player->GetWorldScaleY() * 0.5f;
+			break;
+		case hj::DoorPlaced::None:
+		default:
+			break;
+		}
+		player->SetPositionXY(exitPos);
 	}
 
 	void RoomDoor::FadeInStart()
 	{
+		if (!mFadeScript)
+			return;
+
 		mbEntryStart = false;
 		mbExitStart = true;
 		mbFadeInComplete = false;

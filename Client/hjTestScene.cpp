@@ -29,6 +29,9 @@
 #include "hjRoomNotPass.h"
 #include "hjParticleSystem.h"
 #include "hjRoomPassThrough.h"
+#include "hjRoomDoor.h"
+#include "hjFadeObject.h"
+#include "hjStage1BossRoom.h"
 
 
 extern hj::Application application;
@@ -84,19 +87,8 @@ namespace hj
 #pragma endregion
 #pragma region Setting
 	#pragma region Fade Object
-			//scale = Vector3(1600.f, 900.f, 1.f);
-			//
-			//GameObject* fadeObj = object::Instantiate<GameObject>(eLayerType::UI
-			//													, pos
-			//													, rot
-			//													, scale);
-			//		
-			//fadeObj->AddComponent(new FadeScript());
-			//
-			//MeshRenderer* fadeMR = new MeshRenderer();
-			//fadeMR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			//fadeMR->SetMaterial(Resources::Find<Material>(L"FadeMaterial"));
-			//fadeObj->AddComponent(fadeMR);
+		mFadeObject = object::Instantiate<FadeObject>(eLayerType::UI);
+
 	#pragma endregion
 #pragma endregion
 #pragma region Objects
@@ -275,89 +267,10 @@ namespace hj
 		//	spriteRender->SetMesh(mesh);
 		//}
 		{
-			std::shared_ptr<Map> mapData = Resources::Find<Map>(WIDE("MAP_01_BossRoom"));
-			if (mapData)
-			{
-				UINT layerCount = mapData->GetLayerCount();
-				Vector4 mapLTRBlimit = Vector4::Zero;
-				Vector2 mapSize = mapData->GetTileMapSize();
-				mapLTRBlimit.x = -mapSize.x * 0.5f;
-				mapLTRBlimit.y = mapSize.y * 0.5f;
-				mapLTRBlimit.z = mapSize.x * 0.5f;
-				mapLTRBlimit.w = -mapSize.y * 0.5f;
-		
-				if (renderer::mainCamera)
-				{
-					std::vector<Script*> scripts = renderer::mainCamera->GetOwner()->GetScripts();
-					for (auto script : scripts)
-					{
-						CameraScript* cameraScript = dynamic_cast<CameraScript*>(script);
-						if (cameraScript)
-						{
-							cameraScript->SetLimitSpace(mapLTRBlimit);
-						}
-					}
-				}
-		
-				for (UINT layerIdx = 0; layerIdx < layerCount; ++layerIdx)
-				{
-					GameObject* obj = object::Instantiate<GameObject>(eLayerType::BackGround);
-					obj->SetName(L"TileMap");
-					Transform* tr = obj->GetComponent<Transform>();
-					tr->SetPositionZ(5.f - (float)layerIdx);
-					tr->SetScale(Vector3(mapData->GetTileMapSize(), 1.f));
-					//tr->AddPositionY(mapData->GetTileMapSize().y * 0.5f - mapData->GetTileSize().y * 3.f);
-		
-					TileMap* tilemap = obj->AddComponent<TileMap>();
-					std::shared_ptr<Material> material = MTRL_FIND("MTRL_Map_Tile");
-					tilemap->SetMaterial(material);
-					tilemap->SetMesh(MESH_FIND("Mesh_Rect"));
-					tilemap->SetAtlasTex(material->GetTexture(eTextureSlot::T0));
-					tilemap->SetTileSize(mapData->GetTileSize());
-					tilemap->SetTileMapCount(mapData->GetTileCount());
-		
-					const tileLayer* layer = mapData->GetTileMapLayer(layerIdx);
-					tilemap->SetAllTileData(layer->tileData);
-				}
-			}
+			CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
 		}
 		{
-			RoomNotPass* floor = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(0.f, -760.f, 0.f));
-			floor->SetScale(Vector3(1760.f, 240.f, 1.f));
-			RoomNotPass* notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(880.f, 280.f, 0.f));
-			notPass->SetScale(Vector3(320.f, 1200.f, 1.f));
-
-			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(-880.f, 280.f, 0.f));
-			notPass->SetScale(Vector3(320.f, 1200.f, 1.f));
-
-			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround, Vector3(0.f, 800.f, 0.f));
-			notPass->SetScale(Vector3(1760.f, 160.f, 1.f));
-
-			RoomPassThrough* passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-1.f, -508.f, 0.f));
-			passThrough->SetScale(Vector3(636.f, 56.f, 1.f));
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-441.f, -267.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(440.f, -267.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-521.f, -27.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(518.f, -27.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-521.f, 213.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(518.f, 213.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround, Vector3(-1.f, 372.f, 0.f));
-			passThrough->SetScale(Vector3(314.f, 56.f, 1.f));
-
-			CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
+			GameObject* bossRoom = object::Instantiate<Stage1BossRoom>(eLayerType::ForeGround);
 		}
 		{
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);

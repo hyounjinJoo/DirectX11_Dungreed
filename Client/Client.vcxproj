@@ -144,9 +144,11 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjDebugObject.h" />
+    <ClInclude Include="hjDoorScript.h" />
     <ClInclude Include="hjDungeonScene.h" />
     <ClInclude Include="hjEditor.h" />
     <ClInclude Include="hjEditorObject.h" />
+    <ClInclude Include="hjFadeObject.h" />
     <ClInclude Include="hjFadeScript.h" />
     <ClInclude Include="hjGridScript.h" />
     <ClInclude Include="hjItem.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="hjRoomNotPass.h" />
     <ClInclude Include="hjRoomPassThrough.h" />
     <ClInclude Include="hjRoomRectFloor.h" />
+    <ClInclude Include="hjStage1BossRoom.h" />
     <ClInclude Include="hjSwordOfExplorer.h" />
     <ClInclude Include="hjTitleBird.h" />
     <ClInclude Include="hjPlayerScript.h" />
@@ -187,9 +190,11 @@
   <ItemGroup>
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjDebugObject.cpp" />
+    <ClCompile Include="hjDoorScript.cpp" />
     <ClCompile Include="hjDungeonScene.cpp" />
     <ClCompile Include="hjEditor.cpp" />
     <ClCompile Include="hjEditorObject.cpp" />
+    <ClCompile Include="hjFadeObject.cpp" />
     <ClCompile Include="hjFadeScript.cpp" />
     <ClCompile Include="hjGridScript.cpp" />
     <ClCompile Include="hjItem.cpp" />
@@ -207,6 +212,7 @@
     <ClCompile Include="hjRoomNotPass.cpp" />
     <ClCompile Include="hjRoomPassThrough.cpp" />
     <ClCompile Include="hjRoomRectFloor.cpp" />
+    <ClCompile Include="hjStage1BossRoom.cpp" />
     <ClCompile Include="hjSwordOfExplorer.cpp" />
     <ClCompile Include="hjTitleBird.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />

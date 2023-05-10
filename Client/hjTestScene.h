@@ -18,9 +18,11 @@ namespace hj
 
 		void OnEnter() override;
 		void OnExit() override;
+		class GameObject* GetFadeObject() { return mFadeObject; }
 
 	private:
 		class GameObject* mObj;
+		GameObject* mFadeObject;
 		std::shared_ptr<graphics::PaintShader> mPaintShader;
     };
 }
