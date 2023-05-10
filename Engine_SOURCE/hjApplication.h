@@ -33,6 +33,7 @@ namespace hj
 		HWND GetHwnd() { return mHwnd; }
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
+		math::Vector2 GetWindowSize() { return math::Vector2(static_cast<float>(mWidth), static_cast<float>(mHeight)); }
 		math::Vector2 GetResolutionRatio();
 #pragma endregion;
 
