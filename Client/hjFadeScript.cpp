@@ -12,11 +12,11 @@ namespace hj
 		: Script()
 		, mFadeState(eFadeState::End)
 		, mCurrentTime(0.f)
-		, mTotalTransitionTime(3.f)
-		, mFadeInStartColor(0.f, 0.f, 0.f, 0.f)
-		, mFadeInEndColor(1.f, 0.f, 1.f, 1.f)
-		, mFadeOutStartColor(1.f, 0.f, 1.f, 1.f)
-		, mFadeOutEndColor(1.f, 1.f, 0.f, 0.f)
+		, mTotalTransitionTime(0.4f)
+		, mFadeInStartColor(0.f, 0.f, 0.f, 1.f)
+		, mFadeInEndColor(0.f, 0.f, 0.f, 0.f)
+		, mFadeOutStartColor(0.f, 0.f, 0.f, 0.f)
+		, mFadeOutEndColor(0.f, 0.f, 0.f, 1.f)
 		, mCurrentColor(0.f, 0.f, 0.f, 0.f)
 
 	{

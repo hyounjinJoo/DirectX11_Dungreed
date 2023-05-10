@@ -662,6 +662,7 @@ namespace hj::renderer
 		material = MTRL_NEW();
 		material->SetShader(shader);
 		shader->SetBSState(eBSType::AlphaBlend);
+		shader->SetDSState(eDSType::None);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Fade", material);
 
