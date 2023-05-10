@@ -15,6 +15,7 @@ namespace hj
 		static void Render(HDC hdc);
 
 		static __forceinline void StopDeltaTimeUpdate(bool stop) { mbStopDeltaTimeUpdate = stop; }
+		static __forceinline bool IsStopped() { return mbStopDeltaTimeUpdate; }
 
 	private:
 		static LARGE_INTEGER	mCpuFrequency;
