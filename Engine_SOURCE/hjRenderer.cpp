@@ -756,6 +756,36 @@ namespace hj::renderer
 		map = std::make_shared<Map>();
 		map->Load(WIDE("TileMap\\01_LR2.xml"));
 		Resources::Insert<Map>(WIDE("MAP_01_LR2"), map);
+
+		{
+			map = std::make_shared<Map>();
+			map->Load(WIDE("TileMap\\01_S_L.xml"));
+			Resources::Insert<Map>(WIDE("MAP_01_S_L"), map);
+
+			map = std::make_shared<Map>();
+			map->Load(WIDE("TileMap\\01_S_LT.xml"));
+			Resources::Insert<Map>(WIDE("MAP_01_S_LT"), map);
+
+			map = std::make_shared<Map>();
+			map->Load(WIDE("TileMap\\01_S_LTR.xml"));
+			Resources::Insert<Map>(WIDE("MAP_01_S_LTR"), map);
+
+			map = std::make_shared<Map>();
+			map->Load(WIDE("TileMap\\01_S_R.xml"));
+			Resources::Insert<Map>(WIDE("MAP_01_S_R"), map);
+
+			map = std::make_shared<Map>();
+			map->Load(WIDE("TileMap\\01_S_RB.xml"));
+			Resources::Insert<Map>(WIDE("MAP_01_S_RB"), map);
+
+			map = std::make_shared<Map>();
+			map->Load(WIDE("TileMap\\01_S_TR.xml"));
+			Resources::Insert<Map>(WIDE("MAP_01_S_TR"), map);
+
+			map = std::make_shared<Map>();
+			map->Load(WIDE("TileMap\\01_S_TRB.xml"));
+			Resources::Insert<Map>(WIDE("MAP_01_S_TRB"), map);
+		}
 	}
 
 	void Initialize()
