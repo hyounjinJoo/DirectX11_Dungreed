@@ -158,53 +158,59 @@
     <Filter Include="Contents\Room\Dungeon\Boss\03. ExitRoom">
       <UniqueIdentifier>{3c4a7f41-4540-44ed-8e15-be1c17dfe6c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal">
+    <Filter Include="Contents\Room\Dungeon\Base">
+      <UniqueIdentifier>{3232827e-0914-41fc-aec4-27d43652d58b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Dungeon\Normal">
       <UniqueIdentifier>{c20e52da-55f7-4efd-814c-069f0d465b69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\01. L">
+    <Filter Include="Contents\Room\Dungeon\Start">
+      <UniqueIdentifier>{9101d61d-6d1f-452b-b70f-71a43ac92885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Dungeon\Start\15. B">
+      <UniqueIdentifier>{7f45a263-a81d-434d-a6b1-1a4144bd8ff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Room\Dungeon\Start\01. L">
       <UniqueIdentifier>{fd7260f1-d73e-4643-9e72-35aeb890b5d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\02. LT">
+    <Filter Include="Contents\Room\Dungeon\Start\02. LT">
       <UniqueIdentifier>{b5ba9fc0-dca4-433c-9114-ce8ec876df07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\03. LR">
+    <Filter Include="Contents\Room\Dungeon\Start\03. LR">
       <UniqueIdentifier>{642d5d09-4f4e-4216-9288-639b53f2f557}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\04. LB">
+    <Filter Include="Contents\Room\Dungeon\Start\04. LB">
       <UniqueIdentifier>{a70ec177-db3f-45ca-a37a-c8f71c473f1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\05. LTR">
+    <Filter Include="Contents\Room\Dungeon\Start\05. LTR">
       <UniqueIdentifier>{b13fb895-ea03-4019-9110-0444aedd51a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\06. LTB">
+    <Filter Include="Contents\Room\Dungeon\Start\06. LTB">
       <UniqueIdentifier>{b8f11a53-1e98-4e12-a9f3-639bc9fb51fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\07. LRB">
+    <Filter Include="Contents\Room\Dungeon\Start\07. LRB">
       <UniqueIdentifier>{34213dab-7648-4c55-bff6-e3c6d505a7e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\08. LTRB">
+    <Filter Include="Contents\Room\Dungeon\Start\08. LTRB">
       <UniqueIdentifier>{cfac61af-6036-423d-9eda-30e2080be96b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\09. T">
+    <Filter Include="Contents\Room\Dungeon\Start\09. T">
       <UniqueIdentifier>{9c5bda6c-3666-459a-a15f-4309f4c5f1f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\10. TR">
+    <Filter Include="Contents\Room\Dungeon\Start\10. TR">
       <UniqueIdentifier>{59863938-01cd-42fd-8359-3c67a3e07e36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\11. TB">
+    <Filter Include="Contents\Room\Dungeon\Start\11. TB">
       <UniqueIdentifier>{13cf5e1f-9a08-4414-8c15-db7c3275934d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\12. TRB">
+    <Filter Include="Contents\Room\Dungeon\Start\12. TRB">
       <UniqueIdentifier>{962e13b1-c79a-466a-938e-ca863772b971}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\13. R">
+    <Filter Include="Contents\Room\Dungeon\Start\13. R">
       <UniqueIdentifier>{950260da-a498-416b-bfdc-6803402d8903}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Room\Normal\14. RB">
+    <Filter Include="Contents\Room\Dungeon\Start\14. RB">
       <UniqueIdentifier>{b6aab2d1-acb1-4798-9970-7c430fa47cf5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Room\Normal\15. B">
-      <UniqueIdentifier>{7f45a263-a81d-434d-a6b1-1a4144bd8ff5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +352,57 @@
     <ClInclude Include="hjDoorScript.h">
       <Filter>Contents\Script\Room</Filter>
     </ClInclude>
+    <ClInclude Include="hjRoomBase.h">
+      <Filter>Contents\Room\Dungeon\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartL.h">
+      <Filter>Contents\Room\Dungeon\Start\01. L</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartLT.h">
+      <Filter>Contents\Room\Dungeon\Start\02. LT</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartLTR.h">
+      <Filter>Contents\Room\Dungeon\Start\05. LTR</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartR.h">
+      <Filter>Contents\Room\Dungeon\Start\13. R</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartRB.h">
+      <Filter>Contents\Room\Dungeon\Start\14. RB</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartTR.h">
+      <Filter>Contents\Room\Dungeon\Start\10. TR</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartTRB.h">
+      <Filter>Contents\Room\Dungeon\Start\12. TRB</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartLR.h">
+      <Filter>Contents\Room\Dungeon\Start\03. LR</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartLB.h">
+      <Filter>Contents\Room\Dungeon\Start\04. LB</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartLTB.h">
+      <Filter>Contents\Room\Dungeon\Start\06. LTB</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartLRB.h">
+      <Filter>Contents\Room\Dungeon\Start\07. LRB</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartLTRB.h">
+      <Filter>Contents\Room\Dungeon\Start\08. LTRB</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartT.h">
+      <Filter>Contents\Room\Dungeon\Start\09. T</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartTR2.h">
+      <Filter>Contents\Room\Dungeon\Start\10. TR</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartTB.h">
+      <Filter>Contents\Room\Dungeon\Start\11. TB</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1StartB.h">
+      <Filter>Contents\Room\Dungeon\Start\15. B</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -484,6 +541,57 @@
     </ClCompile>
     <ClCompile Include="hjDoorScript.cpp">
       <Filter>Contents\Script\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRoomBase.cpp">
+      <Filter>Contents\Room\Dungeon\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartL.cpp">
+      <Filter>Contents\Room\Dungeon\Start\01. L</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartLT.cpp">
+      <Filter>Contents\Room\Dungeon\Start\02. LT</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartLTR.cpp">
+      <Filter>Contents\Room\Dungeon\Start\05. LTR</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartR.cpp">
+      <Filter>Contents\Room\Dungeon\Start\13. R</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartRB.cpp">
+      <Filter>Contents\Room\Dungeon\Start\14. RB</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartTR.cpp">
+      <Filter>Contents\Room\Dungeon\Start\10. TR</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartTRB.cpp">
+      <Filter>Contents\Room\Dungeon\Start\12. TRB</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartLR.cpp">
+      <Filter>Contents\Room\Dungeon\Start\03. LR</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartLB.cpp">
+      <Filter>Contents\Room\Dungeon\Start\04. LB</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartLTB.cpp">
+      <Filter>Contents\Room\Dungeon\Start\06. LTB</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartLRB.cpp">
+      <Filter>Contents\Room\Dungeon\Start\07. LRB</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartLTRB.cpp">
+      <Filter>Contents\Room\Dungeon\Start\08. LTRB</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartT.cpp">
+      <Filter>Contents\Room\Dungeon\Start\09. T</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartTR2.cpp">
+      <Filter>Contents\Room\Dungeon\Start\10. TR</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartTB.cpp">
+      <Filter>Contents\Room\Dungeon\Start\11. TB</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1StartB.cpp">
+      <Filter>Contents\Room\Dungeon\Start\15. B</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

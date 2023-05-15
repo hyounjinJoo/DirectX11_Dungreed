@@ -33,6 +33,7 @@ namespace hj
 
 		virtual void OnCollisionEnter(Collider* collider) override;
 		virtual void OnCollisionStay(Collider* collider) override;
+		virtual void OnCollisionExit(Collider* collider) override;
 
 		void SetCollider(class Collider2D* collider);
 	private:

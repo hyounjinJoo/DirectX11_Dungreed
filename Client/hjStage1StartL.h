@@ -3,19 +3,18 @@
 
 namespace hj
 {
-	class Stage1BossRoom :
+	class Stage1StartL :
 		public RoomBase
 	{
 	public:
-		Stage1BossRoom();
-		virtual ~Stage1BossRoom();
+		Stage1StartL();
+		virtual ~Stage1StartL();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
-		void AddObjectsPosXY(const Vector2& pos);
 	private:
 	};
 }

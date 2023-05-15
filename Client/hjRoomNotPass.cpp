@@ -88,22 +88,22 @@ namespace hj
 		UINT enterCase = NOT_DETERMINE_CASE;
 		if (otherCenter.y > thisLTRB.y)
 			enterCase = TOP_COLLISION_CASE;
-		else if (otherCenter.y < thisLTRB.w)
-			enterCase = BOTTOM_COLLISION_CASE;
 		else if (otherCenter.x < thisLTRB.x)
 			enterCase = LEFT_COLLISION_CASE;
 		else if (otherCenter.x > thisLTRB.z)
 			enterCase = RIGHT_COLLISION_CASE;
+		else if (otherCenter.y < thisLTRB.w)
+			enterCase = BOTTOM_COLLISION_CASE;
 		else
 		{
 			if (otherCenter.y >= thisCenter.y || (otherVelocity.y < 0.f || otherForce.y < 0.f))
 				enterCase = TOP_COLLISION_CASE;
-			else if (otherCenter.y < thisCenter.y || (otherVelocity.y >= 0.f || otherForce.y >= 0.f))
-				enterCase = BOTTOM_COLLISION_CASE;
 			else if (otherCenter.x <= thisCenter.x || (otherVelocity.x > 0.f || otherForce.x > 0.f))
 				enterCase = LEFT_COLLISION_CASE;
 			else if (otherCenter.x > thisCenter.x || (otherVelocity.x < 0.f || otherForce.x < 0.f))
 				enterCase = RIGHT_COLLISION_CASE;
+			else if (otherCenter.y < thisCenter.y || (otherVelocity.y >= 0.f || otherForce.y >= 0.f))
+				enterCase = BOTTOM_COLLISION_CASE;
 		}
 
 		Vector2 otherScale = other->GetScaleXY();
@@ -152,24 +152,25 @@ namespace hj
 		Vector2 otherForce = otherRigidBody->GetForce();
 
 		UINT enterCase = NOT_DETERMINE_CASE;
+
 		if (otherCenter.y > thisLTRB.y)
 			enterCase = TOP_COLLISION_CASE;
-		else if (otherCenter.y < thisLTRB.w )
-			enterCase = BOTTOM_COLLISION_CASE;
-		else if (otherCenter.x < thisLTRB.x )
+		else if (otherCenter.x < thisLTRB.x)
 			enterCase = LEFT_COLLISION_CASE;
-		else if (otherCenter.x > thisLTRB.z )
+		else if (otherCenter.x > thisLTRB.z)
 			enterCase = RIGHT_COLLISION_CASE;
+		else if (otherCenter.y < thisLTRB.w)
+			enterCase = BOTTOM_COLLISION_CASE;
 		else
 		{
 			if (otherCenter.y >= thisCenter.y || (otherVelocity.y < 0.f || otherForce.y < 0.f))
 				enterCase = TOP_COLLISION_CASE;
-			else if (otherCenter.y < thisCenter.y || (otherVelocity.y >= 0.f || otherForce.y >= 0.f))
-				enterCase = BOTTOM_COLLISION_CASE;
 			else if (otherCenter.x <= thisCenter.x || (otherVelocity.x > 0.f || otherForce.x > 0.f))
 				enterCase = LEFT_COLLISION_CASE;
 			else if (otherCenter.x > thisCenter.x || (otherVelocity.x < 0.f || otherForce.x < 0.f))
 				enterCase = RIGHT_COLLISION_CASE;
+			else if (otherCenter.y < thisCenter.y || (otherVelocity.y >= 0.f || otherForce.y >= 0.f))
+				enterCase = BOTTOM_COLLISION_CASE;
 		}
 
 		Vector2 otherScale = other->GetScaleXY();
@@ -177,10 +178,6 @@ namespace hj
 
 		if (TOP_COLLISION_CASE == enterCase)
 		{
-			//otherRigidBody->SetGround(true);
-			//otherRigidBody->ClearVelocityY();
-			//
-			//other->SetPositionY(thisLTRB.y + otherScale.y * 0.5f + 0.1f);
 			float forceY = otherRigidBody->GetForce().y;
 			if (forceY <= 0.f && otherRigidBody->GetVelocity().y < 0.f)
 			{
@@ -190,24 +187,51 @@ namespace hj
 		}
 		else if (BOTTOM_COLLISION_CASE == enterCase)
 		{
-			//otherRigidBody->ClearVelocityY();
-			//other->SetPositionY(thisLTRB.w - otherScale.y * 0.5f - 0.1f);
 			if (otherRigidBody->GetVelocity().y >= 0.f)
 				other->SetPositionY(thisLTRB.w - otherScale.y * 0.5f);
 		}
 		else if (LEFT_COLLISION_CASE == enterCase)
 		{
-			//otherRigidBody->ClearVelocityX();
-			if(otherRigidBody->GetForce().x >= 0.f)
+			if (otherRigidBody->GetForce().x >= 0.f)
 				other->SetPositionX(thisLTRB.x - otherScale.x * 0.5f);
 		}
 		else if (RIGHT_COLLISION_CASE == enterCase)
 		{
-			//otherRigidBody->ClearVelocityX();
-			//other->SetPositionX(thisLTRB.z + otherScale.x * 0.5f + 0.1f);
 			if (otherRigidBody->GetForce().x <= 0.f)
-				other->SetPositionX(thisLTRB.z + otherScale.x * 0.5f + 0.1f);
-		}		
+				other->SetPositionX(thisLTRB.z + otherScale.x * 0.5f);
+		}
+	}
+
+	void NotPassScript::OnCollisionExit(Collider* collider)
+	{
+
+		if (nullptr == mRectCollider || nullptr == collider->GetOwner())
+			return;
+
+		GameObject* other = collider->GetOwner();
+		if (nullptr == other->GetComponent<RigidBody>())
+			return;
+
+		RigidBody* otherRigidBody = other->GetComponent<RigidBody>();
+		Vector2 otherCenter = other->GetWorldPositionXY();
+
+		Vector4 thisLTRB = mRectCollider->GetLTRB();
+		Vector2 thisCenter = Vector2(mRectCollider->GetPosition().x, mRectCollider->GetPosition().y);
+
+		Vector2 otherVelocity = otherRigidBody->GetVelocity();
+		Vector2 otherForce = otherRigidBody->GetForce();
+
+		UINT enterCase = NOT_DETERMINE_CASE;
+
+		if (otherCenter.y > thisLTRB.y)
+			enterCase = TOP_COLLISION_CASE;
+		else
+		{
+			if (otherCenter.y >= thisCenter.y || (otherVelocity.y < 0.f || otherForce.y < 0.f))
+				enterCase = TOP_COLLISION_CASE;
+		}
+
+		otherRigidBody->SetGround(false);
 	}
 
 	void NotPassScript::SetCollider(Collider2D* collider)

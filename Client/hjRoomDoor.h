@@ -9,7 +9,7 @@ namespace hj
 		T,
 		R,
 		B,
-		None,
+		End,
 	};
 
 	class RoomDoor :
@@ -41,7 +41,15 @@ namespace hj
 
 		void ProcessFadeInEnd();
 
+		void SetOwnerRoom(class RoomBase* ownerRoom);
+		RoomBase* GetOwnerRoom();
+
+		void SetEntryStart(bool start) { mbEntryStart = start; }
+		void SetExitStart(bool start) { mbExitStart = start; }
+
 	private:
+		class Player* mTargetPlayer;
+		RoomBase* mOwnerRoom;
 		DoorPlaced mDoorPlaced;
 		class Collider2D* mDoorCollider;
 		class FadeScript* mFadeScript;

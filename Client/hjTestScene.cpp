@@ -32,6 +32,21 @@
 #include "hjRoomDoor.h"
 #include "hjFadeObject.h"
 #include "hjStage1BossRoom.h"
+#include "hjStage1StartL.h"
+#include "hjStage1StartLTR.h"
+#include "hjStage1StartLR.h"
+#include "hjStage1StartLB.h"
+#include "hjStage1StartLTB.h"
+#include "hjStage1StartLRB.h"
+#include "hjStage1StartLTRB.h"
+#include "hjStage1StartT.h"
+#include "hjStage1StartTR.h"
+#include "hjStage1StartTR2.h"
+#include "hjStage1StartTB.h"
+#include "hjStage1StartTRB.h"
+#include "hjStage1StartR.h"
+#include "hjStage1StartRB.h"
+#include "hjStage1StartLT.h"
 
 
 extern hj::Application application;
@@ -41,6 +56,7 @@ namespace hj
 	TestScene::TestScene()
 		: Scene(eSceneType::Test)
 		, mObj(nullptr)
+		, mFadeObject(nullptr)
 	{
 	}
 
@@ -270,7 +286,44 @@ namespace hj
 			CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
 		}
 		{
-			GameObject* bossRoom = object::Instantiate<Stage1BossRoom>(eLayerType::ForeGround);
+			//Stage1BossRoom* room = object::Instantiate<Stage1BossRoom>(eLayerType::ForeGround);
+			RoomBase* startRoom = object::Instantiate<Stage1StartR>(eLayerType::ForeGround);
+			startRoom->SettingFadeObject();
+			startRoom->SettingDoorOwner();
+
+			RoomBase* roomLT = object::Instantiate<Stage1StartLT>(eLayerType::ForeGround);
+			roomLT->SettingFadeObject();
+			roomLT->SettingDoorOwner();
+			roomLT->Pause();
+
+			startRoom->ConnectDoor(DoorPlaced::R, roomLT->GetDoor(DoorPlaced::L));
+			roomLT->ConnectDoor(DoorPlaced::L, startRoom->GetDoor(DoorPlaced::R));
+
+			RoomBase* roomTB = object::Instantiate<Stage1StartTB>(eLayerType::ForeGround);
+			roomTB->SettingFadeObject();
+			roomTB->SettingDoorOwner();
+			roomTB->Pause();
+
+			roomLT->ConnectDoor(DoorPlaced::T, roomTB->GetDoor(DoorPlaced::B));
+			roomTB->ConnectDoor(DoorPlaced::B, roomLT->GetDoor(DoorPlaced::T));
+			
+			RoomBase* roomRB = object::Instantiate<Stage1StartRB>(eLayerType::ForeGround);
+			roomRB->SettingFadeObject();
+			roomRB->SettingDoorOwner();
+			roomRB->Pause();
+
+			roomTB->ConnectDoor(DoorPlaced::T, roomRB->GetDoor(DoorPlaced::B));
+			roomRB->ConnectDoor(DoorPlaced::B, roomTB->GetDoor(DoorPlaced::T));
+
+			RoomBase* roomLTRB = object::Instantiate<Stage1StartLTRB>(eLayerType::ForeGround);
+			roomLTRB->SettingFadeObject();
+			roomLTRB->SettingDoorOwner();
+			roomLTRB->Pause();
+
+			roomRB->ConnectDoor(DoorPlaced::R, roomLTRB->GetDoor(DoorPlaced::L));
+			roomLTRB->ConnectDoor(DoorPlaced::L, roomRB->GetDoor(DoorPlaced::R));
+
+			startRoom->Activate();
 		}
 		{
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);

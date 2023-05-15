@@ -1,4 +1,4 @@
-#include "hjStage1BossRoom.h"
+#include "hjStage1StartLTR.h"
 #include "hjMap.h"
 #include "hjResources.h"
 #include "hjCameraScript.h"
@@ -6,13 +6,14 @@
 #include "hjRoomNotPass.h"
 #include "hjRoomPassThrough.h"
 #include "hjRoomDoor.h"
-#include "hjFadeObject.h"
+#include "hjScene.h"
+#include "hjSceneManager.h"
 
 namespace hj
 {
-	Stage1BossRoom::Stage1BossRoom()
+	Stage1StartLTR::Stage1StartLTR()
 	{
-		std::shared_ptr<Map> mapData = Resources::Find<Map>(WIDE("MAP_01_BossRoom"));
+		std::shared_ptr<Map> mapData = Resources::Find<Map>(WIDE("MAP_01_S_LTR"));
 		if (mapData)
 		{
 			UINT layerCount = mapData->GetLayerCount();
@@ -22,6 +23,11 @@ namespace hj
 			mMapLTRBlimit.y = mapPos.y + mapSize.y * 0.5f;
 			mMapLTRBlimit.z = mapPos.x + mapSize.x * 0.5f;
 			mMapLTRBlimit.w = mapPos.y - mapSize.y * 0.5f;
+
+#define MapL mMapLTRBlimit.x
+#define MapT mMapLTRBlimit.y
+#define MapR mMapLTRBlimit.z
+#define MapB mMapLTRBlimit.w
 
 			for (UINT layerIdx = 0; layerIdx < layerCount; ++layerIdx)
 			{
@@ -45,80 +51,57 @@ namespace hj
 				mGameObjects.push_back(obj);
 			}
 
-			RoomNotPass* floor = object::Instantiate<RoomNotPass>(eLayerType::ForeGround
-				, Vector3(0.f, -760.f, 0.f));
-			floor->SetScale(Vector3(1760.f, 240.f, 1.f));
+			float tileSize = 80.f;
 
-			mGameObjects.push_back(floor);
 
 			RoomNotPass* notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround
-				, Vector3(880.f, 280.f, 0.f));
-			notPass->SetScale(Vector3(320.f, 1200.f, 1.f));
-
+				, Vector3(MapL + (tileSize * 3.f), MapT - (tileSize * 1.5f), 0.f));
+			notPass->SetScale(Vector3(tileSize * 6, tileSize * 3, 1.f));
 			mGameObjects.push_back(notPass);
 
 			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround
-				, Vector3(-880.f, 280.f, 0.f));
-			notPass->SetScale(Vector3(320.f, 1200.f, 1.f));
-
+				, Vector3((tileSize * -5.5f), MapT - (tileSize * 0.5f), 0.f));
+			notPass->SetScale(Vector3(tileSize * 4, tileSize, 1.f));
 			mGameObjects.push_back(notPass);
 
 			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround
-				, Vector3(0.f, 800.f, 0.f));
-			notPass->SetScale(Vector3(1760.f, 160.f, 1.f));
-
+				, Vector3(MapR - (tileSize * 8.5f), MapT - (tileSize * 1.5f), 0.f));
+			notPass->SetScale(Vector3(tileSize * 17, tileSize * 3.f, 1.f));
 			mGameObjects.push_back(notPass);
 
+			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround
+				, Vector3(MapR - tileSize, tileSize * 3.f, 0.f));
+			notPass->SetScale(Vector3(tileSize * 2.f, tileSize * 6.f, 1.f));
+			mGameObjects.push_back(notPass);
+
+			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround
+				, Vector3(0.f, MapB + tileSize, 0.f));
+			notPass->SetScale(Vector3(tileSize * 27.f, tileSize * 2.f, 1.f));
+			mGameObjects.push_back(notPass);
+
+			notPass = object::Instantiate<RoomNotPass>(eLayerType::ForeGround
+				, Vector3(MapL + tileSize, MapT - (tileSize * 4.5f), 0.f));
+			notPass->SetScale(Vector3(tileSize * 2.f, tileSize * 3.f, 1.f));
+			mGameObjects.push_back(notPass);
+
+			float platformSize = tileSize * 0.33f;
 			RoomPassThrough* passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
-				, Vector3(-1.f, -508.f, 0.f));
-			passThrough->SetScale(Vector3(636.f, 56.f, 1.f));
-
+				, Vector3(MapL + (tileSize * 5.f), MapB + (tileSize * 5.f) - (platformSize * 0.5f), 0.f));
+			passThrough->SetScale(Vector3(tileSize * 2.f, platformSize, 1.f));
 			mGameObjects.push_back(passThrough);
 
 			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
-				, Vector3(-441.f, -267.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
+				, Vector3((tileSize * -2.5f), MapB + (tileSize * 5.f) - (platformSize * 0.5f), 0.f));
+			passThrough->SetScale(Vector3(tileSize * 2.f, platformSize, 1.f));
 			mGameObjects.push_back(passThrough);
 
 			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
-				, Vector3(440.f, -267.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			mGameObjects.push_back(passThrough);
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
-				, Vector3(-521.f, -27.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			mGameObjects.push_back(passThrough);
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
-				, Vector3(518.f, -27.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			mGameObjects.push_back(passThrough);
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
-				, Vector3(-521.f, 213.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			mGameObjects.push_back(passThrough);
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
-				, Vector3(518.f, 213.f, 0.f));
-			passThrough->SetScale(Vector3(236.f, 56.f, 1.f));
-
-			mGameObjects.push_back(passThrough);
-
-			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
-				, Vector3(-1.f, 372.f, 0.f));
-			passThrough->SetScale(Vector3(314.f, 56.f, 1.f));
-
+				, Vector3((tileSize * -5.5f), MapT - (tileSize * 4.f) - (platformSize * 0.5f), 0.f));
+			passThrough->SetScale(Vector3(tileSize * 4.f, platformSize, 1.f));
 			mGameObjects.push_back(passThrough);
 
 			RoomDoor* DoorL = object::Instantiate<RoomDoor>(eLayerType::ForeGround
-				, Vector3(-920.f, -480.f, 0.f));
+				, Vector3(MapL, MapB + (tileSize * 4.f), 0.f));
 			DoorL->GetTransform()->FixedUpdate();
 			DoorL->SetDoorPlaced(DoorPlaced::L);
 			DoorL->SetName(WIDE("LeftDoor"));
@@ -126,55 +109,42 @@ namespace hj
 			mDoors[static_cast<UINT>(DoorPlaced::L)] = DoorL;
 			mGameObjects.push_back(DoorL);
 
+			RoomDoor* DoorT = object::Instantiate<RoomDoor>(eLayerType::ForeGround
+				, Vector3((tileSize * -5.5f), MapT - (tileSize * 1.f), 0.f));
+			DoorT->GetTransform()->FixedUpdate();
+			DoorT->SetDoorPlaced(DoorPlaced::T);
+			DoorT->SetName(WIDE("TopDoor"));
+			mDoors[static_cast<UINT>(DoorPlaced::T)] = DoorT;
+			mGameObjects.push_back(DoorT);
+
 			RoomDoor* DoorR = object::Instantiate<RoomDoor>(eLayerType::ForeGround
-				, Vector3(920.f, -480.f, 0.f));
+				, Vector3(MapR, MapB + (tileSize * 4.f), 0.f));
 			DoorR->GetTransform()->FixedUpdate();
 			DoorR->SetDoorPlaced(DoorPlaced::R);
 			DoorR->SetName(WIDE("RightDoor"));
-
 			mDoors[static_cast<UINT>(DoorPlaced::R)] = DoorR;
 			mGameObjects.push_back(DoorR);
-
-			DoorL->SetExitDoor(DoorR);
-			DoorR->SetExitDoor(DoorL);
 		}
 	}
 
-	Stage1BossRoom::~Stage1BossRoom()
+	Stage1StartLTR::~Stage1StartLTR()
 	{
-		size_t Size = mGameObjects.size();
-
-		for (size_t iter = 0; iter < Size; ++iter)
-		{
-			mGameObjects[iter] = nullptr;
-		}
 	}
 
-	void Stage1BossRoom::Initialize()
+	void Stage1StartLTR::Initialize()
 	{
 		RoomBase::Initialize();
 	}
-	void Stage1BossRoom::Update()
+	void Stage1StartLTR::Update()
 	{
 		RoomBase::Update();
 	}
-	void Stage1BossRoom::FixedUpdate()
+	void Stage1StartLTR::FixedUpdate()
 	{
 		RoomBase::FixedUpdate();
 	}
-	void Stage1BossRoom::Render()
+	void Stage1StartLTR::Render()
 	{
 		RoomBase::Render();
 	}
-
-	void Stage1BossRoom::AddObjectsPosXY(const Vector2& pos)
-	{
-		size_t Size = mGameObjects.size();
-
-		for (size_t iter = 0; iter < Size; ++iter)
-		{
-			mGameObjects[iter]->AddPositionXY(pos);
-		}
-	}
-
 }
