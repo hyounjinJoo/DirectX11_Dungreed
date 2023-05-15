@@ -23,9 +23,9 @@ namespace hj
 		, mDashStartedTime(0.f)
 		, mDashCoolTime(0.3f)
 		, mMaxDashTime(0.1f)
-		, mDashTrailCount(3)
+		, mDashTrailCount(5)
 		, mDashDir(Vector3::Zero)
-		, mDashPower(5000.f)
+		, mDashPower(3400.f)
 		, mLastDashTrailTime(0.f)
 		, mCurActivatedTrailIndex(0)
 		, mJumpRatio(0.05f)
@@ -461,6 +461,23 @@ namespace hj
 
 	void PlayerScript::ResetJump()
 	{
+	}
+
+	void PlayerScript::DashTrailTransformFixedUpdate()
+	{
+		if (1 <= mDashTrailObj.size())
+		{
+			size_t Size = mDashTrailObj.size();
+
+			for (size_t iter = 0; iter < Size; ++iter)
+			{
+				if (iter <= mCurActivatedTrailIndex)
+				{
+					mDashTrailObj[iter]->ActivateTrail(false);
+				}
+				mDashTrailObj[iter]->GetTransform()->FixedUpdate();
+			}
+		}
 	}
 
 	void PlayerScript::InitialDashTrail()

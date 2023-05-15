@@ -33,6 +33,8 @@ namespace hj
 
 		Vector2 GetOwnerScreenPos();
 
+		void DashTrailTransformFixedUpdate();
+
 		bool IsDash() { return mbDash; }
 	private:
 		void HandleMovementInput();
