@@ -62,6 +62,7 @@ namespace hj::object
 	
 			Transform* tr = gameObject->GameObject::GetComponent<Transform>();
 			tr->SetPosition(position);
+			tr->FixedUpdate();
 	
 			tr->SetParent(parent);
 	
@@ -76,6 +77,7 @@ namespace hj::object
 			Transform* tr = gameObject->GameObject::GetComponent<Transform>();
 			tr->SetPosition(position);
 			tr->SetRotation(rotation);
+			tr->FixedUpdate();
 	
 			tr->SetParent(parent);
 	
@@ -91,6 +93,7 @@ namespace hj::object
 			tr->SetPosition(position);
 			tr->SetRotation(rotation);
 			tr->SetScale(scale);
+			tr->FixedUpdate();
 	
 			tr->SetParent(parent);
 	
@@ -105,6 +108,7 @@ namespace hj::object
 	
 			Transform* tr = gameObject->GameObject::GetComponent<Transform>();
 			tr->SetPosition(position);
+			tr->FixedUpdate();
 	
 			return gameObject;
 		}
@@ -117,6 +121,7 @@ namespace hj::object
 			Transform* tr = gameObject->GameObject::GetComponent<Transform>();
 			tr->SetPosition(position);
 			tr->SetRotation(rotation);
+			tr->FixedUpdate();
 	
 			return gameObject;
 		}
@@ -130,6 +135,7 @@ namespace hj::object
 			tr->SetPosition(position);
 			tr->SetRotation(rotation);
 			tr->SetScale(scale);
+			tr->FixedUpdate();
 	
 			return gameObject;
 		}
