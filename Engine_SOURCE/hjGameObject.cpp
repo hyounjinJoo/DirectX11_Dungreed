@@ -38,6 +38,9 @@ namespace hj
 
 	void GameObject::Update()
 	{
+		if (eState::Active != mState)
+			return;
+
 		for (Component* comp : mComponents)
 		{
 			if (comp == nullptr)
@@ -56,6 +59,9 @@ namespace hj
 	}
 	void GameObject::FixedUpdate()
 	{
+		if (eState::Active != mState)
+			return;
+
 		for (Component* comp : mComponents)
 		{
 			if (comp == nullptr)
@@ -74,6 +80,9 @@ namespace hj
 	}
 	void GameObject::Render()
 	{
+		if (eState::Active != mState)
+			return;
+
 		for (Component* comp : mComponents)
 		{
 			if (comp == nullptr)

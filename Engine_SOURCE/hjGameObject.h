@@ -93,6 +93,7 @@ namespace hj
 		}
 
 		void Pause() { mState = eState::Paused; }
+		void Activate() { mState = eState::Active; }
 		void Death() { mState = eState::Dead; }
 		eState GetState() { return mState; }
 
