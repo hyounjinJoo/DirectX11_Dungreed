@@ -63,7 +63,7 @@ namespace hj
 		}
 
 		mBuffer = new StructuredBuffer();
-		mBuffer->Create(sizeof(Particle), mMaxParticles, eSRVType::UAV, particles);
+		mBuffer->Create(sizeof(Particle), mMaxParticles, eSRVType::UAV, particles, true);
 
 		mSharedBuffer = new StructuredBuffer();
 		mSharedBuffer->Create(sizeof(ParticleShared), 1, eSRVType::UAV, nullptr, true);
@@ -90,6 +90,11 @@ namespace hj
 		}
 		else
 		{
+			if (mTime > 0.5f)
+				int a = 0;
+			Particle particles[100] = {};
+
+			mBuffer->GetData(particles, 0);
 			ParticleShared shared = {  };
 			mSharedBuffer->SetData(&shared, 1);
 		}

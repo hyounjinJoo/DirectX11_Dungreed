@@ -56,16 +56,21 @@ namespace hj::graphics
 
 	void StructuredBuffer::GetData(void* data, UINT size)
 	{
+		if (!mReadBuffer)
+		{
+			return;
+		}
+
 		GetDevice()->CopyResource(mReadBuffer.Get(), buffer.Get());
 
 		//read buffer -> systemmemory
 		if (size == 0)
 		{
-			GetDevice()->SetData(mReadBuffer.Get(), data, mSize * mStride);
+			GetDevice()->GetData(mReadBuffer.Get(), data, mSize * mStride);
 		}
 		else
 		{
-			GetDevice()->SetData(mReadBuffer.Get(), data, size);
+			GetDevice()->GetData(mReadBuffer.Get(), data, size);
 		}
 	}
 

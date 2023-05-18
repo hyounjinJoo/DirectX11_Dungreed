@@ -46,6 +46,7 @@ namespace hj::graphics
 		void Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ);
 		void BindViewports(D3D11_VIEWPORT* viewPort);
 		void SetData(ID3D11Buffer* buffer, void* data, UINT size);
+		void GetData(ID3D11Buffer* buffer, void* data, UINT size);
 		void ClearConstantBuffer(ID3D11Buffer* buffer, UINT size);
 		void BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 		void BindShaderResource(eShaderStage stage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews);
