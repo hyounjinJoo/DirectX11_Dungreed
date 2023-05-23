@@ -14,7 +14,7 @@ namespace hj
 		, mWorldUp(Vector3::Up)
 		, mRelativeScale(Vector3::One)
 		, mRelativeRotation(Vector3::Zero)
-		, mRelativePosition(Vector3::One)
+		, mRelativePosition(Vector3::Zero)
 		, mParent(nullptr)
 		, mInheritParentScale(false)
 	{
