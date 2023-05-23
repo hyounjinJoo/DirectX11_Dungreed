@@ -229,31 +229,43 @@ namespace hj
 		mActiveAnimation->Clear();
 	}
 
-	std::function<void()>& Animator::GetStartEvent(const std::wstring& name)
+	std::optional<std::function<void()>> Animator::GetStartEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
 
-		return events->mStartEvent.mEvent;
+		if (events)
+			return events->mStartEvent.mEvent;
+
+		return std::nullopt;
 	}
 
-	std::function<void()>& Animator::GetCompleteEvent(const std::wstring& name)
+	std::optional<std::function<void()>> Animator::GetCompleteEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
 
-		return events->mCompleteEvent.mEvent;
+		if (events)
+			return events->mCompleteEvent.mEvent;
+
+		return std::nullopt;
 	}
 
-	std::function<void()>& Animator::GetEndEvent(const std::wstring& name)
+	std::optional<std::function<void()>> Animator::GetEndEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
 
-		return events->mEndEvent.mEvent;
+		if (events)
+			return events->mEndEvent.mEvent;
+
+		return std::nullopt;
 	}
 
-	std::function<void()>& Animator::GetEvent(const std::wstring& name, UINT index)
+	std::optional<std::function<void()>> Animator::GetEvent(const std::wstring& name, UINT index)
 	{
 		Events* events = FindEvents(name);
 
-		return events->mEvents[index].mEvent;
+		if (events)
+			return events->mEvents[index].mEvent;
+
+		return std::nullopt;
 	}
 }

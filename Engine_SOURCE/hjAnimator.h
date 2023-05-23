@@ -80,10 +80,10 @@ namespace hj
 
         void ChangePlayDuration(float duration) { mActiveAnimation->ChangePlayDuration(duration); }
 
-		std::function<void()>& GetStartEvent(const std::wstring& name);
-		std::function<void()>& GetCompleteEvent(const std::wstring& name);
-		std::function<void()>& GetEndEvent(const std::wstring& name);
-		std::function<void()>& GetEvent(const std::wstring& name, UINT index);
+        std::optional<std::function<void()>> GetStartEvent(const std::wstring& name);
+        std::optional<std::function<void()>> GetCompleteEvent(const std::wstring& name);
+		std::optional<std::function<void()>> GetEndEvent(const std::wstring& name);
+		std::optional<std::function<void()>> GetEvent(const std::wstring& name, UINT index);
 
     private:
         std::map<std::wstring, Animation*> mAnimations;
