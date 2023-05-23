@@ -119,7 +119,7 @@ constexpr bool has_flag(E lhs, E rhs)
 	return (lhs & rhs) == rhs;
 }
 
-#define	PI	3.14159f
+#define	PI	3.141592654f
 
 static float DegreeToRadian(float Degree)
 {
