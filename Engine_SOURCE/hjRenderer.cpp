@@ -540,7 +540,16 @@ namespace hj::renderer
 		LOAD_TEX("00_Player", "00_Player.png");
 		SUB_FOLDER_ALLCLEAR();
 		#pragma endregion
-#pragma endregion
+
+		#pragma region 02_Monster
+		MAIN_FOLDER("00_Character\\02_Monster");
+			#pragma region Boss
+				SUB_FOLDER(1, "01_Boss");
+				SUB_FOLDER(2, "00_Skul");
+				LOAD_TEX("02_Monster_Boss_Bellial", "Monster_Boss_1_Bellial.png");
+				SUB_FOLDER_ALLCLEAR();
+			#pragma endregion
+		#pragma endregion
 #pragma region 01_Scene
 		MAIN_FOLDER("01_Scene");
 	#pragma region 00_TitleScene
@@ -620,6 +629,14 @@ namespace hj::renderer
 		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Char_Adventurer", material);
+
+		texture = TEX_FIND("02_Monster_Boss_Bellial");
+		shader = SHADER_FIND("Shader_Sprite");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Monster_Boss_Bellial", material);
 
 		// Sprite/08_FX/FX
 		texture = TEX_FIND("08_FX");

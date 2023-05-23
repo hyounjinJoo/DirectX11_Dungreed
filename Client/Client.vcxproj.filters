@@ -212,6 +212,18 @@
     <Filter Include="Contents\Room\Dungeon\Start\14. RB">
       <UniqueIdentifier>{b6aab2d1-acb1-4798-9970-7c430fa47cf5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Boss\Stage1">
+      <UniqueIdentifier>{311f503f-7927-45a7-a379-f27a7b460133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Boss\Stage1\Effect">
+      <UniqueIdentifier>{23eb2ece-999f-4ab8-9cb0-ea6a6c3ca670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern">
+      <UniqueIdentifier>{38f6bf05-1e5a-4745-8775-4b7dab014313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternSword">
+      <UniqueIdentifier>{84cb3bda-6feb-431c-91b7-1cf8beeb1424}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -403,6 +415,24 @@
     <ClInclude Include="hjStage1StartB.h">
       <Filter>Contents\Room\Dungeon\Start\15. B</Filter>
     </ClInclude>
+    <ClInclude Include="hjMonster.h">
+      <Filter>Contents\GameObject\Play\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1Boss.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStage1BossHand.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBoss1Laser.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBoss1Sword.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternSword</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBoss1SwordCollider.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternSword</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -592,6 +622,24 @@
     </ClCompile>
     <ClCompile Include="hjStage1StartB.cpp">
       <Filter>Contents\Room\Dungeon\Start\15. B</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMonster.cpp">
+      <Filter>Contents\GameObject\Play\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1Boss.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStage1BossHand.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBoss1Laser.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBoss1Sword.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternSword</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBoss1SwordCollider.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternSword</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

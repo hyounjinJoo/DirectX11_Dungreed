@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:f3178645cc10d957dc155eac32aa89ee:a9ff469a756fb46cffd7d5121cbd2da6:06c8440761d82cdfffb73499a7b20614$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="Monster_Boss_1_Bellial.png" width="3470" height="3470">
+    <sprite n="Background/SkellBossBack0" x="320" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack1" x="570" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack2" x="820" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack3" x="1070" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack4" x="1320" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack5" x="1570" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack6" x="1820" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack7" x="2070" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack8" x="2320" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="Background/SkellBossBack9" x="1320" y="505" w="250" h="250" pX="0.5" pY="1"/>
+    <sprite n="BackgroundParticle/SkellBossParticle0" x="285" y="0" w="150" h="150" pX="0.5" pY="1"/>
+    <sprite n="BackgroundParticle/SkellBossParticle1" x="435" y="0" w="150" h="150" pX="0.5" pY="1"/>
+    <sprite n="BackgroundParticle/SkellBossParticle2" x="585" y="0" w="150" h="150" pX="0.5" pY="1"/>
+    <sprite n="BackgroundParticle/SkellBossParticle3" x="735" y="0" w="150" h="150" pX="0.5" pY="1"/>
+    <sprite n="BackgroundParticle/SkellBossParticle4" x="435" y="0" w="150" h="150" pX="0.5" pY="1"/>
+    <sprite n="BackgroundParticle/SkellBossParticle5" x="585" y="0" w="150" h="150" pX="0.5" pY="1"/>
+    <sprite n="BackgroundParticle/SkellBossParticle6" x="885" y="0" w="150" h="150" pX="0.5" pY="1"/>
+    <sprite n="BackgroundParticle/SkellBossParticle7" x="1035" y="0" w="150" h="150" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Attack/SkellBossAttack00" x="2450" y="2145" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="120" tW="350" tH="455"/>
+    <sprite n="BossBody/Attack/SkellBossAttack01" x="2800" y="2145" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="130" tW="350" tH="440"/>
+    <sprite n="BossBody/Attack/SkellBossAttack02" x="0" y="2785" w="350" h="640" pX="0.5" pY="1" tOX="0" tOY="125" tW="350" tH="450"/>
+    <sprite n="BossBody/Attack/SkellBossAttack03" x="350" y="2785" w="350" h="640" pX="0.5" pY="1" tOX="0" tOY="25" tW="350" tH="585"/>
+    <sprite n="BossBody/Attack/SkellBossAttack04" x="700" y="2785" w="350" h="640" pX="0.5" pY="1" tOX="0" tOY="10" tW="350" tH="610"/>
+    <sprite n="BossBody/Attack/SkellBossAttack05" x="1050" y="2785" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="5" tW="350" tH="620"/>
+    <sprite n="BossBody/Attack/SkellBossAttack06" x="1400" y="2785" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="0" tW="350" tH="630"/>
+    <sprite n="BossBody/Attack/SkellBossAttack07" x="1750" y="2785" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="0" tW="350" tH="630"/>
+    <sprite n="BossBody/Attack/SkellBossAttack08" x="2100" y="2785" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="0" tW="350" tH="630"/>
+    <sprite n="BossBody/Attack/SkellBossAttack09" x="2450" y="2785" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="0" tW="350" tH="630"/>
+    <sprite n="BossBody/Dead/SkellBossDead" x="2800" y="2785" w="350" h="640" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Dead/SkellBossDead_Head" x="1995" y="850" w="350" h="385" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Dead/SkellBossDead_Jaw" x="1305" y="155" w="245" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Dead/SkellBossDead_LeftBigPart" x="105" y="0" w="50" h="60" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Dead/SkellBossDead_LeftSmallPart" x="0" y="0" w="30" h="20" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Dead/SkellBossDead_RightBigPart" x="60" y="0" w="45" h="60" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Dead/SkellBossDead_RightSmallPart" x="30" y="0" w="30" h="20" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Idle/SkellBossIdle0" x="2100" y="1650" w="350" h="495" pX="0.5" pY="1" tW="350" tH="455" tOX="0" tOY="25"/>
+    <sprite n="BossBody/Idle/SkellBossIdle1" x="2450" y="1650" w="350" h="495" pX="0.5" pY="1" tW="350" tH="460" tOX="0" tOY="30"/>
+    <sprite n="BossBody/Idle/SkellBossIdle2" x="2800" y="1650" w="350" h="495" pX="0.5" pY="1" tW="350" tH="465" tOX="0" tOY="30"/>
+    <sprite n="BossBody/Idle/SkellBossIdle3" x="0" y="2145" w="350" h="495" pX="0.5" pY="1" tW="350" tH="465" tOX="0" tOY="25"/>
+    <sprite n="BossBody/Idle/SkellBossIdle4" x="350" y="2145" w="350" h="495" pX="0.5" pY="1" tW="350" tH="455"	tOX="0" tOY="20"/>
+    <sprite n="BossBody/Idle/SkellBossIdle5" x="700" y="2145" w="350" h="495" pX="0.5" pY="1" tW="350" tH="450" tOX="0" tOY="5" />
+    <sprite n="BossBody/Idle/SkellBossIdle6" x="1050" y="2145" w="350" h="495" pX="0.5" pY="1" tW="350" tH="440" tOX="0" tOY="0" />
+    <sprite n="BossBody/Idle/SkellBossIdle7" x="1400" y="2145" w="350" h="495" pX="0.5" pY="1" tW="350" tH="435" tOX="0" tOY="0" />
+    <sprite n="BossBody/Idle/SkellBossIdle8" x="1750" y="2145" w="350" h="495" pX="0.5" pY="1" tW="350" tH="440" tOX="0" tOY="5" />
+    <sprite n="BossBody/Idle/SkellBossIdle9" x="2100" y="2145" w="350" h="495" pX="0.5" pY="1" tW="350" tH="450" tOX="0" tOY="15"/>
+    <sprite n="BossBullet/FX/BossBulletFX000" x="1185" y="0" w="155" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/FX/BossBulletFX001" x="1340" y="0" w="155" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/FX/BossBulletFX002" x="1495" y="0" w="155" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/FX/BossBulletFX003" x="1650" y="0" w="155" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/FX/BossBulletFX004" x="1805" y="0" w="155" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/FX/BossBulletFX005" x="1960" y="0" w="155" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/FX/BossBulletFX006" x="2115" y="0" w="155" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/FX/BossBulletFX007" x="2270" y="0" w="155" h="155" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/Normal/BossBullet000" x="155" y="0" w="65" h="65" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/Normal/BossBullet001" x="220" y="0" w="65" h="65" pX="0.5" pY="1"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack00" x="2345" y="850" w="350" h="400" pX="0.5" pY="1"tW="285" tH="315" tOX="65" tOY="15"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack01" x="2695" y="850" w="350" h="400" pX="0.5" pY="1"tW="295" tH="330" tOX="50" tOY="45"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack02" x="3045" y="850" w="350" h="400" pX="0.5" pY="1"tW="260" tH="260" tOX="80" tOY="75"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack03" x="0" y="1250" w="350" h="400" pX="0.5" pY="1"tW="270" tH="250" tOX="80" tOY="85"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack04" x="350" y="1250" w="350" h="400" pX="0.5" pY="1"tW="260" tH="260" tOX="80" tOY="85"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack05" x="700" y="1250" w="350" h="400" pX="0.5" pY="1"tW="260" tH="265" tOX="80" tOY="80"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack06" x="1050" y="1250" w="350" h="400" pX="0.5" pY="1"tW="260" tH="270" tOX="80" tOY="70"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack07" x="1400" y="1250" w="350" h="400" pX="0.5" pY="1"tW="260" tH="270" tOX="80" tOY="65"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack08" x="1750" y="1250" w="350" h="400" pX="0.5" pY="1"tW="260" tH="270" tOX="80" tOY="60"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack09" x="2100" y="1250" w="350" h="400" pX="0.5" pY="1"tW="310" tH="315" tOX="35" tOY="50"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack10" x="2450" y="1250" w="350" h="400" pX="0.5" pY="1"tW="295" tH="335" tOX="15" tOY="30"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack11" x="2800" y="1250" w="350" h="400" pX="0.5" pY="1"tW="295" tH="335" tOX="25" tOY="40"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack12" x="0" y="1650" w="350" h="400" pX="0.5" pY="1"tW="295" tH="335" tOX="5" tOY="30"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack13" x="350" y="1650" w="350" h="400" pX="0.5" pY="1"tW="295" tH="335" tOX="0" tOY="30"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack14" x="700" y="1650" w="350" h="400" pX="0.5" pY="1"tW="285" tH="305" tOX="15" tOY="50"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack15" x="1050" y="1650" w="350" h="400" pX="0.5" pY="1"tW="270" tH="285" tOX="45" tOY="65"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack16" x="1400" y="1650" w="350" h="400" pX="0.5" pY="1"tW="265" tH="275" tOX="65" tOY="65"/>
+    <sprite n="LeftHand/Attack/SkellBossLeftHandAttack17" x="1750" y="1650" w="350" h="400" pX="0.5" pY="1"tW="270" tH="285" tOX="70" tOY="55"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle0" x="2570" y="505" w="285" h="345" pX="0.5" pY="1"tW="275" tH="295" tOX="5" tOY="40"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle1" x="2855" y="505" w="285" h="345" pX="0.5" pY="1"tW="280" tH="310" tOX="5" tOY="25"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle2" x="3140" y="505" w="285" h="345" pX="0.5" pY="1"tW="280" tH="315" tOX="5" tOY="20"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle3" x="0" y="850" w="285" h="345" pX="0.5" pY="1"	tW="285" tH="315" tOX="0" tOY="15"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle4" x="285" y="850" w="285" h="345" pX="0.5" pY="1"tW="285" tH="305" tOX="0" tOY="15"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle5" x="570" y="850" w="285" h="345" pX="0.5" pY="1"tW="275" tH="300" tOX="5" tOY="25"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle6" x="855" y="850" w="285" h="345" pX="0.5" pY="1"tW="265" tH="290" tOX="15" tOY="45"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle7" x="1140" y="850" w="285" h="345" pX="0.5" pY="1"tW="265" tH="275" tOX="15" tOY="65"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle8" x="1425" y="850" w="285" h="345" pX="0.5" pY="1"tW="265" tH="275" tOX="15" tOY="70"/>
+    <sprite n="LeftHand/Idle/SkellBossLeftHandIdle9" x="1710" y="850" w="285" h="345" pX="0.5" pY="1"tW="270" tH="285" tOX="10" tOY="60"/>
+    <sprite n="PatternLaser/SkellBossLaserBody0" x="1550" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserBody1" x="1710" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserBody2" x="1870" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserBody3" x="2030" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserBody4" x="2190" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserBody5" x="2350" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserBody6" x="2510" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserHead0" x="2670" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserHead1" x="2830" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserHead2" x="2990" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserHead3" x="3150" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserHead4" x="3310" y="155" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserHead5" x="0" y="505" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternLaser/SkellBossLaserHead6" x="160" y="505" w="160" h="275" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/Charge/BossSwordCharge0" x="255" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/Charge/BossSwordCharge1" x="360" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/Charge/BossSwordCharge2" x="465" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/Charge/BossSwordCharge3" x="570" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/Charge/BossSwordCharge4" x="675" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/Charge/BossSwordCharge5" x="780" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/Charge/BossSwordCharge6" x="885" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/Charge/BossSwordCharge7" x="990" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/HitFX/BossSwordHitFX0" x="2425" y="0" w="255" h="110" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/HitFX/BossSwordHitFX1" x="2680" y="0" w="255" h="110" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/HitFX/BossSwordHitFX2" x="2935" y="0" w="255" h="110" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/HitFX/BossSwordHitFX3" x="3190" y="0" w="255" h="110" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/HitFX/BossSwordHitFX4" x="0" y="155" w="255" h="110" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/SwordBody/BossSword" x="1095" y="155" w="105" h="325" pX="0.5" pY="1"/>
+    <sprite n="PatternSword/SwordBody/BossSwordFX" x="1200" y="155" w="105" h="350" pX="0.5" pY="1"/>
+</TextureAtlas>

@@ -46,7 +46,7 @@ namespace hj
 		mCenterObj = object::Instantiate<GameObject>(eLayerType::PlayerHas, Vector3(30.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
 		mCenterObj->SetName(WIDE("플레이어 핸드 소켓"));
 		mCenterObj->GetTransform()->SetParent(GetTransform());
-		mCenterObj->AddComponent<Collider2D>();
+		//mCenterObj->AddComponent<Collider2D>();
 		ArmRotatorScript* armScript = mCenterObj->AddComponent<ArmRotatorScript>();
 		armScript->SetBody(this);
 
