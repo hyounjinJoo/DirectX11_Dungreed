@@ -26,9 +26,12 @@ namespace hj
 		bool IntoElem() { return mXml->IntoElem(); }
 		bool OutOfElem() { return mXml->OutOfElem(); }
 		void ResetPos() { mXml->ResetPos(); }
+		void ResetMainPos() { mXml->ResetMainPos(); }
 
 		bool HasAttribute(const std::string& attributeName) { return HasAttribute(StringToWideString(attributeName)); }
 		bool HasAttribute(const std::wstring& attributeName);
+
+		size_t CheckAttributeIncludeWstr(const std::wstring& attributeName, const std::wstring findWstr);
 
 		std::wstring GetWstringAttribute(const std::wstring& attributeWSTRName) { return mXml->GetAttrib(attributeWSTRName.c_str()); }
 		float GetFloatAttribute(const std::string& attibuteFloatName) { return GetFloatAttribute(StringToWideString(attibuteFloatName)); }

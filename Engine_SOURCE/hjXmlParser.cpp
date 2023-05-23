@@ -42,9 +42,24 @@ namespace hj
 		return result;
 	}
 
+	size_t XmlParser::CheckAttributeIncludeWstr(const std::wstring& attributeName, const std::wstring findWstr)
+	{
+		// 해당 어트리뷰트가 없을 때
+		if (!HasAttribute(attributeName))
+			return std::wstring::npos;
+
+		std::wstring targetWstr = GetWstringAttribute(attributeName);
+		size_t pos = targetWstr.find(findWstr);
+
+		return pos;
+	}
+
 	float XmlParser::GetFloatAttribute(const std::wstring& attibuteFloatName)
 	{
 		float result = 0.f;
+		if (!HasAttribute(attibuteFloatName))
+			return result;
+
 		result = std::stof(mXml->GetAttrib(attibuteFloatName).c_str());
 
 		return result;
@@ -53,6 +68,9 @@ namespace hj
 	int XmlParser::GetIntAttribute(const std::wstring& attibuteIntName)
 	{
 		int result = 0;
+		if (!HasAttribute(attibuteFloatName))
+			return result;
+
 		result = std::stoi(mXml->GetAttrib(attibuteIntName).c_str());
 
 		return result;
