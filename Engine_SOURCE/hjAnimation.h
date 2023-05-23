@@ -53,6 +53,15 @@
                 canvasSize.y = canvasSize.y >= sizeY ? canvasSize.y : sizeY;\
 				sheet.push_back(var)
 
+#define FRAME_ADD_OFFSET_TRIM_OFFSET(var, ltX, ltY, sizeX, sizeY, offsetX, offsetY, trimmedSizeX, trimmedSizeY, trimmedOffsetX, trimmedOffsetY, sheet) \
+				var.leftTop = Vector2(ltX, ltY);\
+				var.size = Vector2(sizeX, sizeY);\
+                var.offset = Vector2((static_cast<float>(offsetX) - 0.5f) * sizeX, (static_cast<float>(offsetY) - 1.f) * sizeY);\
+                var.trimmedSize = Vector2(trimmedSizeX, trimmedSizeY);\
+                var.trimmedOffset = Vector2(trimmedOffsetX, trimmedOffsetY);\
+                canvasSize.x = canvasSize.x >= sizeX ? canvasSize.x : sizeX;\
+                canvasSize.y = canvasSize.y >= sizeY ? canvasSize.y : sizeY;\
+				sheet.push_back(var)
 
 #define AUTO_OFFSET_CALC(spriteSheetVarName) \
 		for (auto& spriteFrame : spriteSheetVarName)\
@@ -93,6 +102,16 @@
             spriteFrame.offset.y = 0.f; \
 		}\
 
+#define MANUAL_OFFSET_CALC_Y(spriteSheetVarName, offsetY) \
+		for (auto& spriteFrame : spriteSheetVarName)\
+		{\
+			if (spriteFrame.size.y != canvasSize.y)\
+            {\
+            spriteFrame.offset.y = (static_cast<float>(offsetY) - 1.f) * -(canvasSize.y - spriteFrame.size.y) / 2.f; \
+            }\
+            else\
+            spriteFrame.offset.y = 0.f; \
+		}\
 
 namespace hj
 {
@@ -111,6 +130,9 @@ namespace hj
             Vector2 offset;     // 렌더링 위치를 조정하기 위한 좌표
             float duration;     // 프레임간의 시간 간격
             Vector2 atlasSize;  // 보유한 이미지 크기
+
+			Vector2 trimmedSize;// 이미지가 존재하는 부분만 체크한 최대 크기
+			Vector2 trimmedOffset;// 이미지가 존재하는 부분만 체크한 최대 크기가 존재할 때의 offset 값
             
             Sprite()
                 : leftTop(0.f, 0.f)
@@ -118,6 +140,8 @@ namespace hj
                 , offset(0.f, 0.f)
                 , duration(0.1f)
                 , atlasSize(Vector2::One)
+                , trimmedSize(Vector2::Zero)
+                , trimmedOffset(Vector2::Zero)
             {
             }
         };
@@ -161,6 +185,14 @@ namespace hj
         }
 
         void ChangePlayDuration(float duration);
+        const Vector2& GetCanvasSize() { return mCanvasSize; }
+		float GetCanvasSizeX() { return mCanvasSize.x; }
+        float GetCanvasSizeY() { return mCanvasSize.y; }
+        Vector2 GetCurrentSpriteSize();
+        Vector2 GetCurrentSpriteOffset();
+        Vector2 GetCurrentSpriteTrimSize();
+        Vector2 GetCurrentSpriteTrimOffset();
+        Vector2 GetSpriteSize(UINT index);
 
         Animation* Clone();
 

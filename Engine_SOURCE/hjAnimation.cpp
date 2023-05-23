@@ -196,6 +196,61 @@ namespace hj
 		}
 	}
 
+	hj::math::Vector2 Animation::GetCurrentSpriteSize()
+	{
+		Vector2 spriteSize = Vector2::Zero;
+		if (-1 != mIndex && mIndex < mSpriteSheet.size())
+		{
+			spriteSize = mSpriteSheet[mIndex].size;
+		}
+
+		return spriteSize;
+	}
+
+	hj::math::Vector2 Animation::GetCurrentSpriteOffset()
+	{
+		Vector2 spriteOffset = Vector2::Zero;
+		if (-1 != mIndex && mIndex < mSpriteSheet.size())
+		{
+			spriteOffset = mSpriteSheet[mIndex].offset;
+		}
+
+		return spriteOffset;
+	}
+
+	Vector2 Animation::GetCurrentSpriteTrimSize()
+	{
+		Vector2 spriteTrimSize = Vector2::Zero;
+		if (-1 != mIndex && mIndex < mSpriteSheet.size())
+		{
+			spriteTrimSize = mSpriteSheet[mIndex].trimmedSize;
+		}
+
+		return spriteTrimSize;
+	}
+
+	Vector2 Animation::GetCurrentSpriteTrimOffset()
+	{
+		Vector2 spriteTrimOffset = Vector2::Zero;
+		if (-1 != mIndex && mIndex < mSpriteSheet.size())
+		{
+			spriteTrimOffset = mSpriteSheet[mIndex].trimmedOffset;
+		}
+
+		return spriteTrimOffset;
+	}
+
+	hj::math::Vector2 Animation::GetSpriteSize(UINT index)
+	{
+		Vector2 spriteSize = Vector2::Zero;
+		if (index < mSpriteSheet.size())
+		{
+			spriteSize = mSpriteSheet[index].size;
+		}
+
+		return spriteSize;
+	}
+
 	Animation* Animation::Clone()
 	{
 		return new Animation(*this);
