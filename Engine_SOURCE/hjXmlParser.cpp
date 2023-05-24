@@ -68,7 +68,7 @@ namespace hj
 	int XmlParser::GetIntAttribute(const std::wstring& attibuteIntName)
 	{
 		int result = 0;
-		if (!HasAttribute(attibuteFloatName))
+		if (!HasAttribute(attibuteIntName))
 			return result;
 
 		result = std::stoi(mXml->GetAttrib(attibuteIntName).c_str());
