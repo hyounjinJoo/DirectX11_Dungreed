@@ -80,7 +80,7 @@ namespace hj
 		mActiveAnimation->Render();
 	}
 
-	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, 
+	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop,
 		Vector2 size, Vector2 offset, UINT spriteLength, float duration, bool reversePlay)
 	{
 		if (atlas == nullptr)
@@ -93,7 +93,7 @@ namespace hj
 		animation = new Animation();
 		animation->Create(name, atlas, leftTop
 			, size, offset, spriteLength, duration, reversePlay);
-		
+
 		mAnimations.insert(std::make_pair(name, animation));
 		animation->SetAnimator(this);
 
@@ -104,7 +104,7 @@ namespace hj
 		return true;
 	}
 
-	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, 
+	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas,
 		const std::vector<Animation::Sprite>& sprite, Vector2 canvasSize, bool reversePlay)
 	{
 		Animation* animation = FindAnimation(name);
@@ -183,8 +183,8 @@ namespace hj
 	{
 		Animation* prevAnimation = mActiveAnimation;
 		Events* events = nullptr;
-		
-		if(prevAnimation)
+
+		if (prevAnimation)
 			events = FindEvents(prevAnimation->AnimationName());
 
 		if (events)
@@ -209,7 +209,7 @@ namespace hj
 	{
 		if (mActiveAnimation == nullptr)
 			return;
-		
+
 		mActiveAnimation->Inverse(inverse);
 	}
 
@@ -229,43 +229,31 @@ namespace hj
 		mActiveAnimation->Clear();
 	}
 
-	std::optional<std::function<void()>> Animator::GetStartEvent(const std::wstring& name)
+	std::function<void()>& Animator::GetStartEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
 
-		if (events)
-			return events->mStartEvent.mEvent;
-
-		return std::nullopt;
+		return events->mStartEvent.mEvent;
 	}
 
-	std::optional<std::function<void()>> Animator::GetCompleteEvent(const std::wstring& name)
+	std::function<void()>& Animator::GetCompleteEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
 
-		if (events)
-			return events->mCompleteEvent.mEvent;
-
-		return std::nullopt;
+		return events->mCompleteEvent.mEvent;
 	}
 
-	std::optional<std::function<void()>> Animator::GetEndEvent(const std::wstring& name)
+	std::function<void()>& Animator::GetEndEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
 
-		if (events)
-			return events->mEndEvent.mEvent;
-
-		return std::nullopt;
+		return events->mEndEvent.mEvent;
 	}
 
-	std::optional<std::function<void()>> Animator::GetEvent(const std::wstring& name, UINT index)
+	std::function<void()>& Animator::GetEvent(const std::wstring& name, UINT index)
 	{
 		Events* events = FindEvents(name);
 
-		if (events)
-			return events->mEvents[index].mEvent;
-
-		return std::nullopt;
+		return events->mEvents[index].mEvent;
 	}
 }
