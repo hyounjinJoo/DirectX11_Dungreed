@@ -10,6 +10,12 @@ namespace hj
 	{
 	}
 
+	SpriteRenderer::SpriteRenderer(const SpriteRenderer& spriteRenderer)
+		: BaseRenderer(spriteRenderer)
+	{
+
+	}
+
 	SpriteRenderer::~SpriteRenderer()
 	{
 	}
@@ -47,4 +53,10 @@ namespace hj
 			animator->Clear();
 		}
 	}
+
+	hj::Component* SpriteRenderer::Clone() const
+	{
+		return new SpriteRenderer(*this);
+	}
+
 }

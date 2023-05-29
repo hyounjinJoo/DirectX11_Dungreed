@@ -22,13 +22,17 @@ namespace hj
 	{
 	public:
 		TileMap();
+		TileMap(const TileMap& tileMap);
 		virtual ~TileMap();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
-		
+
+		virtual Component* Clone() const override;
+
+	public:
 		void UpdateData();
 
 

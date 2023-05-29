@@ -30,9 +30,26 @@ namespace hj
 			Event mEndEvent;
 
 			std::vector<Event> mEvents;
+
+			Events()
+				: mStartEvent()
+				, mCompleteEvent()
+				, mEndEvent()
+			{
+			}
+			Events(const Events& other)
+				: mStartEvent(other.mStartEvent),
+				mCompleteEvent(other.mCompleteEvent),
+				mEndEvent(other.mEndEvent),
+				mEvents(other.mEvents)
+			{
+			}
+
+			Events* Clone() { return new Events(*this); }
 		};
 
 		Animator();
+		Animator(const Animator& animator);
 		virtual ~Animator();
 
 		virtual void Initialize() override;
@@ -40,6 +57,9 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		virtual Component* Clone() const override;
+
+	public:
 		bool IsInverse()
 		{
 			if (!mActiveAnimation)

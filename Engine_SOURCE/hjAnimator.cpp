@@ -11,6 +11,54 @@ namespace hj
 	{
 	}
 
+	Animator::Animator(const Animator& animator)
+		: Component(eComponentType::Animator)
+	{
+		{
+			auto iter = animator.mAnimations.begin();
+			auto iterEnd = animator.mAnimations.end();
+
+			for (; iter != iterEnd; ++iter)
+			{
+				if (iter->second)
+				{
+					Animation* clonedAnim = iter->second->Clone();
+
+					mAnimations.insert(std::make_pair(clonedAnim->AnimationName(), clonedAnim));
+					clonedAnim->SetAnimator(this);
+				}
+			}
+		}
+		{
+			auto iter = animator.mEvents.begin();
+			auto iterEnd = animator.mEvents.end();
+
+			for (; iter != iterEnd; ++iter)
+			{
+				if (iter->second)
+				{
+					Events* clonedEvents = iter->second->Clone();
+
+					mEvents.insert(std::make_pair(iter->first, clonedEvents));
+				}
+			}
+		}
+
+		mActiveAnimation = nullptr;
+		Animation* curAnim = animator.GetCurrentAnimation();
+		std::wstring animNameWstr;
+		if (curAnim)
+		{
+			animNameWstr = curAnim->AnimationName();
+
+		if (FindAnimation(animNameWstr))
+		{
+			mActiveAnimation = FindAnimation(animNameWstr);
+		}
+		}
+		mbLoop = animator.mbLoop;
+	}
+
 	Animator::~Animator()
 	{
 		for (auto anim = mAnimations.begin(); anim != mAnimations.end(); )
@@ -78,6 +126,11 @@ namespace hj
 			return;
 
 		mActiveAnimation->Render();
+	}
+
+	Component* Animator::Clone() const
+	{
+		return new Animator(*this);
 	}
 
 	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop,

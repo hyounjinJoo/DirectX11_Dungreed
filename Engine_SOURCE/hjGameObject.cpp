@@ -11,6 +11,30 @@ namespace hj
 		AddComponent(new Transform());
 	}
 
+	GameObject::GameObject(const GameObject& obj)
+	{
+		mComponents.resize((UINT)eComponentType::End);
+		mLayerType = obj.mLayerType;
+		mbDontDestroy = obj.mbDontDestroy;
+		mState = obj.mState;
+
+		for (Component* comp : obj.mComponents)
+		{
+			if (comp == nullptr)
+				continue;
+
+			AddComponent(comp->Clone());
+		}
+
+		for (Component* scrComp : obj.mScripts)
+		{
+			if (scrComp == nullptr)
+				continue;
+
+			AddComponent(scrComp->Clone());
+		}
+	}
+
 	GameObject::~GameObject()
 	{
 		for (Component* comp : mComponents)
@@ -98,6 +122,11 @@ namespace hj
 
 			script->Render();
 		}
+	}
+
+	GameObject* GameObject::Clone() const
+	{
+		return new GameObject(*this);
 	}
 
 	void GameObject::AddComponent(Component* comp)

@@ -27,6 +27,17 @@ namespace hj
 		EnableLayerMask(); 
 	}
 
+	Camera::Camera(const Camera& camera) 
+		: Component(eComponentType::Camera)
+		, mType(camera.mType)
+		, mAspectRatio(camera.mAspectRatio)
+		, mNear(camera.mNear)
+		, mFar(camera.mFar)
+		, mScale(camera.mScale)
+		, mLayerMasks(camera.mLayerMasks)
+	{
+	}
+
 	Camera::~Camera()
 	{
 	}
@@ -58,6 +69,11 @@ namespace hj
 		renderOpaque();
 		renderCutout();
 		renderTransparent();
+	}
+
+	Component* Camera::Clone() const
+	{
+		return new Camera(*this);
 	}
 
 	void Camera::CreateViewMatrix()

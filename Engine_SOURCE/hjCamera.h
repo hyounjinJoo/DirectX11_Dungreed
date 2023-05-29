@@ -19,6 +19,7 @@ namespace hj
 		__forceinline static void SetGpuProjectionMatrix(Matrix projection) { Projection = projection; }
 
 		Camera();
+		Camera(const Camera& camera);
 		virtual ~Camera();
 
 		virtual void Initialize() override;
@@ -26,6 +27,9 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		virtual Component* Clone() const override;
+
+	public:
 		void CreateViewMatrix();
 		void CreateProjectionMatrix();
 		void RegisterCameraInRenderer();

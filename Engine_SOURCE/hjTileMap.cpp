@@ -30,6 +30,27 @@ namespace hj
 		mBuffer = new StructuredBuffer;
 	}
 
+	TileMap::TileMap(const TileMap& tileMap)
+		: BaseRenderer(tileMap)
+	{
+
+		mAtlasTexture = tileMap.mAtlasTexture;
+		mSlicePixel = tileMap.mSlicePixel;
+		mSliceUV = tileMap.mSliceUV;
+
+		mRowCount = tileMap.mRowCount;
+		mColCount = tileMap.mColCount;
+
+		mTileCountX = tileMap.mTileCountX;
+		mTileCountY = tileMap.mTileCountY;
+		
+		mTileData = tileMap.mTileData;
+		mBuffer = new StructuredBuffer;
+		mBuffer->Create(sizeof(TileData), mTileCountX * mTileCountY, eSRVType::SRV, nullptr, true);
+
+		mbBufferUpdated = false;
+	}
+
 	TileMap::~TileMap()
 	{
 		if (nullptr != mBuffer)
@@ -85,6 +106,11 @@ namespace hj
 		GetMesh()->Render();
 
 		GetMaterial()->Clear();
+	}
+
+	hj::Component* TileMap::Clone() const
+	{
+		return new TileMap(*this);
 	}
 
 	void TileMap::SetTileMapCount(UINT countX, UINT countY)

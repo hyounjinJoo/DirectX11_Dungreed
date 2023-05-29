@@ -26,7 +26,7 @@ namespace hj
 		, mAtlas(anim.mAtlas)
 		, mShader(anim.mShader)
 		, mCanvasSize(anim.mCanvasSize)
-		, mIndex(-1)
+		, mIndex(anim.mIndex)
 		, mTime(0.f)
 		, mbComplete(false)
 		, mbReversePlay(anim.mbReversePlay)

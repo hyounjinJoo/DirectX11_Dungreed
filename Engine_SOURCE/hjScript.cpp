@@ -26,4 +26,10 @@ namespace hj
 	void Script::Render()
 	{
 	}
+
+	hj::Component* Script::Clone() const
+	{
+		return new Script();
+	}
+
 }

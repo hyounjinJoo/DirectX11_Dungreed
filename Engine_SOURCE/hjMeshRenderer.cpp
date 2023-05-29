@@ -8,6 +8,13 @@ namespace hj
 		: BaseRenderer(eComponentType::MeshRenderer)
 	{
 	}
+
+	MeshRenderer::MeshRenderer(const MeshRenderer& meshRenderer)
+		: BaseRenderer(meshRenderer)
+	{
+
+	}
+
 	MeshRenderer::~MeshRenderer()
 	{
 	}
@@ -31,4 +38,10 @@ namespace hj
 
 		GetMaterial()->Clear();
 	}
+
+	hj::Component* MeshRenderer::Clone() const
+	{
+		return new MeshRenderer(*this);
+	}
+
 }

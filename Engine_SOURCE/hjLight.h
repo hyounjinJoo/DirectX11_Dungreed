@@ -11,12 +11,15 @@ namespace hj
     {
     public:
         Light();
+		Light(const Light& light);
         virtual ~Light();
 
         void Initialize() override;
         void Update() override;
         void FixedUpdate() override;
         void Render() override;
+
+		virtual Component* Clone() const override;
 
         graphics::LightAttribute GetLightAttribute() { return mAttribute; }
         

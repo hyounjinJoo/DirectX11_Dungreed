@@ -8,6 +8,7 @@ namespace hj
 	{
 	public:
 		RigidBody();
+		RigidBody(const RigidBody& rigidBody);
 		virtual ~RigidBody();
 
 		virtual void Initialize() override;
@@ -15,6 +16,8 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		virtual Component* Clone() const override;
+	public:
 		void AddForce(Vector2 force);
 		void SetMass(float mass) { mMass = mass; }
 		void SetGround(bool isGround) { mbGround = isGround; }

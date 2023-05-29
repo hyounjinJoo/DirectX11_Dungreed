@@ -9,6 +9,7 @@ namespace hj
 	{
 	public:
 		Transform();
+		Transform(const Transform& transform);
 		virtual ~Transform();
 
 		virtual void Initialize() override;
@@ -16,6 +17,9 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		virtual Component* Clone() const override;
+
+	public:
 		void SetConstantBuffer();
 
 		void SetParent(Transform* parent) { mParent = parent; }

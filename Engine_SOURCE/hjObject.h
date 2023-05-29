@@ -141,7 +141,22 @@ namespace hj::object
 		}
 	#pragma endregion
 #pragma endregion
+#pragma region Clone
+	template <typename T>
+	static T* Clone(T* object)
+	{
+		T* gameObject = static_cast<T*>(object->Clone());
 
+		Scene* scene = SceneManager::GetActiveScene();
+		eLayerType type = object->GetLayerType();
+		Layer& layer = scene->GetLayer(type);
+		gameObject->SetLayerType(type);
+		layer.AddGameObject(gameObject);
+		gameObject->Initialize();
+
+		return gameObject;
+	}
+#pragma endregion
 	static void Destroy(GameObject* gameObject)
 	{
 		if (gameObject == nullptr)

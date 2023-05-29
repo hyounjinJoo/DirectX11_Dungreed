@@ -15,6 +15,10 @@ namespace hj
 		virtual void FixedUpdate();
 		virtual void Render();
 
+		virtual Component* Clone() const override;
+
+	public:
+
 		virtual void OnCollisionEnter(Collider* collider) {};
 		virtual void OnCollisionStay(Collider* collider) {};
 		virtual void OnCollisionExit(Collider* collider) {};

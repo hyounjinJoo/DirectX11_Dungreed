@@ -11,11 +11,13 @@ namespace hj
 	{
 	public:
 		MeshRenderer();
+		MeshRenderer(const MeshRenderer& meshRenderer);
 		virtual ~MeshRenderer();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
+		virtual Component* Clone() const override;
 	};
 }

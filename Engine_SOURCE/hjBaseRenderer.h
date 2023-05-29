@@ -10,12 +10,16 @@ namespace hj
 	{
 	public:
 		BaseRenderer(eComponentType type);
+		BaseRenderer(const BaseRenderer& baseRenderer);
 		virtual ~BaseRenderer();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
+
+		virtual Component* Clone() const override;
+	public:
 
 		void SetMesh(std::shared_ptr<Mesh> mesh) { mMesh = mesh; }
 		void SetMaterial(std::shared_ptr<Material> material) { mMaterial = material; }

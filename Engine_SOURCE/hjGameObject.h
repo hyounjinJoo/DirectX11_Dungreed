@@ -19,12 +19,17 @@ namespace hj
 
 		GameObject();
 		virtual ~GameObject();
+		GameObject(const GameObject& obj);
 
+	public:
 		virtual void Initialize();
 		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
 
+		virtual GameObject* Clone() const;
+
+	public:
 		template <typename T>
 		T* AddComponent()
 		{

@@ -18,6 +18,12 @@ namespace hj
 		SetType(eColliderType::Rect);
 	}
 
+	Collider2D::Collider2D(const Collider2D& collider2D)
+		: Collider()
+	{
+
+	}
+
 	Collider2D::~Collider2D()
 	{
 	}
@@ -79,6 +85,11 @@ namespace hj
 
 	void Collider2D::Render()
 	{
+	}
+
+	hj::Component* Collider2D::Clone() const
+	{
+		return new Collider2D(*this);
 	}
 
 	void Collider2D::SetSize(Vector2 size)

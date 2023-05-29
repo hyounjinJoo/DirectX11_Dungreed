@@ -20,6 +20,22 @@ namespace hj
 	{
 	}
 
+	Transform::Transform(const Transform& transform)
+		: Component(eComponentType::Transform)
+		, mRelativeForward(Vector3::Forward)
+		, mRelativeRight(Vector3::Right)
+		, mRelativeUp(Vector3::Up)
+		, mWorldForward(Vector3::Forward)
+		, mWorldRight(Vector3::Right)
+		, mWorldUp(Vector3::Up)
+		, mRelativeScale(transform.mRelativeScale)
+		, mRelativeRotation(transform.mRelativeRotation)
+		, mRelativePosition(transform.mRelativePosition)
+		, mParent(nullptr)
+		, mInheritParentScale(transform.mInheritParentScale)
+	{
+	}
+
 	Transform::~Transform()
 	{
 	}
@@ -91,6 +107,12 @@ namespace hj
 
 	void Transform::Render()
 	{
+	}
+
+
+	hj::Component* Transform::Clone() const
+	{
+		return new Transform(*this);
 	}
 
 	void Transform::SetConstantBuffer()

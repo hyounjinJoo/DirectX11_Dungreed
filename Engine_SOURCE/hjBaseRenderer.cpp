@@ -6,6 +6,21 @@ namespace hj
 		: Component(type)
 	{
 	}
+
+	BaseRenderer::BaseRenderer(const BaseRenderer& baseRenderer)
+		: Component(baseRenderer.GetOrder())
+	{
+		if (baseRenderer.mMesh)
+		{
+			mMesh = baseRenderer.mMesh;
+		}
+
+		if (baseRenderer.mMaterial)
+		{
+			mMaterial = baseRenderer.mMaterial;
+		}
+	}
+
 	BaseRenderer::~BaseRenderer()
 	{
 	}
@@ -21,4 +36,10 @@ namespace hj
 	void BaseRenderer::Render()
 	{
 	}
+
+	hj::Component* BaseRenderer::Clone() const
+	{
+		return new BaseRenderer(*this);
+	}
+
 }

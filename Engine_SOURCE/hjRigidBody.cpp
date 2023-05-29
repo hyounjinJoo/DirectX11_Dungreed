@@ -21,6 +21,23 @@ namespace hj
 		mbGround = false;
 		mGravity = Vector2(0.0f, 3000.0f);
 	}
+
+	RigidBody::RigidBody(const RigidBody& rigidBody)
+		: Component(eComponentType::RigidBody)
+		, mMass(rigidBody.mMass)
+		, mFriction(rigidBody.mFriction)
+		, mbOnFriction(rigidBody.mbOnFriction)
+		, mbHorizonAccelMove(rigidBody.mbHorizonAccelMove)
+		, mMoveDir(eMoveDir::End)
+		, mVelocity(Vector2::Zero)
+		, mForce(Vector2::Zero)
+		, mAccelation(Vector2::Zero)
+	{
+		mLimitVelocity = rigidBody.mLimitVelocity;
+		mbGround = rigidBody.mbGround;
+		mGravity = rigidBody.mGravity;
+	}
+
 	RigidBody::~RigidBody()
 	{
 	}
@@ -133,6 +150,11 @@ namespace hj
 
 	void RigidBody::Render()
 	{
+	}
+
+	hj::Component* RigidBody::Clone() const
+	{
+		return new RigidBody(*this);
 	}
 
 	void RigidBody::AddForce(Vector2 force)

@@ -9,6 +9,12 @@ namespace hj
 	{
 	}
 
+	Light::Light(const Light& light)
+		: Component(eComponentType::Light)
+	{
+
+	}
+
 	Light::~Light()
 	{
 	}
@@ -41,4 +47,10 @@ namespace hj
 	void Light::Render()
 	{
 	}
+
+	hj::Component* Light::Clone() const
+	{
+		return new Light(*this);
+	}
+
 }

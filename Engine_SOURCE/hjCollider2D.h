@@ -8,12 +8,14 @@ namespace hj
     {
     public:
         Collider2D();
+        Collider2D(const Collider2D& collider2D);
         virtual ~Collider2D();
 
         void Initialize() override;
         void Update() override;
         void FixedUpdate() override;
         void Render() override;
+		virtual Component* Clone() const override;
 
         void SetSize(Vector2 size);
         void SetCenter(Vector2 center) { mCenter = center; }

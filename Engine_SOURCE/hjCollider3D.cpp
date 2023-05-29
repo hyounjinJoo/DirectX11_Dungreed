@@ -9,6 +9,12 @@ namespace hj
 	{
 	}
 
+	Collider3D::Collider3D(const Collider3D& collider3D)
+		: Collider()
+	{
+
+	}
+
 	Collider3D::~Collider3D()
 	{
 	}
@@ -27,6 +33,12 @@ namespace hj
 
 	void Collider3D::Render()
 	{
+	}
+
+	hj::Component* Collider3D::Clone() const
+	{
+		//return new Collider3D(*this);
+		return nullptr;
 	}
 
 	void Collider3D::OnCollisionEnter(Collider* collider)
