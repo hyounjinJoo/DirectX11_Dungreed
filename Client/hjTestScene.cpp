@@ -339,6 +339,19 @@ namespace hj
 	{
 		Scene::Update();
 		
+		if (!renderer::mainCamera->GetOwner()->GetTransform()->GetParent())
+		{
+			std::vector<GameObject*> playerLayerObjs = GetGameObjects(eLayerType::Player);
+
+			for (GameObject* iter : playerLayerObjs)
+			{
+				if (dynamic_cast<Player*>(iter))
+				{
+					renderer::mainCamera->GetOwner()->GetTransform()->SetParent(iter->GetTransform());
+				}
+			}
+		}
+
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::NeedToLoad(eSceneType::Title);
