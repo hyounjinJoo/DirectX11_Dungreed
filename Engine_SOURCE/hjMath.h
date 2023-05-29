@@ -142,6 +142,8 @@ namespace hj::math
 		Vector2 RadianToDegree() const noexcept;
 		Vector2 DegreeToRadian() const noexcept;
 
+		Vector2 Rotate(float angle) const noexcept;
+        
         // Static functions
         static float Distance(const Vector2& v1, const Vector2& v2) noexcept;
         static float DistanceSquared(const Vector2& v1, const Vector2& v2) noexcept;
@@ -188,10 +190,14 @@ namespace hj::math
         static void TransformNormal(_In_reads_(count) const Vector2* varray, size_t count, const Matrix& m, _Out_writes_(count) Vector2* resultArray) noexcept;
 
         // Constants
-        static const Vector2 Zero;
-        static const Vector2 One;
-        static const Vector2 UnitX;
-        static const Vector2 UnitY;
+		static const Vector2 Zero;
+		static const Vector2 One;
+		static const Vector2 Up;
+		static const Vector2 Down;
+		static const Vector2 Right;
+		static const Vector2 Left;
+		static const Vector2 UnitX;
+		static const Vector2 UnitY;
     };
 
     // Binary operators

@@ -406,6 +406,21 @@ inline Vector2 Vector2::DegreeToRadian() const noexcept
 	const float convertY = y * 180.f / PI;
 	return Vector2(convertX, convertY);
 }
+
+inline Vector2 Vector2::Rotate(float angle) const noexcept
+{
+	using namespace DirectX;
+	XMVECTOR v1 = XMLoadFloat2(this);
+	const float radian = angle * static_cast<float>(XM_PI) / 180.f;
+	const float cosVal = std::cosf(radian);
+	const float sinVal = std::sinf(radian);
+
+	const float newX = XMVectorGetX(v1) * cosVal - XMVectorGetY(v1) * sinVal;
+	const float newY = XMVectorGetX(v1) * sinVal + XMVectorGetY(v1) * cosVal;
+
+	return Vector2(newX, newY);
+}
+
 //------------------------------------------------------------------------------
 // Static functions
 //------------------------------------------------------------------------------
