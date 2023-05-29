@@ -7,7 +7,8 @@ namespace hj
         , mOwner(nullptr)
     {
     }
-    Component::~Component()
+
+	Component::~Component()
     {
     }
 }

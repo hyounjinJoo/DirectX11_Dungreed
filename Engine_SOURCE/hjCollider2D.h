@@ -11,12 +11,14 @@ namespace hj
         Collider2D(const Collider2D& collider2D);
         virtual ~Collider2D();
 
-        void Initialize() override;
-        void Update() override;
-        void FixedUpdate() override;
-        void Render() override;
+        virtual void Initialize() override;
+        virtual void Update() override;
+        virtual void FixedUpdate() override;
+        virtual void Render() override;
+
 		virtual Component* Clone() const override;
 
+	public:
         void SetSize(Vector2 size);
         void SetCenter(Vector2 center) { mCenter = center; }
 

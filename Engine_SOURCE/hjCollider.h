@@ -10,10 +10,10 @@ namespace hj
         Collider();
         virtual ~Collider();
 
-        void Initialize() override;
-        void Update() override;
-        void FixedUpdate() override;
-        void Render() override;
+        virtual void Initialize() override;
+        virtual void Update() override;
+        virtual void FixedUpdate() override;
+        virtual void Render() override;
 
 		void SetType(eColliderType type) { mType = type; };
         eColliderType GetType() { return mType; }

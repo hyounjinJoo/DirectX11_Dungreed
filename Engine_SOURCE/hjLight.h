@@ -14,13 +14,14 @@ namespace hj
 		Light(const Light& light);
         virtual ~Light();
 
-        void Initialize() override;
-        void Update() override;
-        void FixedUpdate() override;
-        void Render() override;
+        virtual void Initialize() override;
+        virtual void Update() override;
+        virtual void FixedUpdate() override;
+        virtual void Render() override;
 
 		virtual Component* Clone() const override;
 
+	public:
         graphics::LightAttribute GetLightAttribute() { return mAttribute; }
         
         void SetDiffuse(Vector4 diffuse) { mAttribute.diffuse = diffuse; }

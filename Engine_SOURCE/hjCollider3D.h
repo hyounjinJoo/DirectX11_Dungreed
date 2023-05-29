@@ -10,12 +10,14 @@ namespace hj
         Collider3D(const Collider3D& collider3D);
         virtual ~Collider3D();
 
-        void Initialize() override;
-        void Update() override;
-        void FixedUpdate() override;
-        void Render() override;
+        virtual void Initialize() override;
+        virtual void Update() override;
+        virtual void FixedUpdate() override;
+        virtual void Render() override;
+
 		virtual Component* Clone() const override;
 
+	public:
 		virtual void OnCollisionEnter(Collider* collider) override;
 		virtual void OnCollisionStay(Collider* collider) override;
 		virtual void OnCollisionExit(Collider* collider) override;
