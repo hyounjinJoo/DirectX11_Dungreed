@@ -80,6 +80,8 @@ namespace hj
 
 		void GetCurrentCostumeString(std::string& stringToGet) const;
 		void GetCurrentCostumeString(std::wstring& stringToGet) const;
+
+		virtual void Damaged(float damage);
     private:
         GameObject* mCenterObj;
         class PlayerHand* mLeftHand;
