@@ -47,6 +47,7 @@
 #include "hjStage1StartR.h"
 #include "hjStage1StartRB.h"
 #include "hjStage1StartLT.h"
+#include "hjStage1Boss.h"
 
 
 extern hj::Application application;
@@ -257,7 +258,8 @@ namespace hj
 		hpBarBaseSR->SetMaterial(hpBarBaseMaterial);
 #pragma endregion
 #pragma endregion
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::MonsterAttack, true);
 
 		//{
 		//	obj = object::Instantiate<TestPlayer>(eLayerType::Player);
@@ -290,6 +292,7 @@ namespace hj
 			RoomBase* startRoom = object::Instantiate<Stage1StartR>(eLayerType::ForeGround);
 			startRoom->SettingFadeObject();
 			startRoom->SettingDoorOwner();
+			startRoom->Pause();
 
 			RoomBase* roomLT = object::Instantiate<Stage1StartLT>(eLayerType::ForeGround);
 			roomLT->SettingFadeObject();
@@ -323,7 +326,15 @@ namespace hj
 			roomRB->ConnectDoor(DoorPlaced::R, roomLTRB->GetDoor(DoorPlaced::L));
 			roomLTRB->ConnectDoor(DoorPlaced::L, roomRB->GetDoor(DoorPlaced::R));
 
-			startRoom->Activate();
+			RoomBase* roomBoss1 = object::Instantiate<Stage1BossRoom>(eLayerType::ForeGround);
+			roomBoss1->SettingFadeObject();
+			roomBoss1->SettingDoorOwner();
+			roomBoss1->Pause();
+
+			roomLTRB->ConnectDoor(DoorPlaced::R, roomBoss1->GetDoor(DoorPlaced::L));
+			roomBoss1->ConnectDoor(DoorPlaced::L, roomLTRB->GetDoor(DoorPlaced::R));
+
+			roomBoss1->Activate();
 		}
 		{
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
@@ -331,6 +342,10 @@ namespace hj
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(-200.0f, 0.0f, -100.0f));
 			obj->AddComponent<ParticleSystem>();
+		}
+
+		{
+			GameObject* obj = object::Instantiate<Stage1Boss>(eLayerType::Monster);
 		}
 		Scene::Initialize();
 	}

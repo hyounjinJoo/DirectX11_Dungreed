@@ -7,6 +7,7 @@
 #include "hjRoomPassThrough.h"
 #include "hjRoomDoor.h"
 #include "hjFadeObject.h"
+#include "hjStage1Boss.h"
 
 namespace hj
 {
@@ -137,6 +138,9 @@ namespace hj
 
 			DoorL->SetExitDoor(DoorR);
 			DoorR->SetExitDoor(DoorL);
+
+			//GameObject* obj = object::Instantiate<Stage1Boss>(eLayerType::Monster);
+			//mGameObjects.push_back(obj);
 		}
 	}
 
