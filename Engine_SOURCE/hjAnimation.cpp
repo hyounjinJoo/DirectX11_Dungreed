@@ -251,6 +251,17 @@ namespace hj
 		return spriteSize;
 	}
 
+	hj::math::Vector2 Animation::GetSpriteTrimSize(UINT index)
+	{
+		Vector2 spriteTrimSize = Vector2::Zero;
+		if (index < mSpriteSheet.size())
+		{
+			spriteTrimSize = mSpriteSheet[index].trimmedSize;
+		}
+
+		return spriteTrimSize;
+	}
+
 	Animation* Animation::Clone()
 	{
 		return new Animation(*this);

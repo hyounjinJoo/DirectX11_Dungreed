@@ -192,7 +192,8 @@ namespace hj
         Vector2 GetCurrentSpriteOffset();
         Vector2 GetCurrentSpriteTrimSize();
         Vector2 GetCurrentSpriteTrimOffset();
-        Vector2 GetSpriteSize(UINT index);
+		Vector2 GetSpriteSize(UINT index);
+		Vector2 GetSpriteTrimSize(UINT index);
 
         Animation* Clone();
 
