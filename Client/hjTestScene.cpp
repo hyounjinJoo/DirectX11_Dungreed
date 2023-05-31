@@ -258,9 +258,6 @@ namespace hj
 		hpBarBaseSR->SetMaterial(hpBarBaseMaterial);
 #pragma endregion
 #pragma endregion
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::MonsterAttack, true);
-
 		//{
 		//	obj = object::Instantiate<TestPlayer>(eLayerType::Player);
 		//	obj->SetName(L"Zelda");
@@ -284,9 +281,6 @@ namespace hj
 		//	mesh = Resources::Find<Mesh>(L"Mesh_Rect");
 		//	spriteRender->SetMesh(mesh);
 		//}
-		{
-			CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
-		}
 		{
 			//Stage1BossRoom* room = object::Instantiate<Stage1BossRoom>(eLayerType::ForeGround);
 			RoomBase* startRoom = object::Instantiate<Stage1StartR>(eLayerType::ForeGround);
@@ -347,14 +341,28 @@ namespace hj
 		{
 			GameObject* obj = object::Instantiate<Stage1Boss>(eLayerType::Monster);
 		}
+
+	
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
+		
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack_ForeGround, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack_NotForeGround, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::MonsterAttack_ForeGround, true);
+
 		Scene::Initialize();
 	}
 
 	void TestScene::Update()
 	{
 		Scene::Update();
-		
-		if (!renderer::mainCamera->GetOwner()->GetTransform()->GetParent())
+		static const bool bCameraTransformInit = (renderer::mainCamera != nullptr 
+											&& renderer::mainCamera->GetOwner() != nullptr 
+											&& renderer::mainCamera->GetOwner()->GetTransform() != nullptr 
+											&& renderer::mainCamera->GetOwner()->GetTransform()->GetParent() != nullptr);
+
+
+		if (!bCameraTransformInit)
 		{
 			std::vector<GameObject*> playerLayerObjs = GetGameObjects(eLayerType::Player);
 
