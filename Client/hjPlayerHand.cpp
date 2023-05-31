@@ -10,6 +10,7 @@ namespace hj
 {
 	PlayerHand::PlayerHand()
 		: GameObject()
+		, mWeapon(nullptr)
 		, mHandOwner(nullptr)
 		, mHandOwnerTR(nullptr)
 		, mHandTransform(nullptr)
@@ -42,22 +43,22 @@ namespace hj
 	PlayerHand::~PlayerHand()
 	{
 	}
-	
+
 	void PlayerHand::Initialize()
 	{
 		GameObject::Initialize();
 	}
-	
+
 	void PlayerHand::Update()
 	{
 		GameObject::Update();
 	}
-	
+
 	void PlayerHand::FixedUpdate()
 	{
 		GameObject::FixedUpdate();
 	}
-	
+
 	void PlayerHand::Render()
 	{
 		GameObject::Render();

@@ -13,7 +13,7 @@ namespace hj
 		, mRotateDir(1.f)
 	{
 		// Bullet 총 120개 생성
-		Boss1Bullet* bullet = object::Instantiate<Boss1Bullet>(eLayerType::MonsterAttack);
+		Boss1Bullet* bullet = object::Instantiate<Boss1Bullet>(eLayerType::MonsterAttack_NotForeGround);
 		bullet->GetTransform()->SetParent(this->GetTransform());
 		mBullets.push_back(bullet);
 		for (int iter = 1; iter < 120; ++iter)
@@ -63,6 +63,7 @@ namespace hj
 		{
 		case MuzzleState::ShotStart:
 			mMuzzleState = MuzzleState::ShotStart;
+			mRotateDir = (rand() % 2 == 0) ? -1.f : 1.f;
 			break;
 		case MuzzleState::ShotEnd:
 			mMuzzleState = MuzzleState::ShotEnd;
@@ -90,7 +91,7 @@ namespace hj
 
 	void Boss1BulletMuzzle::CheckLastBulletPause()
 	{
-		if (eState::Paused == mBullets[mNextShotBulletIndex - 1]->GetState())
+		if (eState::Paused == mBullets[static_cast<size_t>(mNextShotBulletIndex - 1)]->GetState())
 		{
 			EndPattern();
 		}
@@ -105,7 +106,7 @@ namespace hj
 		mBullets[mNextShotBulletIndex]->SetPositionXY(this->GetPositionXY());
 		// 불릿 발사 방향 설정
 		constexpr float initialDegree_90 = XM_PI * 0.5f;
-		constexpr float angleRatio = 5.f;
+		constexpr float angleRatio = 5.8f;
 
 		int axis = mNextShotBulletIndex % 4;
 		float finalAxis = RadianToDegree(initialDegree_90) * axis;
@@ -113,7 +114,7 @@ namespace hj
 		int directionAngle = mNextShotBulletIndex / 4;
 		float eachAddedRot = static_cast<float>(directionAngle);
 
-		Vector2 rotatedDirection = initialDirection.Rotate(finalAxis + eachAddedRot * angleRatio);
+		Vector2 rotatedDirection = initialDirection.Rotate(finalAxis + eachAddedRot * angleRatio * mRotateDir);
 		
 		// 불릿 초기화 및 활성화
 		mBullets[mNextShotBulletIndex]->SetMoveDirection(rotatedDirection);
@@ -131,7 +132,8 @@ namespace hj
 	void Boss1BulletMuzzle::EndPattern()
 	{
 		mNextShotBulletIndex = 0;
-		Pause();
+		ChangeMuzzleState(MuzzleState::ShotStart);
+		//Pause();
 	}
 
 }

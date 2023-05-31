@@ -37,7 +37,7 @@ namespace hj
 
 		// 3. Laser 积己 棺 包府
 		{
-			mLaser = object::Instantiate<Boss1Laser>(eLayerType::MonsterAttack);
+			mLaser = object::Instantiate<Boss1Laser>(eLayerType::MonsterAttack_ForeGround);
 			mLaser->GetTransform()->SetParent(this->GetTransform());
 		}
 	}

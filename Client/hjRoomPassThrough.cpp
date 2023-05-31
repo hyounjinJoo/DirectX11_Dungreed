@@ -83,6 +83,10 @@ namespace hj
 			if ((dynamic_cast<Player*>(other))->GetPlayerScript()->IsDash())
 				return;
 		}
+		else
+		{
+			return;
+		}
 
 		RigidBody* otherRigidBody = other->GetComponent<RigidBody>();
 		Vector2 otherBottom = other->GetWorldCenterBottom();
@@ -128,6 +132,10 @@ namespace hj
 		{
 			if ((dynamic_cast<Player*>(other))->GetPlayerScript()->IsDash())
 				return;
+		}
+		else
+		{
+			return;
 		}
 
 		RigidBody* otherRigidBody = other->GetComponent<RigidBody>();

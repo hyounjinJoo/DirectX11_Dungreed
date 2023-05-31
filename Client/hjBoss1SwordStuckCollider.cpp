@@ -71,6 +71,7 @@ namespace hj
 #define RIGHT_COLLISION_CASE	2
 #define BOTTOM_COLLISION_CASE	3
 #define TOP_COLLISION_CASE		4
+#define TILE_SIZE				80.f
 	void Boss1SwordStuckColliderScript::OnCollisionEnter(Collider* collider)
 	{
 		if (nullptr == mRectCollider || nullptr == collider->GetOwner())
@@ -88,13 +89,13 @@ namespace hj
 		Vector4 notPassLTRB = notPass->GetWorldLTRB();
 
 		UINT enterCase = NOT_DETERMINE_CASE;
-		if (thisCenter.y >= notPassLTRB.y)
+		if (thisCenter.y >= notPassLTRB.y - TILE_SIZE)
 			enterCase = TOP_COLLISION_CASE;
-		else if (thisCenter.x <= notPassLTRB.x)
+		else if (thisCenter.x <= notPassLTRB.x + TILE_SIZE)
 			enterCase = RIGHT_COLLISION_CASE;
-		else if (thisCenter.x >= notPassLTRB.z)
+		else if (thisCenter.x >= notPassLTRB.z - TILE_SIZE)
 			enterCase = LEFT_COLLISION_CASE;
-		else if (thisCenter.y <= notPassLTRB.w)
+		else if (thisCenter.y <= notPassLTRB.w + TILE_SIZE)
 			enterCase = BOTTOM_COLLISION_CASE;
 
 		float newRotZ = 0.f;

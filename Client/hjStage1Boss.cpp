@@ -17,8 +17,19 @@ namespace hj
 {
 #define Bellial_Horn_X_Size_Ratio 0.10714f
 #define Bellial_Horn_Y_Size_Ratio 0.11718f
+#define Bellial_Max_HP 200.f
 
 	Stage1Boss::Stage1Boss()
+		: mMaximumHP(Bellial_Max_HP)
+		, mCurrentHP(Bellial_Max_HP)
+		, mBossState(Boss1State::StartReady)
+		, mBossAttackPattern(Boss1AttackPattern::End)
+		, mLeftHand(nullptr)
+		, mRightHand(nullptr)
+		, mLaser(nullptr)
+		, mBodyAnimator(nullptr)
+		, mbAttackExecuted(false)
+		, mAuraManager(nullptr)
 	{
 		SetName(WIDE("Boss_Bellial"));
 
@@ -76,7 +87,7 @@ namespace hj
 			mBackground = object::Instantiate<GameObject>(eLayerType::MonsterHas, Vector3(GetScaleX() * 0.5f, 0.f, 1.f));
 		}
 		// 7. Pattern 1(Summon Sword)에 필요한 것들 생성
-		mBoss1Sword = object::Instantiate<Boss1Sword>(eLayerType::MonsterAttack, Vector3(GetScaleX()* 0.5f, 0.f, 0.f));
+		mBoss1Sword = object::Instantiate<Boss1Sword>(eLayerType::MonsterAttack_ForeGround, Vector3(GetScaleX()* 0.5f, 0.f, 0.f));
 		mBoss1Sword->SetSpawnPosXY(Vector2(GetScaleX() * 0.5f, 0.f));
 
 		mBoss1Sword->ChangeSwordState(Boss1SwordState::Spawn);

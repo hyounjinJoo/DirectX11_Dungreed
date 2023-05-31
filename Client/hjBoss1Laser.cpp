@@ -10,6 +10,7 @@
 namespace hj
 {
 	Boss1Laser::Boss1Laser()
+		: mLaserCollider(nullptr)
 	{
 		SetName(WIDE("Effect_Boss1_Laser"));
 
@@ -19,7 +20,7 @@ namespace hj
 		float laserWholeMidPosX = 0.f;
 		for (int iter = 0; iter < maxLaserPart; ++iter)
 		{
-			Boss1LaserPart* laserPart = object::Instantiate<Boss1LaserPart>(eLayerType::MonsterAttack);
+			Boss1LaserPart* laserPart = object::Instantiate<Boss1LaserPart>(eLayerType::MonsterAttack_ForeGround);
 			laserPart->SetOwnerLaser(this);
 
 #define LASER_HEAD_PART_INDEX 0
@@ -40,7 +41,7 @@ namespace hj
 				{
 					laserPart->SetLaserType(Boss1LaserType::Body);
 				}
-				laserPart->GetTransform()->SetParent(mLaserParts[iter - 1]->GetTransform());
+				laserPart->GetTransform()->SetParent(mLaserParts[static_cast<size_t>(iter) - static_cast<size_t>(1)]->GetTransform());
 			}
 
 			
@@ -64,7 +65,7 @@ namespace hj
 		{
 			laserWholeMidPosX += laserWholeScale.x * 0.5f;
 
-			mLaserCollider = object::Instantiate<Boss1LaserCollider>(eLayerType::MonsterAttack);
+			mLaserCollider = object::Instantiate<Boss1LaserCollider>(eLayerType::MonsterAttack_ForeGround);
 			mLaserCollider->Pause();
 			mLaserCollider->SetPositionX(laserWholeMidPosX);
 			mLaserCollider->SetScaleXY(laserWholeScale);
@@ -115,6 +116,8 @@ namespace hj
 {
 	Boss1LaserPart::Boss1LaserPart()
 		: mLaserType(Boss1LaserType::End)
+		, mOwnerLaser(nullptr)
+		, mbPlaying(false)
 	{
 		SetName(WIDE("Effect_Boss1_LaserParts"));
 

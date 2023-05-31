@@ -24,7 +24,7 @@ namespace hj
 		, mCurAimingTime(0.f)
 		, mAimingLimitTime(1.5f)
 		, mMoveDir(Vector2::Zero)
-		, mMoveSpeed(2400.f)
+		, mMoveSpeed(3200.f)
 		, mMoveVelocity(Vector2::Zero)
 		, mSpawnPosXY(Vector2::Zero)
 	{
@@ -62,10 +62,10 @@ namespace hj
 		}
 
 		// 中宜端 持失
-		mSwordMoveCollider = object::Instantiate<Boss1SwordStuckCollider>(eLayerType::MonsterAttack);
+		mSwordMoveCollider = object::Instantiate<Boss1SwordStuckCollider>(eLayerType::MonsterAttack_ForeGround);
 		mSwordMoveCollider->SetOwnerObject(this);
 
-		mSwordAttackCollider = object::Instantiate<Boss1SwordAttackCollider>(eLayerType::MonsterAttack);
+		mSwordAttackCollider = object::Instantiate<Boss1SwordAttackCollider>(eLayerType::MonsterAttack_ForeGround);
 		mSwordAttackCollider->SetOwnerObject(this);
 		
 
@@ -73,11 +73,14 @@ namespace hj
 		mChargeEffectObj->GetTransform()->SetParent(thisTransform);
 		mHitEffectObj->GetTransform()->SetParent(thisTransform);
 
-		Vector2 ColliderScale = thisTransform->GetScaleXY();
-
+		Vector2 thisScaleXY = thisTransform->GetScaleXY();
+		Vector2 ColliderScale = thisScaleXY;
+		
+		ColliderScale.x *= 0.4f;
 		mSwordAttackCollider->SetScaleXY(ColliderScale);
 		mSwordAttackCollider->GetTransform()->SetParent(thisTransform);
 
+		ColliderScale.x = thisScaleXY.x;
 		ColliderScale.x *= 0.1f;
 		ColliderScale.y *= 0.1f;
 

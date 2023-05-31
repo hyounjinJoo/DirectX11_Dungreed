@@ -5,12 +5,13 @@
 #include "hjAnimator.h"
 #include "hjResources.h"
 #include "hjTime.h"
+#include "hjCollider2D.h"
 
 namespace hj
 {
 	Boss1Bullet::Boss1Bullet()
 		: mMoveDir(Vector2::Zero)
-		, mMoveSpeed(500.f)
+		, mMoveSpeed(600.f)
 		, mActiveTime(2.5f)
 		, mActiveTimer(0.f)
 	{
@@ -34,15 +35,24 @@ namespace hj
 			}
 		}
 
+		Collider2D* circleCollider = AddComponent<Collider2D>();
+		circleCollider->SetColliderType(eColliderType::Circle);
+		//Vector2 colliderSize = animator->GetCurrentAnimation()->GetSpriteSize(1) / GetScaleXY();
+		if (animator && animator->GetCurrentAnimation())
+		{
+			circleCollider->SetSize(animator->GetCurrentAnimation()->GetSpriteSize(0));
+		}
+		//circleCollider->SetSize(colliderSize);
+
 		Pause();
 	}
 
 	Boss1Bullet::Boss1Bullet(const Boss1Bullet& bullet)
 		: GameObject(bullet)
 		, mMoveDir(Vector2::Zero)
-		, mMoveSpeed(500.f)
-		, mActiveTime(2.5f)
-		, mActiveTimer(0.f)
+		, mMoveSpeed(bullet.mMoveSpeed)
+		, mActiveTime(bullet.mActiveTime)
+		, mActiveTimer(bullet.mActiveTimer)
 	{
 	}
 
