@@ -27,7 +27,7 @@ namespace hj
 		class Animator* mAnimator; 
 		std::shared_ptr<Material> mMaterial;
 		
-		bool		mbActivateTrail;
+		int			mbActivateTrail;
 		float		mActivateTimer;
 		float		mActivateTime;
 	};
