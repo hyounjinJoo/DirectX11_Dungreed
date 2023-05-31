@@ -6,9 +6,15 @@
 #include "hjMesh.h"
 #include "hjMaterial.h"
 #include "hjGridScript.h"
+#include "hjDebugObject.h"
+#include "hjWidget.h"
+#include "hjEditorObject.h"
+
 
 namespace hj
 {
+	using namespace gui;
+
 	void Editor::Initialize()
 	{
 		// 충돌체의 종류 갯수만큼만 있으면 된다.

@@ -1,12 +1,16 @@
 #pragma once
-#include "hjDebugObject.h"
-#include "hjWidget.h"
-#include "hjEditorObject.h"
 #include "hjGraphics.h"
 
 namespace hj
 {
-	using namespace gui;
+
+	namespace gui
+	{
+		class Widget;
+	}
+	class EditorObject;
+	class DebugObject;
+
 	class Editor
 	{
 	public:
@@ -21,7 +25,7 @@ namespace hj
 		void DebugRender(graphics::DebugMesh& mesh);
 
 	private:
-		std::vector<Widget*> mWidgets;
+		std::vector<gui::Widget*> mWidgets;
 		std::vector<EditorObject*> mEditorObjects;
 		std::vector<DebugObject*> mDebugObjects;
 	};
