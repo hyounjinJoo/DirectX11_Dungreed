@@ -7,7 +7,8 @@ namespace hj
     class Collider : public Component
     {
     public:
-        Collider();
+		Collider();
+        Collider(const Collider& collider2D);
         virtual ~Collider();
 
         virtual void Initialize() override;
@@ -15,8 +16,8 @@ namespace hj
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
-		void SetType(eColliderType type) { mType = type; };
-        eColliderType GetType() { return mType; }
+		void SetColliderType(eColliderType type) { mColliderType = type; };
+        eColliderType GetColliderType() { return mColliderType; }
         bool IsTrigger() { return mbTrigger; }
         void SetState(eCollisionState state) { mState = state; }
 		eCollisionState GetState() { return mState; }
@@ -56,7 +57,7 @@ namespace hj
         bool mbTrigger;
 		bool mbMouseTrigger;
         bool mbUseMouseCollision;
-		eColliderType mType;
+		eColliderType mColliderType;
         const UINT32 mColliderID;
 		eCollisionState mState;
 		eCollisionState mMouseState;

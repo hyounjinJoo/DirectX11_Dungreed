@@ -15,13 +15,19 @@ namespace hj
 		, mPrevPos(Vector3::Zero)
 		, mLTRBPos(Vector4::Zero)
 	{
-		SetType(eColliderType::Rect);
+		SetColliderType(eColliderType::Rect);
 	}
 
 	Collider2D::Collider2D(const Collider2D& collider2D)
-		: Collider()
+		: Collider(collider2D)
+		, mTransform(nullptr)
+		, mSize(collider2D.mSize)
+		, mCenter(collider2D.mCenter)
+		, mPosition(collider2D.mPosition)
+		, mRadius(collider2D.mRadius)
+		, mPrevPos(collider2D.mPrevPos)
+		, mLTRBPos(collider2D.mLTRBPos)
 	{
-
 	}
 
 	Collider2D::~Collider2D()
@@ -77,7 +83,7 @@ namespace hj
 		meshAttribute.radius = mRadius;
 		meshAttribute.rotation = rotation;
 		meshAttribute.scale = scale;
-		meshAttribute.type = mType;
+		meshAttribute.type = mColliderType;
 		meshAttribute.state = mState;
 
 		renderer::debugMeshes.push_back(meshAttribute);
@@ -94,7 +100,7 @@ namespace hj
 
 	void Collider2D::SetSize(Vector2 size)
 	{
-		switch (mType)
+		switch (mColliderType)
 		{
 		case hj::enums::eColliderType::Circle:
 			mSize = Vector2::One;

@@ -41,7 +41,7 @@ namespace hj
         const Vector3& GetPosition() { return mPosition; }
         const Vector2& GetSize()
         {
-            if (eColliderType::Circle == mType)
+            if (eColliderType::Circle == mColliderType)
             {
                 static Vector2 circleSize;
                 circleSize = Vector2(mRadius, mRadius);
@@ -52,6 +52,15 @@ namespace hj
         }
 
         const Vector4& GetLTRB() { return mLTRBPos; }
+        Transform* GetTransform() 
+		{
+            if (mTransform)
+            {
+                return mTransform;
+            }
+
+            return nullptr;
+        }
 
     private:
         Transform* mTransform;

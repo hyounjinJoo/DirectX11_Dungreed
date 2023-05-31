@@ -1,9 +1,18 @@
 #pragma once
-#include "CommonInclude.h"
-#include "hjCollider.h"
+
+#include "hjEnums.h"
 
 namespace hj
 {
+	class Scene;
+	class Collider;
+	class Collider2D;
+	class Collider3D;
+	namespace math
+	{
+		struct Vector2;
+	}
+
 	union ColliderID
 	{
 		struct  
@@ -22,25 +31,26 @@ namespace hj
 		static void FixedUpdate();
 		static void Render();
 
-		static void CollisionLayerCheck(eLayerType left, eLayerType right, bool enable = true);
-		static void LayerCollision(class Scene* scene, eLayerType left, eLayerType right);
-		static void MouseCollision(class Scene* scene, eLayerType layerType);
+		static void CollisionLayerCheck(enums::eLayerType left, enums::eLayerType right, bool enable = true);
+		static void LayerCollision(Scene* scene, enums::eLayerType left, enums::eLayerType right);
+		static void MouseCollision(Scene* scene, enums::eLayerType layerType);
 		static void ColliderCollision(Collider* left, Collider* right);
-		static void ColliderCollision(Collider* left, const hj::math::Vector2& pointPos);
+		static void ColliderCollision(Collider* left, const math::Vector2& pointPos);
 		static bool Intersect(Collider* left, Collider* right);
-		static bool Intersect(Collider* left, const hj::math::Vector2& pointPos);
-		static bool Intersect2D(class Collider2D* left, class Collider2D* right);
-		static bool Intersect2DUI(class Collider2D* collider, const hj::math::Vector2& pointPos);
-		static bool IntersectRectToPoint(class Collider2D* collider, const hj::math::Vector2& pointPos);
-		static bool IntersectCircleToPoint(class Collider2D* collider, const hj::math::Vector2& pointPos);
-		static bool IntersectRectToRect(class Collider2D* left, class Collider2D* right);
-		static bool IntersectCircleToCircle(class Collider2D* left, class Collider2D* right);
+		static bool Intersect(Collider* left, const math::Vector2& pointPos);
+		static bool Intersect2D(Collider2D* left, Collider2D* right);
+		static bool Intersect2DUI(Collider2D* collider, const math::Vector2& pointPos);
+		static bool IntersectRectToPoint(Collider2D* collider, const math::Vector2& pointPos);
+		static bool IntersectCircleToPoint(Collider2D* collider, const math::Vector2& pointPos);
+		static bool IntersectRectToRect(Collider2D* left, Collider2D* right);
+		static bool IntersectCircleToCircle(Collider2D* left, Collider2D* right);
+		static bool IntersectRectToCircle(Collider2D* left, Collider2D* right);
 
-		static bool Intersect3D(class Collider3D* left, class Collider3D* right);
-		static bool Intersect3DUI(class Collider3D* collider, const hj::math::Vector2& pointPos);
+		static bool Intersect3D(Collider3D* left, Collider3D* right);
+		static bool Intersect3DUI(Collider3D* collider, const math::Vector2& pointPos);
 
 	private:
-		static std::bitset<(UINT)eLayerType::End> mLayerCollisionMatrix[(UINT)eLayerType::End];
+		static std::bitset<(UINT)enums::eLayerType::End> mLayerCollisionMatrix[(UINT)enums::eLayerType::End];
 		static std::map<UINT64, bool> mCollisionMap;
 	};
 }

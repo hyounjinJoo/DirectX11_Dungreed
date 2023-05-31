@@ -303,18 +303,22 @@ namespace hj
 
 	bool CollisionManager::Intersect2D(Collider2D* left, Collider2D* right)
 	{
-		eColliderType leftType = left->GetType();
-		eColliderType rightType = right->GetType();
+		eColliderType leftType = left->GetColliderType();
+		eColliderType rightType = right->GetColliderType();
 
 		switch (leftType)
 		{
 		case eColliderType::Rect:
 			if (rightType == eColliderType::Rect)
 				return IntersectRectToRect(left, right);
+			else if (rightType == eColliderType::Circle)
+				return IntersectRectToCircle(left, right);
 			break;
 		case eColliderType::Circle:
 			if (rightType == eColliderType::Circle)
 				return IntersectCircleToCircle(left, right);
+			else if (rightType == eColliderType::Rect)
+				return IntersectRectToCircle(right, left);
 			break;
 		default:
 			break;
@@ -325,7 +329,7 @@ namespace hj
 
 	bool CollisionManager::Intersect2DUI(Collider2D* collider, const hj::math::Vector2& pointPos)
 	{
-		eColliderType colliderType = collider->GetType();
+		eColliderType colliderType = collider->GetColliderType();
 
 		switch (colliderType)
 		{
@@ -482,6 +486,32 @@ namespace hj
 			return false;
 
 		return true;
+	}
+
+	bool CollisionManager::IntersectRectToCircle(class Collider2D* left, class Collider2D* right)
+	{
+		// Calc Distance Dir Vector
+		Vector2 circlePos = right->GetOwner()->GetPositionXY();
+		Vector2 rectPos = left->GetOwner()->GetPositionXY();
+		Vector2 centerDistDir = circlePos - rectPos;
+
+		// Calc Intersection Point between Rect and Dir Vector
+		Vector2 rectHalfExtents = left->GetOwner()->GetScaleXY() * 0.5f;
+		float dotXLength = (Vector2::Right).Dot(centerDistDir);
+		dotXLength = std::clamp<float>(dotXLength, -rectHalfExtents.x, rectHalfExtents.x);
+		float dotYLength = (Vector2::Up).Dot(centerDistDir);
+		dotYLength = std::clamp<float>(dotYLength, -rectHalfExtents.y, rectHalfExtents.y);
+
+		Vector2 closestPoint = rectPos + dotXLength * Vector2::Right + dotYLength * Vector2::Up - circlePos;
+
+		// Calc Each Vector's length
+		float lengthSquared = closestPoint.LengthSquared();
+		float circleRadius = right->GetSize().x * 0.5f;
+		float circleRadiusSquared = circleRadius * circleRadius;
+
+		// Check Collision
+		bool isCollision = lengthSquared <= circleRadiusSquared;
+		return isCollision;
 	}
 
 	bool CollisionManager::Intersect3D(Collider3D* left, Collider3D* right)
