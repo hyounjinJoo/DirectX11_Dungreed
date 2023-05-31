@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjPrefab.h"
 
 namespace hj

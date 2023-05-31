@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjParticleShader.h"
 #include "hjRenderer.h"
 #include "hjConstantBuffer.h"

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjAnimation.h"
 #include "hjTime.h"
 #include "hjRenderer.h"

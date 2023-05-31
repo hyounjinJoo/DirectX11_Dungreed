@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjSpriteRenderer.h"
 #include "hjGameObject.h"
 #include "hjTransform.h"

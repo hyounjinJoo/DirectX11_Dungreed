@@ -1,4 +1,4 @@
-
+#include "pch.h"
 #include "hjMesh.h"
 #include "hjRenderer.h"
 #include "hjGraphicDevice_DX11.h"

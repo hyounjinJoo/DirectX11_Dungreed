@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjParticleSystem.h"
 #include "hjMesh.h"
 #include "hjResources.h"

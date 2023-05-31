@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjScript.h"
 
 namespace hj

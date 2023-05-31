@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjGameObject.h"
 
 namespace hj

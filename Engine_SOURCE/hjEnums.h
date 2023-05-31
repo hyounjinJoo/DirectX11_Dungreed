@@ -15,19 +15,25 @@ namespace hj::enums
 
 	enum class eLayerType
 	{
+		// 0 ~ 4
 		None = 0,
 		Camera,
 		Grid,
 		Monster,
 		MonsterHas,
-		MonsterAttack,
+		// 5 ~ 9
+		MonsterAttack_ForeGround,
+		MonsterAttack_NotForeGround,
 		Player,
 		PlayerHas,
-		PlayerAttack,
+		PlayerAttack_ForeGround,
+		// 10 ~ 14
+		PlayerAttack_NotForeGround,
 		BackGround,
 		MidGround,
 		ForeGround,
 		Particle,
+		// 15 ~ 16
 		UI,
 		End = 16,
 	};

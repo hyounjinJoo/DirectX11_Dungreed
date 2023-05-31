@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjMap.h"
 #include "hjXmlParser.h"
 #include "hjTexture.h"

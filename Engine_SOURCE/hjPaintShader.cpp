@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjPaintShader.h"
 #include "hjConstantBuffer.h"
 #include "hjRenderer.h"

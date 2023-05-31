@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjResource.h"
 
 namespace hj

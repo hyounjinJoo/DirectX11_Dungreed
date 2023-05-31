@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjComponent.h"
 
 namespace hj

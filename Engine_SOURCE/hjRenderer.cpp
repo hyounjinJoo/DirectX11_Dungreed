@@ -1,3 +1,4 @@
+#include "pch.h"
 
 #include "hjRenderer.h"
 #include "hjResources.h"

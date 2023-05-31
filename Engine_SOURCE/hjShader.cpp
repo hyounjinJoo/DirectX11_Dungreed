@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjShader.h"
 #include "hjGraphicDevice_DX11.h"
 #include "hjRenderer.h"

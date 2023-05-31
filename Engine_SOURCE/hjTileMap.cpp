@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjTileMap.h"
 #include "hjResources.h"
 #include "hjGameObject.h"

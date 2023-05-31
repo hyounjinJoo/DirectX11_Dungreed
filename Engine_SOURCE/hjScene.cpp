@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjScene.h"
 #include "hjObject.h"
 #include "hjCamera.h"

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjXmlParser.h"
 namespace hj
 {
@@ -42,7 +43,7 @@ namespace hj
 		return result;
 	}
 
-	size_t XmlParser::CheckAttributeIncludeWstr(const std::wstring& attributeName, const std::wstring findWstr)
+	size_t XmlParser::CheckAttributeIncludeWstr(const std::wstring& attributeName, const std::wstring& findWstr)
 	{
 		// 해당 어트리뷰트가 없을 때
 		if (!HasAttribute(attributeName))

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjConstantBuffer.h"
 #include "hjGraphicDevice_DX11.h"
 

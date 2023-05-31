@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjCollisionManager.h"
 #include "hjSceneManager.h"
 #include "hjCollider2D.h"
@@ -121,7 +122,8 @@ namespace hj
 	void CollisionManager::ColliderCollision(Collider* left, Collider* right)
 	{
 		// 두 충돌체로 구성된 ID 확인
-		ColliderID colliderID;
+		ColliderID colliderID = ColliderID{};
+		
 		colliderID.left = left->GetColliderID();
 		colliderID.right = right->GetColliderID();
 
@@ -138,11 +140,6 @@ namespace hj
 		// 충돌 체크를 진행한다.
 		bool triggerLeft = left->IsTrigger();
 		bool triggerRight = right->IsTrigger();
-		eColliderType leftType = left->GetType();
-		eColliderType rightType = right->GetType();
-
-		if (leftType != rightType)
-			return;
 
 		if (Intersect(left, right))
 		{
@@ -213,7 +210,7 @@ namespace hj
 	void CollisionManager::ColliderCollision(Collider* left, const hj::math::Vector2& pointPos)
 	{
 		// 두 충돌체로 구성된 ID 확인
-		ColliderID colliderID;
+		ColliderID colliderID = ColliderID{};
 		colliderID.left = left->GetColliderID();
 		colliderID.right = 0;
 
@@ -229,8 +226,6 @@ namespace hj
 
 		// 충돌 체크를 진행한다.
 		bool triggerLeft = left->IsMouseTrigger();
-		eColliderType leftType = left->GetType();
-
 
 		// 충돌체크를 해준다.
 		bool collision = Intersect(left, pointPos);

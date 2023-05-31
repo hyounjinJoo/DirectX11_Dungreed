@@ -1,13 +1,6 @@
 #pragma once
 
 #include "..\\External\\CMarkUp\\Include\\Markup.h"
-
-#ifdef _DEBUG
-#pragma comment(lib, "..\\External\\CMarkUp\\lib\\CMarkUp_debug.lib")
-#else
-#pragma comment(lib, "..\\External\\CMarkUp\\lib\\CMarkUp.lib")
-#endif
-
 #include "hjEngine.h"
 
 namespace hj
@@ -31,7 +24,7 @@ namespace hj
 		bool HasAttribute(const std::string& attributeName) { return HasAttribute(StringToWideString(attributeName)); }
 		bool HasAttribute(const std::wstring& attributeName);
 
-		size_t CheckAttributeIncludeWstr(const std::wstring& attributeName, const std::wstring findWstr);
+		size_t CheckAttributeIncludeWstr(const std::wstring& attributeName, const std::wstring& findWstr);
 
 		std::wstring GetWstringAttribute(const std::wstring& attributeWSTRName) { return mXml->GetAttrib(attributeWSTRName.c_str()); }
 		float GetFloatAttribute(const std::string& attibuteFloatName) { return GetFloatAttribute(StringToWideString(attibuteFloatName)); }

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjTexture.h"
 
 namespace hj::graphics
@@ -142,7 +143,9 @@ namespace hj::graphics
 		if (!GetDevice()->CreateTexture(&mDesc, mTexture.GetAddressOf()))
 			return false;
 
+#ifdef _DEBUG
 		mTexture->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("TextureCreateFunc_1_Texture") - 1, "TextureCreateFunc_1_Texture");
+#endif
 
 		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL)
 		{
@@ -152,7 +155,9 @@ namespace hj::graphics
 			if (!GetDevice()->CreateDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf()))
 				return false;
 
+#ifdef _DEBUG
 			mDSV->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("TextureCreateFunc_1_DSV") - 1, "TextureCreateFunc_1_DSV");
+#endif
 		}
 		
 		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE)
@@ -171,7 +176,9 @@ namespace hj::graphics
 			if (!GetDevice()->CreateShaderResourceView(mTexture.Get(), nullptr, mSRV.GetAddressOf()))
 				return false;
 
+#ifdef _DEBUG
 			mSRV->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("TextureCreateFunc_1_SRV") - 1, "TextureCreateFunc_1_SRV");
+#endif
 		}
 		
 		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS)
@@ -190,7 +197,9 @@ namespace hj::graphics
 			if (!GetDevice()->CreateUnorderedAccessView(mTexture.Get(), nullptr, mUAV.GetAddressOf()))
 				return false;
 
+#ifdef _DEBUG
 			mUAV->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("TextureCreateFunc_1_UAV") - 1, "TextureCreateFunc_1_UAV");
+#endif
 		}
 
 		return true;
@@ -212,7 +221,9 @@ namespace hj::graphics
 			if (!GetDevice()->CreateDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf()))
 				return false;
 
+#ifdef _DEBUG
 			mDSV->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("TextureCreateFunc_2_DSV") - 1, "TextureCreateFunc_2_DSV");
+#endif
 		}
 
 		if (mDesc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET)
@@ -223,7 +234,9 @@ namespace hj::graphics
 			if (!GetDevice()->CreateRenderTargetView(mTexture.Get(), nullptr, mRTV.GetAddressOf()))
 				return false;
 
+#ifdef _DEBUG
 			mRTV->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("TextureCreateFunc_2_RTV") - 1, "TextureCreateFunc_2_RTV");
+#endif
 		}
 
 		if (mDesc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE)
@@ -243,7 +256,9 @@ namespace hj::graphics
 			if (!GetDevice()->CreateShaderResourceView(mTexture.Get(), nullptr, mSRV.GetAddressOf()))
 				return false;
 
+#ifdef _DEBUG
 			mSRV->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("TextureCreateFunc_2_SRV") - 1, "TextureCreateFunc_2_SRV");
+#endif
 		}
 
 		if (mDesc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS)
@@ -262,7 +277,9 @@ namespace hj::graphics
 			if (!GetDevice()->CreateUnorderedAccessView(mTexture.Get(), nullptr, mUAV.GetAddressOf()))
 				return false;
 
+#ifdef _DEBUG
 			mUAV->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("TextureCreateFunc_2_UAV") - 1, "TextureCreateFunc_2_UAV");
+#endif
 		}
 
 		return true;

@@ -133,6 +133,9 @@
     <Filter Include="Renderer\Particle">
       <UniqueIdentifier>{b0f40acb-d1d1-4bf8-aff8-25bdd3e20bdf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External\Module">
+      <UniqueIdentifier>{d4faaf2c-b440-43fd-abc8-3e91334f0b17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -261,6 +264,10 @@
     <ClCompile Include="hjParticleSystem.cpp">
       <Filter>Renderer\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="..\External\CMarkUp\Include\Markup.cpp">
+      <Filter>External\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -404,6 +411,10 @@
     <ClInclude Include="hjParticleSystem.h">
       <Filter>Renderer\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="..\External\CMarkUp\Include\Markup.h">
+      <Filter>External\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hjMath.inl">

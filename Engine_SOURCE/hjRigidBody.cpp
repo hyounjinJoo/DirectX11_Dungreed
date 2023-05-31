@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjRigidBody.h"
 #include "hjTime.h"
 #include "hjComponent.h"

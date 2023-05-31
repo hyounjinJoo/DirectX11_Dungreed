@@ -1,4 +1,5 @@
-﻿#include "hjTime.h"
+﻿#include "pch.h"
+#include "hjTime.h"
 #include "hjApplication.h"
 
 extern hj::Application application;

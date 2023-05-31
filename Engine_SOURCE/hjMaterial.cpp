@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjMaterial.h"
 
 namespace hj::graphics

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjCollider3D.h"
 #include "hjGameObject.h"
 #include "hjScript.h"

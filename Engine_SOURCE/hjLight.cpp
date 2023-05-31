@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hjLight.h"
 #include "hjGameObject.h"
 #include "hjRenderer.h"
