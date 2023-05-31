@@ -15,7 +15,7 @@
 #pragma comment(lib, "dxguid.lib")
 #endif
 
-#ifdef __DEBUG
+#ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib")
 #else
 #pragma comment(lib, "..\\x64\\Release\\Lib\\Engine_SOURCE.lib")
