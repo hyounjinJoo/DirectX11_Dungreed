@@ -8,6 +8,7 @@ namespace hj
 	{
 	public:
 		Script();
+		Script(const Script& script);
 		virtual ~Script();
 
 		virtual void Initialize();

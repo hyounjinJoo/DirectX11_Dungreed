@@ -18,8 +18,8 @@ namespace hj
 		};
 
 		GameObject();
-		virtual ~GameObject();
 		GameObject(const GameObject& obj);
+		virtual ~GameObject();
 
 	public:
 		virtual void Initialize();
@@ -88,6 +88,22 @@ namespace hj
 		}
 
 		const std::vector<Script*>& GetScripts() { return mScripts; }
+		template <typename T>
+		T* GetScript()
+		{
+			T* script;
+			for (auto s : mScripts)
+			{
+				script = dynamic_cast<T*>(s);
+
+				if (script != nullptr)
+				{
+					return script;
+				}
+			}
+
+			return nullptr;
+		}
 
 		bool IsDead()
 		{

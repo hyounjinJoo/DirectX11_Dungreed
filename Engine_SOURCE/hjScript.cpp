@@ -8,6 +8,12 @@ namespace hj
 	{
 	}
 
+	Script::Script(const Script& script)
+		: Component(eComponentType::Script)
+	{
+		
+	}
+
 	Script::~Script()
 	{
 	}
