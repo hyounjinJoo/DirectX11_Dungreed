@@ -137,14 +137,14 @@ namespace hj
 		case hj::Boss1HandType::Left:
 			SetName(WIDE("Boss_Bellial_Hand_L"));
 			SetRotationY(0.f);
-			mLaser->SetPositionZ(0.f);
-			mLaser->SetLaserColliderPosZ(0.f);
+			mLaser->SetPositionZ(-0.1f);
+			mLaser->SetLaserColliderPosZ(-0.1f);
 			break;
 		case hj::Boss1HandType::Right:
 			SetName(WIDE("Boss_Bellial_Hand_R"));
 			SetRotationY(XM_PI);
-			mLaser->SetPositionZ(1.f);
-			mLaser->SetLaserColliderPosZ(-1.f);
+			mLaser->SetPositionZ(0.1f);
+			mLaser->SetLaserColliderPosZ(0.1f);
 			break;
 		case hj::Boss1HandType::End:
 		default:
