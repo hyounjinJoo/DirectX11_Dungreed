@@ -12,6 +12,8 @@
 #include "hjObject.h"
 #include "hjFxPlayerTrail.h"
 #include "hjFxPlayerJump.h"
+#include "hjResources.h"
+#include "hjCameraScript.h"
 
 extern hj::Application application;
 namespace hj
@@ -41,6 +43,8 @@ namespace hj
 		mDashTrailRenderTimer = 0.1f;
 		mDashTrailCreateInterval = mMaxDashTime / mDashTrailCount;
 		InitialKeyBind();
+
+		CreateDamageWarningObject();
 	}
 
 	PlayerScript::~PlayerScript()
@@ -68,6 +72,8 @@ namespace hj
 
 		HandleOtherInput();
 		Dash();
+
+		HandleDamageWarningObject();
 	}
 
 	void PlayerScript::FixedUpdate()
@@ -117,6 +123,51 @@ namespace hj
 		}
 
 		return Vector2(FLT_MAX, FLT_MAX);
+	}
+
+	void PlayerScript::CreateDamageWarningObject()
+	{
+		mDamageWarningObject = object::Instantiate<GameObject>(eLayerType::UI);
+		SpriteRenderer* sr = mDamageWarningObject->AddComponent<SpriteRenderer>();
+		sr->SetMesh(MESH_FIND("Mesh_Rect"));
+		std::shared_ptr<Material> WarningMaterial = MTRL_FIND("MTRL_UI_HUD_RedWarningOnHit");
+		sr->SetMaterial(WarningMaterial);
+
+
+		int useUV = 1;
+		Vector2 startUV = Vector2::Zero;
+		Vector2 endUV = Vector2::One;
+
+		WarningMaterial->SetData(eGPUParam::Int_1, &useUV);
+		WarningMaterial->SetData(eGPUParam::Int_2, &useUV);
+		WarningMaterial->SetData(eGPUParam::Int_3, &useUV);
+		WarningMaterial->SetData(eGPUParam::Vector2_1, &startUV);
+
+		Vector2 canvasSize = WarningMaterial->GetTexture(eTextureSlot::T0)->GetTexSize();
+		WarningMaterial->SetData(eGPUParam::Vector2_2, &canvasSize);
+		WarningMaterial->SetData(eGPUParam::Vector2_3, &canvasSize);
+		WarningMaterial->SetData(eGPUParam::Vector2_4, &canvasSize);
+
+		Vector4 addedColor = Vector4(1.f, -1.f, -1.f, 0.f);
+		WarningMaterial->SetData(eGPUParam::Vector4_1, &addedColor);
+
+		mDamageWarningObject->SetScaleXY(canvasSize);
+		mDamageWarningObject->Pause();
+	}
+
+	void PlayerScript::HandleDamageWarningObject()
+	{
+		if (!mDamageWarningObject || mDamageWarningObject->IsPause())
+			return;
+
+		if (mActivateDamageWarningTimer < mActivateDamageWarningLimitTime)
+		{
+			mActivateDamageWarningTimer += Time::ActualDeltaTime();
+
+			return;
+		}
+
+		mDamageWarningObject->Pause();
 	}
 
 	void PlayerScript::HandleMovementInput()
@@ -476,6 +527,28 @@ namespace hj
 					mDashTrailObj[iter]->ActivateTrail(false);
 				}
 				mDashTrailObj[iter]->GetTransform()->FixedUpdate();
+			}
+		}
+	}
+
+	void PlayerScript::DamageWarningActivate()
+	{
+		if (!mDamageWarningObject)
+			return;
+
+		mActivateDamageWarningTimer = 0.f;
+		mDamageWarningObject->Activate();
+
+		Camera* camera = renderer::mainCamera;
+		GameObject* cameraObj = camera->GetOwner();
+		std::vector<Script*> scripts = cameraObj->GetScripts();
+
+		for (auto iter : scripts)
+		{
+			if (dynamic_cast<CameraScript*>(iter))
+			{
+				CameraScript* script = static_cast<CameraScript*>(iter);
+				script->Shake();
 			}
 		}
 	}

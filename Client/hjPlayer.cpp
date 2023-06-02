@@ -138,7 +138,9 @@ namespace hj
 
 	void Player::Damaged(float damage)
 	{
+		mPlayerScript->DamageWarningActivate();
 
+		return;
 	}
 
 	void Player::GetCostumeString(UINT costumeNumber, std::string& stringToGet)

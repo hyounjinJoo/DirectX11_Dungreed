@@ -14,6 +14,8 @@ struct VSOut
 #define SIZE_CANVAS  cbxy3
 #define SIZE_ATLAS   cbxy4
 
+#define USE_ADD_DIFFUSE_COLOR cbiData3
+#define DIFFUSE_COLOR cbxyzw1
 
 float4 main(VSOut In) : SV_TARGET
 {
@@ -39,6 +41,11 @@ float4 main(VSOut In) : SV_TARGET
     
     if (color.a == 0.f)
         discard;
+        
+    if (USE_ADD_DIFFUSE_COLOR == true)
+    {
+        color += DIFFUSE_COLOR;
+    }
     
     return color;
 }

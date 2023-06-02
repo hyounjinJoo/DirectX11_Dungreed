@@ -19,6 +19,8 @@ namespace hj
 
 		END,
 	};
+	
+	class GameObject;
 
 	class PlayerScript : public Script
 	{
@@ -31,11 +33,19 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+	public:
 		Vector2 GetOwnerScreenPos();
 
 		void DashTrailTransformFixedUpdate();
 
 		bool IsDash() { return mbDash; }
+
+		void DamageWarningActivate();
+
+	private:
+		void CreateDamageWarningObject();
+		void HandleDamageWarningObject();
+
 	private:
 		void HandleMovementInput();
 		void HandleJumpInput();
@@ -92,5 +102,9 @@ namespace hj
 		bool mbDoubleJumping;
 		float mSingleJumpInputedTime; 
 		float mMaxJumpInputTime;
+
+		float mActivateDamageWarningTimer = 0.f;
+		float mActivateDamageWarningLimitTime = 0.2f;
+		GameObject* mDamageWarningObject;
 	};
 }
