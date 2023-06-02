@@ -31,11 +31,14 @@ namespace hj
 	{
 	public:
 		Boss1LaserColliderScript();
+		Boss1LaserColliderScript(const Boss1LaserColliderScript& script);
 		virtual ~Boss1LaserColliderScript();
 
 		virtual void OnCollisionStay(Collider* collider) override;
 
 		void SetCollider(class Collider2D* collider);
+
+		virtual Component* Clone() const override;
 	private:
 		Collider2D* mRectCollider;
 	};

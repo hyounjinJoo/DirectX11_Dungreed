@@ -72,6 +72,13 @@ namespace hj
 	{
 	}
 
+	Boss1LaserColliderScript::Boss1LaserColliderScript(const Boss1LaserColliderScript& script)
+		: Script(script)
+		, mRectCollider(nullptr)
+	{
+
+	}
+
 	Boss1LaserColliderScript::~Boss1LaserColliderScript()
 	{
 		mRectCollider = nullptr;
@@ -89,8 +96,6 @@ namespace hj
 		float test = 10.f;
 		player->Damaged(test);
 		GetOwner()->Pause();
-		//CollisionManager::ResetCollisionInfo(mRectCollider, collider);
-		//CollisionManager::ResetCollisionInfo(collider, mRectCollider);
 	}
 
 	void Boss1LaserColliderScript::SetCollider(Collider2D* collider)
@@ -101,5 +106,10 @@ namespace hj
 		mRectCollider = collider;
 	}
 
+
+	hj::Component* Boss1LaserColliderScript::Clone() const
+	{
+		return new Boss1LaserColliderScript(*this);
+	}
 
 }
