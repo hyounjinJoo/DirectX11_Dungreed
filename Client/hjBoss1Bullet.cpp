@@ -6,6 +6,8 @@
 #include "hjResources.h"
 #include "hjTime.h"
 #include "hjCollider2D.h"
+#include "hjBoss1BulletColliderScript.h"
+#include "hjScript.h"
 
 namespace hj
 {
@@ -42,7 +44,9 @@ namespace hj
 		{
 			circleCollider->SetSize(animator->GetCurrentAnimation()->GetSpriteSize(0));
 		}
-		//circleCollider->SetSize(colliderSize);
+
+		Boss1BulletColliderScript* script = AddComponent<Boss1BulletColliderScript>();
+		script->SetCollider(circleCollider);
 
 		Pause();
 	}
@@ -54,6 +58,9 @@ namespace hj
 		, mActiveTime(bullet.mActiveTime)
 		, mActiveTimer(bullet.mActiveTimer)
 	{
+		Boss1BulletColliderScript* script = this->GetScript<Boss1BulletColliderScript>();
+		script->SetCollider(GetComponent<Collider2D>());
+		script->SetOwner(this);
 	}
 
 	Boss1Bullet::~Boss1Bullet()
@@ -217,5 +224,4 @@ namespace hj
 
 		delete parser;
 	}
-
 }

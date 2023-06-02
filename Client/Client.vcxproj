@@ -136,6 +136,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjBoss1Bullet.h" />
+    <ClInclude Include="hjBoss1BulletColliderScript.h" />
     <ClInclude Include="hjBoss1BulletMuzzle.h" />
     <ClInclude Include="hjBoss1Laser.h" />
     <ClInclude Include="hjBoss1LaserCollider.h" />
@@ -209,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjBoss1Bullet.cpp" />
+    <ClCompile Include="hjBoss1BulletColliderScript.cpp" />
     <ClCompile Include="hjBoss1BulletMuzzle.cpp" />
     <ClCompile Include="hjBoss1Laser.cpp" />
     <ClCompile Include="hjBoss1LaserCollider.cpp" />

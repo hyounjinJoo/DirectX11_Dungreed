@@ -454,6 +454,9 @@
     <ClInclude Include="hjBoss1Bullet.h">
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternBullet</Filter>
     </ClInclude>
+    <ClInclude Include="hjBoss1BulletColliderScript.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -672,6 +675,9 @@
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternBullet</Filter>
     </ClCompile>
     <ClCompile Include="hjBoss1Bullet.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBoss1BulletColliderScript.cpp">
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternBullet</Filter>
     </ClCompile>
   </ItemGroup>
