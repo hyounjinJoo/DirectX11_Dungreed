@@ -113,6 +113,14 @@ namespace hj
 			return false;
 		}
 
+		bool IsPause()
+		{
+			if (mState == eState::Paused)
+				return true;
+
+			return false;
+		}
+
 		void Pause() { mState = eState::Paused; }
 		void Activate() { mState = eState::Active; }
 		void Death() { mState = eState::Dead; }
