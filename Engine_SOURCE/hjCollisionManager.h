@@ -49,6 +49,7 @@ namespace hj
 		static bool Intersect3D(Collider3D* left, Collider3D* right);
 		static bool Intersect3DUI(Collider3D* collider, const math::Vector2& pointPos);
 
+		static void ResetCollisionInfo(Collider* left, Collider* right);
 	private:
 		static std::bitset<(UINT)enums::eLayerType::End> mLayerCollisionMatrix[(UINT)enums::eLayerType::End];
 		static std::map<UINT64, bool> mCollisionMap;

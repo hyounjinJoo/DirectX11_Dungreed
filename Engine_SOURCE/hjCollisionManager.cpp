@@ -202,7 +202,7 @@ namespace hj
 				left->SetState(eCollisionState::CollisionNot);
 				right->SetState(eCollisionState::CollisionNot);
 
-				mCollisionMap.erase(iter);
+				//mCollisionMap.erase(iter);
 			}
 		}
 	}
@@ -517,6 +517,28 @@ namespace hj
 	bool CollisionManager::Intersect3DUI(class Collider3D* collider, const hj::math::Vector2& pointPos)
 	{
 		return true;
+	}
+
+	void CollisionManager::ResetCollisionInfo(Collider* left, Collider* right)
+	{
+		if (!left || !right)
+			return;
+
+		ColliderID colliderID = ColliderID{};
+
+		colliderID.left = left->GetColliderID();
+		colliderID.right = right->GetColliderID();
+
+		// 이전 충돌 정보를 검색한다.
+		// 만약에 충돌정보가 있다면
+		// 충돌 정보를 충돌하지 않음 상태로 변경해준다.
+		std::map<UINT64, bool>::iterator iter = mCollisionMap.find(colliderID.id);
+		if (iter != mCollisionMap.end())
+		{
+			iter->second = false;
+			left->SetState(eCollisionState::CollisionNot);
+			right->SetState(eCollisionState::CollisionNot);
+		}
 	}
 
 }
