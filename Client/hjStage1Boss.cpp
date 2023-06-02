@@ -12,6 +12,7 @@
 #include <random>
 #include "hjBoss1Bullet.h"
 #include "hjBoss1BulletMuzzle.h"
+#include "hjPlayer.h"
 
 namespace hj
 {
@@ -68,13 +69,16 @@ namespace hj
 		mDamageCollider = mDamageBody->AddComponent<Collider2D>();
 
 		// 4. Left Hand, Right Hand 생성
-		mLeftHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * -7.f, 80.f * -3.f, 1.f));
-		mRightHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * 7.f, 0.f, 1.f));
+		mLeftHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * -7.f, 80.f * -3.f, 0.f));
+		mRightHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * 7.f, 0.f, 0.f));
+
+		mLeftHand->SetInitialHandPosY(mLeftHand->GetPositionY());
+		mRightHand->SetInitialHandPosY(mRightHand->GetPositionY());
 
 		mLeftHand->ChangeHandType(Boss1HandType::Left);
 		mRightHand->ChangeHandType(Boss1HandType::Right);
 
-		mLeftHand->ChangeHandState(Boss1HandState::Attack);
+		mLeftHand->ChangeHandState(Boss1HandState::Idle);
 		mRightHand->ChangeHandState(Boss1HandState::Idle);
 
 
@@ -87,13 +91,13 @@ namespace hj
 			mBackground = object::Instantiate<GameObject>(eLayerType::MonsterHas, Vector3(GetScaleX() * 0.5f, 0.f, 1.f));
 		}
 		// 7. Pattern 1(Summon Sword)에 필요한 것들 생성
-		mBoss1Sword = object::Instantiate<Boss1Sword>(eLayerType::MonsterAttack_ForeGround, Vector3(GetScaleX()* 0.5f, 0.f, 0.f));
-		mBoss1Sword->SetSpawnPosXY(Vector2(GetScaleX() * 0.5f, 0.f));
-
-		mBoss1Sword->ChangeSwordState(Boss1SwordState::Spawn);
+		CreateSwords();
+		
 		// 8. Pattern 2(Fire Bullets)에 필요한 것들 생성
+		mBulletMuzzle = object::Instantiate<Boss1BulletMuzzle>(eLayerType::MonsterHas);
+		mBulletMuzzle->SetPositionXY(Vector2(movedPos * 0.5f, -80.f));
+		mBulletMuzzle->GetTransform()->SetParent(this->GetTransform());
 		// 9. Pattern 3(Shot Laser)에 필요한 것들 생성
-		Boss1BulletMuzzle* mBoss1Muzzle = object::Instantiate<Boss1BulletMuzzle>(eLayerType::MonsterHas);
 	}
 	Stage1Boss::~Stage1Boss()
 	{
@@ -106,10 +110,6 @@ namespace hj
 	void Stage1Boss::Update()
 	{
 		GameObject::Update();
-		if (Boss1SwordState::End == mBoss1Sword->GetSwordState())
-		{
-			mBoss1Sword->ChangeSwordState(Boss1SwordState::Spawn);
-		}
 	}
 
 	void Stage1Boss::FixedUpdate()
@@ -119,47 +119,34 @@ namespace hj
 
 		AdjustColliderPosAndSize();
 
-		if (testTime < testMaxTime)
+		if (Boss1State::AttackEnd == mBossState)
 		{
-			testTime += Time::ActualDeltaTime();
-			Animator* animator = GetComponent<Animator>();
-			
-			if (testTime > testMaxTime)
+			if (mCurIdleTime < mIdleLimitTime)
 			{
-				testTime = 0.f;
-				
-				if (animator->GetCurrentAnimation()->AnimationName()._Equal(WIDE("Bellial_Idle")))
-				{
-					animator->Play(WIDE("Bellial_AttackStart"), false);
-				}
-				else if (animator->GetCurrentAnimation()->AnimationName()._Equal(WIDE("Bellial_Attack")))
-				{
-					animator->Play(WIDE("Bellial_AttackEnd"), true);
-				}
+				mCurIdleTime += Time::FixedDeltaTime();
 			}
 			else
 			{
-				Animation* anim = animator->GetCurrentAnimation();
-				std::wstring curAnimName = anim->AnimationName();
-				if (curAnimName._Equal(WIDE("Bellial_AttackStart")))
-				{
-					if (anim->IsComplete())
-					{
-						testTime = 0.f;
-						animator->Play(WIDE("Bellial_Attack"));
-					}
-				}
-				else if (curAnimName._Equal(WIDE("Bellial_AttackEnd")))
-				{
-					if (anim->IsComplete())
-					{
-						testTime = 0.f;
-						animator->Play(WIDE("Bellial_Idle"));
-					}
-				}
+				mCurIdleTime = 0.f;
+				ChangeBoss1State(Boss1State::Attack);
 			}
 		}
-
+		else if (Boss1State::Attack == mBossState)
+		{
+			ExecuteAttackPattern();
+		}
+		else if (Boss1State::StartReady == mBossState)
+		{
+			if (mTestSpawnBossTimer < mTestSpawnBossTimeLimit)
+			{
+				mTestSpawnBossTimer += Time::FixedDeltaTime();
+			}
+			else
+			{
+				mTestSpawnBossTimer = 0.f;
+				ChangeBoss1State(Boss1State::Attack);
+			}
+		}
 		GameObject::FixedUpdate();
 	}
 
@@ -213,26 +200,27 @@ namespace hj
 		mDamageBody->SetPositionY(moveY);
 	}
 
-	bool Stage1Boss::IsAttackEnd()
-	{
-
-		return true;
-	}
-
-	void Stage1Boss::ChangeState(Boss1State nextState)
+	void Stage1Boss::ChangeBoss1State(Boss1State nextState)
 	{
 		if (mBossState == nextState)
 			return;
 
+		mBossState = nextState;
+
 		switch (nextState)
 		{
 		case hj::Boss1State::StartReady:
+			// 지금은 테스트를 위해서 바로 상태변경
+			ChangeBoss1State(Boss1State::Attack);
 			return;
 		case hj::Boss1State::Idle:
 			ChangeAnimation(WIDE("Bellial_Idle"), true);
 			break;
 		case hj::Boss1State::Attack:
 			SelectAttackPattern();
+			break;
+		case hj::Boss1State::AttackEnd:
+			EndAttackPattern();
 			break;
 		case hj::Boss1State::Dead:
 			ProcessDead();
@@ -266,18 +254,39 @@ namespace hj
 		std::mt19937 randomSeed(static_cast<UINT>(millis));
 
 		std::uniform_int_distribution<UINT> patternRange(static_cast<UINT>(Boss1AttackPattern::SwordAttack)
-														, static_cast<UINT>(Boss1AttackPattern::End));
+														, static_cast<UINT>(Boss1AttackPattern::End) - 1);
 
 		mBossAttackPattern = static_cast<Boss1AttackPattern>(patternRange(randomSeed));
 	}
 
+	void Stage1Boss::EndAttackPattern()
+	{
+		mbAttackExecuted = true;
+		mCurIdleTime = 0.f;
+		ChangeAnimation(WIDE("Bellial_Idle"), true);
+
+		switch (mBossAttackPattern)
+		{
+		case hj::Boss1AttackPattern::SwordAttack:
+			break;
+		case hj::Boss1AttackPattern::BulletAttack:
+			break;
+		case hj::Boss1AttackPattern::LaserPattern1:
+			break;
+		case hj::Boss1AttackPattern::LaserPattern2:
+			break;
+		case hj::Boss1AttackPattern::End:
+		default:
+			break;
+		}
+	}
+
 	void Stage1Boss::ExecuteAttackPattern()
 	{
-		bool bIsExecute = IsAttackEnd();;
-		if (Boss1State::Attack != mBossState || bIsExecute)
+		if (Boss1State::Attack != mBossState)
+		{
 			return;
-
-		bool bValidAttackPattern = true;
+		}
 
 		switch (mBossAttackPattern)
 		{
@@ -295,11 +304,8 @@ namespace hj
 			break;
 		case hj::Boss1AttackPattern::End:
 		default:
-			bValidAttackPattern = false;
 			break;
 		}
-
-		mbAttackExecuted = bValidAttackPattern;
 	}
 
 	void Stage1Boss::ProcessDead()
@@ -309,22 +315,185 @@ namespace hj
 
 	void Stage1Boss::PatternSwordAttack()
 	{
+		if (mCurSwordSpawnTimer < mSwordSpawnInterval)
+		{
+			mCurSwordSpawnTimer += Time::FixedDeltaTime();
+			return;
+		}
+		mCurSwordSpawnTimer = 0.f;
+		static size_t nextSpawnSwordIndex = 0;
+
+		mSwords[nextSpawnSwordIndex++]->ChangeSwordState(Boss1SwordState::Spawn);
+
+		if (nextSpawnSwordIndex >= mSwords.size())
+		{
+			nextSpawnSwordIndex = 0; 
+			ChangeBoss1State(Boss1State::AttackEnd);
+		}
 
 	}
 
 	void Stage1Boss::PatternBulletAttack()
 	{
+		Animator* animator = GetComponent<Animator>();
+		if (!animator)
+		{
+			ChangeBoss1State(Boss1State::AttackEnd);
+			return;
+		}
 
+		Animation* animation = animator->GetCurrentAnimation();
+		if (!animation)
+		{
+			ChangeBoss1State(Boss1State::AttackEnd);
+			return;
+		}
+
+		std::wstring animName = animation->AnimationName();
+		if (animName == WIDE("Bellial_Attack"))
+		{
+			if (mBulletMuzzle)
+			{
+				MuzzleState muzzleState = mBulletMuzzle->GetMuzzleState();
+
+				if (MuzzleState::ShotEnd == muzzleState)
+				{
+					mBulletMuzzle->ChangeMuzzleState(MuzzleState::ReadyToShot);
+					animator->Play(WIDE("Bellial_AttackEnd"), false);
+				}
+				else if (MuzzleState::ReadyToShot == muzzleState)
+				{
+					mBulletMuzzle->ChangeMuzzleState(MuzzleState::ShotStart);
+				}
+			}
+		}
+		else if (animName == WIDE("Bellial_Idle"))
+		{
+			animator->Play(WIDE("Bellial_AttackStart"), false);
+		}
 	}
 
+#define NOTNEEDTOMOVEIDLE	false
+#define NEEDTOMOVEIDLE		true
 	void Stage1Boss::PatternLaserAttack1()
 	{
-
+		bool bIsShotEnd = ProcessLaserAttackAndCheckShotEnd(mLeftHand, NEEDTOMOVEIDLE);
+		if (bIsShotEnd)
+		{
+			ChangeBoss1State(Boss1State::AttackEnd);
+		}
 	}
 
 	void Stage1Boss::PatternLaserAttack2()
 	{
+		static int remainShotCount = 3;
+		bool bIsShotEnd = false;
+		switch (remainShotCount)
+		{
+		case 3:
+		{
+			bIsShotEnd = ProcessLaserAttackAndCheckShotEnd(mRightHand, NOTNEEDTOMOVEIDLE);
+			if (bIsShotEnd)
+			{
+				remainShotCount -= 1;
+			}
 
+			break;
+		}
+		case 2:
+		{
+			bIsShotEnd = ProcessLaserAttackAndCheckShotEnd(mLeftHand, NOTNEEDTOMOVEIDLE);
+			if (bIsShotEnd)
+			{
+				remainShotCount -= 1;
+			}
+
+			break;
+		}
+		case 1:
+		{
+			bIsShotEnd = ProcessLaserAttackAndCheckShotEnd(mRightHand, NEEDTOMOVEIDLE);
+			if (bIsShotEnd)
+			{
+				mLeftHand->EndAttack(NEEDTOMOVEIDLE);
+				remainShotCount -= 1;
+			}
+
+			break;
+		}
+		case 0:
+		default:
+		{
+			remainShotCount = 3;
+			ChangeBoss1State(Boss1State::AttackEnd);
+		}
+			break;
+		}
+	}
+
+	bool Stage1Boss::ProcessLaserAttackAndCheckShotEnd(Stage1BossHand* HandToShot, bool bIsNeedToMoveIdle)
+	{
+		bool bIsEnd = false;
+		if (!HandToShot)
+		{
+			bIsEnd = true;
+			return bIsEnd;
+		}
+
+		if (Boss1HandState::Idle == HandToShot->GetHandState())
+		{
+			std::vector<GameObject*> playerLayerObjs = SceneManager::GetActiveScene()->GetGameObjects(eLayerType::Player);
+
+			for (GameObject* iter : playerLayerObjs)
+			{
+				if (dynamic_cast<Player*>(iter))
+				{
+					HandToShot->AttackStart(iter->GetPositionY());
+				}
+			}
+		}
+		else if (HandToShot->IsAttackEnd())
+		{
+			bIsEnd = true;
+
+			HandToShot->EndAttack(bIsNeedToMoveIdle);			
+		}
+
+		return bIsEnd;
+	}
+
+	void Stage1Boss::CreateSwords()
+	{
+#define TILESIZE 80.f
+		Boss1Sword* boss1Sword = object::Instantiate<Boss1Sword>(eLayerType::MonsterAttack_ForeGround);
+		Vector2 PosOffset = Vector2(TILESIZE * 2.f, 0.f);
+		Vector2 PosOffsetY = Vector2(0.f, TILESIZE);
+
+		int iter = -3;
+
+		boss1Sword->SetSpawnPosXY(PosOffset * static_cast<float>(iter) + PosOffsetY);
+		boss1Sword->SetPositionXY(PosOffset * static_cast<float>(iter) + PosOffsetY);
+		boss1Sword->ChangeSwordState(Boss1SwordState::End);
+		mSwords.push_back(boss1Sword);
+
+		
+		++iter;
+		int maxSwordOffset = 4;
+		for (; iter < maxSwordOffset; ++iter)
+		{
+			boss1Sword = object::Clone<Boss1Sword>(boss1Sword);
+		
+			boss1Sword->SetSpawnPosXY(PosOffset * static_cast<float>(iter) + PosOffsetY);
+			boss1Sword->SetPositionXY(PosOffset * static_cast<float>(iter) + PosOffsetY);
+			boss1Sword->ChangeSwordState(Boss1SwordState::End);
+			mSwords.push_back(boss1Sword);
+		
+			// 위치에 곱해질 값이 -3, -2, -1, 1, 2, 3이 되도록 처리
+			if (-1 == iter)
+			{
+				++iter;
+			}
+		}
 	}
 
 	void Stage1Boss::CreateBodyAnimation()
@@ -516,6 +685,8 @@ namespace hj
 
 		animator->Play(idleAnimWstr, true);
 
+		animator->GetCompleteEvent(attackStartAnimWstr) = std::bind(&Stage1Boss::ChangeAnimation, this, WIDE("Bellial_Attack"), true);
+		animator->GetCompleteEvent(attackEndAnimWstr) = std::bind(&Stage1Boss::ChangeBoss1State, this, Boss1State::AttackEnd);
 		AddPositionX(-canvasSize.x * Bellial_Horn_X_Size_Ratio);
 		SetScaleXY(canvasSize);
 		GetTransform()->FixedUpdate();

@@ -109,7 +109,37 @@ namespace hj
 		{
 			part->Play(true);
 		}
+
+		mLaserCollider->Activate();
 	}
+
+	void Boss1Laser::ResetLaser()
+	{
+		for (Boss1LaserPart* part : mLaserParts)
+		{
+			part->ResetLaser();
+		}
+	}
+
+	bool Boss1Laser::IsLaserEnd()
+	{
+		bool result = true;
+		if (!mLaserParts.empty())
+		{
+			result = mLaserParts[0]->IsEndLaser();
+		}
+
+		return result;
+	}
+
+	void Boss1Laser::SetLaserColliderPosZ(float posZ)
+	{		
+		if (mLaserCollider)
+		{
+			mLaserCollider->SetPositionZ(posZ);
+		}		
+	}
+
 }
 
 namespace hj
@@ -118,6 +148,7 @@ namespace hj
 		: mLaserType(Boss1LaserType::End)
 		, mOwnerLaser(nullptr)
 		, mbPlaying(false)
+		, mbIsEnd(false)
 	{
 		SetName(WIDE("Effect_Boss1_LaserParts"));
 
@@ -356,8 +387,14 @@ namespace hj
 	void Boss1LaserPart::Play(bool play)
 	{
 		mbPlaying = play;
-		if(mbPlaying)
+		if (mbPlaying)
+		{
 			PlayAnimation();
+		}
+		else
+		{
+			mbIsEnd = true;
+		}
 	}
 
 	void Boss1LaserPart::OnDamageEnter()
@@ -380,11 +417,11 @@ namespace hj
 		{
 			return;
 		}
-
+		
 		Boss1LaserCollider* laserCollider = mOwnerLaser->GetLaserCollider();
 		if (!laserCollider)
 			return;
-
+		
 		laserCollider->Pause();
 	}
 

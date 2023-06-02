@@ -20,6 +20,18 @@ namespace hj
 		}
 	}
 
+	Boss1SwordStuckCollider::Boss1SwordStuckCollider(const Boss1SwordStuckCollider& colliderObj)
+		: GameObject(colliderObj)
+		, mOwnerObject(nullptr)
+	{
+		mScript = GetScript<Boss1SwordStuckColliderScript>();
+
+		if (mScript && GetComponent<Collider2D>())
+		{
+			mScript->SetCollider(GetComponent<Collider2D>());
+		}
+	}
+
 	Boss1SwordStuckCollider::~Boss1SwordStuckCollider()
 	{
 		mOwnerObject = nullptr;
@@ -46,6 +58,11 @@ namespace hj
 		GameObject::Render();
 	}
 
+	GameObject* Boss1SwordStuckCollider::Clone() const
+	{
+		return new Boss1SwordStuckCollider(*this);
+	}
+
 	void Boss1SwordStuckCollider::SetOwnerObject(Boss1Sword* sword)
 	{
 		Boss1Sword* verifiedSword = dynamic_cast<Boss1Sword*>(sword);
@@ -62,8 +79,20 @@ namespace hj
 	{
 	}
 
+	Boss1SwordStuckColliderScript::Boss1SwordStuckColliderScript(const Boss1SwordStuckColliderScript& script)
+		: Script(script)
+		, mRectCollider(nullptr)
+	{
+
+	}
+
 	Boss1SwordStuckColliderScript::~Boss1SwordStuckColliderScript()
 	{
+	}
+
+	Component* Boss1SwordStuckColliderScript::Clone() const
+	{
+		return new Boss1SwordStuckColliderScript(*this);
 	}
 
 #define NOT_DETERMINE_CASE		0

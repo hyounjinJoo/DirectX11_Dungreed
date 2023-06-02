@@ -19,12 +19,15 @@ namespace hj
 		StartReady = 0,			// 보스 생성 후 보스 소개 UI가 끝나기 전까지
 		Idle,
 		Attack,
+		AttackEnd,
 		Dead,
 		End
 	};
 		
 	// 보스 생명력
 	// 보스 최대 생명력
+	class Boss1Sword;
+	class Stage1BossHand;
 
 	class Stage1Boss :
 		public Monster
@@ -53,10 +56,10 @@ namespace hj
 
 		void AdjustColliderPosAndSize();
 
-		bool IsAttackEnd();
-		void ChangeState(Boss1State nextState);
+		void ChangeBoss1State(Boss1State nextState);
 		void ChangeAnimation(const std::wstring& animWstr, bool loop);
 		void SelectAttackPattern();
+		void EndAttackPattern();
 		void ExecuteAttackPattern();
 		void ProcessDead();
 
@@ -67,15 +70,20 @@ namespace hj
 		void PatternLaserAttack2();
 
 	private:
+		bool ProcessLaserAttackAndCheckShotEnd(Stage1BossHand* HandToShot, bool bIsContinuousShot);
+
+	private:
+		void CreateSwords();
+
+	private:
 		class Animator* mBodyAnimator;
-		class Stage1BossHand* mLeftHand;		// 보스가 보유한 손 객체, Laser를 관리해준다.
+		Stage1BossHand* mLeftHand;		// 보스가 보유한 손 객체, Laser를 관리해준다.
 		Stage1BossHand* mRightHand;
 
-		std::vector<GameObject*> mBullets;
-		std::vector<GameObject*> mSwords;
+		std::vector<Boss1Sword*> mSwords;
 
-		class Boss1Sword* mBoss1Sword;
 		class Boss1Laser* mLaser;
+		class Boss1BulletMuzzle* mBulletMuzzle;
 
 		// 보스가 보유한 효과들
 		// 1. 뒷 배경 효과
@@ -93,6 +101,13 @@ namespace hj
 
 		bool mbAttackExecuted;
 
+		float mTestSpawnBossTimer = 0.f;
+		float mTestSpawnBossTimeLimit = 2.f;
 
+		float mCurIdleTime = 0.f;
+		float mIdleLimitTime = 4.f;
+
+		float mCurSwordSpawnTimer = 0.f;
+		float mSwordSpawnInterval = 0.2f;
 	};
 }

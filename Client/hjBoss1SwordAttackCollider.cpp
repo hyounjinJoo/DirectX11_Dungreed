@@ -18,6 +18,19 @@ namespace hj
 		}
 	}
 
+	Boss1SwordAttackCollider::Boss1SwordAttackCollider(const Boss1SwordAttackCollider& colliderObj)
+		: GameObject(colliderObj)
+		, mOwnerObject(nullptr)
+		, mScript(nullptr)
+	{
+		mScript = GetScript<Boss1SwordAttackColliderScript>();
+
+		if (mScript && GetComponent<Collider2D>())
+		{
+			mScript->SetCollider(GetComponent<Collider2D>());
+		}
+	}
+
 	Boss1SwordAttackCollider::~Boss1SwordAttackCollider()
 	{
 		mOwnerObject = nullptr;
@@ -44,6 +57,11 @@ namespace hj
 		GameObject::Render();
 	}
 
+	GameObject* Boss1SwordAttackCollider::Clone() const
+	{
+		return new Boss1SwordAttackCollider(*this);
+	}
+
 	void Boss1SwordAttackCollider::SetOwnerObject(Boss1Sword* sword)
 	{
 		Boss1Sword* verifiedSword = dynamic_cast<Boss1Sword*>(sword);
@@ -60,8 +78,20 @@ namespace hj
 	{
 	}
 
+	Boss1SwordAttackColliderScript::Boss1SwordAttackColliderScript(const Boss1SwordAttackColliderScript& script)
+		: Script(script)
+		, mRectCollider(nullptr)
+	{
+
+	}
+
 	Boss1SwordAttackColliderScript::~Boss1SwordAttackColliderScript()
 	{
+	}
+
+	Component* Boss1SwordAttackColliderScript::Clone() const
+	{
+		return new Boss1SwordAttackColliderScript(*this);
 	}
 
 	void Boss1SwordAttackColliderScript::OnCollisionEnter(Collider* collider)

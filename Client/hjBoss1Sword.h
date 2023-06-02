@@ -17,12 +17,15 @@ namespace hj
 	{
 	public:
 		Boss1Sword();
+		Boss1Sword(const Boss1Sword& sword);
 		virtual ~Boss1Sword();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
+
+		virtual GameObject* Clone() const override;
 
 		Vector2 GetHitEffectScaleXY();
 		void SetHitEffectPosAndRot(const Vector2& newPos, float rotZ);

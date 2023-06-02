@@ -9,11 +9,12 @@ namespace hj
 		: mNextShotBulletIndex(0)
 		, mShotDelayTime(0.03f)
 		, mShotDelayTimer(0.f)
-		, mMuzzleState(MuzzleState::End)
+		, mMuzzleState(MuzzleState::ReadyToShot)
 		, mRotateDir(1.f)
 	{
 		// Bullet 총 120개 생성
 		Boss1Bullet* bullet = object::Instantiate<Boss1Bullet>(eLayerType::MonsterAttack_NotForeGround);
+		bullet->SetPositionZ(-1.f);
 		bullet->GetTransform()->SetParent(this->GetTransform());
 		mBullets.push_back(bullet);
 		for (int iter = 1; iter < 120; ++iter)
@@ -23,7 +24,7 @@ namespace hj
 			mBullets.push_back(bullet);
 		}
 
-		ChangeMuzzleState(MuzzleState::ShotStart);
+		Pause();
 	}
 	
 	Boss1BulletMuzzle::~Boss1BulletMuzzle()
@@ -57,16 +58,22 @@ namespace hj
 		GameObject::FixedUpdate();
 	}
 
-	void Boss1BulletMuzzle::ChangeMuzzleState(MuzzleState state)
+	void Boss1BulletMuzzle::ChangeMuzzleState(MuzzleState nextState)
 	{
-		switch(state)
+		if (mMuzzleState == nextState)
+			return;
+
+		mMuzzleState = nextState;
+		switch(nextState)
 		{
+		case MuzzleState::ReadyToShot:
+			EndPattern();
+			break;
 		case MuzzleState::ShotStart:
-			mMuzzleState = MuzzleState::ShotStart;
+			Activate();
 			mRotateDir = (rand() % 2 == 0) ? -1.f : 1.f;
 			break;
 		case MuzzleState::ShotEnd:
-			mMuzzleState = MuzzleState::ShotEnd;
 			break;
 		case MuzzleState::End:
 		default:
@@ -101,7 +108,6 @@ namespace hj
 	{
 		static const Vector2 initialDirection = Vector2::Down;
 
-
 		// 불릿 위치 설정
 		mBullets[mNextShotBulletIndex]->SetPositionXY(this->GetPositionXY());
 		// 불릿 발사 방향 설정
@@ -132,8 +138,7 @@ namespace hj
 	void Boss1BulletMuzzle::EndPattern()
 	{
 		mNextShotBulletIndex = 0;
-		ChangeMuzzleState(MuzzleState::ShotStart);
-		//Pause();
+		Pause();
 	}
 
 }

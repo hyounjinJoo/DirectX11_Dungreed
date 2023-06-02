@@ -26,8 +26,11 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 		void ShotLaser();
+        void ResetLaser();
+        bool IsLaserEnd();
 
         Boss1LaserCollider* GetLaserCollider() const { return mLaserCollider; }
+        void SetLaserColliderPosZ(float posZ);
 
     private:
         Boss1LaserCollider* mLaserCollider;
@@ -53,6 +56,9 @@ namespace hj
 			void Play(bool play);
 			void OnDamageEnter();
 			void OnDamageExit();
+            void ResetLaser() { mbIsEnd = false; }
+            void EndLaser() { mbIsEnd = true; }
+            bool IsEndLaser() { return mbIsEnd; }
 
             void SetOwnerLaser(Boss1Laser* laser);
 
@@ -62,5 +68,6 @@ namespace hj
             Boss1Laser* mOwnerLaser;
 			Boss1LaserType mLaserType;
             bool mbPlaying;
+            bool mbIsEnd;
 	};
 }

@@ -5,6 +5,7 @@ namespace hj
 {
 	enum class MuzzleState
 	{
+		ReadyToShot,
 		ShotStart,
 		ShotEnd,
 		End,
@@ -23,7 +24,9 @@ namespace hj
 
 	public:
 		void ChangeMuzzleState(MuzzleState state);
+		MuzzleState GetMuzzleState() { return mMuzzleState; }
 
+	public:
 		void CheckNeedToShot();
 		void CheckLastBulletPause();
 		void Shot();

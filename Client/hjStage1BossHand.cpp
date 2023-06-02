@@ -7,6 +7,7 @@
 #include "hjXmlParser.h"
 #include "hjBoss1Laser.h"
 #include "hjObject.h"
+#include "hjTime.h"
 
 namespace hj
 {
@@ -14,6 +15,8 @@ namespace hj
 		: mOwner(nullptr)
 		, mHandType(Boss1HandType::End)
 		, mHandState(Boss1HandState::End)
+		, mbCanMove(false)
+		, mbAttackStart(false)
 	{
 		SetName(WIDE("Boss_Bellial_Hand"));
 
@@ -60,6 +63,12 @@ namespace hj
 	
 	void Stage1BossHand::FixedUpdate()
 	{
+		if (mbCanMove && (mHandState == Boss1HandState::MoveToAttack ||
+							mHandState == Boss1HandState::MoveToIdle))
+		{
+			MoveHand();
+		}
+
 		GameObject::FixedUpdate();
 	}
 	
@@ -92,13 +101,24 @@ namespace hj
 		if (!animator)
 			return;
 
+		mHandState = nextState;
+
 		switch (nextState)
 		{
 		case hj::Boss1HandState::Idle:
 			animator->Play(WIDE("Bellial_HandIdle"));
+			mbCanMove = true;
+			break;
+		case hj::Boss1HandState::MoveToAttack:
+			animator->Play(WIDE("Bellial_HandIdle"));
 			break;
 		case hj::Boss1HandState::Attack:
 			animator->Play(WIDE("Bellial_HandAttack"), false);
+			mbCanMove = false;
+			mbAttackStart = true;
+			break;
+		case hj::Boss1HandState::MoveToIdle:
+			animator->Play(WIDE("Bellial_HandIdle"));
 			break;
 		case hj::Boss1HandState::End:
 		default:
@@ -117,15 +137,58 @@ namespace hj
 		case hj::Boss1HandType::Left:
 			SetName(WIDE("Boss_Bellial_Hand_L"));
 			SetRotationY(0.f);
+			mLaser->SetPositionZ(0.f);
+			mLaser->SetLaserColliderPosZ(0.f);
 			break;
 		case hj::Boss1HandType::Right:
 			SetName(WIDE("Boss_Bellial_Hand_R"));
 			SetRotationY(XM_PI);
+			mLaser->SetPositionZ(1.f);
+			mLaser->SetLaserColliderPosZ(-1.f);
 			break;
 		case hj::Boss1HandType::End:
 		default:
 			break;
 		}
+	}
+
+	void Stage1BossHand::MoveHand()
+	{
+		float curPosY = GetPositionY();
+
+		if (curPosY != mTargetMoveHandPosY)
+		{
+			mMoveTimer += Time::FixedDeltaTime();
+			float moveAlpha = mMoveTimer / mMoveLimitTime;
+			
+			float calcedPosY = std::lerp(curPosY, mTargetMoveHandPosY, moveAlpha);
+
+			SetPositionY(calcedPosY);			
+		}
+		if (curPosY == mTargetMoveHandPosY)
+		{
+			mMoveTimer = 0.f;
+			switch (mHandState)
+			{
+			case hj::Boss1HandState::MoveToAttack:
+				ChangeHandState(Boss1HandState::Attack);
+				break;
+			case hj::Boss1HandState::MoveToIdle:
+				ChangeHandState(Boss1HandState::Idle);
+
+				break;
+			case hj::Boss1HandState::End:
+			default:
+				break;
+			}
+		}
+
+	}
+
+	void Stage1BossHand::AttackStart(float posY)
+	{
+		SetMoveTargetHandPosY(posY);
+		ChangeHandState(Boss1HandState::MoveToAttack);
 	}
 
 	void Stage1BossHand::ShotLaser()
@@ -136,6 +199,35 @@ namespace hj
 		}
 
 		mLaser->ShotLaser();
+		mbAttackStart = false;
+	}
+
+	void Stage1BossHand::EndAttack(bool bNeedToMoveIdlePos)
+	{
+		mbCanMove = true;
+		mLaser->ResetLaser();
+
+		if(bNeedToMoveIdlePos)
+		{
+			mTargetMoveHandPosY = mInitialHandPosY;
+			ChangeHandState(Boss1HandState::MoveToIdle);
+		}
+		else
+		{
+			ChangeHandState(Boss1HandState::Idle);
+		}
+	}
+
+	bool Stage1BossHand::IsAttackEnd()
+	{
+		bool result = false;
+		
+		if (mLaser)
+		{
+			result = mLaser->IsLaserEnd();
+		}
+
+		return result;
 	}
 
 	void Stage1BossHand::CreateAnimation()

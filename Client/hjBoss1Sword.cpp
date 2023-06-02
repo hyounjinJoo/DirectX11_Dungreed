@@ -18,6 +18,7 @@ namespace hj
 		, mChargeEffectObj(nullptr)
 		, mHitEffectObj(nullptr)
 		, mSwordMoveCollider(nullptr)
+		, mSwordAttackCollider(nullptr)
 		, mSwordState(Boss1SwordState::End)
 		, mCurSpawnedTime(0.f)
 		, mSpawnEndTime(0.2f)
@@ -66,8 +67,7 @@ namespace hj
 		mSwordMoveCollider->SetOwnerObject(this);
 
 		mSwordAttackCollider = object::Instantiate<Boss1SwordAttackCollider>(eLayerType::MonsterAttack_ForeGround);
-		mSwordAttackCollider->SetOwnerObject(this);
-		
+		mSwordAttackCollider->SetOwnerObject(this);		
 
 		Transform* thisTransform = this->GetTransform();
 		mChargeEffectObj->GetTransform()->SetParent(thisTransform);
@@ -86,8 +86,52 @@ namespace hj
 
 		Transform* moveColliderTR = mSwordMoveCollider->GetTransform();
 		moveColliderTR->SetScaleXY(ColliderScale);
-		moveColliderTR->SetPositionY(GetScaleY() * 0.1f);
+		moveColliderTR->SetPositionY(GetScaleY() * 0.2f);
 		moveColliderTR->SetParent(this->GetTransform()); 
+
+		mSwordMoveCollider->Pause();
+		mSwordAttackCollider->Pause();
+		mHitEffectObj->Pause();
+		mChargeEffectObj->Pause();
+		this->Pause();
+	}
+
+	Boss1Sword::Boss1Sword(const Boss1Sword& sword)
+		: GameObject(sword)
+		, mPlayer(sword.mPlayer)
+		, mChargeEffectObj(nullptr)
+		, mHitEffectObj(nullptr)
+		, mSwordMoveCollider(nullptr)
+		, mSwordAttackCollider(nullptr)
+		, mSwordState(Boss1SwordState::End)
+		, mCurSpawnedTime(0.f)
+		, mSpawnEndTime(0.2f)
+		, mCurAimingTime(0.f)
+		, mAimingLimitTime(1.5f)
+		, mMoveDir(Vector2::Zero)
+		, mMoveSpeed(3200.f)
+		, mMoveVelocity(Vector2::Zero)
+		, mSpawnPosXY(Vector2::Zero)
+	{
+		Transform* thisTransform = this->GetTransform();
+		
+		mChargeEffectObj = object::Clone<GameObject>(sword.mChargeEffectObj);
+		mChargeEffectObj->GetTransform()->SetParent(thisTransform);
+		
+		mHitEffectObj = object::Clone<GameObject>(sword.mHitEffectObj);
+		mHitEffectObj->GetTransform()->SetParent(thisTransform);
+
+		mSwordMoveCollider = object::Clone<Boss1SwordStuckCollider>(sword.mSwordMoveCollider);
+		mSwordMoveCollider->SetOwnerObject(this);
+		mSwordMoveCollider->GetTransform()->SetParent(thisTransform);
+
+		mSwordAttackCollider = object::Clone<Boss1SwordAttackCollider>(sword.mSwordAttackCollider);
+		mSwordAttackCollider->SetOwnerObject(this);
+		mSwordAttackCollider->GetTransform()->SetParent(thisTransform);
+
+		Animator* animator = mHitEffectObj->GetComponent<Animator>();
+		std::wstring animWstr = WIDE("Effect_Bellial_Sword_Hit");
+		animator->GetCompleteEvent(animWstr) = std::bind(&Boss1Sword::PlayEndHitFX, this);
 
 		mSwordMoveCollider->Pause();
 		mSwordAttackCollider->Pause();
@@ -143,6 +187,11 @@ namespace hj
 		GameObject::Render();
 	}
 
+	GameObject* Boss1Sword::Clone() const
+	{
+		return new Boss1Sword(*this);
+	}
+
 	// HitEffect의 위치와 회전을 조정
 	void Boss1Sword::SetHitEffectPosAndRot(const Vector2& newPos, float rotZ)
 	{
@@ -180,6 +229,7 @@ namespace hj
 		{
 		case Boss1SwordState::Spawn:
 			mSwordState = Boss1SwordState::Spawn;
+			AttackEnd();
 			Spawn();
 			break;
 		case Boss1SwordState::Aim:

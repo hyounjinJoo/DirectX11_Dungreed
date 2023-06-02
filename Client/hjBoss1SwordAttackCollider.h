@@ -10,12 +10,15 @@ namespace hj
 	{
 	public:
 		Boss1SwordAttackCollider();
+		Boss1SwordAttackCollider(const Boss1SwordAttackCollider& colliderObj);
 		virtual ~Boss1SwordAttackCollider();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
+
+		virtual GameObject* Clone() const override;
 
 		void SetOwnerObject(Boss1Sword* sword);
 		Boss1Sword* GetSword() { return mOwnerObject; }
@@ -31,7 +34,11 @@ namespace hj
 	{
 	public:
 		Boss1SwordAttackColliderScript();
+		Boss1SwordAttackColliderScript(const Boss1SwordAttackColliderScript& script);
+
 		virtual ~Boss1SwordAttackColliderScript();
+
+		virtual Component* Clone() const override;
 
 		virtual void OnCollisionEnter(Collider* collider) override;
 

@@ -230,6 +230,9 @@
     <Filter Include="Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternBullet">
       <UniqueIdentifier>{74f2acb9-cd04-4035-8a0a-3a1acf8dfa48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Play\Player\HUD">
+      <UniqueIdentifier>{ae67ff2e-045f-4743-9d8a-5e8adb7925cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">

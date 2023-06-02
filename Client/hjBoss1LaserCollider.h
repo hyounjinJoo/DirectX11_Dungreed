@@ -33,7 +33,7 @@ namespace hj
 		Boss1LaserColliderScript();
 		virtual ~Boss1LaserColliderScript();
 
-		virtual void OnCollisionEnter(Collider* collider) override;
+		virtual void OnCollisionStay(Collider* collider) override;
 
 		void SetCollider(class Collider2D* collider);
 	private:

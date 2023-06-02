@@ -2,6 +2,7 @@
 #include "hjPlayer.h"
 #include "hjBoss1Laser.h"
 #include "hjCollider2D.h"
+#include "hjCollisionManager.h"
 
 namespace hj
 {
@@ -62,7 +63,6 @@ namespace hj
 
 		return nullptr;
 	}
-
 }
 
 namespace hj
@@ -77,13 +77,9 @@ namespace hj
 		mRectCollider = nullptr;
 	}
 
-	void Boss1LaserColliderScript::OnCollisionEnter(Collider* collider)
+	void Boss1LaserColliderScript::OnCollisionStay(Collider* collider)
 	{
 		if (nullptr == mRectCollider || nullptr == collider->GetOwner())
-			return;
-
-		Boss1Laser* laser = dynamic_cast<Boss1LaserCollider*>(GetOwner())->GetLaser();
-		if (nullptr == laser)
 			return;
 
 		Player* player = dynamic_cast<Player*>(collider->GetOwner());
@@ -92,8 +88,9 @@ namespace hj
 
 		float test = 10.f;
 		player->Damaged(test);
-
 		GetOwner()->Pause();
+		//CollisionManager::ResetCollisionInfo(mRectCollider, collider);
+		//CollisionManager::ResetCollisionInfo(collider, mRectCollider);
 	}
 
 	void Boss1LaserColliderScript::SetCollider(Collider2D* collider)
