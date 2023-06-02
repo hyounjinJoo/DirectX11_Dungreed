@@ -551,6 +551,7 @@ namespace hj::renderer
 				SUB_FOLDER_ALLCLEAR();
 			#pragma endregion
 		#pragma endregion
+#pragma endregion
 #pragma region 01_Scene
 		MAIN_FOLDER("01_Scene");
 	#pragma region 00_TitleScene
@@ -569,6 +570,13 @@ namespace hj::renderer
 	#pragma region 03_EndingScene
 	
 	#pragma endregion
+#pragma endregion
+#pragma region 03_UI
+		MAIN_FOLDER("03_UI");
+		SUB_FOLDER(1, "00_HUD");
+		LOAD_TEX("03_UI_00_HUD_RedWarningOnHit", "RedWarningOnHit.png");
+		FOLDER_ALLCLEAR();
+#pragma endregion
 #pragma region _08_FX
 		MAIN_FOLDER("08_FX");
 		LOAD_TEX("08_FX", "08_FX.png");
@@ -613,7 +621,6 @@ namespace hj::renderer
 		MTRL_INSERT("MTRL_ColorRect", material);
 
 		// Sprite
-		//std::shared_ptr<Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"DefaultSprite.png");
 		texture = TEX_FIND("DefaultSprite");
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
@@ -656,6 +663,15 @@ namespace hj::renderer
 		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Weapon_Legendary_DemonSword", material);
+
+		//HP Red Warning UI
+		texture = TEX_FIND("03_UI_00_HUD_RedWarningOnHit");
+		shader = SHADER_FIND("Shader_UI");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_UI_HUD_RedWarningOnHit", material);
 
 		// HPBar
 		texture = TEX_FIND("HPBarTexture");
