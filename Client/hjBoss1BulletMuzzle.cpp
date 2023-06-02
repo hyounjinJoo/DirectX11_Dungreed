@@ -112,7 +112,7 @@ namespace hj
 		mBullets[mNextShotBulletIndex]->SetPositionXY(this->GetPositionXY());
 		// 불릿 발사 방향 설정
 		constexpr float initialDegree_90 = XM_PI * 0.5f;
-		constexpr float angleRatio = 5.8f;
+		constexpr float angleRatio = 6.5f;
 
 		int axis = mNextShotBulletIndex % 4;
 		float finalAxis = RadianToDegree(initialDegree_90) * axis;

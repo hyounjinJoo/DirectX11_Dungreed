@@ -105,7 +105,7 @@ namespace hj
 		float mTestSpawnBossTimeLimit = 2.f;
 
 		float mCurIdleTime = 0.f;
-		float mIdleLimitTime = 4.f;
+		float mIdleLimitTime = 2.f;
 
 		float mCurSwordSpawnTimer = 0.f;
 		float mSwordSpawnInterval = 0.2f;

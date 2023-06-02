@@ -232,7 +232,7 @@ namespace hj
 		Vector2 atlasTexSize = texture->GetTexSize();
 
 		float duration = 0.f;
-		duration = 1.f / 6.f;
+		duration = 1.f / 24.f;
 
 		XmlParser* parser = new XmlParser;
 		std::wstring path = WIDE("02_Object/02_Monster/01_Boss/Monster_Boss_1_Bellial.xml");
