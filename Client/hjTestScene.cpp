@@ -331,11 +331,11 @@ namespace hj
 			roomBoss1->Activate();
 		}
 		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
-			obj->SetName(L"PARTICLE");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-200.0f, 0.0f, -100.0f));
-			obj->AddComponent<ParticleSystem>();
+			//GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
+			//obj->SetName(L"PARTICLE");
+			//Transform* tr = obj->GetComponent<Transform>();
+			//tr->SetPosition(Vector3(-200.0f, 0.0f, -100.0f));
+			//obj->AddComponent<ParticleSystem>();
 		}
 
 		{
