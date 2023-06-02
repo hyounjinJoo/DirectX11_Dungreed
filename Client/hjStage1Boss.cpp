@@ -69,8 +69,8 @@ namespace hj
 		mDamageCollider = mDamageBody->AddComponent<Collider2D>();
 
 		// 4. Left Hand, Right Hand »ý¼º
-		mLeftHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * -7.f, 80.f * -3.f, 0.f));
-		mRightHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * 7.f, 0.f, 0.f));
+		mLeftHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * -7.f, 80.f * -3.f, 0.1f));
+		mRightHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * 7.f, 0.f, 0.1f));
 
 		mLeftHand->SetInitialHandPosY(mLeftHand->GetPositionY());
 		mRightHand->SetInitialHandPosY(mRightHand->GetPositionY());
