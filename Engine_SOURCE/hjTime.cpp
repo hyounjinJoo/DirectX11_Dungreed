@@ -15,7 +15,7 @@ namespace hj
     float			Time::mOneSecond = 0.0f;
     static int test = 0;
     bool            Time::mbStopDeltaTimeUpdate = false;
-
+    
     void Time::Initialize()
     {
         //CPU 의 초당 반복되는 주파수를 얻어온다.
@@ -40,15 +40,22 @@ namespace hj
             float differenceInFrequancy
                 = static_cast<float>((mCurFrequency.QuadPart - mPrevFrequency.QuadPart));
 
+            // 현재 DeltaTime 계산
             mActualDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
-            if (mActualDeltaTime > 1.f / targetFrameRate * 2.f)
-                mActualDeltaTime = 1.f / targetFrameRate * 2.f;
-			float FPS = 1.f / mActualDeltaTime;
+			
+            // FixedTime 보정을 위한 FPS 비율 계산
+            float FPS = 1.f / mActualDeltaTime;
             float FPSRatio = targetFixedFPS / FPS;
-			//mFixedDeltaTime = mActualDeltaTime / FPSRatio;
+            
+            // 고정된 FixedTime 설정
 			mFixedDeltaTime = targetDeltaTime;
+
+            // 현재 ActualDeltaTime이 더 작은 경우 물리연산용인 FixedDeltaTime에 의한 FPS보다 빠른 경우이므로 보정이 필요하다. 
+            // mActualDeltaTime에 계산된 비율을 곱하여 보정하여 처리
             if (mFixedDeltaTime > mActualDeltaTime)
-                mFixedDeltaTime = 1.f / 144.f * static_cast<float>((mActualDeltaTime / targetDeltaTime));
+            {
+                mFixedDeltaTime *= FPSRatio;
+            }
 			mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
             if (mbStopDeltaTimeUpdate)
             {
