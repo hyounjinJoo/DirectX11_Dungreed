@@ -119,7 +119,10 @@ namespace hj
 		bool parseResult = parser->LoadFile(path);
 
 		if (!parseResult)
+		{
+			delete parser;
 			return;
+		}
 
 		parseResult = parser->FindElem(WIDE("TextureAtlas"));
 		parseResult = parser->IntoElem();

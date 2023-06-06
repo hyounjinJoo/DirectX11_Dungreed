@@ -31,6 +31,12 @@ namespace hj
 			std::wstring path = WIDE("01_Scene/00_TitleScene/TitleScene_01.xml");
 			bool parseResult = parser->LoadFile(path);
 
+			if (!parseResult)
+			{
+				delete parser;
+				return;
+			}
+
 			if (parseResult)
 			{
 				CREATE_ANIM(birdIdleAnimSheet, birdIdleFrame, material->GetTexture(eTextureSlot::T0)->GetTexSize(), 0.0625f);

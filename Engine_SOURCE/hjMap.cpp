@@ -21,9 +21,13 @@ namespace hj
 	{
 		XmlParser* parser = new XmlParser;
 		bool parseResult = parser->LoadFile(path);
-		if (!parseResult)
-			return E_FAIL;
 
+		if (!parseResult)
+		{
+			delete parser;
+			return E_FAIL;
+		}
+		
 		parseResult = parser->FindElem(WIDE("map"));
 		mTileCount.x = static_cast<float>(parser->GetIntAttribute("width"));
 		mTileCount.y = static_cast<float>(parser->GetIntAttribute("height"));

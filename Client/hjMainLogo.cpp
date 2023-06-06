@@ -20,6 +20,12 @@ namespace hj
 			std::wstring path = WIDE("01_Scene/00_TitleScene/TitleScene_01.xml");
 			bool parseResult = parser->LoadFile(path);
 
+			if (!parseResult)
+			{
+				delete parser;
+				return;
+			}
+
 			parseResult = parser->FindElem(WIDE("TextureAtlas"));
 			parseResult = parser->IntoElem();
 

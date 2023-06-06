@@ -26,6 +26,12 @@ namespace hj
 			std::wstring path = WIDE("01_Scene/00_TitleScene/TitleScene_03.xml");
 			bool parseResult = parser->LoadFile(path);
 
+			if (!parseResult)
+			{
+				delete parser;
+				return;
+			}
+
 			Vector2 size = Vector2::Zero;
 			Vector2 idleStartPos = Vector2::Zero;
 			Vector2 hoverStartPos = Vector2::Zero;
