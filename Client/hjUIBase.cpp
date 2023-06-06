@@ -17,8 +17,8 @@ namespace hj
 		SetName(WIDE("UI Base Obj"));
 
 		mUIRenderer = AddComponent<SpriteRenderer>();
-		mMaterial = MTRL_FIND("MTRL_Title_UI");
-		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
+		mMaterial = MTRL_FIND_STR("MTRL_Title_UI");
+		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 
 		if (!mUIRenderer || !mMaterial || !mesh)
 			return;

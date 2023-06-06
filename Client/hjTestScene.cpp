@@ -241,8 +241,8 @@ namespace hj
 		SpriteRenderer* hpBarBaseSR = new SpriteRenderer();
 		hpBarBase->AddComponent(hpBarBaseSR);
 
-		std::shared_ptr<Mesh> hpBarBaseMesh = MESH_FIND("Mesh_Rect");
-		std::shared_ptr<Material> hpBarBaseMaterial = MTRL_FIND("MTRL_UI");
+		std::shared_ptr<Mesh> hpBarBaseMesh = MESH_FIND_STR("Mesh_Rect");
+		std::shared_ptr<Material> hpBarBaseMaterial = MTRL_FIND_STR("MTRL_UI");
 		int useUV = 1;
 		Vector2 startUV = Vector2::Zero;
 		Vector2 endUV = Vector2::One;

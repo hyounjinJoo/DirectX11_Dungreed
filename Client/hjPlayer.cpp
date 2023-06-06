@@ -23,8 +23,8 @@ namespace hj
 		SetName(WIDE("플레이어"));
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Char_Adventurer");
-		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Char_Adventurer");
+		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
 

@@ -16,11 +16,11 @@ namespace hj
 	{
 		SetName(WIDE("TileMap Comp"));
 
-		std::shared_ptr<Material> material = MTRL_FIND("test");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("test");
 		if (material)
 		{
 			SetMaterial(material);
-			std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
+			std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 			if (mesh)
 			{
 				SetMesh(mesh);

@@ -19,8 +19,8 @@ namespace hj
 		SetName(WIDE("Title Bird Obj"));
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Title_Object_Bird");
-		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Title_Object_Bird");
+		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
 

@@ -13,7 +13,7 @@ namespace hj
 		: UIButton()
 	{
 		SetName(WIDE("Title Exit Button"));
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Title_UI_Text");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Title_UI_Text");
 		SetMaterial(material);
 
 		std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
@@ -25,6 +25,12 @@ namespace hj
 			XmlParser* parser = new XmlParser;
 			std::wstring path = WIDE("01_Scene/00_TitleScene/TitleScene_03.xml");
 			bool parseResult = parser->LoadFile(path);
+
+			if (!parseResult)
+			{
+				delete parser;
+				return;
+			}
 
 			Vector2 size = Vector2::Zero;
 			Vector2 idleStartPos = Vector2::Zero;

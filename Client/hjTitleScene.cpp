@@ -71,7 +71,7 @@ namespace hj
 		}
 	#pragma region Layer Object
 		#pragma region Background
-			std::shared_ptr<Material> material = MTRL_FIND("MTRL_ColorRect");
+			std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_ColorRect");
 			scale = Vector3(width, height, 1.f);
 			int colorRed = 121;
 			int colorGreen = 186;
@@ -90,7 +90,7 @@ namespace hj
 			layerObj->SetMove(false);
 		#pragma endregion
 		#pragma region BackCloud
-			material = MTRL_FIND("MTRL_Title_Layer_Cloud");
+			material = MTRL_FIND_STR("MTRL_Title_Layer_Cloud");
 			std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 			Vector2 texSize = texture->GetTexSize();
 			scale = Vector3(texSize.x, texSize.y, 1.f);

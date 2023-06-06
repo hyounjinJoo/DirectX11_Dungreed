@@ -129,8 +129,8 @@ namespace hj
 	{
 		mDamageWarningObject = object::Instantiate<GameObject>(eLayerType::UI);
 		SpriteRenderer* sr = mDamageWarningObject->AddComponent<SpriteRenderer>();
-		sr->SetMesh(MESH_FIND("Mesh_Rect"));
-		std::shared_ptr<Material> WarningMaterial = MTRL_FIND("MTRL_UI_HUD_RedWarningOnHit");
+		sr->SetMesh(MESH_FIND_STR("Mesh_Rect"));
+		std::shared_ptr<Material> WarningMaterial = MTRL_FIND_STR("MTRL_UI_HUD_RedWarningOnHit");
 		sr->SetMaterial(WarningMaterial);
 
 

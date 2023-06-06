@@ -9,7 +9,7 @@ namespace hj
 	MainLogo::MainLogo()
 		: UIBase()
 	{
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Title_UI");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Title_UI");
 		mUIRenderer->SetMaterial(material);
 
 		std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);

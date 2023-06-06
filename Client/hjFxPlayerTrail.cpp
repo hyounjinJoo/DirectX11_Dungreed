@@ -87,8 +87,8 @@ namespace hj
 		mOwner = owner;
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		mMaterial = MTRL_FIND("MTRL_Char_Adventurer");
-		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
+		mMaterial = MTRL_FIND_STR("MTRL_Char_Adventurer");
+		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 		sr->SetMaterial(mMaterial);
 		sr->SetMesh(mesh);
 

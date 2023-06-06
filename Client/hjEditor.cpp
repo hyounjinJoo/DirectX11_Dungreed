@@ -20,8 +20,8 @@ namespace hj
 		// 충돌체의 종류 갯수만큼만 있으면 된다.
 		mDebugObjects.resize((UINT)eColliderType::End);
 
-		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_DebugRect");
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Debug");
+		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_DebugRect");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Debug");
 
 		mDebugObjects[(UINT)eColliderType::Rect] = object::Instantiate<DebugObject>();
 		MeshRenderer* renderer
@@ -30,7 +30,7 @@ namespace hj
 		renderer->SetMaterial(material);
 		renderer->SetMesh(mesh);
 
-		mesh = MESH_FIND("Mesh_Circle");
+		mesh = MESH_FIND_STR("Mesh_Circle");
 
 		mDebugObjects[(UINT)eColliderType::Circle] = object::Instantiate<DebugObject>();
 		renderer
@@ -42,8 +42,8 @@ namespace hj
 #pragma region Grid Object
 		EditorObject* gridObj = object::Instantiate<EditorObject>();
 		MeshRenderer* gridMR = new MeshRenderer();
-		mesh = MESH_FIND("Mesh_Rect");
-		material = MTRL_FIND("MTRL_Grid");
+		mesh = MESH_FIND_STR("Mesh_Rect");
+		material = MTRL_FIND_STR("MTRL_Grid");
 		gridMR->SetMesh(mesh);
 		gridMR->SetMaterial(material);
 		gridObj->AddComponent(gridMR);

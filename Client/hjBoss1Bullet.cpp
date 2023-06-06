@@ -16,13 +16,15 @@ namespace hj
 		, mMoveSpeed(600.f)
 		, mActiveTime(2.5f)
 		, mActiveTimer(0.f)
+		, mOwnerRoom(nullptr)
+		, mbIsBulletState(true)
 	{
 		SetName(WIDE("Effect_Boss1_Bullet"));
 
 		// 1. Sprite Renderer »ý¼º
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Monster_Boss_Bellial");
-		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Monster_Boss_Bellial");
+		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
 

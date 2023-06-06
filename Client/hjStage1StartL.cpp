@@ -37,9 +37,9 @@ namespace hj
 				tr->SetScale(Vector3(mapData->GetTileMapSize(), 1.f));
 
 				TileMap* tilemap = obj->AddComponent<TileMap>();
-				std::shared_ptr<Material> material = MTRL_FIND("MTRL_Map_Tile");
+				std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Map_Tile");
 				tilemap->SetMaterial(material);
-				tilemap->SetMesh(MESH_FIND("Mesh_Rect"));
+				tilemap->SetMesh(MESH_FIND_STR("Mesh_Rect"));
 				tilemap->SetAtlasTex(material->GetTexture(eTextureSlot::T0));
 				tilemap->SetTileSize(mapData->GetTileSize());
 				tilemap->SetTileMapCount(mapData->GetTileCount());

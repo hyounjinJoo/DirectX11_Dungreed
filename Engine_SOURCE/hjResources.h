@@ -13,11 +13,13 @@ namespace hj
 
 #define MTRL_NEW() std::make_shared<Material>()
 #define MTRL_INSERT(materialKey, sharedPtrMTRL) Resources::Insert<Material>(WIDE(materialKey), sharedPtrMTRL)
-#define MTRL_FIND(materialKey) Resources::Find<Material>(WIDE(materialKey))
+#define MTRL_FIND_STR(materialKeyStr) Resources::Find<Material>(WIDE(materialKeyStr))
+#define MTRL_FIND_WSTR(materialKeyWStr) Resources::Find<Material>(materialKeyWStr)
 
 #define MESH_NEW() std::make_shared<Mesh>()
 #define MESH_INSERT(meshKey, sharedPtrMesh) Resources::Insert<Mesh>(WIDE(meshKey), sharedPtrMesh)
-#define MESH_FIND(meshKey) Resources::Find<Mesh>(WIDE(meshKey))
+#define MESH_FIND_STR(meshKeyStr) Resources::Find<Mesh>(WIDE(meshKeyStr))
+#define MESH_FIND_WSTR(meshKeyWStr) Resources::Find<Mesh>(meshKeyWStr)
 
 	class Resources
 	{

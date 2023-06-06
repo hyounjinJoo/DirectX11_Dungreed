@@ -33,11 +33,13 @@ namespace hj
 		, mAuraManager(nullptr)
 	{
 		SetName(WIDE("Boss_Bellial"));
+		
+		SetPositionY(-80.f);
 
 		// 1. Sprite Renderer »ý¼º
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Monster_Boss_Bellial");
-		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Monster_Boss_Bellial");
+		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
 

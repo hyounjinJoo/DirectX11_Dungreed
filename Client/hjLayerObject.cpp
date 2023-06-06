@@ -13,7 +13,7 @@ namespace hj
 		, mMove(false)
 	{
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		sr->SetMesh(MESH_FIND("Mesh_Rect"));
+		sr->SetMesh(MESH_FIND_STR("Mesh_Rect"));
 	}
 
 	LayerObject::~LayerObject()
