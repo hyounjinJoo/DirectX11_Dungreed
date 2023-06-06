@@ -33,6 +33,19 @@ namespace hj::object
 	}
 
 	template <typename T>
+	static T* InstantiateNoInitialize(enums::eLayerType type)
+	{
+		T* gameObject = new T();
+
+		Scene* scene = SceneManager::GetActiveScene();
+		Layer& layer = scene->GetLayer(type);
+		gameObject->SetLayerType(type);
+		layer.AddGameObject(gameObject);
+
+		return gameObject;
+	}
+
+	template <typename T>
 	static T* Instantiate(enums::eLayerType type, Scene* scene)
 	{
 		T* gameObject = new T();
@@ -153,6 +166,20 @@ namespace hj::object
 		gameObject->SetLayerType(type);
 		layer.AddGameObject(gameObject);
 		gameObject->Initialize();
+
+		return gameObject;
+	}
+
+	template <typename T>
+	static T* CloneNoInitialize(T* object)
+	{
+		T* gameObject = static_cast<T*>(object->Clone());
+
+		Scene* scene = SceneManager::GetActiveScene();
+		eLayerType type = object->GetLayerType();
+		Layer& layer = scene->GetLayer(type);
+		gameObject->SetLayerType(type);
+		layer.AddGameObject(gameObject);
 
 		return gameObject;
 	}
