@@ -3,7 +3,7 @@
 #include "hjObject.h"
 #include "hjCamera.h"
 #include "hjRenderer.h"
-#include "..\Client\hjCameraScript.h"
+#include "../Client/hjCameraScript.h"
 
 extern hj::Camera* hj::renderer::mainCamera;
 namespace hj
