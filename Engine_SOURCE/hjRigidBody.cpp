@@ -125,11 +125,7 @@ namespace hj
 		// 속도에 맞게 물체를 이동시킨다.
 		Vector2 pos = GetOwner()->GetPositionXY();
 		Vector2 curFrameDeltaMove = mVelocity * fixedDelta;
-
-		if (mForce.y != 0.f)
-		{
-			int a = 0;
-		}
+		
 		pos = pos + curFrameDeltaMove;
 		GetOwner()->SetPositionXY(pos);
 		mForce = Vector2::Zero;
