@@ -14,6 +14,7 @@ namespace hj
 		{
 			Active,			// Update 로직 수행
 			Paused,			// Update 로직 수행X
+			NotActiveByRoom,// Room에 의해 상태가 수정되지 않음.
 			Dead,			// 소멸 대기
 		};
 
@@ -121,6 +122,7 @@ namespace hj
 			return false;
 		}
 
+		void SetNotActiveByRoom() { mState = eState::NotActiveByRoom; }
 		void Pause() { mState = eState::Paused; }
 		void Activate() { mState = eState::Active; }
 		void Death() { mState = eState::Dead; }
@@ -135,11 +137,12 @@ namespace hj
 		std::vector<Component*> mComponents;
 
 	private:
-		eState mState;
 		eLayerType mLayerType;
 		std::vector<Script*> mScripts;
 		bool mbDontDestroy;
 
+	protected:
+		eState mState;
 
 	public:
 		Transform* GetTransform() const
