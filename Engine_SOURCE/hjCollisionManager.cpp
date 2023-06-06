@@ -77,15 +77,32 @@ namespace hj
 		{
 			if (left->GetState() != GameObject::Active)
 				continue;
-			if (left->GetComponent<Collider2D>() == nullptr && left->GetComponent<Collider3D>() == nullptr)
+
+			Collider2D* left2DCollider = left->GetComponent<Collider2D>();
+			Collider3D* left3DCollider = left->GetComponent<Collider3D>();
+
+			if (left2DCollider == nullptr && left3DCollider == nullptr)
+				continue;
+			if (left2DCollider && left2DCollider->IsActive() == false)
+				continue;
+			if (left3DCollider && left3DCollider->IsActive() == false)
 				continue;
 
 			for (GameObject* right : rights)
 			{
 				if (right->GetState() != GameObject::Active)
 					continue;
-				if (right->GetComponent<Collider2D>() == nullptr && right->GetComponent<Collider3D>() == nullptr)
+
+				Collider2D* right2DCollider = right->GetComponent<Collider2D>();
+				Collider3D* right3DCollider = right->GetComponent<Collider3D>();
+
+				if (right2DCollider == nullptr && right3DCollider == nullptr)
 					continue;
+				if (right2DCollider && right2DCollider->IsActive() == false)
+					continue;
+				if (right3DCollider && right3DCollider->IsActive() == false)
+					continue;
+
 				if(left == right)
 					continue;
 

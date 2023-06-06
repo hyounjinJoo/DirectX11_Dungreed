@@ -30,5 +30,13 @@ namespace hj
 	private:
 		const eComponentType mType;
 		GameObject* mOwner;
+
+	public:
+		void DeActivate() { mbActive = false; }
+		void Activate() { mbActive = true; }
+		bool IsActive() { return mbActive; }
+
+	protected:
+		bool mbActive = true;
 	};
 }
