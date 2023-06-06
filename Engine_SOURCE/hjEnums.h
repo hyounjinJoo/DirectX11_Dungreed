@@ -33,9 +33,10 @@ namespace hj::enums
 		MidGround,
 		ForeGround,
 		Particle,
-		// 15 ~ 16
+		// 15 ~ 17
+		PostProcess,
 		UI,
-		End = 16,
+		End = 32,
 	};
 
 	enum class eComponentType
