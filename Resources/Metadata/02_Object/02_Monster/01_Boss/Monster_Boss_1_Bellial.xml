@@ -74,7 +74,7 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="BossBullet/FX/BossBulletFX006" x="2115" y="0" w="155" h="155" pX="0.5" pY="1"/>
     <sprite n="BossBullet/FX/BossBulletFX007" x="2270" y="0" w="155" h="155" pX="0.5" pY="1"/>
     <sprite n="BossBullet/Normal/BossBullet000" x="155" y="0" w="65" h="65" pX="0.5" pY="1"/>
-    <sprite n="BossBullet/Normal/BossBullet001" x="220" y="0" w="65" h="65" pX="0.5" pY="1"/>
+    <sprite n="BossBullet/Normal/BossBullet001" x="220" y="0" w="65" h="65" pX="0.5" pY="1" tW="55" tH="55"/>
     <sprite n="LeftHand/Attack/SkellBossLeftHandAttack00" x="2345" y="850" w="350" h="400" pX="0.5" pY="1"tW="285" tH="315" tOX="65" tOY="15"/>
     <sprite n="LeftHand/Attack/SkellBossLeftHandAttack01" x="2695" y="850" w="350" h="400" pX="0.5" pY="1"tW="295" tH="330" tOX="50" tOY="45"/>
     <sprite n="LeftHand/Attack/SkellBossLeftHandAttack02" x="3045" y="850" w="350" h="400" pX="0.5" pY="1"tW="260" tH="260" tOX="80" tOY="75"/>
