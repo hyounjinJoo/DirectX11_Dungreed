@@ -13,7 +13,7 @@ namespace hj
 {
 	ParticleSystem::ParticleSystem()
 		: BaseRenderer(eComponentType::ParticleSystem)
-		, mMaxParticles(100)
+		, mMaxParticles(1)
 		, mStartSize(Vector4(50.0f, 50.0f, 1.0f, 1.0f))
 		, mStartColor(Vector4(1.0f, 0.2f, 0.2f, 1.0f))
 		, mStartLifeTime(3.0f)
@@ -27,13 +27,30 @@ namespace hj
 	{
 	}
 
+	ParticleSystem::ParticleSystem(const ParticleSystem& comp)
+		: BaseRenderer(comp)
+		, mMaxParticles(1)
+		, mStartSize(Vector4(50.0f, 50.0f, 1.0f, 1.0f))
+		, mStartColor(Vector4(1.0f, 0.2f, 0.2f, 1.0f))
+		, mStartLifeTime(3.0f)
+		, mFrequency(1.0f)
+		, mTime(0.0f)
+		, mCBData{}
+		, mSimulationSpace(eSimulationSpace::World)
+		, mRadius(500.0f)
+		, mStartSpeed(200.0f)
+		, mElapsedTime(0.0f)
+	{
+
+	}
+
 	ParticleSystem::~ParticleSystem()
 	{
-		delete mBuffer;
-		mBuffer = nullptr;
+		delete mParticleBuffer;
+		mParticleBuffer = nullptr;
 
-		delete mSharedBuffer;
-		mSharedBuffer = nullptr;
+		delete mParticleSharedBuffer;
+		mParticleSharedBuffer = nullptr;
 	}
 
 	void ParticleSystem::Initialize()
@@ -50,7 +67,7 @@ namespace hj
 		std::shared_ptr<Texture> tex = Resources::Find<Texture>(L"CartoonSmoke");
 		material->SetTexture(eTextureSlot::T0, tex);
 
-		Particle particles[100] = {};
+		Particle particles[1] = {};
 		Vector4 startPos = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 		for (size_t i = 0; i < mMaxParticles; i++)
 		{
@@ -63,11 +80,11 @@ namespace hj
 			particles[i].speed = 100.0f;
 		}
 
-		mBuffer = new StructuredBuffer();
-		mBuffer->Create(sizeof(Particle), mMaxParticles, eSRVType::UAV, particles, true);
+		mParticleBuffer = new StructuredBuffer();
+		mParticleBuffer->Create(sizeof(Particle), mMaxParticles, eSRVType::UAV, particles, true);
 
-		mSharedBuffer = new StructuredBuffer();
-		mSharedBuffer->Create(sizeof(ParticleShared), 1, eSRVType::UAV, nullptr, true);
+		mParticleSharedBuffer = new StructuredBuffer();
+		mParticleSharedBuffer->Create(sizeof(ParticleShared), 1, eSRVType::UAV, nullptr, true);
 	}
 
 	void ParticleSystem::Update()
@@ -86,8 +103,8 @@ namespace hj
 			UINT iAliveCount = (UINT)f;
 			mTime = f - std::floor(f);
 
-			ParticleShared shared = { 5, };
-			mSharedBuffer->SetData(&shared, 1);
+			ParticleShared shared = { 1, };
+			mParticleSharedBuffer->SetData(&shared, 1);
 		}
 		else
 		{
@@ -95,12 +112,12 @@ namespace hj
 				int a = 0;
 			Particle particles[100] = {};
 
-			mBuffer->GetData(particles, 0);
+			mParticleBuffer->GetData(particles, 0);
 			ParticleShared shared = {  };
-			mSharedBuffer->SetData(&shared, 1);
+			mParticleSharedBuffer->SetData(&shared, 1);
 		}
 
-		mMaxParticles = mBuffer->GetStride();
+		mMaxParticles = mParticleBuffer->GetStride();
 		Vector3 pos = GetOwner()->GetComponent<Transform>()->GetPosition();
 		mCBData.worldPosition = Vector4(pos.x, pos.y, pos.z, 1.0f);
 		mCBData.maxParticles = mMaxParticles;
@@ -117,19 +134,25 @@ namespace hj
 		cb->SetData(&mCBData);
 		cb->Bind(eShaderStage::ALL);
 
-		mCS->SetSharedStructuredBuffer(mSharedBuffer);
-		mCS->SetStrcutedBuffer(mBuffer);
+		mCS->SetSharedStructuredBuffer(mParticleSharedBuffer);
+		mCS->SetStrcutedBuffer(mParticleBuffer);
 		mCS->OnExecute();
 	}
 
 	void ParticleSystem::Render()
 	{
 		GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
-		mBuffer->BindSRV(eShaderStage::GS, 15);
+		mParticleBuffer->BindSRV(eShaderStage::GS, 15);
 
 		GetMaterial()->Bind();
 		GetMesh()->RenderInstanced(mMaxParticles);
 
-		mBuffer->Clear();
+		mParticleBuffer->Clear();
 	}
+
+	hj::Component* ParticleSystem::Clone() const
+	{
+		return new ParticleSystem(*this);
+	}
+
 }

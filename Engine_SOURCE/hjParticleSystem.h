@@ -14,16 +14,18 @@ namespace hj
 	{
 	public:
 		ParticleSystem();
-		~ParticleSystem();
+		ParticleSystem(const ParticleSystem& comp);
+		virtual ~ParticleSystem();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
+		virtual Component* Clone() const override;
 
-	private:
-		class StructuredBuffer* mBuffer;
-		class StructuredBuffer* mSharedBuffer;
+	protected:
+		class StructuredBuffer* mParticleBuffer;
+		class StructuredBuffer* mParticleSharedBuffer;
 
 		std::shared_ptr<graphics::ParticleShader> mCS;
 		renderer::ParticleSystemCB mCBData;
