@@ -1,5 +1,6 @@
 #pragma once
-#include <hjGameObject.h>
+#include "hjActor.h"
+
 namespace hj
 {
 	class Stage1Boss;
@@ -20,12 +21,12 @@ namespace hj
 		End,
 	};
 
-    class Stage1BossHand :
-        public GameObject
+    class Boss1Hand :
+        public Actor
     {
 	public:
-		Stage1BossHand();
-		virtual ~Stage1BossHand();
+		Boss1Hand();
+		virtual ~Boss1Hand();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -46,6 +47,9 @@ namespace hj
 		void EndAttack(bool bNeedToMoveIdlePos);
 		bool IsAttackEnd();
 		bool IsAttackStartEnd() { return mbAttackStart; }
+
+		void PauseLaserAnimation();
+		void DeactivateLaser();
 
 	private:
 		void CreateAnimation();

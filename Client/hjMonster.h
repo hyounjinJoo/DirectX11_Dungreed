@@ -1,10 +1,10 @@
 #pragma once
-#include <hjGameObject.h>
+#include "hjActor.h"
 
 namespace hj
 {
 	class Monster :
-		public GameObject
+		public Actor
 	{
 	public:
 		Monster();
@@ -15,9 +15,12 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
-		virtual void Damaged(float damage) = 0;
+		virtual void Damaged(float damage) {};
 
-	private:
-		virtual void ProcessDamaged(float damage) = 0;
+	protected:
+		virtual void ProcessDamaged(float damage) {};
+
+	protected:
+		float mDamagedEffectTimer;
 	};
 }

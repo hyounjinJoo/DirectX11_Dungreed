@@ -20,7 +20,10 @@ namespace hj
 		END,
 	};
 	
+#pragma region FowardDecl
 	class GameObject;
+	class Actor;
+#pragma endregion
 
 	class PlayerScript : public Script
 	{
@@ -34,6 +37,8 @@ namespace hj
 		virtual void Render() override;
 
 	public:
+		void SetDashAttackActor(Actor* actor);
+
 		Vector2 GetOwnerScreenPos();
 
 		void DashTrailTransformFixedUpdate();
@@ -45,6 +50,9 @@ namespace hj
 	private:
 		void CreateDamageWarningObject();
 		void HandleDamageWarningObject();
+
+		void CreateDashUIObject();
+		void HandleDashUIObject();
 
 	private:
 		void HandleMovementInput();
@@ -79,9 +87,14 @@ namespace hj
 		class RigidBody* mOwnerRigid;
 		std::vector<eKeyCode> mKeyBindings;
 
+		UINT mMaxDashCount;
+		UINT mCurDashCanCount;
+		float mDashChargeTimer;
+		float mDashChargeTime;
+		
 		bool mbDash;
 		float mDashStartedTime;
-		float mDashCoolTime;
+		float mDashInputCoolTime;
 		float mMaxDashTime;
 		Vector3 mDashDir;
 		float mDashPower;
@@ -106,5 +119,9 @@ namespace hj
 		float mActivateDamageWarningTimer = 0.f;
 		float mActivateDamageWarningLimitTime = 0.2f;
 		GameObject* mDamageWarningObject;
+
+		class PlayerDashUI* mDashUI;
+
+		Actor* mDashAttackColliderActor;
 	};
 }

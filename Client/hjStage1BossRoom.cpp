@@ -8,10 +8,16 @@
 #include "hjRoomDoor.h"
 #include "hjFadeObject.h"
 #include "hjStage1Boss.h"
+#include "hjActor.h"
+#include "hjBoss1Sword.h"
+#include "hjBossSpawner.h"
 
 namespace hj
 {
 	Stage1BossRoom::Stage1BossRoom()
+		: RoomBase()
+		, mBoss(nullptr)
+		, mbBossSpawned(false)
 	{
 		std::shared_ptr<Map> mapData = Resources::Find<Map>(WIDE("MAP_01_BossRoom"));
 		if (mapData)
@@ -139,19 +145,24 @@ namespace hj
 			DoorL->SetExitDoor(DoorR);
 			DoorR->SetExitDoor(DoorL);
 
-			//GameObject* obj = object::Instantiate<Stage1Boss>(eLayerType::Monster);
-			//mGameObjects.push_back(obj);
+			mBoss = object::InstantiateNoInitialize<Stage1Boss>(eLayerType::Monster);
+			mBoss->SetOwnerRoom(this);
+
+			mGameObjects.push_back(mBoss);
+
+			BossSpawner* spawner = object::Instantiate<BossSpawner>(eLayerType::ForeGround
+				, Vector3(-50.f, -350, 0.f));
+			spawner->SetScale(Vector3(50.f, 50.f, 1.f));
+			spawner->GetTransform()->FixedUpdate();
+			spawner->SetName(WIDE("Spawner-Boss1"));
+			spawner->SetOwnerRoom(this);
+			mGameObjects.push_back(spawner);
 		}
 	}
 
 	Stage1BossRoom::~Stage1BossRoom()
 	{
-		size_t Size = mGameObjects.size();
-
-		for (size_t iter = 0; iter < Size; ++iter)
-		{
-			mGameObjects[iter] = nullptr;
-		}
+		mBoss = nullptr;
 	}
 
 	void Stage1BossRoom::Initialize()
@@ -171,6 +182,41 @@ namespace hj
 		RoomBase::Render();
 	}
 
+	void Stage1BossRoom::Activate()
+	{
+		GameObject::Activate();
+
+		LimitCameraSpace();
+
+		size_t Size = mGameObjects.size();
+
+		for (size_t iter = 0; iter < Size; ++iter)
+		{
+			eState objectState = mGameObjects[iter]->GetState();
+			if (eState::NotActiveByRoom == objectState)
+			{
+				continue;
+			}
+
+			mGameObjects[iter]->Activate();
+			//else if(eState::NotActiveByRoom == objectState)
+			//{
+			//}
+			//else
+			//{
+			//	mGameObjects[iter]->Pause();
+			//}
+		}
+
+		Size = mDoors.size();
+
+		for (size_t iter = 0; iter < Size; ++iter)
+		{
+			if (mDoors[iter])
+				mDoors[iter]->Activate();
+		}
+	}
+
 	void Stage1BossRoom::AddObjectsPosXY(const Vector2& pos)
 	{
 		size_t Size = mGameObjects.size();
@@ -178,6 +224,14 @@ namespace hj
 		for (size_t iter = 0; iter < Size; ++iter)
 		{
 			mGameObjects[iter]->AddPositionXY(pos);
+		}
+	}
+
+	void Stage1BossRoom::SpawnBoss()
+	{
+		if (mBoss && !mbBossSpawned)
+		{
+			mBoss->Initialize();
 		}
 	}
 

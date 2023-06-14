@@ -8,6 +8,7 @@
 #include "hjPaintShader.h"
 #include "hjMap.h"
 #include "hjParticleShader.h"
+#include "hjParticleAnimShader.h"
 
 extern hj::Application application;
 namespace hj::renderer
@@ -598,6 +599,7 @@ namespace hj::renderer
 		MAIN_FOLDER("03_UI");
 		SUB_FOLDER(1, "00_HUD");
 		LOAD_TEX("03_UI_00_HUD_RedWarningOnHit", "RedWarningOnHit.png");
+		LOAD_TEX("03_UI_00_HUD_PlayerHUD", "PlayerHUD.png");
 		FOLDER_ALLCLEAR();
 #pragma endregion
 #pragma region _08_FX
@@ -695,6 +697,15 @@ namespace hj::renderer
 		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_UI_HUD_RedWarningOnHit", material);
+
+		//HP Red Warning UI
+		texture = TEX_FIND("03_UI_00_HUD_PlayerHUD"); 
+		shader = SHADER_FIND("Shader_Sprite");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_UI_HUD_PlayerHUD", material);
 
 		// HPBar
 		texture = TEX_FIND("HPBarTexture");

@@ -15,7 +15,13 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		virtual void Activate() override;
+
 		void AddObjectsPosXY(const Vector2& pos);
+
+		void SpawnBoss();
 	private:
+		class Stage1Boss* mBoss;
+		bool mbBossSpawned;
 	};
 }

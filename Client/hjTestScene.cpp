@@ -49,7 +49,6 @@
 #include "hjStage1StartLT.h"
 #include "hjStage1Boss.h"
 
-
 extern hj::Application application;
 namespace hj
 {
@@ -63,6 +62,8 @@ namespace hj
 
 	TestScene::~TestScene()
 	{
+		mObj = nullptr;
+		mFadeObject = nullptr;
 	}
 
 	void TestScene::Initialize()
@@ -75,13 +76,13 @@ namespace hj
 #pragma region Compute Shader Test
 		{
 			//paint shader
-			mPaintShader = Resources::Find<PaintShader>(L"Shader_Paint");
+			//mPaintShader = Resources::Find<PaintShader>(L"Shader_Paint");
 			//Paint Tex and Noise Tex
-			std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
-			std::shared_ptr<Texture> noiseTex = Resources::Find<Texture>(L"NoiseTex01");
-			paintTex->SetTexSize(Vector2(1024.f, 1024.f));
-			mPaintShader->SetTarget(paintTex);
-			mPaintShader->SetNoiseTexture(noiseTex);
+			//std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
+			//std::shared_ptr<Texture> noiseTex = Resources::Find<Texture>(L"NoiseTex01");
+			//paintTex->SetTexSize(Vector2(1024.f, 1024.f));
+			//mPaintShader->SetTarget(paintTex);
+			//mPaintShader->SetNoiseTexture(noiseTex);
 		}
 #pragma endregion
 #pragma region Light Test
@@ -323,7 +324,7 @@ namespace hj
 			RoomBase* roomBoss1 = object::Instantiate<Stage1BossRoom>(eLayerType::ForeGround);
 			roomBoss1->SettingFadeObject();
 			roomBoss1->SettingDoorOwner();
-			roomBoss1->Pause();
+			//roomBoss1->Pause();
 
 			roomLTRB->ConnectDoor(DoorPlaced::R, roomBoss1->GetDoor(DoorPlaced::L));
 			roomBoss1->ConnectDoor(DoorPlaced::L, roomLTRB->GetDoor(DoorPlaced::R));
@@ -336,19 +337,26 @@ namespace hj
 			//Transform* tr = obj->GetComponent<Transform>();
 			//tr->SetPosition(Vector3(-200.0f, 0.0f, -100.0f));
 			//obj->AddComponent<ParticleSystem>();
+			//obj->AddComponent<BossDeathParticleSystem>();
 		}
 
 		{
-			GameObject* obj = object::Instantiate<Stage1Boss>(eLayerType::Monster);
+			//GameObject* obj = object::Instantiate<Stage1Boss>(eLayerType::Monster);
 		}
 
 	
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::ForeGround, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack_ForeGround, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack_NotForeGround, true);
 
 		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::MonsterAttack_ForeGround, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::PlayerAttack_ForeGround, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::MonsterHas, true);
+
+		CollisionManager::CollisionLayerCheck(eLayerType::PlayerAttack_ForeGround, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::PlayerAttack_NotForeGround, eLayerType::Monster, true);
 
 		Scene::Initialize();
 	}
@@ -424,7 +432,7 @@ namespace hj
 	void TestScene::FixedUpdate()
 	{
 		Scene::FixedUpdate();
-		mPaintShader->OnExecute();
+		//mPaintShader->OnExecute();
 	}
 
 	void TestScene::Render()

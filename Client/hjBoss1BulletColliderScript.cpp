@@ -32,7 +32,14 @@ namespace hj
 
 		float test = 10.f;
 		player->Damaged(test);
-		GetOwner()->Pause();
+
+		Animator* animator = mCircleCollider->GetOwner()->GetComponent<Animator>();
+		if (animator)
+		{
+			std::wstring bulletFXAnimWstr = WIDE("Effect_Bellial_Bullet_FX");
+			animator->Play(bulletFXAnimWstr, false);
+		}
+
 	}
 
 	void Boss1BulletColliderScript::SetCollider(class Collider2D* collider)

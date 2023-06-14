@@ -49,7 +49,7 @@ namespace hj
 			laserWholeScale.x += spriteTrimmedScale.x;
 			if (LASER_HEAD_PART_INDEX == iter)
 			{
-				laserWholeScale.y = spriteTrimmedScale.y;
+				laserWholeScale.y = spriteTrimmedScale.y * 0.8f;
 				laserWholeMidPosX += spriteTrimmedScale.x;
 
 				spriteTrimmedScale.x *= -0.6f;
@@ -89,6 +89,17 @@ namespace hj
 	void Boss1Laser::Initialize()
 	{
 		GameObject::Initialize();
+
+		if (!mOwnerRoom)
+			return;
+
+		for (Boss1LaserPart* iter : mLaserParts)
+		{
+			if (iter)
+			{
+				iter->SetOwnerRoom(mOwnerRoom);
+			}
+		}
 	}
 	void Boss1Laser::Update()
 	{
@@ -138,6 +149,32 @@ namespace hj
 		{
 			mLaserCollider->SetPositionZ(posZ);
 		}		
+	}
+
+	void Boss1Laser::PauseLaserAnimation()
+	{
+		if (mLaserCollider)
+		{
+			mLaserCollider->Pause();
+		}
+
+		for (auto laserParts : mLaserParts)
+		{
+			laserParts->PauseAnimation();
+		}
+	}
+
+	void Boss1Laser::DeactivateLaser()
+	{
+		if (mLaserCollider)
+		{
+			mLaserCollider->Pause();
+		}
+
+		for (auto laserParts : mLaserParts)
+		{
+			laserParts->Pause();
+		}
 	}
 
 }
@@ -239,7 +276,10 @@ namespace hj
 		bool parseResult = parser->LoadFile(path);
 
 		if (!parseResult)
+		{
+			delete parser;
 			return;
+		}
 
 		parseResult = parser->FindElem(WIDE("TextureAtlas"));
 		parseResult = parser->IntoElem();

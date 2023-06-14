@@ -1,12 +1,12 @@
 #pragma once
-#include <hjGameObject.h>
+#include "hjActor.h"
 
 namespace hj
 {
 	class Boss1Sword;
 
 	class Boss1SwordAttackCollider :
-		public GameObject
+		public Actor
 	{
 	public:
 		Boss1SwordAttackCollider();

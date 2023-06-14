@@ -1,5 +1,5 @@
 #pragma once
-#include <hjGameObject.h>
+#include "hjActor.h"
 
 namespace hj
 {
@@ -10,10 +10,11 @@ namespace hj
 		Shot,
 		Stuck,
 		End,
+		Dead,
 	};
 
 	class Boss1Sword :
-		public GameObject
+		public Actor
 	{
 	public:
 		Boss1Sword();
@@ -26,6 +27,10 @@ namespace hj
 		virtual void Render() override;
 
 		virtual GameObject* Clone() const override;
+
+	public:
+		virtual void PauseAnimation() override;
+		void PauseAll();
 
 		Vector2 GetHitEffectScaleXY();
 		void SetHitEffectPosAndRot(const Vector2& newPos, float rotZ);
@@ -53,10 +58,13 @@ namespace hj
 		void SpawnComplete();
 
 		void AttackEnd();
+		
+		void DeadProcess();
 
 		GameObject* mPlayer;
-		GameObject* mChargeEffectObj;
-		GameObject* mHitEffectObj;
+		Actor* mChargeEffectObj;
+		Actor* mHitEffectObj;
+		class Boss1SwordCreateDestroyFx* mCreateDestroyFx;
 		class Boss1SwordStuckCollider* mSwordMoveCollider;
 		class Boss1SwordAttackCollider* mSwordAttackCollider;
 
@@ -69,7 +77,7 @@ namespace hj
 		float mAimingLimitTime;
 
 		float mCurEndTime = 0.f;
-		float mEndLimitTime = 3.f;
+		float mEndLimitTime = 2.f;
 
 		Vector2 mMoveDir;
 		float mMoveSpeed;

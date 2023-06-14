@@ -9,9 +9,9 @@ namespace hj
 {
 	ArmRotatorScript::ArmRotatorScript()
 		: mbUsingMouseRotation(false)
-		, mMinDistanceX(20.f)
-		, mMaxDistanceX(0.f)
-		, mMinDistanceY(0.f)
+		, mMinDistanceX(-20.f)
+		, mMaxDistanceX(50.f)
+		, mMinDistanceY(50.f)
 		, mMaxDistanceY(30.f)
 		, mOffsetAngle(20.f)
 		, mbInverseX(false)
@@ -43,32 +43,6 @@ namespace hj
 		{
 			RotateArm(Input::GetMouseWorldPosition());
 		}
-
-		if (nullptr == dynamic_cast<PlayerHand*>(mGrappedObject))
-			return;
-
-		if (nullptr == dynamic_cast<Player*>(mBody))
-			return;
-
-
-
-		bool isWeaponExist = false;
-		Transform* weaponTR = dynamic_cast<PlayerHand*>(mGrappedObject)->GetWeaponTR();
-		if (weaponTR)
-		{
-			isWeaponExist = true;
-		}
-
-		const float handWorldZ = mGrappedObject->GetWorldPositionZ();
-		const bool isBodyFlip = dynamic_cast<Player*>(mBody)->IsFlip();
-		const bool isInRange = (0.95f <= handWorldZ && handWorldZ <= 2.05f);
-
-		const float objPosZ = isInRange ? ((isBodyFlip) ? -1.f : 1.f) : ((isBodyFlip) ? -2.f : 2.f);
-		const float weaponPosZ = isInRange ? ((isBodyFlip) ? -1.f : 1.f) : ((isBodyFlip) ? 1.f : -1.f);
-
-		mGrappedObject->SetPositionZ(objPosZ);
-		if (isWeaponExist)
-			weaponTR->SetPositionZ(weaponPosZ);
 	}
 
 	void ArmRotatorScript::Render()
@@ -78,43 +52,6 @@ namespace hj
 
 	void ArmRotatorScript::InverseArmAxis(Axis axis)
 	{
-		Vector3 ownerRot = GetOwner()->GetRotation();
-		switch (axis)
-		{
-		case hj::Axis::X:
-			ownerRot.x = ownerRot.x + PI;
-			if (ownerRot.x >= 2 * PI && ownerRot.x < 0.f)
-			{
-				ownerRot.x = 0.f;
-			}
-
-			mbInverseX = !mbInverseX;
-			if (dynamic_cast<PlayerHand*>(mGrappedObject))
-			{
-				dynamic_cast<PlayerHand*>(mGrappedObject)->InverseHandPosZ(mbInverseX);
-			}
-			if (mbInverseX)
-			{
-				mOffsetAngle = 45.f;
-			}
-			else
-			{
-				mOffsetAngle = 20.f;
-			}
-			break;
-		case hj::Axis::Y:
-			ownerRot.y = ownerRot.y + PI;
-			break;
-		case hj::Axis::Z:
-			ownerRot.z = ownerRot.z + PI;
-			break;
-		case hj::Axis::End:
-		default:
-			return;
-		}
-		GetOwner()->SetRotation(ownerRot);
-
-		FixedUpdate();
 	}
 
 	void ArmRotatorScript::RotateArm(const Vector2& targetWorldPos)
@@ -133,38 +70,51 @@ namespace hj
 		float angle = RadianToDegree(acosf(dot));
 		Vector3 cross = Vector3::Right.Cross(dir);
 
-#define STRAIGHT_ANGLE 180.f
-#define EQUIANGULAR_ANGLE 120.f
-#define RIGHT_ANGLE 90.f
-#define ANGLE_CORRECTION 60.f
+		float distanceFromCenterX = 0.f;
+		float distanceFromCenterY = 0.f;
 
-		if (mbInverseX)
+		angle = (cross.z < 0.f) ? 360.f - angle : angle;
+
+		float alpha = 0.f;
+		float newRot = 0.f;
+		if ((angle >= 0.0f && angle <= 90.0f) || (angle >= 270.0f))
 		{
-			if (dir.x > 0.f)
+			if (angle <= 90.f)
 			{
-				angle = (cross.z < 0.f) ? -angle - mOffsetAngle : angle - mOffsetAngle;
+				alpha = angle / 180.f + 0.5f;
+				angle += mOffsetAngle;
 			}
 			else
 			{
-				angle = (cross.z < 0.f) ? angle - STRAIGHT_ANGLE - mOffsetAngle : -angle + STRAIGHT_ANGLE - mOffsetAngle;
+				alpha = (angle - 270.f) / 180.f;
+				angle += mOffsetAngle;
 			}
+			distanceFromCenterX = std::lerp(mMaxDistanceX, mMinDistanceX, alpha);
+			distanceFromCenterY = std::lerp(mMaxDistanceY, mMinDistanceY, alpha);
+
+			newRot = DegreeToRadian(angle);
 		}
-		else
+		else if ((angle > 90.f))
 		{
-			if (dir.x > 0.f)
+			if (angle <= 180.f)
 			{
-				angle = (cross.z < 0.f) ? -angle + mOffsetAngle : angle + mOffsetAngle;
+				alpha = (180.f - angle) / 180.f + 0.5f;
+				angle = 180.f -angle + mOffsetAngle;
 			}
 			else
 			{
-				angle = (cross.z < 0.f) ? angle - STRAIGHT_ANGLE + mOffsetAngle : -angle + STRAIGHT_ANGLE + mOffsetAngle;
+				alpha = (270.f - angle) / 180.f;
+				angle = 540.f - angle + mOffsetAngle;
 			}
+			distanceFromCenterX = -std::lerp(mMaxDistanceX, mMinDistanceX, alpha);
+			distanceFromCenterY = std::lerp(mMaxDistanceY, mMinDistanceY, alpha);
+			newRot = DegreeToRadian(angle);
 		}
-
-		float distanceFromCenterX = std::lerp(mMinDistanceX, mMaxDistanceX, (angle + ANGLE_CORRECTION) / STRAIGHT_ANGLE);
-		float distanceFromCenterY = std::lerp(mMinDistanceY, mMaxDistanceY, (angle + ANGLE_CORRECTION) / STRAIGHT_ANGLE);
 		
-		mGrappedObject->SetPositionXY(Vector2(distanceFromCenterX, distanceFromCenterY));
-		GetOwner()->SetRotationZ(DegreeToRadian(angle));
+		Vector2 newPos = Vector2(distanceFromCenterX, distanceFromCenterY);
+		newPos.Rotate(angle);
+
+		mGrappedObject->SetPosition(newPos);
+		GetOwner()->SetRotationZ(newRot);
 	}
 }

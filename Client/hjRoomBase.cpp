@@ -142,6 +142,12 @@ namespace hj
 
 		for (size_t iter = 0; iter < Size; ++iter)
 		{
+			eState objectState = mGameObjects[iter]->GetState();
+			if (eState::NotActiveByRoom == objectState)
+			{
+				continue;
+			}
+
 			mGameObjects[iter]->Pause();
 		}
 
@@ -164,6 +170,12 @@ namespace hj
 
 		for (size_t iter = 0; iter < Size; ++iter)
 		{
+			eState objectState = mGameObjects[iter]->GetState();
+			if (eState::NotActiveByRoom == objectState)
+			{
+				continue;
+			}
+
 			mGameObjects[iter]->Activate();
 		}
 
@@ -174,6 +186,46 @@ namespace hj
 			if (mDoors[iter])
 				mDoors[iter]->Activate();
 		}
+	}
+
+	UINT RoomBase::FindObjectIndexInManagedObjects(GameObject* object)
+	{
+#define SEARCH_FAILURE UINT_MAX
+		UINT findIndex = SEARCH_FAILURE;
+
+		UINT Size = static_cast<UINT>(mGameObjects.size());
+		for (UINT iter = 0; iter < Size; ++iter)
+		{
+			if (mGameObjects[iter] == object)
+			{
+				findIndex = iter;
+				break;
+			}
+		}
+
+		return findIndex;
+	}
+
+	bool RoomBase::DelistFromManagedGameObjects(GameObject* object)
+	{
+		UINT objectIndex = FindObjectIndexInManagedObjects(object);
+		if (SEARCH_FAILURE == objectIndex)
+			return false;
+
+		mGameObjects.erase(mGameObjects.begin() + objectIndex);
+
+		return true;
+	}
+
+	bool RoomBase::AddObjectToManagedGameObjects(GameObject* object)
+	{
+		UINT objectIndex = FindObjectIndexInManagedObjects(object);
+		if (SEARCH_FAILURE != objectIndex)
+			return false;
+
+		mGameObjects.push_back(object);
+
+		return true;
 	}
 
 }

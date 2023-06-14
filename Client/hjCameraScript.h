@@ -16,6 +16,10 @@ namespace hj
 		void UseMoveLimit(bool use) { mbMoveLimit = use; }
 		void SetLimitSpace(const Vector4& space) { mLimitLTRB = space; }
 		void SetLimitSpace(float spaceL, float spaceT, float spaceR, float spaceB) { mLimitLTRB = Vector4(spaceL, spaceT, spaceR, spaceB); }
+		void FollowPlayer(bool follow);
+		void SetMoveLinearPos(const Vector2& pos, float time);
+		void ChangeCameraLinearScale(float scale, float time);
+		void ResetCameraScale();
 
 		void Shake();
 	private:
@@ -35,5 +39,16 @@ namespace hj
 		float mDicreaseShakeFactor;
 		Vector2 mShakeMoveLimit;
 		Vector2 mOriginPos;
+
+		bool mbLinearMove;
+		Vector2 mLinearMoveTargetPos;
+		float mLinearMoveTime;
+		float mLinearMoveTimer;
+		Vector2 mTargetPos;
+
+		bool mbLinearScaleChange;
+		float mTargetScale;
+		float mLinearScaleChangeTime;
+		float mLinearScaleChangeTimer;
 	};
 }

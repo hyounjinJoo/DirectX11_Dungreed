@@ -135,6 +135,9 @@
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="hjActor.h" />
+    <ClInclude Include="hjBoss1BackgroundEffect.h" />
+    <ClInclude Include="hjBoss1BackgroundSmallEffect.h" />
     <ClInclude Include="hjBoss1Bullet.h" />
     <ClInclude Include="hjBoss1BulletColliderScript.h" />
     <ClInclude Include="hjBoss1BulletMuzzle.h" />
@@ -142,8 +145,11 @@
     <ClInclude Include="hjBoss1LaserCollider.h" />
     <ClInclude Include="hjBoss1Sword.h" />
     <ClInclude Include="hjBoss1SwordAttackCollider.h" />
+    <ClInclude Include="hjBoss1SwordCreateDestroyFx.h" />
     <ClInclude Include="hjBoss1SwordStuckCollider.h" />
+    <ClInclude Include="hjBossDeathParticleSystem.h" />
     <ClInclude Include="hjCameraScript.h" />
+    <ClInclude Include="hjDashCountBase.h" />
     <ClInclude Include="hjDebugObject.h" />
     <ClInclude Include="hjDoorScript.h" />
     <ClInclude Include="hjDungeonScene.h" />
@@ -159,6 +165,8 @@
     <ClInclude Include="hjMonster.h" />
     <ClInclude Include="hjPlayer.h" />
     <ClInclude Include="hjFxPlayerDust.h" />
+    <ClInclude Include="hjAttackScript.h" />
+    <ClInclude Include="hjPlayerDashUI.h" />
     <ClInclude Include="hjPlayerHand.h" />
     <ClInclude Include="hjArmRotatorScript.h" />
     <ClInclude Include="hjFxPlayerJump.h" />
@@ -169,8 +177,10 @@
     <ClInclude Include="hjRoomNotPass.h" />
     <ClInclude Include="hjRoomPassThrough.h" />
     <ClInclude Include="hjRoomRectFloor.h" />
+    <ClInclude Include="hjBossSpawner.h" />
     <ClInclude Include="hjStage1Boss.h" />
-    <ClInclude Include="hjStage1BossHand.h" />
+    <ClInclude Include="hjBoss1Hand.h" />
+    <ClInclude Include="hjBoss1Parts.h" />
     <ClInclude Include="hjStage1BossRoom.h" />
     <ClInclude Include="hjStage1StartB.h" />
     <ClInclude Include="hjStage1StartL.h" />
@@ -209,6 +219,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjActor.cpp" />
+    <ClCompile Include="hjBoss1BackgroundEffect.cpp" />
+    <ClCompile Include="hjBoss1BackgroundSmallEffect.cpp" />
     <ClCompile Include="hjBoss1Bullet.cpp" />
     <ClCompile Include="hjBoss1BulletColliderScript.cpp" />
     <ClCompile Include="hjBoss1BulletMuzzle.cpp" />
@@ -216,8 +229,11 @@
     <ClCompile Include="hjBoss1LaserCollider.cpp" />
     <ClCompile Include="hjBoss1Sword.cpp" />
     <ClCompile Include="hjBoss1SwordAttackCollider.cpp" />
+    <ClCompile Include="hjBoss1SwordCreateDestroyFx.cpp" />
     <ClCompile Include="hjBoss1SwordStuckCollider.cpp" />
+    <ClCompile Include="hjBossDeathParticleSystem.cpp" />
     <ClCompile Include="hjCameraScript.cpp" />
+    <ClCompile Include="hjDashCountBase.cpp" />
     <ClCompile Include="hjDebugObject.cpp" />
     <ClCompile Include="hjDoorScript.cpp" />
     <ClCompile Include="hjDungeonScene.cpp" />
@@ -233,6 +249,8 @@
     <ClCompile Include="hjMonster.cpp" />
     <ClCompile Include="hjPlayer.cpp" />
     <ClCompile Include="hjFxPlayerDust.cpp" />
+    <ClCompile Include="hjAttackScript.cpp" />
+    <ClCompile Include="hjPlayerDashUI.cpp" />
     <ClCompile Include="hjPlayerHand.cpp" />
     <ClCompile Include="hjArmRotatorScript.cpp" />
     <ClCompile Include="hjFxPlayerJump.cpp" />
@@ -243,8 +261,10 @@
     <ClCompile Include="hjRoomNotPass.cpp" />
     <ClCompile Include="hjRoomPassThrough.cpp" />
     <ClCompile Include="hjRoomRectFloor.cpp" />
+    <ClCompile Include="hjBossSpawner.cpp" />
     <ClCompile Include="hjStage1Boss.cpp" />
-    <ClCompile Include="hjStage1BossHand.cpp" />
+    <ClCompile Include="hjBoss1Hand.cpp" />
+    <ClCompile Include="hjBoss1Parts.cpp" />
     <ClCompile Include="hjStage1BossRoom.cpp" />
     <ClCompile Include="hjStage1StartB.cpp" />
     <ClCompile Include="hjStage1StartL.cpp" />

@@ -1,4 +1,4 @@
-#include "hjStage1BossHand.h"
+#include "hjBoss1Hand.h"
 #include "hjStage1Boss.h"
 #include "hjSpriteRenderer.h"
 #include "hjAnimation.h"
@@ -11,7 +11,7 @@
 
 namespace hj
 {
-	Stage1BossHand::Stage1BossHand()
+	Boss1Hand::Boss1Hand()
 		: mOwner(nullptr)
 		, mHandType(Boss1HandType::End)
 		, mHandState(Boss1HandState::End)
@@ -22,8 +22,8 @@ namespace hj
 
 		// 1. Sprite Renderer 积己
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> material = MTRL_FIND("MTRL_Monster_Boss_Bellial");
-		std::shared_ptr<Mesh> mesh = MESH_FIND("Mesh_Rect");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Monster_Boss_Bellial");
+		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
 
@@ -40,28 +40,36 @@ namespace hj
 
 		// 3. Laser 积己 棺 包府
 		{
-			mLaser = object::Instantiate<Boss1Laser>(eLayerType::MonsterAttack_ForeGround);
+			mLaser = object::InstantiateNoInitialize<Boss1Laser>(eLayerType::MonsterAttack_ForeGround);
 			mLaser->GetTransform()->SetParent(this->GetTransform());
 		}
 	}
 
-	Stage1BossHand::~Stage1BossHand()
+	Boss1Hand::~Boss1Hand()
 	{
 		if (mOwner)
 			mOwner = nullptr;
+
+		mLaser = nullptr;
 	}
 	
-	void Stage1BossHand::Initialize()
+	void Boss1Hand::Initialize()
 	{
 		GameObject::Initialize();
+
+		if (!mOwnerRoom)
+			return;
+
+		mLaser->SetOwnerRoom(mOwnerRoom);
+		mLaser->Initialize();
 	}
 	
-	void Stage1BossHand::Update()
+	void Boss1Hand::Update()
 	{
 		GameObject::Update();
 	}
 	
-	void Stage1BossHand::FixedUpdate()
+	void Boss1Hand::FixedUpdate()
 	{
 		if (mbCanMove && (mHandState == Boss1HandState::MoveToAttack ||
 							mHandState == Boss1HandState::MoveToIdle))
@@ -72,12 +80,12 @@ namespace hj
 		GameObject::FixedUpdate();
 	}
 	
-	void Stage1BossHand::Render()
+	void Boss1Hand::Render()
 	{
 		GameObject::Render();
 	}
 	
-	void Stage1BossHand::SetOwner(Stage1Boss* owner)
+	void Boss1Hand::SetOwner(Stage1Boss* owner)
 	{
 		if (!owner)
 		{
@@ -92,7 +100,7 @@ namespace hj
 		mOwner = owner;
 	}
 
-	void Stage1BossHand::ChangeHandState(Boss1HandState nextState)
+	void Boss1Hand::ChangeHandState(Boss1HandState nextState)
 	{
 		if (mHandState == nextState)
 			return;
@@ -121,12 +129,13 @@ namespace hj
 			animator->Play(WIDE("Bellial_HandIdle"));
 			break;
 		case hj::Boss1HandState::End:
+			mbCanMove = false;
 		default:
 			break;
 		}
 	}
 
-	void Stage1BossHand::ChangeHandType(Boss1HandType handType)
+	void Boss1Hand::ChangeHandType(Boss1HandType handType)
 	{
 		if (Boss1HandType::End == handType)
 			return;
@@ -152,7 +161,7 @@ namespace hj
 		}
 	}
 
-	void Stage1BossHand::MoveHand()
+	void Boss1Hand::MoveHand()
 	{
 		float curPosY = GetPositionY();
 
@@ -185,13 +194,13 @@ namespace hj
 
 	}
 
-	void Stage1BossHand::AttackStart(float posY)
+	void Boss1Hand::AttackStart(float posY)
 	{
 		SetMoveTargetHandPosY(posY);
 		ChangeHandState(Boss1HandState::MoveToAttack);
 	}
 
-	void Stage1BossHand::ShotLaser()
+	void Boss1Hand::ShotLaser()
 	{
 		if (!mLaser)
 		{
@@ -202,7 +211,7 @@ namespace hj
 		mbAttackStart = false;
 	}
 
-	void Stage1BossHand::EndAttack(bool bNeedToMoveIdlePos)
+	void Boss1Hand::EndAttack(bool bNeedToMoveIdlePos)
 	{
 		mbCanMove = true;
 		mLaser->ResetLaser();
@@ -218,7 +227,7 @@ namespace hj
 		}
 	}
 
-	bool Stage1BossHand::IsAttackEnd()
+	bool Boss1Hand::IsAttackEnd()
 	{
 		bool result = false;
 		
@@ -230,7 +239,24 @@ namespace hj
 		return result;
 	}
 
-	void Stage1BossHand::CreateAnimation()
+	void Boss1Hand::PauseLaserAnimation()
+	{
+		if (mLaser)
+		{
+			mLaser->PauseLaserAnimation();
+		}
+	}
+
+	void Boss1Hand::DeactivateLaser()
+	{
+		if (mLaser)
+		{
+			mLaser->DeactivateLaser();
+			mLaser->Pause();
+		}
+	}
+
+	void Boss1Hand::CreateAnimation()
 	{
 		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 		std::shared_ptr<Material> material = sr->GetMaterial();
@@ -245,8 +271,10 @@ namespace hj
 		bool parseResult = parser->LoadFile(path);
 
 		if (!parseResult)
+		{
+			delete parser;
 			return;
-
+		}
 		parseResult = parser->FindElem(WIDE("TextureAtlas"));
 		parseResult = parser->IntoElem();
 
@@ -336,7 +364,7 @@ namespace hj
 
 		animator->Play(idleAnimWstr, true);
 
-		animator->GetEvent(attackAnimWstr, 9) = std::bind(&Stage1BossHand::ShotLaser, this);
+		animator->GetEvent(attackAnimWstr, 9) = std::bind(&Boss1Hand::ShotLaser, this);
 
 		SetScaleXY(canvasSize);
 		GetTransform()->FixedUpdate();

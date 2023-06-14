@@ -14,6 +14,10 @@
 #include "hjFxPlayerJump.h"
 #include "hjResources.h"
 #include "hjCameraScript.h"
+#include "hjMonster.h"
+#include "hjPlayerDashUI.h"
+#include "hjActor.h"
+#include "hjAttackScript.h"
 
 extern hj::Application application;
 namespace hj
@@ -23,7 +27,7 @@ namespace hj
 		, mRunForce(Vector2(2000.f, 0.f))
 		, mbDash(false)
 		, mDashStartedTime(0.f)
-		, mDashCoolTime(0.3f)
+		, mDashInputCoolTime(0.3f)
 		, mMaxDashTime(0.1f)
 		, mDashTrailCount(5)
 		, mDashDir(Vector3::Zero)
@@ -39,12 +43,18 @@ namespace hj
 		, mbDoubleJumping(false)
 		, mSingleJumpInputedTime(0.f)
 		, mMaxJumpInputTime(0.2f)
+		, mDashUI(nullptr)
+		, mMaxDashCount(2)
+		, mCurDashCanCount(2)
+		, mDashChargeTimer(0.f)
+		, mDashChargeTime(2.f)
 	{
 		mDashTrailRenderTimer = 0.1f;
 		mDashTrailCreateInterval = mMaxDashTime / mDashTrailCount;
 		InitialKeyBind();
 
 		CreateDamageWarningObject();
+		CreateDashUIObject();
 	}
 
 	PlayerScript::~PlayerScript()
@@ -74,6 +84,7 @@ namespace hj
 		Dash();
 
 		HandleDamageWarningObject();
+		HandleDashUIObject();
 	}
 
 	void PlayerScript::FixedUpdate()
@@ -86,6 +97,14 @@ namespace hj
 
 	void PlayerScript::Render()
 	{
+	}
+
+	void PlayerScript::SetDashAttackActor(Actor* actor)
+	{
+		if (actor)
+		{
+			mDashAttackColliderActor = actor;
+		}
 	}
 
 	Vector2 PlayerScript::GetOwnerScreenPos()
@@ -168,6 +187,50 @@ namespace hj
 		}
 
 		mDamageWarningObject->Pause();
+	}
+
+	void PlayerScript::CreateDashUIObject()
+	{
+		mDashUI = object::Instantiate<PlayerDashUI>(eLayerType::UI);
+	}
+
+	void PlayerScript::HandleDashUIObject()
+	{
+		if (!mDashUI)
+		{
+			return;
+		}
+
+		UINT dashSlotCount = mDashUI->GetMaxDashCount();
+		if (mMaxDashCount != dashSlotCount)
+		{
+			mDashUI->SetMaxDashCount(mMaxDashCount);
+		}
+
+		UINT uiCurCanDashCount = mDashUI->GetCurDashCount();
+		if (uiCurCanDashCount != dashSlotCount)
+		{
+			if (mDashChargeTimer > 0.f)
+			{
+				mDashChargeTimer -= Time::FixedDeltaTime();
+			}
+			else if (mDashChargeTimer == 0.f)
+			{
+				mDashChargeTimer = mDashChargeTime;
+			}
+		}
+		
+		if (mDashChargeTimer < 0.f)
+		{
+			mDashChargeTimer = 0.f;
+			mCurDashCanCount += 1;
+			if (mMaxDashCount < mCurDashCanCount)
+			{
+				mCurDashCanCount = mMaxDashCount;
+			}
+			mDashUI->IncreaseCurCount();
+		}
+
 	}
 
 	void PlayerScript::HandleMovementInput()
@@ -300,8 +363,22 @@ namespace hj
 
 	void PlayerScript::ActionMouseRBTN()
 	{
-		if (Time::AccTime() - mDashStartedTime < mDashCoolTime)
+		bool isNeedToReturn = false;
+		if (0 == mCurDashCanCount)
+		{
+			isNeedToReturn = true;
+		}
+
+		if (Time::AccTime() - mDashStartedTime < mDashInputCoolTime)
+		{
+			isNeedToReturn = true;
+		}
+
+		if (isNeedToReturn)
+		{
 			return;
+		}
+
 		// Dash 중이지 않은 경우에만 동작시켜준다.
 		if (!mbDash)
 		{
@@ -314,14 +391,18 @@ namespace hj
 
 			mDashDir = Vector3(mousePos.x, mousePos.y, 0.f) - bodyPos;
 			mDashDir.Normalize();
-		}
 
+			mDashUI->DicreaseCurCount();
+			mCurDashCanCount -= 1;
+		}
 	}
 
 	void PlayerScript::Dash()
 	{
 		if (!mbDash)
+		{
 			return;
+		}
 
 		float curTime = Time::AccTime();
 
@@ -363,12 +444,34 @@ namespace hj
 
 	void PlayerScript::ActiveDashTrail()
 	{
+		if (1 == mCurActivatedTrailIndex)
+		{
+			std::vector<Script*> scripts = mDashAttackColliderActor->GetScripts();
+			for (Script* script : scripts)
+			{
+				if (dynamic_cast<AttackScript*>(script))
+				{
+					dynamic_cast<AttackScript*>(script)->SetDamageOn(true);
+				}
+			}
+		}
 		Vector3 bodyPos = GetOwner()->GetWorldPosition();
 		mDashTrailObj[mCurActivatedTrailIndex]->SetPositionXY(Vector2(bodyPos.x, bodyPos.y));
 		mDashTrailObj[mCurActivatedTrailIndex++]->ActivateTrail(true);
-
+		
 		if (mCurActivatedTrailIndex >= mDashTrailCount)
+		{
 			mCurActivatedTrailIndex = 0;
+
+			std::vector<Script*> scripts = mDashAttackColliderActor->GetScripts();
+			for (Script* script : scripts)
+			{
+				if (dynamic_cast<AttackScript*>(script))
+				{
+					dynamic_cast<AttackScript*>(script)->ClearDamagedObjects();
+				}
+			}
+		}
 	}
 
 	void PlayerScript::HandleJumpInput()
@@ -376,10 +479,24 @@ namespace hj
 		if (!mOwnerRigid)
 			return;
 
-		eKeyState jumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_JUMP]);
-		ProcessJumpKey(jumpKeyState);
-		jumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_SECONDJUMP]);
-		ProcessJumpKey(jumpKeyState);
+		eKeyState firstJumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_JUMP]);
+		eKeyState secondJumpKeyState = Input::GetKeyState(mKeyBindings[(UINT)playerKeyAction::MOVE_SECONDJUMP]);
+		
+		eKeyState finalJumpKeyState = eKeyState::NONE;
+		if (firstJumpKeyState == eKeyState::DOWN || secondJumpKeyState == eKeyState::DOWN)
+		{
+			finalJumpKeyState = eKeyState::DOWN;
+		}
+		else if (firstJumpKeyState == eKeyState::PRESSED || secondJumpKeyState == eKeyState::PRESSED)
+		{
+			finalJumpKeyState = eKeyState::PRESSED;
+		}
+		else if(firstJumpKeyState == eKeyState::UP || secondJumpKeyState == eKeyState::UP)
+		{
+			finalJumpKeyState = eKeyState::UP;
+		}
+
+		ProcessJumpKey(finalJumpKeyState);
 	}
 
 	void PlayerScript::ProcessJumpKey(eKeyState jumpKeyState)

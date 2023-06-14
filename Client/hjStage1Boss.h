@@ -27,7 +27,10 @@ namespace hj
 	// 보스 생명력
 	// 보스 최대 생명력
 	class Boss1Sword;
-	class Stage1BossHand;
+	class Boss1Hand;
+	class Boss1BackgroundEffect;
+	class Boss1BackgroundSmallEffect;
+	class Boss1Parts;
 
 	class Stage1Boss :
 		public Monster
@@ -41,11 +44,19 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		Vector3 GetBodyPos() { return mDamageBody->GetWorldPosition(); }
+		void EndDead() { ChangeBoss1State(Boss1State::End); }
 		virtual void Damaged(float damage) override;
 		// 본인 몸 외에 나머지를 어떻게 처리할 것인가?
 		// 
 		// 3. 피격 시 빨갛게 표현
+
+	public:
+		void ChangeBoss1State(Boss1State nextState);
+
 	private:
+		void SpawnEffect();
+
 		void CreateBodyAnimation();
 		virtual void ProcessDamaged(float damage) override;
 		// 4. 사망시 DieFX를 사용하여 랜덤 위치에 표현 후 보스 위치에서 동심원으로 점점 반지름이 커진 위치로 효과가 생성된다.
@@ -56,12 +67,13 @@ namespace hj
 
 		void AdjustColliderPosAndSize();
 
-		void ChangeBoss1State(Boss1State nextState);
 		void ChangeAnimation(const std::wstring& animWstr, bool loop);
 		void SelectAttackPattern();
 		void EndAttackPattern();
 		void ExecuteAttackPattern();
 		void ProcessDead();
+		void ProcessEndAll();
+		void SpawnBodyParts();
 
 	private:
 		void PatternSwordAttack();
@@ -70,30 +82,29 @@ namespace hj
 		void PatternLaserAttack2();
 
 	private:
-		bool ProcessLaserAttackAndCheckShotEnd(Stage1BossHand* HandToShot, bool bIsContinuousShot);
+		bool ProcessLaserAttackAndCheckShotEnd(Boss1Hand* HandToShot, bool bIsContinuousShot);
 
 	private:
 		void CreateSwords();
 
 	private:
 		class Animator* mBodyAnimator;
-		Stage1BossHand* mLeftHand;		// 보스가 보유한 손 객체, Laser를 관리해준다.
-		Stage1BossHand* mRightHand;
+		Boss1Hand* mLeftHand;		// 보스가 보유한 손 객체, Laser를 관리해준다.
+		Boss1Hand* mRightHand;
 
 		std::vector<Boss1Sword*> mSwords;
 
-		class Boss1Laser* mLaser;
 		class Boss1BulletMuzzle* mBulletMuzzle;
 
 		// 보스가 보유한 효과들
 		// 1. 뒷 배경 효과
-		GameObject* mBackground;
+		Boss1BackgroundEffect* mBackground;
 		// 2. 파티클
-		GameObject* mAuraManager;
+		std::vector<Boss1BackgroundSmallEffect*> mSmallBackgrounds;
 
 		float mCurrentHP;
 		float mMaximumHP;
-		GameObject* mDamageBody;
+		Actor* mDamageBody;
 		class Collider2D* mDamageCollider;
 
 		Boss1State mBossState;						// 상태
@@ -101,13 +112,24 @@ namespace hj
 
 		bool mbAttackExecuted;
 
-		float mTestSpawnBossTimer = 0.f;
-		float mTestSpawnBossTimeLimit = 2.f;
+		float mSpawnBossTimer = 0.f;
+		float mSpawnBossTimeLimit = 5.f;
 
 		float mCurIdleTime = 0.f;
 		float mIdleLimitTime = 2.f;
 
 		float mCurSwordSpawnTimer = 0.f;
 		float mSwordSpawnInterval = 0.2f;
+
+		class BossDeathParticleSystem* mParticle;
+
+		Boss1Parts* mBossDeadPartHead;
+		Boss1Parts* mBossDeadPartJaw;
+		Boss1Parts* mBossDeadPartLeftBig;
+		Boss1Parts* mBossDeadPartLeftSmall;
+		Boss1Parts* mBossDeadPartRightBig;
+		Boss1Parts* mBossDeadPartRightSmall;
+
+		class CameraScript* mCameraScript;
 	};
 }

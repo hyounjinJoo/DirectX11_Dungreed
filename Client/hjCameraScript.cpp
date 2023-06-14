@@ -91,6 +91,37 @@ namespace hj
 		
 		if (mbFollowPlayer)
 			nextCameraPos = player->GetPositionXY();
+		else if(!mbFollowPlayer && mbLinearMove)
+		{
+			mLinearMoveTimer += Time::FixedDeltaTime();
+			float moveAlpha = mLinearMoveTimer / mLinearMoveTime;
+
+			float calcedPosX = std::lerp(nextCameraPos.x, mLinearMoveTargetPos.x, moveAlpha);
+			float calcedPosY = std::lerp(nextCameraPos.y, mLinearMoveTargetPos.y, moveAlpha);
+
+			nextCameraPos = Vector2(calcedPosX, calcedPosY);
+			if (1.f <= moveAlpha)
+			{
+				mLinearMoveTimer = 0.f;
+				mbLinearMove = false;
+				mbMoveLimit = true;
+			}
+		}
+		else
+		{
+			nextCameraPos = mTargetPos;
+		}
+
+		if (mbLinearScaleChange)
+		{
+			mLinearScaleChangeTimer += Time::FixedDeltaTime();
+			float scaleAlpha = mLinearScaleChangeTimer/ mLinearScaleChangeTime;
+
+			float calcedScale = std::lerp(GetOwner()->GetComponent<Camera>()->GetScale(), mTargetScale, scaleAlpha);
+
+			GetOwner()->GetComponent<Camera>()->SetScale(calcedScale);
+		}
+
 
 		if (mbMoveLimit)
 		{
@@ -147,6 +178,38 @@ namespace hj
 			mShakeTimer = 0.f;
 			GetOwner()->SetPositionXY(mOriginPos);
 		}
+	}
+
+	void CameraScript::FollowPlayer(bool follow)
+	{
+		mbFollowPlayer = follow;
+		mbMoveLimit = follow;
+	}
+
+	void CameraScript::SetMoveLinearPos(const Vector2& pos, float time)
+	{
+		FollowPlayer(false);
+		mbLinearMove = true;
+		mLinearMoveTargetPos = pos;
+		mTargetPos = pos;
+		mLinearMoveTimer = 0.f;
+		mLinearMoveTime = time;
+	}
+
+	void CameraScript::ChangeCameraLinearScale(float scale, float time)
+	{
+		mbLinearScaleChange = true;
+		mTargetScale = scale;
+		mLinearScaleChangeTimer = 0.f;
+		mLinearScaleChangeTime = time;
+	}
+
+	void CameraScript::ResetCameraScale()
+	{
+		mbLinearScaleChange = false;
+		mLinearScaleChangeTimer = 0.f;
+		mTargetScale = 1.f;
+		GetOwner()->GetComponent<Camera>()->SetScale(mTargetScale);
 	}
 
 	void CameraScript::Shake()

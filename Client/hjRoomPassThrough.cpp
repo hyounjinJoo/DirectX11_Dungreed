@@ -83,10 +83,6 @@ namespace hj
 			if ((dynamic_cast<Player*>(other))->GetPlayerScript()->IsDash())
 				return;
 		}
-		else
-		{
-			return;
-		}
 
 		RigidBody* otherRigidBody = other->GetComponent<RigidBody>();
 		Vector2 otherBottom = other->GetWorldCenterBottom();
@@ -106,7 +102,7 @@ namespace hj
 				enterCase = TOP_COLLISION_CASE;
 		}
 
-		Vector2 otherScale = other->GetScaleXY();
+		Vector2 otherScale = dynamic_cast<Collider2D*>(collider)->GetSize() * other->GetScaleXY();
 		Vector4 otherLTRB = other->GetWorldLTRB();
 
 		if (TOP_COLLISION_CASE == enterCase)
@@ -133,10 +129,6 @@ namespace hj
 			if ((dynamic_cast<Player*>(other))->GetPlayerScript()->IsDash())
 				return;
 		}
-		else
-		{
-			return;
-		}
 
 		RigidBody* otherRigidBody = other->GetComponent<RigidBody>();
 		Vector2 otherBottom = other->GetWorldCenterBottom();
@@ -156,7 +148,7 @@ namespace hj
 				enterCase = TOP_COLLISION_CASE;
 		}
 
-		Vector2 otherScale = other->GetScaleXY();
+		Vector2 otherScale = dynamic_cast<Collider2D*>(collider)->GetSize() * other->GetScaleXY();
 		Vector4 otherLTRB = other->GetWorldLTRB();
 
 		if (TOP_COLLISION_CASE == enterCase)

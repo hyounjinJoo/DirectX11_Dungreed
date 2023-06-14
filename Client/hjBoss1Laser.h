@@ -1,5 +1,5 @@
 #pragma once
-#include <hjGameObject.h>
+#include "hjActor.h"
 
 namespace hj
 {
@@ -15,7 +15,7 @@ namespace hj
     class Boss1LaserPart;
 
     class Boss1Laser :
-        public GameObject
+        public Actor
     {
     public:
         Boss1Laser();
@@ -32,13 +32,16 @@ namespace hj
         Boss1LaserCollider* GetLaserCollider() const { return mLaserCollider; }
         void SetLaserColliderPosZ(float posZ);
 
+        void PauseLaserAnimation();
+        void DeactivateLaser();
+
     private:
         Boss1LaserCollider* mLaserCollider;
         std::vector<Boss1LaserPart*> mLaserParts;
     };
 
     class Boss1LaserPart :
-		public GameObject
+		public Actor
 	{
 		public:
             Boss1LaserPart();

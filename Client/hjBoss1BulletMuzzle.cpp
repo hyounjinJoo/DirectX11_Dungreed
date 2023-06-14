@@ -38,6 +38,18 @@ namespace hj
 	void Boss1BulletMuzzle::Initialize()
 	{
 		GameObject::Initialize();
+
+		if (!mOwnerRoom)
+			return;
+
+		for (Boss1Bullet* iter : mBullets)
+		{
+			if (iter)
+			{
+				iter->SetOwnerRoom(mOwnerRoom);
+				iter->Initialize();
+			}
+		}
 	}
 
 	void Boss1BulletMuzzle::Update()
@@ -125,6 +137,9 @@ namespace hj
 		// 불릿 초기화 및 활성화
 		mBullets[mNextShotBulletIndex]->SetMoveDirection(rotatedDirection);
 		mBullets[mNextShotBulletIndex]->Activate();
+		//mBullets[mNextShotBulletIndex]->Update();
+		//mBullets[mNextShotBulletIndex]->FixedUpdate();
+		//mBullets[mNextShotBulletIndex]->Render();
 
 		++mNextShotBulletIndex;
 
@@ -139,6 +154,14 @@ namespace hj
 	{
 		mNextShotBulletIndex = 0;
 		Pause();
+	}
+
+	void Boss1BulletMuzzle::PauseAllBullet()
+	{
+		for (auto bullet : mBullets)
+		{
+			bullet->Pause();
+		}
 	}
 
 }

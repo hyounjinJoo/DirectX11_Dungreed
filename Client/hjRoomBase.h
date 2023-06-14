@@ -25,7 +25,11 @@ namespace hj
 		void LimitCameraSpace();
 
 		void Pause();
-		void Activate();
+		virtual void Activate();
+
+		UINT FindObjectIndexInManagedObjects(GameObject* object);
+		bool DelistFromManagedGameObjects(GameObject* object);
+		bool AddObjectToManagedGameObjects(GameObject* object);
 
 	protected:
 		std::vector<RoomDoor*> mDoors;

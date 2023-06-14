@@ -1,106 +1,39 @@
-#include "hjFxPlayerDust.h"
-#include "hjPlayer.h"
+#include "hjBoss1BackgroundEffect.h"
 #include "hjSpriteRenderer.h"
 #include "hjResources.h"
-#include "hjMaterial.h"
-#include "hjTexture.h"
 #include "hjAnimator.h"
-#include "hjRigidBody.h"
 #include "hjXmlParser.h"
-
 
 namespace hj
 {
-	FxPlayerDust::FxPlayerDust()
-		: mOwner(nullptr)
-		, mAnimator(nullptr)
-		, mbActivateEffect(false)
-		, mOffsetPos(Vector2::Zero)
+	Boss1BackgroundEffect::Boss1BackgroundEffect()
 	{
-		SetName(WIDE("플레이어 더스트"));
+		SetName(WIDE("Effect_Boss1_BackgroundFX"));
 
+		// 1. Sprite Renderer 생성
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_FX");
+		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Monster_Boss_Bellial");
 		std::shared_ptr<Mesh> mesh = MESH_FIND_STR("Mesh_Rect");
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
-		
-		mAnimator = AddComponent<Animator>();
-		if (mAnimator)
-		{
-			CreateAnimation();
-		}
-	}
-	FxPlayerDust::~FxPlayerDust()
-	{
-	}
-	void FxPlayerDust::Initialize()
-	{
-		GameObject::Initialize();
-	}
 
-	void FxPlayerDust::Update()
-	{
-		GameObject::Update(); 
-		if (!mbActivateEffect)
+		// 2. Animator 생성 및 Animation 추가
+		Animator* animator = AddComponent<Animator>();
+		if (material && animator)
 		{
-			if (mOwner)
+			std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
+			if (texture)
 			{
-				SetPositionXY(mOwner->GetWorldCenterBottom() + mOffsetPos);
-				eMoveDir moveDir = mOwner->GetComponent<RigidBody>()->GetMoveDir();
-				bool isFlip = moveDir == eMoveDir::Left ? true : false;
-				if (isFlip)
-				{
-					SetRotationY(PI);
-				}
-				else
-				{
-					SetRotationY(0.f);
-				}
+				CreateAnimation();
 			}
 		}
-		else
-		{
-			if (mAnimator->GetCurrentAnimation()->IsComplete())
-				mbActivateEffect = false;
-		}
 	}
 
-	void FxPlayerDust::FixedUpdate()
+	Boss1BackgroundEffect::~Boss1BackgroundEffect()
 	{
-		GameObject::FixedUpdate();
 	}
 
-	void FxPlayerDust::Render()
-	{
-		if(mbActivateEffect)
-			GameObject::Render();
-	}
-
-	void FxPlayerDust::SetOwner(class Player* owner)
-	{
-		mOwner = owner;
-	}
-
-	void FxPlayerDust::ActivateEffect()
-	{
-		if (mbActivateEffect)
-			return;
-
-		mbActivateEffect = true;
-		mAnimator->Play(L"FX_PlayerDust", false);
-	}
-
-	void FxPlayerDust::ChangeAnimationDuration(float wholePlayTime)
-	{
-		Animation* dustAnim = mAnimator->FindAnimation(L"FX_PlayerDust");
-		if (!dustAnim)
-			return;
-
-		dustAnim->ChangePlayDuration(wholePlayTime / 6.f);
-	}
-
-	void FxPlayerDust::CreateAnimation()
+	void Boss1BackgroundEffect::CreateAnimation()
 	{
 		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 		std::shared_ptr<Material> material = sr->GetMaterial();
@@ -108,10 +41,10 @@ namespace hj
 		Vector2 atlasTexSize = texture->GetTexSize();
 
 		float duration = 0.f;
-		duration = 0.25f / 6.f;
+		duration = 1.f / 15.f;
 
 		XmlParser* parser = new XmlParser;
-		std::wstring path = WIDE("08_FX/08_FX.xml");
+		std::wstring path = WIDE("02_Object/02_Monster/01_Boss/Monster_Boss_1_Bellial.xml");
 		bool parseResult = parser->LoadFile(path);
 
 		if (!parseResult)
@@ -124,7 +57,7 @@ namespace hj
 		parseResult = parser->IntoElem();
 
 		std::wstring targetSpriteNameWstr;
-		int count = 1;
+		int count = 0;
 
 		Vector2 leftTop = Vector2::Zero;
 		Vector2 size = Vector2::One;
@@ -136,7 +69,7 @@ namespace hj
 		size_t checkStringParseValue = std::wstring::npos;
 
 		{
-			CREATE_ANIM(animPlayerDust, frame, atlasTexSize, duration);
+			CREATE_ANIM(animBellialBackground, frame, atlasTexSize, duration);
 			while (parseResult)
 			{
 				parseResult = parser->FindElem(WIDE("sprite"));
@@ -146,7 +79,7 @@ namespace hj
 					break;
 				}
 
-				targetSpriteNameWstr = WIDE("Dust") + std::to_wstring(count);
+				targetSpriteNameWstr = WIDE("SkellBossBack") + std::to_wstring(count);
 				checkStringParseValue = parser->CheckAttributeIncludeWstr(WIDE("n"), targetSpriteNameWstr);
 				if (std::wstring::npos != checkStringParseValue)
 				{
@@ -163,7 +96,7 @@ namespace hj
 
 					FRAME_ADD_OFFSET_TRIM_OFFSET(frame, leftTop.x, leftTop.y, size.x, size.y
 						, offset.x, offset.y, trimmedSize.x, trimmedSize.y
-						, trimmedOffset.x, trimmedOffset.y, animPlayerDust);
+						, trimmedOffset.x, trimmedOffset.y, animBellialBackground);
 
 					++count;
 				}
@@ -171,14 +104,14 @@ namespace hj
 
 			Animator* animator = GetComponent<Animator>();
 
-			std::wstring dustAnimWstr = WIDE("FX_PlayerDust");
-			AUTO_OFFSET_CALC(animPlayerDust);
-			mAnimator->Create(dustAnimWstr, texture, animPlayerDust, canvasSize, false);
-						
+			std::wstring bossBackgroundAnimWstr = WIDE("Effect_Bellial_Background");
+
+			animator->Create(bossBackgroundAnimWstr, texture, animBellialBackground, canvasSize, false);
+
 			SetScaleXY(canvasSize);
 			GetTransform()->FixedUpdate();
 
-			mOffsetPos.y = canvasSize.y * 0.5f;
+			animator->Play(bossBackgroundAnimWstr);
 		}
 
 		delete parser;

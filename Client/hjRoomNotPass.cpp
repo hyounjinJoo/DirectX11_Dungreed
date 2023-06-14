@@ -106,7 +106,7 @@ namespace hj
 				enterCase = BOTTOM_COLLISION_CASE;
 		}
 
-		Vector2 otherScale = other->GetScaleXY();
+		Vector2 otherScale = dynamic_cast<Collider2D*>(collider)->GetSize() * other->GetScaleXY();
 		Vector4 otherLTRB = other->GetWorldLTRB();
 
 		if (TOP_COLLISION_CASE == enterCase)
@@ -173,7 +173,7 @@ namespace hj
 				enterCase = BOTTOM_COLLISION_CASE;
 		}
 
-		Vector2 otherScale = other->GetScaleXY();
+		Vector2 otherScale = dynamic_cast<Collider2D*>(collider)->GetSize() * other->GetScaleXY();
 		Vector4 otherLTRB = other->GetWorldLTRB();
 
 		if (TOP_COLLISION_CASE == enterCase)

@@ -233,6 +233,24 @@
     <Filter Include="Contents\GameObject\Play\Player\HUD">
       <UniqueIdentifier>{ae67ff2e-045f-4743-9d8a-5e8adb7925cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\BaseObject\Actor">
+      <UniqueIdentifier>{bf7c8713-ad00-4d9b-9468-c6c7e9a7881a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Boss\Stage1\Effect\Particle">
+      <UniqueIdentifier>{6778b028-f9aa-4834-8485-0690e82062df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Shared">
+      <UniqueIdentifier>{5f28b44d-fe82-4529-b3d5-3ba0667753c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Player\HUD\DashUI">
+      <UniqueIdentifier>{06569b0a-c716-4ed3-ac05-bdfcc91f0ef6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Player\Attack">
+      <UniqueIdentifier>{49a7b2a1-7219-43ec-8898-ae5651e4cc85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Player\Effect\Moving">
+      <UniqueIdentifier>{8ca0b78c-8f9c-4c95-aa12-ca639a9e3fa5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -309,15 +327,6 @@
     </ClInclude>
     <ClInclude Include="hjArmRotatorScript.h">
       <Filter>Contents\Script\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="hjFxPlayerDust.h">
-      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="hjFxPlayerTrail.h">
-      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="hjFxPlayerJump.h">
-      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
     </ClInclude>
     <ClInclude Include="hjTitleMidCloud.h">
       <Filter>Contents\GameObject\TitleScene\Object</Filter>
@@ -430,7 +439,7 @@
     <ClInclude Include="hjStage1Boss.h">
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
     </ClInclude>
-    <ClInclude Include="hjStage1BossHand.h">
+    <ClInclude Include="hjBoss1Hand.h">
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
     </ClInclude>
     <ClInclude Include="hjBoss1Sword.h">
@@ -456,6 +465,45 @@
     </ClInclude>
     <ClInclude Include="hjBoss1BulletColliderScript.h">
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBoss1BackgroundEffect.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="hjActor.h">
+      <Filter>Contents\GameObject\BaseObject\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBoss1SwordCreateDestroyFx.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBoss1BackgroundSmallEffect.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBossDeathParticleSystem.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\Effect\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBoss1Parts.h">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBossSpawner.h">
+      <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPlayerDashUI.h">
+      <Filter>Contents\GameObject\Play\Player\HUD\DashUI</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDashCountBase.h">
+      <Filter>Contents\GameObject\Play\Player\HUD\DashUI</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAttackScript.h">
+      <Filter>Contents\Script\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFxPlayerDust.h">
+      <Filter>Contents\GameObject\Play\Player\Effect\Moving</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFxPlayerJump.h">
+      <Filter>Contents\GameObject\Play\Player\Effect\Moving</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFxPlayerTrail.h">
+      <Filter>Contents\GameObject\Play\Player\Effect\Moving</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -532,15 +580,6 @@
     </ClCompile>
     <ClCompile Include="hjArmRotatorScript.cpp">
       <Filter>Contents\Script\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="hjFxPlayerDust.cpp">
-      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="hjFxPlayerTrail.cpp">
-      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="hjFxPlayerJump.cpp">
-      <Filter>Contents\GameObject\Play\Player\Effect</Filter>
     </ClCompile>
     <ClCompile Include="hjTitleMidCloud.cpp">
       <Filter>Contents\GameObject\TitleScene\Object</Filter>
@@ -653,7 +692,7 @@
     <ClCompile Include="hjStage1Boss.cpp">
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
     </ClCompile>
-    <ClCompile Include="hjStage1BossHand.cpp">
+    <ClCompile Include="hjBoss1Hand.cpp">
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
     </ClCompile>
     <ClCompile Include="hjBoss1Sword.cpp">
@@ -679,6 +718,45 @@
     </ClCompile>
     <ClCompile Include="hjBoss1BulletColliderScript.cpp">
       <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\AttackPattern\PatternBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBoss1BackgroundEffect.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjActor.cpp">
+      <Filter>Contents\GameObject\BaseObject\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBoss1SwordCreateDestroyFx.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBoss1BackgroundSmallEffect.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBossDeathParticleSystem.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1\Effect\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBoss1Parts.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Boss\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBossSpawner.cpp">
+      <Filter>Contents\GameObject\BaseObject\ColliderObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerDashUI.cpp">
+      <Filter>Contents\GameObject\Play\Player\HUD\DashUI</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDashCountBase.cpp">
+      <Filter>Contents\GameObject\Play\Player\HUD\DashUI</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAttackScript.cpp">
+      <Filter>Contents\Script\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFxPlayerDust.cpp">
+      <Filter>Contents\GameObject\Play\Player\Effect\Moving</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFxPlayerJump.cpp">
+      <Filter>Contents\GameObject\Play\Player\Effect\Moving</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFxPlayerTrail.cpp">
+      <Filter>Contents\GameObject\Play\Player\Effect\Moving</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

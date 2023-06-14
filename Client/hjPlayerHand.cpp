@@ -76,12 +76,12 @@ namespace hj
 
 	void PlayerHand::InverseHandPosZ(bool inverse)
 	{
-		float pos = GetPositionZ();
-
-		if (inverse) pos *= -1.f;
-		else pos *= -1.f;
-
-		SetPositionZ(pos);
+		//float pos = GetPositionZ();
+		//
+		//if (inverse) pos *= -1.f;
+		//else pos *= -1.f;
+		//
+		//SetPositionZ(pos);
 	}
 
 	void PlayerHand::CreateAnimation()

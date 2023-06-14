@@ -5,7 +5,7 @@
 #include "hjCollider2D.h"
 #include "hjObject.h"
 #include "hjTime.h"
-#include "hjStage1BossHand.h"
+#include "hjBoss1Hand.h"
 #include "hjBoss1Laser.h"
 #include "hjBoss1Sword.h"
 #include "hjXmlParser.h"
@@ -13,6 +13,14 @@
 #include "hjBoss1Bullet.h"
 #include "hjBoss1BulletMuzzle.h"
 #include "hjPlayer.h"
+#include "hjBoss1BackgroundEffect.h"
+#include "hjBoss1BackgroundSmallEffect.h"
+#include "hjBossDeathParticleSystem.h"
+#include "hjParticleSystem.h"
+#include "hjBoss1Parts.h"
+#include "hjInput.h"
+#include "hjCameraScript.h"
+#include "hjCamera.h"
 
 namespace hj
 {
@@ -27,10 +35,8 @@ namespace hj
 		, mBossAttackPattern(Boss1AttackPattern::End)
 		, mLeftHand(nullptr)
 		, mRightHand(nullptr)
-		, mLaser(nullptr)
 		, mBodyAnimator(nullptr)
 		, mbAttackExecuted(false)
-		, mAuraManager(nullptr)
 	{
 		SetName(WIDE("Boss_Bellial"));
 		
@@ -43,8 +49,7 @@ namespace hj
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
 
-		//AddComponent<Collider2D>();
-
+		
 		// 2. Body Animator 생성 및 Animation 추가
 		Animator* animator = AddComponent<Animator>();
 		if (material && animator)
@@ -57,7 +62,8 @@ namespace hj
 		}
 
 		// 3. Damage 판정용 객체와 충돌체 생성
-		mDamageBody = object::Instantiate<GameObject>(eLayerType::Monster);
+		mDamageBody = object::Instantiate<Actor>(eLayerType::Monster);
+		mDamageBody->SetOwnerActor(this);
 
 		Vector2 bodySize = GetComponent<Animator>()->GetCurrentAnimation()->GetCurrentSpriteSize();
 		bodySize.x *= 0.785f;
@@ -71,8 +77,11 @@ namespace hj
 		mDamageCollider = mDamageBody->AddComponent<Collider2D>();
 
 		// 4. Left Hand, Right Hand 생성
-		mLeftHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * -7.f, 80.f * -3.f, 0.1f));
-		mRightHand = object::Instantiate<Stage1BossHand>(eLayerType::MonsterHas, Vector3(80.f * 7.f, 0.f, 0.1f));
+		mLeftHand = object::InstantiateNoInitialize<Boss1Hand>(eLayerType::MonsterHas);
+		mRightHand = object::InstantiateNoInitialize<Boss1Hand>(eLayerType::MonsterHas);
+
+		mLeftHand->SetPosition(Vector3(80.f * -7.f, 80.f * -3.f, 0.1f));
+		mRightHand->SetPosition(Vector3(80.f * 7.f, 0.f, 0.1f));
 
 		mLeftHand->SetInitialHandPosY(mLeftHand->GetPositionY());
 		mRightHand->SetInitialHandPosY(mRightHand->GetPositionY());
@@ -84,34 +93,154 @@ namespace hj
 		mRightHand->ChangeHandState(Boss1HandState::Idle);
 
 
-		// 5. SkellBossBack 이미지 객체 생성 
-		mBackground = object::Instantiate<GameObject>(eLayerType::MonsterHas, Vector3(GetScaleX() * 0.5f, 0.f, 1.f));
-		// 6. Effect 객체 생성
+		mBackground = object::InstantiateNoInitialize<Boss1BackgroundEffect>(eLayerType::MonsterHas);
+		mBackground->SetPositionX(movedPos);
+		mBackground->SetPositionY(-movedPos * 3.2f);
+		mBackground->SetPositionZ(0.1f);
+		mBackground->GetTransform()->SetParent(this->GetTransform());
+
 		{
-		//	(1) DieFX 전용 객체 생성
-		//	(2) BackgroundParticle 이미지 객체 생성 혹은 파티클 생성
-			mBackground = object::Instantiate<GameObject>(eLayerType::MonsterHas, Vector3(GetScaleX() * 0.5f, 0.f, 1.f));
+			Boss1BackgroundSmallEffect* smallBackEffect = object::Instantiate<Boss1BackgroundSmallEffect>(eLayerType::MonsterHas);
+			smallBackEffect->SetPositionZ(0.1f);
+			smallBackEffect->GetTransform()->SetParent(mBackground->GetTransform());
+
+			float delayTime = 0.f;
+			smallBackEffect->SetStartDelay(delayTime);
+			delayTime += 1.f;
+
+			mSmallBackgrounds.push_back(smallBackEffect);
+
+			for (int iter = 1; iter < 4; ++iter)
+			{
+				smallBackEffect = object::Clone<Boss1BackgroundSmallEffect>(smallBackEffect);
+				smallBackEffect->GetTransform()->SetParent(mBackground->GetTransform());
+				smallBackEffect->SetStartDelay(delayTime);
+				delayTime += 1.f;
+
+				mSmallBackgrounds.push_back(smallBackEffect);				
+			}
 		}
-		// 7. Pattern 1(Summon Sword)에 필요한 것들 생성
 		CreateSwords();
 		
-		// 8. Pattern 2(Fire Bullets)에 필요한 것들 생성
-		mBulletMuzzle = object::Instantiate<Boss1BulletMuzzle>(eLayerType::MonsterHas);
-		mBulletMuzzle->SetPositionXY(Vector2(movedPos * 0.5f, -80.f));
+		mBulletMuzzle = object::InstantiateNoInitialize<Boss1BulletMuzzle>(eLayerType::MonsterHas);
+		mBulletMuzzle->SetPositionXY(Vector2(movedPos * 0.5f, -60.f));
 		mBulletMuzzle->GetTransform()->SetParent(this->GetTransform());
-		// 9. Pattern 3(Shot Laser)에 필요한 것들 생성
+		
+		mParticle = this->AddComponent<BossDeathParticleSystem>();
+
+		mBossDeadPartHead = object::InstantiateNoInitialize<Boss1Parts>(eLayerType::MonsterHas);
+		mBossDeadPartHead->SetBodyType(bodyType::HEAD);
+
+		mBossDeadPartJaw = object::InstantiateNoInitialize<Boss1Parts>(eLayerType::MonsterHas);
+		mBossDeadPartJaw->SetBodyType(bodyType::JAW);
+
+		mBossDeadPartLeftBig = object::InstantiateNoInitialize<Boss1Parts>(eLayerType::MonsterHas);
+		mBossDeadPartLeftBig->SetBodyType(bodyType::LEFT_UPPER_ZAYGOMA_BONE);
+		mBossDeadPartRightBig = object::InstantiateNoInitialize<Boss1Parts>(eLayerType::MonsterHas);
+		mBossDeadPartRightBig->SetBodyType(bodyType::RIGHT_UPPER_ZAYGOMA_BONE);
+
+		mBossDeadPartLeftSmall = object::InstantiateNoInitialize<Boss1Parts>(eLayerType::MonsterHas);
+		mBossDeadPartLeftSmall->SetBodyType(bodyType::LEFT_LOWER_ZAYGOMA_BONE);
+		mBossDeadPartRightSmall = object::InstantiateNoInitialize<Boss1Parts>(eLayerType::MonsterHas);
+		mBossDeadPartRightSmall->SetBodyType(bodyType::RIGHT_LOWER_ZAYGOMA_BONE);
+		
+		Vector2 bodyPos = Vector2(-40.f, -80.f);
+		mBossDeadPartHead->SetPositionXY(bodyPos + Vector2(0.f, 127.f));
+		mBossDeadPartJaw->SetPositionXY(bodyPos + Vector2(37.5f, -232.f));
+		mBossDeadPartLeftBig->SetPositionXY(bodyPos + Vector2(-50.f, -35.f));
+		mBossDeadPartRightBig->SetPositionXY(bodyPos + Vector2(125.f, -35.f));
+		mBossDeadPartLeftSmall->SetPositionXY(bodyPos + Vector2(-62.5f, -110.f));
+		mBossDeadPartRightSmall->SetPositionXY(bodyPos + Vector2(137.5f, -110.f));
+
+		{
+			mBossDeadPartHead->SetNotActiveByRoom();
+			mBossDeadPartJaw->SetNotActiveByRoom();
+			mBossDeadPartLeftBig->SetNotActiveByRoom();
+			mBossDeadPartRightBig->SetNotActiveByRoom();
+			mBossDeadPartLeftSmall->SetNotActiveByRoom();
+			mBossDeadPartRightSmall->SetNotActiveByRoom();
+		}
+
+		this->SetNotActiveByRoom();
+		mLeftHand->SetNotActiveByRoom();
+		mRightHand->SetNotActiveByRoom();
+		mDamageBody->SetNotActiveByRoom();
+		mBackground->SetNotActiveByRoom();
+		for (auto iter : mSmallBackgrounds)
+		{
+			iter->SetNotActiveByRoom();
+		}
+
+		Camera* camera = renderer::mainCamera;
+		GameObject* cameraObj = camera->GetOwner();
+		std::vector<Script*> scripts = cameraObj->GetScripts();
+
+		for (auto iter : scripts)
+		{
+			if (dynamic_cast<CameraScript*>(iter))
+			{
+				mCameraScript = static_cast<CameraScript*>(iter);
+			}
+		}
 	}
+	
 	Stage1Boss::~Stage1Boss()
 	{
 	}
+
 	void Stage1Boss::Initialize()
 	{
-		GameObject::Initialize();
+		Monster::Initialize();
+		
+		if (!mOwnerRoom)
+			return;
+
+		mDamageBody->SetOwnerRoom(mOwnerRoom);
+		mLeftHand->SetOwnerRoom(mOwnerRoom);
+		mRightHand->SetOwnerRoom(mOwnerRoom);
+		mBackground->SetOwnerRoom(mOwnerRoom);
+		mBulletMuzzle->SetOwnerRoom(mOwnerRoom);
+		for (Boss1Sword* sword : mSwords)
+		{
+			if (sword)
+			{
+				sword->SetOwnerRoom(mOwnerRoom);
+				sword->Initialize();
+			}
+		}
+
+		{
+			mBossDeadPartHead->SetOwnerRoom(mOwnerRoom);
+			mBossDeadPartJaw->SetOwnerRoom(mOwnerRoom);
+			mBossDeadPartLeftBig->SetOwnerRoom(mOwnerRoom);
+			mBossDeadPartRightBig->SetOwnerRoom(mOwnerRoom);
+			mBossDeadPartLeftSmall->SetOwnerRoom(mOwnerRoom);
+			mBossDeadPartRightSmall->SetOwnerRoom(mOwnerRoom);
+		}
+
+		mDamageBody->Initialize();
+		mLeftHand->Initialize();
+		mRightHand->Initialize();
+		mBackground->Initialize();
+		mBulletMuzzle->Initialize();
+
+		this->Activate();
+		mLeftHand->Activate();
+		mRightHand->Activate();
+		mDamageBody->Activate();
+		mBackground->Activate();
+		for (auto iter : mSmallBackgrounds)
+		{
+			iter->Activate();
+		}
+
+		mCameraScript->SetMoveLinearPos(GetPositionXY(), 2.f);
+		mCameraScript->ChangeCameraLinearScale(0.85f, 3.f);
 	}
 
 	void Stage1Boss::Update()
 	{
-		GameObject::Update();
+		Monster::Update();
 	}
 
 	void Stage1Boss::FixedUpdate()
@@ -139,27 +268,67 @@ namespace hj
 		}
 		else if (Boss1State::StartReady == mBossState)
 		{
-			if (mTestSpawnBossTimer < mTestSpawnBossTimeLimit)
+			if (mSpawnBossTimer < mSpawnBossTimeLimit)
 			{
-				mTestSpawnBossTimer += Time::FixedDeltaTime();
+				mSpawnBossTimer += Time::FixedDeltaTime();
 			}
 			else
 			{
-				mTestSpawnBossTimer = 0.f;
+				mSpawnBossTimer = 0.f;
+				mCameraScript->FollowPlayer(true);
+				mCameraScript->ResetCameraScale();
 				ChangeBoss1State(Boss1State::Attack);
 			}
 		}
-		GameObject::FixedUpdate();
+		Monster::FixedUpdate();
 	}
 
 	void Stage1Boss::Render()
 	{
-		GameObject::Render();
+		if (mDamagedEffectTimer > 0.f)
+		{
+			mDamagedEffectTimer -= Time::ActualDeltaTime();
+
+			SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = sr->GetMaterial();
+			int useDiffuse = 1;
+			material->SetData(eGPUParam::Int_4, &useDiffuse);
+			Vector4 damagedColor = Vector4(1.f, 0.f, 0.f, 1.f);
+			material->SetData(eGPUParam::Vector4_1, &damagedColor);
+
+			if (mDamagedEffectTimer <= 0.f)
+			{
+				mDamagedEffectTimer = 0.f;
+				int useDiffuse = 0;
+				material->SetData(eGPUParam::Int_4, &useDiffuse);
+			}
+		}
+		
+		if (Boss1State::StartReady == mBossState)
+		{
+			if (mSpawnBossTimer < mSpawnBossTimeLimit)
+			{
+				SpawnEffect();
+			}
+		}
+
+		Monster::Render();
+
+		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+		std::shared_ptr<Material> material = sr->GetMaterial();
+		int useDiffuse = 0;
+		material->SetData(eGPUParam::Int_4, &useDiffuse);
+		Vector4 damagedColor = Vector4::Zero;
+		material->SetData(eGPUParam::Vector4_1, &damagedColor);
+		
 	}
 
 	void Stage1Boss::Damaged(float damage)
 	{
+		if (Boss1State::StartReady == mBossState || Boss1State::Dead == mBossState || Boss1State::End == mBossState)
+			return;
 
+		ProcessDamaged(damage);
 	}
 
 	void Stage1Boss::AdjustColliderPosAndSize()
@@ -189,6 +358,12 @@ namespace hj
 				float bodySizeOffset = ((bodySize.y - 77.5f) * 0.5f);
 				moveY = topPos - offsetY - 77.5f - bodySizeOffset;
 			}
+
+			float posY = GetPositionY();
+			if (posY != 0.f)
+			{
+				moveY -= posY;
+			}
 		}
 		else
 		{
@@ -200,6 +375,7 @@ namespace hj
 
 		mDamageBody->SetScaleXY(bodySize);
 		mDamageBody->SetPositionY(moveY);
+		mBackground->SetPositionY(bodySize.y * -0.2f);
 	}
 
 	void Stage1Boss::ChangeBoss1State(Boss1State nextState)
@@ -212,8 +388,6 @@ namespace hj
 		switch (nextState)
 		{
 		case hj::Boss1State::StartReady:
-			// 지금은 테스트를 위해서 바로 상태변경
-			ChangeBoss1State(Boss1State::Attack);
 			return;
 		case hj::Boss1State::Idle:
 			ChangeAnimation(WIDE("Bellial_Idle"), true);
@@ -228,6 +402,8 @@ namespace hj
 			ProcessDead();
 			break;
 		case hj::Boss1State::End:
+			ProcessEndAll();
+			SpawnBodyParts();
 		default:
 			break;
 		}
@@ -250,13 +426,11 @@ namespace hj
 
 	void Stage1Boss::SelectAttackPattern()
 	{
-		auto curTime = std::chrono::system_clock::now();
-		auto duration = curTime.time_since_epoch();
-		auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
-		std::mt19937 randomSeed(static_cast<UINT>(millis));
+		std::random_device rd;
+		std::mt19937 randomSeed(rd());
 
 		std::uniform_int_distribution<UINT> patternRange(static_cast<UINT>(Boss1AttackPattern::SwordAttack)
-														, static_cast<UINT>(Boss1AttackPattern::End) - 1);
+														, static_cast<UINT>(Boss1AttackPattern::LaserPattern2));
 
 		mBossAttackPattern = static_cast<Boss1AttackPattern>(patternRange(randomSeed));
 	}
@@ -312,7 +486,70 @@ namespace hj
 
 	void Stage1Boss::ProcessDead()
 	{
+		// Body Animation 멈추기
+		this->PauseAnimation();
+		
+		// DamageBody 멈추기
+		if(mDamageBody)
+			mDamageBody->Pause();
+		
+		if(mDamageCollider)
+			mDamageCollider->DeActivate();
 
+		if(mBackground)
+			mBackground->Pause();
+
+		for (auto smallBackground : mSmallBackgrounds)
+		{
+			smallBackground->Pause();
+		}
+
+		if (mBulletMuzzle)
+		{
+			mBulletMuzzle->PauseAllBullet();
+			mBulletMuzzle->Pause();
+		}
+
+		if (mLeftHand)
+		{
+			mLeftHand->PauseAnimation();
+			mLeftHand->PauseLaserAnimation();
+			mLeftHand->ChangeHandState(Boss1HandState::End);
+		}
+
+		if (mRightHand)
+		{
+			mRightHand->PauseAnimation();
+			mRightHand->PauseLaserAnimation();
+			mRightHand->ChangeHandState(Boss1HandState::End);
+		}
+
+		for (auto sword : mSwords)
+		{
+			sword->ChangeSwordState(Boss1SwordState::Dead);
+		}
+
+		mCameraScript->SetMoveLinearPos(GetPositionXY(), 2.f);
+	}
+
+	void Stage1Boss::ProcessEndAll()
+	{	
+		if (mLeftHand)
+		{
+			mLeftHand->Pause();
+		}
+
+		if (mRightHand)
+		{
+			mRightHand->Pause();
+		}
+
+		for (auto sword : mSwords)
+		{
+			sword->PauseAll();
+		}
+
+		Pause();
 	}
 
 	void Stage1Boss::PatternSwordAttack()
@@ -433,7 +670,7 @@ namespace hj
 		}
 	}
 
-	bool Stage1Boss::ProcessLaserAttackAndCheckShotEnd(Stage1BossHand* HandToShot, bool bIsNeedToMoveIdle)
+	bool Stage1Boss::ProcessLaserAttackAndCheckShotEnd(Boss1Hand* HandToShot, bool bIsNeedToMoveIdle)
 	{
 		bool bIsEnd = false;
 		if (!HandToShot)
@@ -444,7 +681,7 @@ namespace hj
 
 		if (Boss1HandState::Idle == HandToShot->GetHandState())
 		{
-			std::vector<GameObject*> playerLayerObjs = SceneManager::GetActiveScene()->GetGameObjects(eLayerType::Player);
+			const std::vector<GameObject*>& playerLayerObjs = SceneManager::GetActiveScene()->GetGameObjects(eLayerType::Player);
 
 			for (GameObject* iter : playerLayerObjs)
 			{
@@ -464,10 +701,20 @@ namespace hj
 		return bIsEnd;
 	}
 
+	void Stage1Boss::SpawnBodyParts()
+	{
+		mBossDeadPartHead->Activate();
+		mBossDeadPartJaw->Activate();
+		mBossDeadPartLeftBig->Activate();
+		mBossDeadPartRightBig->Activate();
+		mBossDeadPartLeftSmall->Activate();
+		mBossDeadPartRightSmall->Activate();
+	}
+
 	void Stage1Boss::CreateSwords()
 	{
 #define TILESIZE 80.f
-		Boss1Sword* boss1Sword = object::Instantiate<Boss1Sword>(eLayerType::MonsterAttack_ForeGround);
+		Boss1Sword* boss1Sword = object::InstantiateNoInitialize<Boss1Sword>(eLayerType::MonsterAttack_ForeGround);
 		Vector2 PosOffset = Vector2(TILESIZE * 2.f, 0.f);
 		Vector2 PosOffsetY = Vector2(0.f, TILESIZE);
 
@@ -495,6 +742,18 @@ namespace hj
 			{
 				++iter;
 			}
+		}
+	}
+
+	void Stage1Boss::SpawnEffect()
+	{
+		if (mSpawnBossTimer < mSpawnBossTimeLimit) {
+			SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+			std::shared_ptr<Material> material = sr->GetMaterial();
+			int changeAlpha = 1;
+			material->SetData(eGPUParam::Int_3, &changeAlpha);
+			float newAlpha = mSpawnBossTimer / mSpawnBossTimeLimit;
+			material->SetData(eGPUParam::Float_1, &newAlpha);
 		}
 	}
 
@@ -700,7 +959,14 @@ namespace hj
 
 	void Stage1Boss::ProcessDamaged(float damage)
 	{
+		mCurrentHP -= damage;
 
+		if (0 >= mCurrentHP)
+		{
+			mParticle->Activate();
+		}
+
+		mDamagedEffectTimer = 0.1f;
 	}
 
 	void Stage1Boss::Dead()

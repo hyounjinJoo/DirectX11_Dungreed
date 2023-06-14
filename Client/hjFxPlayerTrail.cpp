@@ -11,8 +11,8 @@ namespace hj
 		: mOwner(nullptr)
 		, mMaterial(nullptr)
 		, mbActivateTrail(false)
-		, mActivateTime(0.f)
-		, mActivateTimer(1.f)
+		, mActivateTimer(0.f)
+		, mActivateLimitTime(1.f)
 		, mAnimator(nullptr)
 	{
 		SetName(WIDE("플레이어 대쉬잔상"));
@@ -20,6 +20,8 @@ namespace hj
 
 	FxPlayerTrail::~FxPlayerTrail()
 	{
+		mOwner = nullptr;
+		mMaterial = nullptr;
 	}
 
 	void FxPlayerTrail::Initialize()
@@ -51,10 +53,10 @@ namespace hj
 		}
 		else
 		{
-			mActivateTime += Time::FixedDeltaTime();
-			if (mActivateTime >= mActivateTimer)
+			mActivateTimer += Time::FixedDeltaTime();
+			if (mActivateTimer >= mActivateLimitTime)
 			{
-				mActivateTime = 0.f;
+				mActivateTimer = 0.f;
 				mbActivateTrail = false;
 			}
 		}
@@ -69,16 +71,17 @@ namespace hj
 	{
 		if (mbActivateTrail)
 		{
-			mMaterial.get()->SetData(eGPUParam::Int_4, &mbActivateTrail);
-			Vector4 test = Vector4(1.f, 1.f, 1.f, 1.f);
-			mMaterial.get()->SetData(eGPUParam::Vector4_1, &test);
+			mMaterial->SetData(eGPUParam::Int_4, &mbActivateTrail);
+			Vector4 meshColor = Vector4::One;
+			meshColor.w = (mActivateLimitTime - mActivateTimer) / mActivateLimitTime;
+			mMaterial->SetData(eGPUParam::Vector4_1, &meshColor);
 	
 			GameObject::Render();
 
 			bool initialFalse = false;
-			mMaterial.get()->SetData(eGPUParam::Int_4, &initialFalse);
-			test = Vector4::Zero;
-			mMaterial.get()->SetData(eGPUParam::Vector4_1, &test);
+			mMaterial->SetData(eGPUParam::Int_4, &initialFalse);
+			meshColor = Vector4::Zero;
+			mMaterial->SetData(eGPUParam::Vector4_1, &meshColor);
 		}
 	}
 

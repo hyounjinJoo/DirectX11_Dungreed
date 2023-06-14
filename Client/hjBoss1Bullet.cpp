@@ -8,6 +8,7 @@
 #include "hjCollider2D.h"
 #include "hjBoss1BulletColliderScript.h"
 #include "hjScript.h"
+#include "hjRoomBase.h"
 
 namespace hj
 {
@@ -40,40 +41,55 @@ namespace hj
 		}
 
 		Collider2D* circleCollider = AddComponent<Collider2D>();
-		circleCollider->SetColliderType(eColliderType::Circle);
-		//Vector2 colliderSize = animator->GetCurrentAnimation()->GetSpriteSize(1) / GetScaleXY();
+		circleCollider->SetColliderType(eColliderType::Rect);
 		if (animator && animator->GetCurrentAnimation())
 		{
-			circleCollider->SetSize(animator->GetCurrentAnimation()->GetSpriteSize(0));
+			Vector2 colliderSize = animator->GetCurrentAnimation()->GetSpriteTrimSize(1) / GetScaleXY();
+			circleCollider->SetSize(colliderSize);
 		}
 
 		Boss1BulletColliderScript* script = AddComponent<Boss1BulletColliderScript>();
 		script->SetCollider(circleCollider);
 
-		Pause();
+		SetNotActiveByRoom();
 	}
 
 	Boss1Bullet::Boss1Bullet(const Boss1Bullet& bullet)
-		: GameObject(bullet)
+		: Actor(bullet)
 		, mMoveDir(Vector2::Zero)
 		, mMoveSpeed(bullet.mMoveSpeed)
 		, mActiveTime(bullet.mActiveTime)
 		, mActiveTimer(bullet.mActiveTimer)
+		, mOwnerRoom(nullptr)
+		, mbIsBulletState(true)
 	{
 		Boss1BulletColliderScript* script = this->GetScript<Boss1BulletColliderScript>();
 		script->SetCollider(GetComponent<Collider2D>());
 		script->SetOwner(this);
+
+		Animator* animator = GetComponent<Animator>();
+		if(animator)
+		{
+			std::wstring bulletFXAnimWstr = WIDE("Effect_Bellial_Bullet_FX");
+			animator->GetStartEvent(WIDE("Effect_Bellial_Bullet_FX")) = std::bind(&Boss1Bullet::FxStart, this);
+			animator->GetCompleteEvent(WIDE("Effect_Bellial_Bullet_FX")) = std::bind(&Boss1Bullet::FxEnd, this);
+		}
 	}
 
 	Boss1Bullet::~Boss1Bullet()
 	{
+		mOwnerRoom = nullptr;
 	}
+
 	void Boss1Bullet::Initialize()
 	{
 		GameObject::Initialize();
 	}
 	void Boss1Bullet::Update()
 	{
+		if (eState::Active != GetState())
+			return;
+
 		GameObject::Update();
 	}
 	void Boss1Bullet::FixedUpdate()
@@ -81,21 +97,26 @@ namespace hj
 		if (eState::Active != GetState())
 			return;
 
-		mActiveTimer += Time::FixedDeltaTime();
-
-		if (mActiveTimer > mActiveTime)
+		if(mbIsBulletState)
 		{
-			mActiveTimer = 0.f;
-			Pause();
-			return;
-		}
+			mActiveTimer += Time::FixedDeltaTime();
 
-		AddPositionXY(mMoveDir * mMoveSpeed * Time::FixedDeltaTime());
+			if (mActiveTimer > mActiveTime)
+			{
+				mActiveTimer = 0.f;
+				Pause();
+				return;
+			}
+			AddPositionXY(mMoveDir * mMoveSpeed * Time::FixedDeltaTime());
+		}
 
 		GameObject::FixedUpdate();
 	}
 	void Boss1Bullet::Render()
 	{
+		if (eState::Active != GetState())
+			return;
+
 		GameObject::Render();
 	}
 
@@ -218,8 +239,8 @@ namespace hj
 			animator->Create(bulletAnimWstr, texture, animBellialBullet, canvasSize, false);
 			animator->Create(bulletFXAnimWstr, texture, animBellialBulletFX, canvasSize, false);
 
-			//animator->GetStartEvent(bulletAnimWstr) = std::bind(&Boss1LaserPart::OnDamageEnter, this);
-			//animator->GetCompleteEvent(bulletFXAnimWstr) = std::bind(&Boss1LaserPart::OnDamageExit, this);
+			animator->GetStartEvent(WIDE("Effect_Bellial_Bullet_FX")) = std::bind(&Boss1Bullet::FxStart, this);
+			animator->GetCompleteEvent(WIDE("Effect_Bellial_Bullet_FX")) = std::bind(&Boss1Bullet::FxEnd, this);
 
 			SetScaleXY(canvasSize);
 			GetTransform()->FixedUpdate();
@@ -228,5 +249,27 @@ namespace hj
 		}
 
 		delete parser;
+	}
+
+	void Boss1Bullet::FxStart()
+	{
+		mbIsBulletState = false;
+
+		GetComponent<Collider2D>()->DeActivate();
+	}
+
+	void Boss1Bullet::FxEnd()
+	{
+		Animator* animator = GetComponent<Animator>();
+		if (animator)
+		{
+			std::wstring bulletAnimWstr = WIDE("Effect_Bellial_Bullet");
+			animator->Play(bulletAnimWstr);
+		}
+
+		mbIsBulletState = true;
+		mActiveTimer = 0.f;
+		Pause();
+		GetComponent<Collider2D>()->Activate();
 	}
 }

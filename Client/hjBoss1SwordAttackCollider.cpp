@@ -19,7 +19,7 @@ namespace hj
 	}
 
 	Boss1SwordAttackCollider::Boss1SwordAttackCollider(const Boss1SwordAttackCollider& colliderObj)
-		: GameObject(colliderObj)
+		: Actor(colliderObj)
 		, mOwnerObject(nullptr)
 		, mScript(nullptr)
 	{

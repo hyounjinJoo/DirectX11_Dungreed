@@ -50,6 +50,10 @@ namespace hj
         Die,
         End,
     };
+    
+#pragma region Foward Decl
+    class Actor;
+#pragma endregion
 
     class Player :
         public GameObject
@@ -82,6 +86,10 @@ namespace hj
 		void GetCurrentCostumeString(std::wstring& stringToGet) const;
 
 		virtual void Damaged(float damage);
+
+        float GetDashDamage() { return mDashDamage; }
+        Actor* GetDashAttackColliderActor() { return mDashAttackColliderActor; }
+
     private:
         GameObject* mCenterObj;
         class PlayerHand* mLeftHand;
@@ -95,6 +103,8 @@ namespace hj
         std::vector<FxPlayerDust*> mPlayerDusts;
         int mSecondStepDustCreatedIndex;
         FxPlayerJump* mPlayerJump;
+        Actor* mDashAttackColliderActor;
+        float mDashDamage;
 
         void FlipBasedOnMousePos();
 
@@ -102,6 +112,8 @@ namespace hj
         void Run();
         void Jump();
         void Die();
+
+        void ChangeColliderSize();
 
         void CreateDustIfNeed();
 

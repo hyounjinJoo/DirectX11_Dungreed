@@ -21,7 +21,7 @@ namespace hj
 	}
 
 	Boss1SwordStuckCollider::Boss1SwordStuckCollider(const Boss1SwordStuckCollider& colliderObj)
-		: GameObject(colliderObj)
+		: Actor(colliderObj)
 		, mOwnerObject(nullptr)
 	{
 		mScript = GetScript<Boss1SwordStuckColliderScript>();

@@ -53,6 +53,7 @@ namespace hj::enums
 		TileMap,
 		Animator,
 		ParticleSystem,
+		BossDeathParticleSystem,
 		Light,
 		UI,
 		Script,

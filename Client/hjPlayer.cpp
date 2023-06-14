@@ -8,6 +8,8 @@
 #include "hjCollider2D.h"
 #include "hjObject.h"
 #include "hjArmRotatorScript.h"
+#include "hjActor.h"
+#include "hjAttackScript.h"
 
 namespace hj
 {
@@ -19,6 +21,7 @@ namespace hj
 		, mCurrentCostume(ePlayerCostume::Adventurer)
 		, mbIsFlip(false)
 		, mSecondStepDustCreatedIndex(4)
+		, mDashDamage(100.f)
 	{
 		SetName(WIDE("플레이어"));
 
@@ -43,7 +46,7 @@ namespace hj
 		mPlayerScript = AddComponent<PlayerScript>();
 		AddComponent<Collider2D>();
 
-		mCenterObj = object::Instantiate<GameObject>(eLayerType::PlayerHas, Vector3(30.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
+		mCenterObj = object::Instantiate<GameObject>(eLayerType::PlayerHas);
 		mCenterObj->SetName(WIDE("플레이어 핸드 소켓"));
 		mCenterObj->GetTransform()->SetParent(GetTransform());
 		//mCenterObj->AddComponent<Collider2D>();
@@ -66,6 +69,17 @@ namespace hj
 
 		mPlayerJump = object::Instantiate<FxPlayerJump>(eLayerType::PlayerHas, Vector3(0.f, 0.f, -0.1f));
 		mPlayerJump->SetOwner(this);
+
+		mDashAttackColliderActor = object::Instantiate<Actor>(eLayerType::PlayerAttack_NotForeGround);
+		mDashAttackColliderActor->AddComponent<Collider2D>();
+		mDashAttackColliderActor->GetTransform()->SetParent(this->GetTransform());
+		mDashAttackColliderActor->SetScaleXY(this->GetScaleXY());
+		mDashAttackColliderActor->AddComponent<AttackScript>()->SetPlayer(this);
+
+		mPlayerScript->SetDashAttackActor(mDashAttackColliderActor);
+
+
+		ChangeColliderSize();
 	}
 
 	Player::~Player()
@@ -205,15 +219,35 @@ namespace hj
 		float posX = mPlayerScript->GetOwnerScreenPos().x;
 		float mouseScreenPosX = Input::GetMousePosition().x;
 
+		bool isChanged = false;
+		bool prevFlip = mbIsFlip;
+
 		if (posX < mouseScreenPosX)
 		{
-			SetRotationY(0.f); 
+			SetRotationY(0.f);
+			mCenterObj->SetRotationY(0.f);
 			mbIsFlip = false;
 		}
 		else
 		{
 			SetRotationY(PI);
+			mCenterObj->SetRotationY(PI);
 			mbIsFlip = true;
+		}
+
+		if (prevFlip != mbIsFlip)
+		{
+			isChanged = true;
+		}
+
+		if (isChanged)
+		{
+			ArmRotatorScript* armScript = mCenterObj->GetScript<ArmRotatorScript>();
+
+			if (armScript)
+			{
+				armScript->InverseArmAxis(Axis::Z);
+			}
 		}
 	}
 
@@ -259,6 +293,8 @@ namespace hj
 		SetScaleXY(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeSize);
 		Idle();
 
+		ChangeColliderSize();
+
 		ChangeDustSpecificAttribute();
 	}
 
@@ -301,6 +337,23 @@ namespace hj
 	void Player::Die()
 	{
 		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeDieAnim);
+	}
+
+	void Player::ChangeColliderSize()
+	{
+		Animation* animation = mAnimator->GetCurrentAnimation();
+		if (animation)
+		{
+			Vector2 frameSize = animation->GetCurrentSpriteSize();
+			Vector2 canvasSize = animation->GetCanvasSize();
+			Collider2D* collider = GetComponent<Collider2D>();
+			if (collider)
+			{
+				Vector2 newSizeRatio = frameSize / canvasSize;
+				collider->SetSize(newSizeRatio);
+				mDashAttackColliderActor->SetScaleXY(newSizeRatio);
+			}
+		}
 	}
 
 	void Player::CreateDustIfNeed()

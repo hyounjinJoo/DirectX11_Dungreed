@@ -1,5 +1,5 @@
 #pragma once
-#include <hjGameObject.h>
+#include "hjActor.h"
 
 namespace hj
 {
@@ -12,7 +12,7 @@ namespace hj
 	};
 
 	class Boss1BulletMuzzle :
-		public GameObject
+		public Actor
 	{
 	public:
 		Boss1BulletMuzzle();
@@ -32,6 +32,7 @@ namespace hj
 		void Shot();
 		void EndPattern();
 		
+		void PauseAllBullet();
 		
 	private:
 		std::vector<class Boss1Bullet*> mBullets;

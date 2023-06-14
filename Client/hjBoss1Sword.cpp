@@ -10,6 +10,7 @@
 #include "hjBoss1SwordStuckCollider.h"
 #include "hjBoss1SwordAttackCollider.h"
 #include "hjInput.h"
+#include "hjBoss1SwordCreateDestroyFx.h"
 
 namespace hj
 {
@@ -19,9 +20,10 @@ namespace hj
 		, mHitEffectObj(nullptr)
 		, mSwordMoveCollider(nullptr)
 		, mSwordAttackCollider(nullptr)
+		, mCreateDestroyFx(nullptr)
 		, mSwordState(Boss1SwordState::End)
 		, mCurSpawnedTime(0.f)
-		, mSpawnEndTime(0.2f)
+		, mSpawnEndTime(0.5f)
 		, mCurAimingTime(0.f)
 		, mAimingLimitTime(1.5f)
 		, mMoveDir(Vector2::Zero)
@@ -45,13 +47,13 @@ namespace hj
 			std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 			if (texture)
 			{
-				mChargeEffectObj = object::Instantiate<GameObject>(eLayerType::MonsterHas);
+				mChargeEffectObj = object::Instantiate<Actor>(eLayerType::MonsterHas);
 				sr = mChargeEffectObj->AddComponent<SpriteRenderer>();
 				sr->SetMaterial(material);
 				sr->SetMesh(mesh);
 				mChargeEffectObj->AddPositionZ(-1.f);
 				mChargeEffectObj->AddComponent<Animator>();
-				mHitEffectObj = object::Instantiate<GameObject>(eLayerType::MonsterHas); 
+				mHitEffectObj = object::Instantiate<Actor>(eLayerType::MonsterHas);
 				sr = mHitEffectObj->AddComponent<SpriteRenderer>();
 				sr->SetMaterial(material);
 				sr->SetMesh(mesh);
@@ -89,25 +91,30 @@ namespace hj
 		moveColliderTR->SetPositionY(GetScaleY() * 0.2f);
 		moveColliderTR->SetParent(this->GetTransform()); 
 
-		mSwordMoveCollider->Pause();
-		mSwordAttackCollider->Pause();
-		mHitEffectObj->Pause();
-		mChargeEffectObj->Pause();
-		this->Pause();
+		mCreateDestroyFx = object::Instantiate<Boss1SwordCreateDestroyFx>(eLayerType::MonsterHas);
+		mCreateDestroyFx->SetPositionZ(-0.1f);
+
+		mSwordMoveCollider->SetNotActiveByRoom();
+		mSwordAttackCollider->SetNotActiveByRoom();
+		mHitEffectObj->SetNotActiveByRoom();
+		mChargeEffectObj->SetNotActiveByRoom();
+		mCreateDestroyFx->SetNotActiveByRoom();
+		this->SetNotActiveByRoom();
 	}
 
 	Boss1Sword::Boss1Sword(const Boss1Sword& sword)
-		: GameObject(sword)
+		: Actor(sword)
 		, mPlayer(sword.mPlayer)
 		, mChargeEffectObj(nullptr)
 		, mHitEffectObj(nullptr)
 		, mSwordMoveCollider(nullptr)
 		, mSwordAttackCollider(nullptr)
+		, mCreateDestroyFx(nullptr)
 		, mSwordState(Boss1SwordState::End)
 		, mCurSpawnedTime(0.f)
-		, mSpawnEndTime(0.2f)
+		, mSpawnEndTime(sword.mSpawnEndTime)
 		, mCurAimingTime(0.f)
-		, mAimingLimitTime(1.5f)
+		, mAimingLimitTime(sword.mAimingLimitTime)
 		, mMoveDir(Vector2::Zero)
 		, mMoveSpeed(3200.f)
 		, mMoveVelocity(Vector2::Zero)
@@ -115,10 +122,10 @@ namespace hj
 	{
 		Transform* thisTransform = this->GetTransform();
 		
-		mChargeEffectObj = object::Clone<GameObject>(sword.mChargeEffectObj);
+		mChargeEffectObj = object::Clone<Actor>(sword.mChargeEffectObj);
 		mChargeEffectObj->GetTransform()->SetParent(thisTransform);
 		
-		mHitEffectObj = object::Clone<GameObject>(sword.mHitEffectObj);
+		mHitEffectObj = object::Clone<Actor>(sword.mHitEffectObj);
 		mHitEffectObj->GetTransform()->SetParent(thisTransform);
 
 		mSwordMoveCollider = object::Clone<Boss1SwordStuckCollider>(sword.mSwordMoveCollider);
@@ -129,28 +136,47 @@ namespace hj
 		mSwordAttackCollider->SetOwnerObject(this);
 		mSwordAttackCollider->GetTransform()->SetParent(thisTransform);
 
+		mCreateDestroyFx = object::Clone<Boss1SwordCreateDestroyFx>(sword.mCreateDestroyFx);
+
 		Animator* animator = mHitEffectObj->GetComponent<Animator>();
 		std::wstring animWstr = WIDE("Effect_Bellial_Sword_Hit");
 		animator->GetCompleteEvent(animWstr) = std::bind(&Boss1Sword::PlayEndHitFX, this);
 
-		mSwordMoveCollider->Pause();
-		mSwordAttackCollider->Pause();
-		mHitEffectObj->Pause();
-		mChargeEffectObj->Pause();
-		this->Pause();
+		mSwordMoveCollider->SetNotActiveByRoom();
+		mSwordAttackCollider->SetNotActiveByRoom();
+		mHitEffectObj->SetNotActiveByRoom();
+		mChargeEffectObj->SetNotActiveByRoom();
+		mCreateDestroyFx->SetNotActiveByRoom();
+		this->SetNotActiveByRoom();
 	}
 
 	Boss1Sword::~Boss1Sword()
 	{
+		mCreateDestroyFx = nullptr;
+		mChargeEffectObj = nullptr;
+		mHitEffectObj = nullptr;
+		mSwordAttackCollider = nullptr;
+		mSwordMoveCollider = nullptr;
+		mPlayer = nullptr;
 	}
 
 	void Boss1Sword::Initialize()
 	{
 		GameObject::Initialize();
+
+		if (!mOwnerRoom)
+			return;
+
+		mSwordMoveCollider->SetOwnerRoom(mOwnerRoom);
+		mSwordAttackCollider->SetOwnerRoom(mOwnerRoom);
+		mHitEffectObj->SetOwnerRoom(mOwnerRoom);
+		mChargeEffectObj->SetOwnerRoom(mOwnerRoom);
+		mCreateDestroyFx->SetOwnerRoom(mOwnerRoom);
 	}
+
 	void Boss1Sword::Update()
 	{
-		if (eState::Paused == GetState())
+		if (eState::Paused == mState || eState::NotActiveByRoom == mState)
 			return;
 
 		switch (mSwordState)
@@ -180,16 +206,56 @@ namespace hj
 	}
 	void Boss1Sword::FixedUpdate()
 	{
+		if (eState::Paused == mState || eState::NotActiveByRoom == mState)
+			return;
+
 		GameObject::FixedUpdate();
 	}
 	void Boss1Sword::Render()
 	{
+		if (eState::Paused == mState || eState::NotActiveByRoom == mState)
+			return;
+
 		GameObject::Render();
 	}
 
 	GameObject* Boss1Sword::Clone() const
 	{
 		return new Boss1Sword(*this);
+	}
+
+	void Boss1Sword::PauseAnimation()
+	{
+		Actor::PauseAnimation();
+
+		if (mChargeEffectObj)
+			mChargeEffectObj->PauseAnimation();
+		
+		if(mHitEffectObj)
+			mHitEffectObj->PauseAnimation();
+
+		if (mCreateDestroyFx)
+			mCreateDestroyFx->PauseAnimation();
+
+		if (mSwordMoveCollider)
+			mSwordMoveCollider->Pause();
+
+		if (mSwordAttackCollider)
+			mSwordAttackCollider->Pause();
+	}
+
+	void Boss1Sword::PauseAll()
+	{
+		if (mChargeEffectObj)
+			mChargeEffectObj->Pause();
+
+		if (mHitEffectObj)
+			mHitEffectObj->Pause();
+
+		if (mCreateDestroyFx)
+			mCreateDestroyFx->Pause();
+
+		this->Pause();
 	}
 
 	// HitEffect의 위치와 회전을 조정
@@ -247,6 +313,9 @@ namespace hj
 			mSwordState = Boss1SwordState::End;
 			AttackEnd();
 			break;
+		case Boss1SwordState::Dead:
+			mSwordState = Boss1SwordState::Dead;
+			DeadProcess();
 		default:
 			break;
 
@@ -344,7 +413,7 @@ namespace hj
 		XmlParser* parser = new XmlParser;
 		std::wstring path = WIDE("02_Object/02_Monster/01_Boss/Monster_Boss_1_Bellial.xml");
 		bool parseResult = parser->LoadFile(path);
-		
+
 		if (!parseResult)
 		{
 			delete parser;
@@ -546,7 +615,6 @@ namespace hj
 			if (!mPlayer)
 				return;
 		}
-
 		Vector3 playerPos = mPlayer->GetWorldPosition();
 		Vector3 swordPos = this->GetWorldPosition();
 
@@ -554,7 +622,6 @@ namespace hj
 		dir.z = 0.f;
 		dir.Normalize();
 		mMoveDir = Vector2(dir.x, dir.y);
-		mMoveVelocity = mMoveDir * mMoveSpeed;
 
 		float dot = Vector3::Right.Dot(dir);
 		float angle = 1.5f * XM_PI - acosf(dot);
@@ -565,7 +632,20 @@ namespace hj
 			angle = XM_PI - angle;
 		}
 
-		this->SetRotationZ(angle);
+		float nextAngle = GetRotationZ();
+		float targetAngle = angle;
+		float angleDiff = targetAngle - nextAngle;
+		float rotationSpeed = 0.05f;
+		if (std::fabsf(angleDiff) > rotationSpeed)
+		{
+			nextAngle += angleDiff > 0 ? rotationSpeed : -rotationSpeed;
+		}
+		else
+		{
+			nextAngle = targetAngle;
+		}
+
+		this->SetRotationZ(nextAngle);
 	}
 
 	// 조준이 끝나고 난 뒤 Shot으로 상태변경
@@ -580,7 +660,11 @@ namespace hj
 			return;
 
 		animator->Play(animation->AnimationName(), true);
-
+		
+		Vector3 moveDir = this->Up();
+		mMoveDir = Vector2(moveDir.x, moveDir.y);
+		mMoveDir.Normalize();
+		mMoveVelocity = mMoveDir * mMoveSpeed;
 		ChangeSwordState(Boss1SwordState::Shot);
 	}
 
@@ -599,14 +683,39 @@ namespace hj
 		// 다른 이펙트 정지 처리
 		mChargeEffectObj->Pause();
 		mSwordMoveCollider->Pause();
+		mSwordAttackCollider->Pause();
 		mHitEffectObj->Pause();
+
+		if (Boss1SwordState::Spawn == mSwordState)
+		{
+			mCreateDestroyFx->SetPositionXY(mSpawnPosXY);
+		}
+		else
+		{
+			mCreateDestroyFx->SetPositionXY(GetPositionXY());
+			mCreateDestroyFx->SetRotationZ(GetRotationZ() + XM_PI);
+		}
+		mCreateDestroyFx->GetTransform()->FixedUpdate();
+		mCreateDestroyFx->PlayFx();
+		mCreateDestroyFx->Activate();
+
 		SetPosition(Vector3(mSpawnPosXY, 0.f));
 		SetRotationZ(XM_PI);
 		GetTransform()->FixedUpdate();
+		mChargeEffectObj->FixedUpdate();
+		mSwordMoveCollider->FixedUpdate();
+		mSwordAttackCollider->FixedUpdate();
+		mHitEffectObj->FixedUpdate();
 		Transform* hitTR = mHitEffectObj->GetTransform();
 		hitTR->SetParent(this->GetTransform());
 		hitTR->FixedUpdate();
+
 		this->Pause();
+	}
+
+	void Boss1Sword::DeadProcess()
+	{
+		PauseAnimation();
 	}
 
 }

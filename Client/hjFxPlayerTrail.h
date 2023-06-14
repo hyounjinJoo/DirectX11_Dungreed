@@ -20,7 +20,9 @@ namespace hj
 		void ChangeCostume(UINT costumeNumber);
 
 		void ActivateTrail(bool active) { mbActivateTrail = active; }
-		void SetActivateTimer(float time) { mActivateTimer = time; }
+		void SetActivateTimer(float time) { mActivateLimitTime = time; }
+
+		bool IsActiveTrail() { return mbActivateTrail; }
 
 	private:
 		Player* mOwner;
@@ -28,7 +30,7 @@ namespace hj
 		std::shared_ptr<Material> mMaterial;
 		
 		int			mbActivateTrail;
+		float		mActivateLimitTime;
 		float		mActivateTimer;
-		float		mActivateTime;
 	};
 }

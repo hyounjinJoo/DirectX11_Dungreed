@@ -1,10 +1,10 @@
 #pragma once
-#include <hjGameObject.h>
+#include "hjActor.h"
 
 namespace hj
 {
 	class Boss1Bullet :
-		public GameObject
+		public Actor
 	{
 	public:
 		Boss1Bullet();
@@ -21,14 +21,22 @@ namespace hj
 	public:
 		void SetMoveDirection(const Vector2& dir) { mMoveDir = dir; }
 
+	public:
+		void FxStart();
+		void FxEnd();
+
 	private:
 		void CreateAnimation();
 
 	private:
+		bool mbIsBulletState;
+
 		Vector2 mMoveDir;
 		float mMoveSpeed;
 
 		float mActiveTimer;
 		float mActiveTime;
+
+		class RoomBase* mOwnerRoom;
 	};
 }

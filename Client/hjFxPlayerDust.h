@@ -21,6 +21,9 @@ namespace hj
 		void ChangeAnimationDuration(float wholePlayTime);
 
 	private:
+		void CreateAnimation();
+
+	private:
 		class Player* mOwner;
 		Animator* mAnimator;
 		bool mbActivateEffect;

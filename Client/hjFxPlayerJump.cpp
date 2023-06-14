@@ -7,6 +7,7 @@
 #include "hjAnimation.h"
 #include "hjAnimator.h"
 #include "hjPlayer.h"
+#include "hjXmlParser.h"
 
 namespace hj
 {
@@ -29,34 +30,114 @@ namespace hj
 		std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 		Vector2 atlasTexSize = texture->GetTexSize();
 
-		float duration = 0.f;
-		duration = 1.f / 14.f;
-		CREATE_ANIM(animPlayerJump, frame, atlasTexSize, duration);
-		FRAME_ADD_OFFSETX(frame, 3781.f, 0.f, 36.f, 8.f, 0.5f, animPlayerJump);
-		FRAME_ADD_OFFSETX(frame, 440.f, 20.f, 24.f, 20.f, 0.583333f, animPlayerJump);
-		FRAME_ADD_OFFSETX(frame, 2096.f, 20.f, 20.f, 24.f, 0.5f, animPlayerJump);
-		FRAME_ADD_OFFSETX(frame, 2116.f, 20.f, 20.f, 24.f, 0.5f, animPlayerJump);
-		FRAME_ADD_OFFSETX(frame, 3817.f, 0.f, 4.f, 8.f, 0.5f, animPlayerJump);
+		XmlParser* parser = new XmlParser;
+		std::wstring path = WIDE("08_FX/08_FX.xml");
+		bool parseResult = parser->LoadFile(path);
 
+		if (!parseResult)
+		{
+			delete parser;
+			return;
+		}
 
-		CREATE_SHEET(animPlayerDoubleJump);
+		parseResult = parser->FindElem(WIDE("TextureAtlas"));
+		parseResult = parser->IntoElem();
 
-		duration = 1.f / 14.f;
-		FRAME_ADD_OFFSETX(frame, 6697.f, 0.f, 20.f, 16.f, 0.5f, animPlayerDoubleJump);
-		FRAME_ADD_OFFSETX(frame, 3644.f, 20.f, 36.f, 32.f, 0.5f, animPlayerDoubleJump);
-		FRAME_ADD_OFFSETX(frame, 2048.f, 20.f, 28.f, 24.f, 0.5f, animPlayerDoubleJump);
-		FRAME_ADD_OFFSETX(frame, 3680.f, 20.f, 32.f, 32.f, 0.5625f, animPlayerDoubleJump);
-		FRAME_ADD_OFFSETX(frame, 3712.f, 20.f, 32.f, 32.f, 0.5625f, animPlayerDoubleJump);
-		FRAME_ADD_OFFSETX(frame, 404.f, 20.f, 36.f, 20.f, 0.5f, animPlayerDoubleJump);
+		std::wstring targetSpriteNameWstr;
+		int count = 0;
 
-		AUTO_OFFSET_CALC_Y(animPlayerJump);
-		AUTO_OFFSET_CALC_Y(animPlayerDoubleJump);
+		Vector2 leftTop = Vector2::Zero;
+		Vector2 size = Vector2::One;
+		Vector2 offset = Vector2::Zero;
+		Vector2 originSize = Vector2::Zero;
+		Vector2 trimmedSize = Vector2::One;
+		Vector2 trimmedOffset = Vector2::Zero;
 
-		mAnimator->Create(WIDE("FX_PlayerJump"), texture, animPlayerJump, canvasSize, false);
-		mAnimator->Create(WIDE("FX_PlayerDoubleJump"), texture, animPlayerDoubleJump, canvasSize, false);
+		size_t checkStringParseValue = std::wstring::npos;
 
-		SetScaleXY(canvasSize);
-		mOffsetPos.y = canvasSize.y * 0.5f;
+		{
+			float duration = 0.f;
+			duration = 1.f / 14.f;
+
+			CREATE_ANIM(animPlayerJump, frame, atlasTexSize, duration);
+			while (parseResult)
+			{
+				parseResult = parser->FindElem(WIDE("sprite"));
+				if (!parseResult)
+				{
+					parseResult = true;
+					break;
+				}
+
+				targetSpriteNameWstr = WIDE("JumpFX/JumpFX") + std::to_wstring(count);
+				checkStringParseValue = parser->CheckAttributeIncludeWstr(WIDE("n"), targetSpriteNameWstr);
+				if (std::wstring::npos != checkStringParseValue)
+				{
+					leftTop.x = static_cast<float>(parser->GetIntAttribute(WIDE("x")));
+					leftTop.y = static_cast<float>(parser->GetIntAttribute(WIDE("y")));
+					size.x = static_cast<float>(parser->GetIntAttribute(WIDE("w")));
+					size.y = static_cast<float>(parser->GetIntAttribute(WIDE("h")));
+					offset.x = static_cast<float>(parser->GetFloatAttribute(WIDE("pX")));
+					offset.y = static_cast<float>(parser->GetFloatAttribute(WIDE("pY")));
+					trimmedSize.x = static_cast<float>(parser->GetFloatAttribute(WIDE("tW")));
+					trimmedSize.y = static_cast<float>(parser->GetFloatAttribute(WIDE("tH")));
+					trimmedOffset.x = static_cast<float>(parser->GetFloatAttribute(WIDE("tOX")));
+					trimmedOffset.y = static_cast<float>(parser->GetFloatAttribute(WIDE("tOY")));
+
+					FRAME_ADD_OFFSET_TRIM_OFFSET(frame, leftTop.x, leftTop.y, size.x, size.y
+						, offset.x, offset.y, trimmedSize.x, trimmedSize.y
+						, trimmedOffset.x, trimmedOffset.y, animPlayerJump);
+
+					++count;
+				}
+			}
+			parser->ResetMainPos();
+			count = 0;
+
+			CREATE_SHEET(animPlayerDoubleJump);
+			while (parseResult)
+			{
+				parseResult = parser->FindElem(WIDE("sprite"));
+				if (!parseResult)
+				{
+					parseResult = true;
+					break;
+				}
+
+				targetSpriteNameWstr = WIDE("DubleJumpFX/DubleJumpFX") + std::to_wstring(count);
+				checkStringParseValue = parser->CheckAttributeIncludeWstr(WIDE("n"), targetSpriteNameWstr);
+				if (std::wstring::npos != checkStringParseValue)
+				{
+					leftTop.x = static_cast<float>(parser->GetIntAttribute(WIDE("x")));
+					leftTop.y = static_cast<float>(parser->GetIntAttribute(WIDE("y")));
+					size.x = static_cast<float>(parser->GetIntAttribute(WIDE("w")));
+					size.y = static_cast<float>(parser->GetIntAttribute(WIDE("h")));
+					offset.x = static_cast<float>(parser->GetFloatAttribute(WIDE("pX")));
+					offset.y = static_cast<float>(parser->GetFloatAttribute(WIDE("pY")));
+					trimmedSize.x = static_cast<float>(parser->GetFloatAttribute(WIDE("tW")));
+					trimmedSize.y = static_cast<float>(parser->GetFloatAttribute(WIDE("tH")));
+					trimmedOffset.x = static_cast<float>(parser->GetFloatAttribute(WIDE("tOX")));
+					trimmedOffset.y = static_cast<float>(parser->GetFloatAttribute(WIDE("tOY")));
+
+					FRAME_ADD_OFFSET_TRIM_OFFSET(frame, leftTop.x, leftTop.y, size.x, size.y
+						, offset.x, offset.y, trimmedSize.x, trimmedSize.y
+						, trimmedOffset.x, trimmedOffset.y, animPlayerDoubleJump);
+
+					++count;
+				}
+			}
+
+			AUTO_OFFSET_CALC_Y(animPlayerJump);
+			AUTO_OFFSET_CALC_Y(animPlayerDoubleJump);
+
+			mAnimator->Create(WIDE("FX_PlayerJump"), texture, animPlayerJump, canvasSize, false);
+			mAnimator->Create(WIDE("FX_PlayerDoubleJump"), texture, animPlayerDoubleJump, canvasSize, false);
+			SetScaleXY(canvasSize);
+
+			mOffsetPos.y = canvasSize.y * 0.5f;
+		}
+
+		delete parser;
 	}
 	FxPlayerJump::~FxPlayerJump()
 	{
