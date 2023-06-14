@@ -48,7 +48,7 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="BossBody/Attack/SkellBossAttack07" x="1750" y="2785" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="0" tW="350" tH="630"/>
     <sprite n="BossBody/Attack/SkellBossAttack08" x="2100" y="2785" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="0" tW="350" tH="630"/>
     <sprite n="BossBody/Attack/SkellBossAttack09" x="2450" y="2785" w="350" h="640" pX="0.5" pY="1"	tOX="0" tOY="0" tW="350" tH="630"/>
-    <sprite n="BossBody/Dead/SkellBossDead" x="2800" y="2785" w="350" h="640" pX="0.5" pY="1"/>
+    <sprite n="BossBody/Dead/SkellBossDead_Whole" x="2800" y="2785" w="350" h="640" pX="0.5" pY="1"/>
     <sprite n="BossBody/Dead/SkellBossDead_Head" x="1995" y="850" w="350" h="385" pX="0.5" pY="1"/>
     <sprite n="BossBody/Dead/SkellBossDead_Jaw" x="1305" y="155" w="245" h="155" pX="0.5" pY="1"/>
     <sprite n="BossBody/Dead/SkellBossDead_LeftBigPart" x="105" y="0" w="50" h="60" pX="0.5" pY="1"/>

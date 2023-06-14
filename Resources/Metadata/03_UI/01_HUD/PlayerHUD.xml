@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:262987ceb1012ba1a14747b39aae48b2:fc4883bca26368dd272b88b49d56b71e:1e9db09703f6b71614176c28d438840e$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="PlayerHUD.png" width="500" height="440">
+    <sprite n="PlayerHUD/BossLife/BossLifeBack" x="0" y="320" w="492" h="56" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/BossLife/BossLifeBase" x="0" y="376" w="500" h="64" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/BossLife/BossSkellPortrait" x="432" y="0" w="68" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/DashCount/DashCountActivate" x="140" y="0" w="36" h="16" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/DashCount/DashCountBase" x="0" y="160" w="252" h="32" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/DashCount/DashCountBase_RightEnd" x="4" y="0" w="8" h="32" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/DashCount/DashCountBaseSlot" x="212" y="0" w="44" h="32" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/EquippedWeaponBase/Base" x="268" y="56" w="136" h="96" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/EquippedWeaponBase/Number/1" x="20" y="0" w="12" h="20" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/EquippedWeaponBase/Number/2" x="120" y="0" w="20" h="20" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/LifeBar_LifeWave/LifeBar" x="0" y="0" w="4" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/LifeBar_LifeWave/LifeWave0" x="56" y="0" w="16" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/LifeBar_LifeWave/LifeWave1" x="72" y="0" w="16" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/LifeBar_LifeWave/LifeWave2" x="88" y="0" w="16" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/LifeBar_LifeWave/LifeWave3" x="104" y="0" w="16" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/LifeBar_LifeWave/LifeWave4" x="12" y="0" w="8" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/LifeBar_LifeWave/LifeWave5" x="32" y="0" w="12" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/LifeBar_LifeWave/LifeWave6" x="44" y="0" w="12" h="40" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/BasicCursor" x="176" y="0" w="36" h="44" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/Mouse_L" x="256" y="0" w="44" h="56" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/Mouse_L_Drag" x="84" y="56" w="92" h="104" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/Mouse_Move" x="176" y="56" w="92" h="104" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/Mouse_R" x="300" y="0" w="44" h="56" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/Mouse_R_Dash" x="300" y="0" w="44" h="56" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/Mouse_Wheel" x="344" y="0" w="44" h="56" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/Mouse_WheelClick" x="388" y="0" w="44" h="56" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/Mouse/ShootingCursor2" x="0" y="56" w="84" h="84" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/PlayerLife/PlayerLifeBack" x="0" y="192" w="296" h="64" pX="0.5" pY="0.5"/>
+    <sprite n="PlayerHUD/PlayerLife/PlayerLifeBase 1" x="0" y="256" w="296" h="64" pX="0.5" pY="0.5"/>
+</TextureAtlas>
