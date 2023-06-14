@@ -60,6 +60,28 @@ namespace hj
 		virtual Component* Clone() const override;
 
 	public:
+		void SetPause(bool pause)
+		{
+			if (!mActiveAnimation)
+			{
+				return;
+			}
+
+			mActiveAnimation->SetPause(pause);
+		}
+
+		bool IsPause() 
+		{
+			bool result = false;
+			if (mActiveAnimation)
+			{
+				result = mActiveAnimation->IsPause();
+			}
+
+			return result; 
+		}
+
+	public:
 		bool IsInverse()
 		{
 			if (!mActiveAnimation)

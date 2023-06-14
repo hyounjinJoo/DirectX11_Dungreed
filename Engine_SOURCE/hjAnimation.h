@@ -154,6 +154,11 @@ namespace hj
         void FixedUpdate();
         void Render();
 
+    public:
+        void SetPause(bool pause) { mbPause = pause; }
+        bool IsPause() { return mbPause; }
+
+    public:
         void Create(const std::wstring& name, std::shared_ptr<Texture> atlas
             , Vector2 leftTop, Vector2 size, Vector2 offset
             , UINT spriteLength, float duration, bool reversePlay = false);
@@ -211,5 +216,6 @@ namespace hj
         bool mbUsed;
         bool mbCanvasUsed;
         bool mbInverse;
+        bool mbPause;
     };
 }
