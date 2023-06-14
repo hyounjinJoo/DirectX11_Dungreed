@@ -162,7 +162,7 @@ namespace hj::graphics
 				return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	bool StructuredBuffer::CreateRWBuffer()
