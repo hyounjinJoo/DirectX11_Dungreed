@@ -210,6 +210,13 @@ namespace hj::renderer
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
+		// Particle Anim Shader
+		shader = SHADER_FIND("Shader_ParticleAnim");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, shader->GetVSBlobBufferPointer()
+			, shader->GetVSBlobBufferSize()
+			, shader->GetInputLayoutAddressOf());
+
 		delete[] arrLayoutDesc;
 
 		arrLayoutDesc = new D3D11_INPUT_ELEMENT_DESC[2];
@@ -500,6 +507,22 @@ namespace hj::renderer
 		std::shared_ptr<ParticleShader> particleCS = std::make_shared<ParticleShader>();
 		particleCS->Create(L"ParticleCS.hlsl", "main");
 		Resources::Insert<ParticleShader>(L"Shader_ParticleCS", particleCS);
+
+		// ParticleSystem Shader
+		shader = SHADER_NEW();
+		shader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		shader->Create(eShaderStage::GS, L"ParticleAnimGS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"ParticleAnimPS.hlsl", "main");
+		shader->SetRSState(eRSType::SolidNone);
+		//shader->SetDSState(eDSType::NoWrite);
+		shader->SetBSState(eBSType::AlphaBlend);
+		shader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+		
+		SHADER_INSERT("Shader_ParticleAnim", shader);
+		
+		std::shared_ptr<ParticleAnimShader> animParticleCS = std::make_shared<ParticleAnimShader>();
+		animParticleCS->Create(L"ParticleAnimCS.hlsl", "main");
+		Resources::Insert<ParticleAnimShader>(L"Shader_ParticleAnimCS", animParticleCS);
 	}
 
 
@@ -757,6 +780,13 @@ namespace hj::renderer
 		material->SetShader(SHADER_FIND("Shader_Particle"));
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Particle", material);
+
+		material = MTRL_NEW();
+		texture = TEX_FIND("08_FX");
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetShader(SHADER_FIND("Shader_ParticleAnim"));
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_ParticleAnim", material);
 #pragma endregion
 		//texture = TEX_FIND("Tex_Town_Layer_Sky_Day");
 		//material = MTRL_NEW();

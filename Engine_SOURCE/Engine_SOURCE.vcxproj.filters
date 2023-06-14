@@ -136,6 +136,9 @@
     <Filter Include="External\Module">
       <UniqueIdentifier>{d4faaf2c-b440-43fd-abc8-3e91334f0b17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Shader\CS\Particle\ParticleAnimation">
+      <UniqueIdentifier>{0a69d279-a3e7-4f3e-823d-f3d2d8196dd2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -268,6 +271,9 @@
       <Filter>External\Module</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="hjParticleAnimShader.cpp">
+      <Filter>Resource\Shader\CS\Particle\ParticleAnimation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -415,6 +421,9 @@
       <Filter>External\Module</Filter>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="hjParticleAnimShader.h">
+      <Filter>Resource\Shader\CS\Particle\ParticleAnimation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="hjMath.inl">

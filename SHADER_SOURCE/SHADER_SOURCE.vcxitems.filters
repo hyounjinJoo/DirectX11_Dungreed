@@ -84,6 +84,15 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticleCS.hlsl">
       <Filter>03. CS</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleAnimPS.hlsl">
+      <Filter>02. PS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleAnimCS.hlsl">
+      <Filter>03. CS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleAnimGS.hlsl">
+      <Filter>04. GS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)ConstantBuffer.hlsli">

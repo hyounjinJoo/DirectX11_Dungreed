@@ -77,5 +77,11 @@ float4 main(VSOut In) : SV_TARGET
     if (USE_ONLY_DIFFUSE_COLOR == true)
         Out = DIFFUSE_COLOR;
     
+#define CHANGE_ALPHA cbiData3
+#define NEW_ALPHA cbfData1
+    
+    if (CHANGE_ALPHA == true)
+        Out.a = NEW_ALPHA;
+    
     return Out;
 }

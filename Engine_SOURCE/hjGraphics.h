@@ -214,10 +214,45 @@ namespace hj::graphics
 		float time;
 		float speed;
 		UINT active;
+
+		float delayThres;
+		float delayTimer;
 	};
 
 	struct ParticleShared
 	{
 		UINT activeCount;
+	};
+
+	struct ParticleFrame
+	{
+		math::Vector2 animLeftTop;
+		math::Vector2 animSpriteSize;
+		math::Vector2 animOffset;
+		math::Vector2 animAtlasSize;
+
+		math::Vector2 animCanvasSize;
+		int animUsed;
+		int animCanvasUsed;
+
+		int animInverse;
+		int animType;
+		math::Vector2 animpadding;
+	};
+
+	struct AnimationParticle
+	{
+		UINT loop;
+		UINT animationIndex;
+		float duration;
+		float framePlayTime;
+
+		Particle particleDefaultInfo;
+		ParticleFrame animInfo;
+	};
+
+	struct AnimationParticleShared
+	{
+		ParticleFrame frameInfo;
 	};
 }
