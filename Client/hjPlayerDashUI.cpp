@@ -14,13 +14,14 @@ namespace hj
 		, mCurrentDashCanCount(2)
 		, mDashBaseUIRightEnd(nullptr)
 	{
-		size_t Size = 6;
+		size_t Size = 8;
 		for (size_t index = 0; index < Size; ++index)
 		{
 			DashCountBase* base = object::Instantiate<DashCountBase>(eLayerType::UI);
 			base->GetTransform()->SetParent(this->GetTransform());
 			base->SetPositionX(40.f * static_cast<float>(index));
 			base->SetPositionZ(0.1f * static_cast<float>(index));
+			base->GetTransform()->FixedUpdate();
 
 			mDashUIBases.push_back(base);
 
@@ -71,7 +72,7 @@ namespace hj
 
 	void PlayerDashUI::SetMaxDashCount(UINT count)
 	{
-		if (mDashBaseMaxCount > count)
+		if(0 >= count || count > 8)
 		{
 			return;
 		}
@@ -83,18 +84,18 @@ namespace hj
 				float rightEndPosX = 0.f;
 				rightEndPosX = mDashBaseMaxCount * 22.f;
 
-				mDashBaseUIRightEnd->SetPositionX(rightEndPosX);
+				mDashBaseUIRightEnd->SetPositionX(mDashUIBases[mDashBaseMaxCount - 1]->GetPositionX() + 26.f);
 			}
 
 			size_t Size = mDashUIBases.size();
-			for (size_t index = 0; index < mDashBaseMaxCount; ++index)
+			for (size_t index = 0; index < Size; ++index)
 			{
 				if (mDashUIBases[index])
 				{
 					mDashUIBases[index]->GetTransform()->SetParent(this->GetTransform());
 					mDashUIBases[index]->SetPositionX(index * 40.f);
 
-					if (mDashBaseMaxCount < index)
+					if (mDashBaseMaxCount <= index)
 					{
 						mDashUIBases[index]->Pause();
 						mDashUIBases[index]->DeactivateDashCount();
@@ -106,22 +107,10 @@ namespace hj
 					}
 				}
 			}
-
-			mDashBaseUIRightEnd->SetPositionX(mDashUIBases[mDashBaseMaxCount - 1]->GetPositionX() + 26.f);
-
-			RECT winRect;
-			GetClientRect(application.GetHwnd(), &winRect);
-
-			//float halfWidth = static_cast<float>(winRect.right - winRect.left) * 0.5f;
-			//
-			//float posX = -halfWidth;
-			//posX += static_cast<float>(mDashBaseMaxCount - 2) * 4.f + 42.f;
-			//
-			//SetPositionX(posX);
 		}
 	}
 
-	void PlayerDashUI::DicreaseCurCount()
+	void PlayerDashUI::DecreaseCurCount()
 	{
 		DeactivateDashCount();
 		if (mCurrentDashCanCount > 0)
@@ -143,11 +132,21 @@ namespace hj
 
 	void PlayerDashUI::ActivateDashCount()
 	{
+		if (mCurrentDashCanCount >= mDashUIBases.size())
+		{
+			return;
+		}
+
 		mDashUIBases[mCurrentDashCanCount]->ActivateDashCount();
 	}
 
 	void PlayerDashUI::DeactivateDashCount()
 	{
+		if (mCurrentDashCanCount <= 0 || mCurrentDashCanCount >= mDashUIBases.size())
+		{
+			return;
+		}
+
 		mDashUIBases[mCurrentDashCanCount - 1]->DeactivateDashCount();
 	}
 

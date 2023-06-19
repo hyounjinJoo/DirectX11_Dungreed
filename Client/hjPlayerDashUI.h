@@ -22,7 +22,7 @@ namespace hj
 		void SetMaxDashCount(UINT count);
 		UINT GetCurDashCount() { return mCurrentDashCanCount; }
 
-		void DicreaseCurCount();
+		void DecreaseCurCount();
 		void IncreaseCurCount();
 
 	private:
