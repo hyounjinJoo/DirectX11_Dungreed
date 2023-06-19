@@ -91,6 +91,17 @@
 				spriteFrame.offset.x = 0.f;\
 		}\
 
+#define MANUAL_OFFSET_CALC_X(spriteSheetVarName, offsetX) \
+		for (auto& spriteFrame : spriteSheetVarName)\
+		{\
+			if (spriteFrame.size.x != canvasSize.x)\
+			{\
+				spriteFrame.offset.x = (static_cast<float>(offsetX) - 1.f) * -(canvasSize.x - spriteFrame.size.x) / 2.f; \
+			}\
+			else\
+				spriteFrame.offset.x = 0.f;\
+		}\
+
 #define AUTO_OFFSET_CALC_Y(spriteSheetVarName) \
 		for (auto& spriteFrame : spriteSheetVarName)\
 		{\
