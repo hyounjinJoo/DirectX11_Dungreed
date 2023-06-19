@@ -230,60 +230,8 @@ namespace hj
 		float height = static_cast<float>(winRect.bottom - winRect.top);
 		Vector3 originLT = Vector3(0.f - width / 2.f, height / 2.f, 0.f);
 #pragma endregion
-#pragma region HPBar Base
-		pos = Vector3::Zero;
-		rot = Vector3::Zero;
-		scale = Vector3(74.f * 4.f, 16.f * 4.f, 1.f);
-		pos = originLT + Vector3(scale.x / 2.f + 20.f, scale.y / -2.f - 20.f, 1.f);
-
-		GameObject* hpBarBase = object::Instantiate<GameObject>(eLayerType::UI, pos, rot, scale);
-		hpBarBase->SetName(L"HPBarBase");
-
-		SpriteRenderer* hpBarBaseSR = new SpriteRenderer();
-		hpBarBase->AddComponent(hpBarBaseSR);
-
-		std::shared_ptr<Mesh> hpBarBaseMesh = MESH_FIND_STR("Mesh_Rect");
-		std::shared_ptr<Material> hpBarBaseMaterial = MTRL_FIND_STR("MTRL_UI");
-		int useUV = 1;
-		Vector2 startUV = Vector2::Zero;
-		Vector2 endUV = Vector2::One;
-
-		hpBarBaseMaterial->SetData(eGPUParam::Int_1, &useUV);
-		hpBarBaseMaterial->SetData(eGPUParam::Int_2, &useUV);
-		hpBarBaseMaterial->SetData(eGPUParam::Vector2_1, &startUV);
-		Vector2 canvasSize = hpBarBaseMaterial->GetTexture(eTextureSlot::T0)->GetTexSize();
-		hpBarBaseMaterial->SetData(eGPUParam::Vector2_2, &canvasSize);
-		hpBarBaseMaterial->SetData(eGPUParam::Vector2_3, &canvasSize);
-		hpBarBaseMaterial->SetData(eGPUParam::Vector2_4, &canvasSize);
-		hpBarBaseSR->SetMesh(hpBarBaseMesh);
-		hpBarBaseSR->SetMaterial(hpBarBaseMaterial);
 #pragma endregion
-#pragma endregion
-		//{
-		//	obj = object::Instantiate<TestPlayer>(eLayerType::Player);
-		//	obj->SetName(L"Zelda");
-		//	Transform* tr = obj->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(0.0f, 0.0f, 2.0f));
-		//	tr->SetScale(Vector3(100.f, 100.f, 1.f));
-		//	//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-		//	//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-		//	Collider2D* collider = obj->AddComponent<Collider2D>();
-		//	collider->SetType(eColliderType::Rect);
-		//	//collider->SetCenter(Vector2(0.2f, 0.2f));
-		//	//collider->SetSize(Vector2(1.5f, 1.5f));
-		//	Animator* animator = obj->AddComponent<Animator>();
-		//	std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Zelda.png");
-		//	animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3, 0.1f);
-		//	animator->Play(L"Idle", true);
-		//
-		//	SpriteRenderer* spriteRender = obj->AddComponent<SpriteRenderer>();
-		//	std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"MTRL_Sprite");
-		//	spriteRender->SetMaterial(mateiral);
-		//	mesh = Resources::Find<Mesh>(L"Mesh_Rect");
-		//	spriteRender->SetMesh(mesh);
-		//}
 		{
-			//Stage1BossRoom* room = object::Instantiate<Stage1BossRoom>(eLayerType::ForeGround);
 			RoomBase* startRoom = object::Instantiate<Stage1StartR>(eLayerType::ForeGround);
 			startRoom->SettingFadeObject();
 			startRoom->SettingDoorOwner();
@@ -330,18 +278,6 @@ namespace hj
 			roomBoss1->ConnectDoor(DoorPlaced::L, roomLTRB->GetDoor(DoorPlaced::R));
 
 			roomBoss1->Activate();
-		}
-		{
-			//GameObject* obj = object::Instantiate<GameObject>(eLayerType::Particle);
-			//obj->SetName(L"PARTICLE");
-			//Transform* tr = obj->GetComponent<Transform>();
-			//tr->SetPosition(Vector3(-200.0f, 0.0f, -100.0f));
-			//obj->AddComponent<ParticleSystem>();
-			//obj->AddComponent<BossDeathParticleSystem>();
-		}
-
-		{
-			//GameObject* obj = object::Instantiate<Stage1Boss>(eLayerType::Monster);
 		}
 
 	
