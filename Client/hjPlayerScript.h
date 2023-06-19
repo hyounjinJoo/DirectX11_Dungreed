@@ -56,6 +56,11 @@ namespace hj
 		void CreateDashUIObject();
 		void HandleDashUIObject();
 
+		void CreateHPBarUIObject();
+
+	public:
+		void UpdateHPBarUI();
+
 	private:
 		void HandleMovementInput();
 		void HandleJumpInput();
@@ -127,5 +132,7 @@ namespace hj
 
 		class PlayerHand* mHand;
 		Actor* mDashAttackColliderActor;
+
+		class PlayerLifeBarUI* mLifeBarUI;
 	};
 }

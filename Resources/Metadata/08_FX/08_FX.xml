@@ -845,8 +845,8 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="08_FX/SunLordBulletFX/SunLordBulletFX07" x="4971" y="0" w="10" h="10" pX="0.5" pY="1"/>
     <sprite n="08_FX/SunLordBulletFX/SunLordBulletFX08" x="4981" y="0" w="10" h="10" pX="0.5" pY="1"/>
     <sprite n="08_FX/SwingFX/SwingFX00" x="360" y="510" w="200" h="140" pX="0.5" pY="1"/>
-    <sprite n="08_FX/SwingFX/SwingFX01" x="6905" y="65" w="170" h="70" pX="0.5" pY="1"/>
-    <sprite n="08_FX/SwingFX/SwingFX02" x="4175" y="20" w="120" h="25" pX="0.5" pY="1"/>
+    <sprite n="08_FX/SwingFX/SwingFX01" x="6905" y="65" w="170" h="70" pX="0.5" pY="1.5"/>
+    <sprite n="08_FX/SwingFX/SwingFX02" x="4175" y="20" w="120" h="25" pX="0.5" pY="3.3"/>
     <sprite n="08_FX/TaskShotFX/TaskShotFx0" x="2160" y="65" w="55" h="55" pX="0.5" pY="1"/>
     <sprite n="08_FX/TaskShotFX/TaskShotFx1" x="5180" y="65" w="65" h="65" pX="0.5" pY="1"/>
     <sprite n="08_FX/TaskShotFX/TaskShotFx2" x="7075" y="65" w="75" h="70" pX="0.5" pY="1"/>

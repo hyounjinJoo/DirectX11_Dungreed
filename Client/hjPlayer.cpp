@@ -14,14 +14,13 @@
 namespace hj
 {
 	Player::Player()
-		: GameObject()
+		: Actor()
 		, mCenterObj(nullptr)
 		, mLeftHand(nullptr)
 		, mState(ePlayerState::End)
 		, mCurrentCostume(ePlayerCostume::Adventurer)
 		, mbIsFlip(false)
 		, mSecondStepDustCreatedIndex(4)
-		, mDashDamage(100.f)
 	{
 		SetName(WIDE("플레이어"));
 
@@ -56,6 +55,7 @@ namespace hj
 		mLeftHand = object::Instantiate<PlayerHand>(eLayerType::PlayerHas, Vector3(GetScaleX() * 0.5f, 0.f, 1.f));
 		mLeftHand->GetTransform()->SetParent(mCenterObj->GetTransform());
 		mLeftHand->GetTransform()->SetInheritParentScale(false);
+		mLeftHand->SetHandOwner(this);
 
 		armScript->SetTarget(mLeftHand);
 		armScript->SetUsingMouseRotation(true);
@@ -79,7 +79,7 @@ namespace hj
 		mPlayerScript->SetDashAttackActor(mDashAttackColliderActor);
 		mPlayerScript->SetHand(mLeftHand);
 
-
+		mPlayerScript->UpdateHPBarUI();
 		ChangeColliderSize();
 	}
 
@@ -151,9 +151,11 @@ namespace hj
 		GetCostumeString(static_cast<UINT>(mCurrentCostume), stringToGet);
 	}
 
-	void Player::Damaged(float damage)
+	void Player::Damaged(int damage)
 	{
+		SubtractCurrentHP(damage);
 		mPlayerScript->DamageWarningActivate();
+		mPlayerScript->UpdateHPBarUI();
 
 		return;
 	}
@@ -1101,4 +1103,99 @@ namespace hj
 		mCostume.push_back(sunsetGunmanCostume);
 	}
 #pragma endregion
+
+
+	void Player::IncreaseLevel()
+	{
+		mPlayerStatus.level++;
+	}
+
+	void Player::AddCurrentExp(int value)
+	{
+		if (0 >= value)
+		{
+			return;
+		}
+
+		mPlayerStatus.currentExp += value;
+	}
+
+	void Player::SetNeedToLevelUpExp(int value)
+	{
+		if (0 >= value)
+		{
+			return;
+		}
+
+		mPlayerStatus.needToLevelUpExp = value;
+	}
+	void Player::SetCurrentHP(int value)
+	{
+		if (0 > value)
+		{
+			return;
+		}
+
+		mPlayerStatus.currentHP = value;
+	}
+
+	void Player::SubtractCurrentHP(int value)
+	{
+		mPlayerStatus.currentHP -= value;
+
+		if (0 > mPlayerStatus.currentHP)
+		{
+			ChangeState(ePlayerState::Die);
+		}
+	}
+
+	void Player::SetMaxHP(int value)
+	{
+		if (0 >= value)
+		{
+			return;
+		}
+
+		mPlayerStatus.maxHP = value;
+	}
+
+	void Player::SetMinBodyAttackDamage(int value)
+	{
+		if (0 >= value)
+		{
+			return;
+		}
+
+		mPlayerStatus.minBodyAttackDamage = value;
+	}
+
+	void Player::SetMaxBodyAttackDamage(int value)
+	{
+		if (0 >= value)
+		{
+			return;
+		}
+
+		mPlayerStatus.maxBodyAttackDamage = value;
+	}
+
+	void Player::SetDashDamage(int value)
+	{
+		if (0 >= value)
+		{
+			return;
+		}
+
+		mPlayerStatus.dashDamage = value;
+	}
+
+	void Player::SetMaxDashCount(int value)
+	{
+		if (0 >= value)
+		{
+			return;
+		}
+
+		mPlayerStatus.maxDashCount = value;
+	}
 }

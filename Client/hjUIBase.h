@@ -1,11 +1,11 @@
 #pragma once
-#include <hjGameObject.h>
+#include <hjActor.h>
 #include "hjMaterial.h"
 
 namespace hj
 {
 	class UIBase :
-		public GameObject
+		public Actor
 	{
 	public:
 		UIBase();
@@ -36,6 +36,5 @@ namespace hj
 
 		class SpriteRenderer* mUIRenderer;
 		std::shared_ptr<Material> mMaterial;
-		
 	};
 }

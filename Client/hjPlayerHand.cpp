@@ -5,6 +5,9 @@
 #include "hjSpriteRenderer.h"
 #include "hjResources.h"
 #include "hjItem.h"
+#include "hjArmRotatorScript.h"
+#include "hjSwordOfExplorer.h"
+#include "hjActor.h"
 
 namespace hj
 {
@@ -36,8 +39,10 @@ namespace hj
 			}
 		}
 
-		//mWeapon = testWeapon;
-
+		mWeapon = object::Instantiate<object::item::weapon::SwordOfExplorer>(eLayerType::PlayerHas);
+		mWeapon->GetTransform()->SetParent(this->GetTransform());
+		mWeapon->SetPositionY(24.f);
+		mWeapon->SetPositionZ(0.1f);
 	}
 
 	PlayerHand::~PlayerHand()
@@ -73,7 +78,8 @@ namespace hj
 		mHandOwner = player;
 		mHandOwnerTR = player->GetCenter()->GetTransform();
 
-		
+		dynamic_cast<object::item::weapon::SwordOfExplorer*>(mWeapon)->GetFxActor()->SetOwnerActor(mHandOwner);
+
 		std::vector<Script*> scripts = player->GetCenter()->GetScripts();
 
 		for (auto script : scripts)
@@ -81,7 +87,7 @@ namespace hj
 			if (dynamic_cast<ArmRotatorScript*>(script))
 			{
 				mRotatorScript = dynamic_cast<ArmRotatorScript*>(script);
-	}
+			}
 		}
 	}
 
@@ -93,6 +99,69 @@ namespace hj
 		//else pos *= -1.f;
 		//
 		//SetPositionZ(pos);
+	}
+
+	Transform* PlayerHand::GetWeaponTR()
+	{
+		if (mWeapon)
+			return mWeapon->GetTransform();
+		else
+			return nullptr;
+	}
+
+	void PlayerHand::Attack()
+	{
+		float nextRotX = GetRotationX();
+		nextRotX -= XM_PI;
+		while (nextRotX < 0.f)
+		{
+			nextRotX += XM_2PI;
+		}
+		
+		SetRotationX(nextRotX);
+		
+		nextRotX = mHandOwnerTR->GetRotationX();
+		nextRotX -= XM_PI;
+		while (nextRotX < 0.f)
+		{
+			nextRotX += XM_2PI;
+		}
+		
+		mHandOwnerTR->SetRotationX(nextRotX);
+
+		if (mWeapon)
+		{
+			object::item::weapon::Weapon* weaponPtr = dynamic_cast<object::item::weapon::Weapon*>(mWeapon);
+
+			if (weaponPtr)
+			{
+				weaponPtr->Attack();
+
+				if (mRotatorScript)
+				{
+					float firstOffsetAngle = weaponPtr->GetFirstOffsetAngle();
+					float secondOffsetAngle = weaponPtr->GetSecondOffsetAngle();
+
+					float rotatorOffsetAngle = mRotatorScript->GetOffsetAngle();
+					if (firstOffsetAngle == rotatorOffsetAngle)
+					{
+						mRotatorScript->SetOffsetAngle(secondOffsetAngle);
+
+						Vector2 nextMinDistance = weaponPtr->GetSecondMinDistance();
+						Vector2 nextMaxDistance = weaponPtr->GetSecondMaxDistance();
+						mRotatorScript->SetDistanceInfo(nextMinDistance, nextMaxDistance);
+					}
+					else
+					{
+						mRotatorScript->SetOffsetAngle(firstOffsetAngle);
+
+						Vector2 nextMinDistance = weaponPtr->GetFirstMinDistance();
+						Vector2 nextMaxDistance = weaponPtr->GetFirstMaxDistance();
+						mRotatorScript->SetDistanceInfo(nextMinDistance, nextMaxDistance);
+					}
+				}
+			}
+		}
 	}
 
 	void PlayerHand::CreateAnimation()

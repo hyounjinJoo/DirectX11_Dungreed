@@ -6,7 +6,7 @@
 namespace hj
 {
 	UIBase::UIBase()
-		: GameObject()
+		: Actor()
 		, mbUseUV(true)
 		, mbUseCanvas(true)
 		, mStartUV(Vector2::Zero)
@@ -62,14 +62,20 @@ namespace hj
 	{
 		if (mMaterial)
 		{
-			mMaterial->SetData(eGPUParam::Int_1, &mbUseUV);
+			int inputInt1 = mbUseUV ? 1 : 0;
+			mMaterial->SetData(eGPUParam::Int_1, &inputInt1);
 			mMaterial->SetData(eGPUParam::Vector2_1, &mStartUV);
 			mMaterial->SetData(eGPUParam::Vector2_2, &mEndUV);
-			mMaterial->SetData(eGPUParam::Int_2, &mbUseCanvas);
+			int inputInt2 = mbUseCanvas ? 1 : 0;
+			mMaterial->SetData(eGPUParam::Int_2, &inputInt2);
 			mMaterial->SetData(eGPUParam::Vector2_3, &mCanvasSize);
 			mMaterial->SetData(eGPUParam::Vector2_4, &mAtlasSize);
 		}
 		GameObject::Render();
+		//if (mMaterial)
+		//{
+		//	mMaterial->Clear();
+		//}
 	}
 	
 	void UIBase::SetRenderer(SpriteRenderer* renderer)

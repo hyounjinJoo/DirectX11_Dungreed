@@ -171,6 +171,8 @@
     <ClInclude Include="hjArmRotatorScript.h" />
     <ClInclude Include="hjFxPlayerJump.h" />
     <ClInclude Include="hjFxPlayerTrail.h" />
+    <ClInclude Include="hjPlayerLifeBarUI.h" />
+    <ClInclude Include="hjPlayerLifeBarWaveUI.h" />
     <ClInclude Include="hjRoomBase.h" />
     <ClInclude Include="hjRoomDoor.h" />
     <ClInclude Include="hjRoomInfo.h" />
@@ -198,6 +200,7 @@
     <ClInclude Include="hjStage1StartTR.h" />
     <ClInclude Include="hjStage1StartTR2.h" />
     <ClInclude Include="hjStage1StartTRB.h" />
+    <ClInclude Include="hjSwingFx.h" />
     <ClInclude Include="hjSwordOfExplorer.h" />
     <ClInclude Include="hjTitleBird.h" />
     <ClInclude Include="hjPlayerScript.h" />
@@ -213,6 +216,7 @@
     <ClInclude Include="hjTitleScene.h" />
     <ClInclude Include="hjUIBase.h" />
     <ClInclude Include="hjUIButton.h" />
+    <ClInclude Include="hjUIProgressBar.h" />
     <ClInclude Include="hjWeapon.h" />
     <ClInclude Include="hjWidget.h" />
     <ClInclude Include="Resource.h" />
@@ -255,6 +259,8 @@
     <ClCompile Include="hjArmRotatorScript.cpp" />
     <ClCompile Include="hjFxPlayerJump.cpp" />
     <ClCompile Include="hjFxPlayerTrail.cpp" />
+    <ClCompile Include="hjPlayerLifeBarUI.cpp" />
+    <ClCompile Include="hjPlayerLifeBarWaveUI.cpp" />
     <ClCompile Include="hjRoomBase.cpp" />
     <ClCompile Include="hjRoomDoor.cpp" />
     <ClCompile Include="hjRoomInfo.cpp" />
@@ -282,6 +288,7 @@
     <ClCompile Include="hjStage1StartTR.cpp" />
     <ClCompile Include="hjStage1StartTR2.cpp" />
     <ClCompile Include="hjStage1StartTRB.cpp" />
+    <ClCompile Include="hjSwingFx.cpp" />
     <ClCompile Include="hjSwordOfExplorer.cpp" />
     <ClCompile Include="hjTitleBird.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
@@ -297,6 +304,7 @@
     <ClCompile Include="hjTitleScene.cpp" />
     <ClCompile Include="hjUIBase.cpp" />
     <ClCompile Include="hjUIButton.cpp" />
+    <ClCompile Include="hjUIProgressBar.cpp" />
     <ClCompile Include="hjWeapon.cpp" />
     <ClCompile Include="hjWidget.cpp" />
     <ClCompile Include="main.cpp" />

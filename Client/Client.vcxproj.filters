@@ -251,6 +251,15 @@
     <Filter Include="Contents\GameObject\Play\Player\Effect\Moving">
       <UniqueIdentifier>{8ca0b78c-8f9c-4c95-aa12-ca639a9e3fa5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\01. Common\Effect">
+      <UniqueIdentifier>{a9631b34-dd7d-4c3d-85ee-fe6a17c62814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Player\HUD\LifeBarUI">
+      <UniqueIdentifier>{be559ff2-790b-45a4-9bbf-b4b5ee246b7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BaseObject\UI\ProgressBar">
+      <UniqueIdentifier>{1aa93eb9-2845-4e81-a673-f8241b2c709b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -505,6 +514,18 @@
     <ClInclude Include="hjFxPlayerTrail.h">
       <Filter>Contents\GameObject\Play\Player\Effect\Moving</Filter>
     </ClInclude>
+    <ClInclude Include="hjSwingFx.h">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Melee\01. Common\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPlayerLifeBarUI.h">
+      <Filter>Contents\GameObject\Play\Player\HUD\LifeBarUI</Filter>
+    </ClInclude>
+    <ClInclude Include="hjUIProgressBar.h">
+      <Filter>Contents\GameObject\BaseObject\UI\ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPlayerLifeBarWaveUI.h">
+      <Filter>Contents\GameObject\Play\Player\HUD\LifeBarUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -757,6 +778,18 @@
     </ClCompile>
     <ClCompile Include="hjFxPlayerTrail.cpp">
       <Filter>Contents\GameObject\Play\Player\Effect\Moving</Filter>
+    </ClCompile>
+    <ClCompile Include="hjSwingFx.cpp">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Melee\01. Common\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerLifeBarUI.cpp">
+      <Filter>Contents\GameObject\Play\Player\HUD\LifeBarUI</Filter>
+    </ClCompile>
+    <ClCompile Include="hjUIProgressBar.cpp">
+      <Filter>Contents\GameObject\BaseObject\UI\ProgressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerLifeBarWaveUI.cpp">
+      <Filter>Contents\GameObject\Play\Player\HUD\LifeBarUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

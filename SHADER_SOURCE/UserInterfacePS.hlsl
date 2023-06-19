@@ -22,22 +22,34 @@ float4 main(VSOut In) : SV_TARGET
     float4 color = (float) 0.f;
     float2 UV = In.UV;
     
-    if (USE_UV)
+    if (USE_CANVAS == 1)
     {
         float2 renderCanvasSize = SIZE_CANVAS / SIZE_ATLAS;
         float2 spriteSize = (SPRITE_END - SPRITE_START) / SIZE_ATLAS;
         float2 spriteLT = SPRITE_START / SIZE_ATLAS;
-            
+        
         UV = UV * renderCanvasSize;
-        UV = UV - (renderCanvasSize - spriteSize) / 2.f + spriteLT;
-            
+        UV = UV - (renderCanvasSize - spriteSize) / 2.f + spriteLT;            
+        
         if (UV.x < spriteLT.x || spriteLT.x + spriteSize.x < UV.x || UV.y < spriteLT.y || spriteLT.y + spriteSize.y < UV.y)
         {
             discard;
         }
+        color = defaultTexture.Sample(pointSampler, UV);
     }
-
-    color = defaultTexture.Sample(pointSampler, UV);
+    else
+    {
+        UV = UV / SIZE_ATLAS;
+        float2 spriteSize = (SPRITE_END - SPRITE_START) / SIZE_ATLAS;
+        float2 spriteLT = SPRITE_START / SIZE_ATLAS;
+        
+        if (UV.x < spriteLT.x || spriteLT.x + spriteSize.x < UV.x || UV.y < spriteLT.y || spriteLT.y + spriteSize.y < UV.y)
+        {
+            discard;
+        }
+        
+        color = defaultTexture.Sample(pointSampler, UV);
+    }
     
     if (color.a == 0.f)
         discard;

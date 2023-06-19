@@ -21,27 +21,26 @@ namespace hj
 		void FixedUpdate() override;
 		void Render() override;
 
+	public:
 		void SetHandOwner(class Player* owner);
 		void InverseHandPosZ(bool inverse);
 
-		Transform* GetWeaponTR() 
-		{
-			if (mWeapon)
-				return mWeapon->GetTransform();
-			else
-				return nullptr;
-		}
+		Transform* GetWeaponTR();
+		
+	public:
+		void Attack();
 
 	private:
 		void CreateAnimation();
 
 	private:
-		GameObject* mWeapon;
+		class Actor* mWeapon;
 		Player* mHandOwner;
 		Transform* mHandOwnerTR;
 		Transform* mHandTransform;
 		handState mHandState;
 		class Animator* mAnimator;
+		class ArmRotatorScript* mRotatorScript;
 	};
 }
 

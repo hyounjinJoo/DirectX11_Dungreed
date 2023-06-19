@@ -2,9 +2,9 @@
 
 namespace hj::object::item
 {
-	Item::Item(eItemType type)
-		: GameObject()
-		, mType(type)
+	Item::Item(eItemType type, eItemClass eClass)
+		: mType(type)
+		, mClass(eClass)
 	{
 
 	}

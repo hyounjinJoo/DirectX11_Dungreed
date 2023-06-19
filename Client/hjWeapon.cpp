@@ -2,10 +2,13 @@
 
 namespace hj::object::item::weapon
 {
-	Weapon::Weapon(eWeaponType type)
-		: Item(eItemType::Weapon)
+	UINT Weapon::mID = 1;
+
+	Weapon::Weapon(eWeaponType type, eItemClass eClass)
+		: Item(eItemType::Weapon, eClass)
 		, mWeaponInfo{}
 	{
+		mWeaponInfo.mWeaponID = mID++;
 		mWeaponInfo.mWeaponType = type;
 	}
 

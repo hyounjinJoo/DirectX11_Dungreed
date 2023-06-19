@@ -1,5 +1,5 @@
 #pragma once
-#include "hjGameObject.h"
+#include "hjActor.h"
 
 #include "hjAnimator.h"
 #include "hjMaterial.h"
@@ -51,12 +51,28 @@ namespace hj
         End,
     };
     
-#pragma region Foward Decl
-    class Actor;
-#pragma endregion
+    struct PlayerStatus
+    {
+        int level = 1;
+        int currentExp = 0;
+        int needToLevelUpExp = 10;
+
+        int currentHP = 64;
+        int maxHP = 128;
+        
+        int minBodyAttackDamage = 8;
+        int maxBodyAttackDamage = 10;
+
+        int dashDamage = 5;
+        int maxDashCount = 2;
+
+        PlayerStatus()
+        {
+        }
+    };
 
     class Player :
-        public GameObject
+        public Actor
     {
     public:
         Player();
@@ -85,10 +101,36 @@ namespace hj
 		void GetCurrentCostumeString(std::string& stringToGet) const;
 		void GetCurrentCostumeString(std::wstring& stringToGet) const;
 
-		virtual void Damaged(float damage);
+		virtual void Damaged(int damage);
 
-        float GetDashDamage() { return mDashDamage; }
         Actor* GetDashAttackColliderActor() { return mDashAttackColliderActor; }
+
+#pragma region StatusGetter
+        const PlayerStatus& GetPlayerStatus() { return mPlayerStatus; }
+
+		int GetLevel() { return mPlayerStatus.level; }
+		int GetCurrentExp() { return mPlayerStatus.currentExp; }
+		int GetNeedToLevelUpExp() { return mPlayerStatus.needToLevelUpExp; }
+		int GetCurrentHP() { return mPlayerStatus.currentHP; }
+		int GetMaxHP() { return mPlayerStatus.maxHP; }
+		int GetMinBodyAttackDamage() { return mPlayerStatus.minBodyAttackDamage; }
+		int GetMaxBodyAttackDamage() { return mPlayerStatus.maxBodyAttackDamage; }
+		int GetDashDamage() { return mPlayerStatus.dashDamage; }
+		int GetMaxDashCount() { return mPlayerStatus.maxDashCount; }
+#pragma endregion StatusGetter
+
+#pragma region StatusSetter
+        void IncreaseLevel();
+        void AddCurrentExp(int value);
+        void SetNeedToLevelUpExp(int value);
+        void SetCurrentHP(int value);
+		void SubtractCurrentHP(int value);
+        void SetMaxHP(int value);
+        void SetMinBodyAttackDamage(int value);
+        void SetMaxBodyAttackDamage(int value);
+        void SetDashDamage(int value);
+        void SetMaxDashCount(int value);
+#pragma endregion StatusSetter
 
     private:
         GameObject* mCenterObj;
@@ -104,7 +146,8 @@ namespace hj
         int mSecondStepDustCreatedIndex;
         FxPlayerJump* mPlayerJump;
         Actor* mDashAttackColliderActor;
-        float mDashDamage;
+
+        PlayerStatus mPlayerStatus;
 
         void FlipBasedOnMousePos();
 

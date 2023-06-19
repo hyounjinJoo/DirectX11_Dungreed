@@ -19,6 +19,7 @@
 #include "hjActor.h"
 #include "hjPlayerHand.h"
 #include "hjAttackScript.h"
+#include "hjPlayerLifeBarUI.h"
 
 extern hj::Application application;
 namespace hj
@@ -48,7 +49,7 @@ namespace hj
 		, mMaxDashCount(2)
 		, mCurDashCanCount(2)
 		, mDashChargeTimer(0.f)
-		, mDashChargeTime(2.f)
+		, mDashChargeTime(1.f)
 	{
 		mDashTrailRenderTimer = 0.1f;
 		mDashTrailCreateInterval = mMaxDashTime / mDashTrailCount;
@@ -56,6 +57,7 @@ namespace hj
 
 		CreateDamageWarningObject();
 		CreateDashUIObject();
+		CreateHPBarUIObject();
 	}
 
 	PlayerScript::~PlayerScript()
@@ -234,6 +236,32 @@ namespace hj
 
 	}
 
+	void PlayerScript::CreateHPBarUIObject()
+	{
+		mLifeBarUI = object::Instantiate<PlayerLifeBarUI>(eLayerType::UI);
+	}
+
+	void PlayerScript::UpdateHPBarUI()
+	{
+		if (!GetOwner() || !mLifeBarUI)
+		{
+			return;
+		}
+
+		Player* ownerPlayer = dynamic_cast<Player*>(GetOwner());
+
+		if (!ownerPlayer)
+		{
+			return;
+		}
+
+		int currentPlayerHP = ownerPlayer->GetCurrentHP();
+		int maxPlayerHP = ownerPlayer->GetMaxHP();
+
+		mLifeBarUI->SetMaxHPValue(static_cast<float>(maxPlayerHP));
+		mLifeBarUI->SetCurrentHPValue(static_cast<float>(currentPlayerHP));
+	}
+
 	void PlayerScript::HandleMovementInput()
 	{
 		if (!mOwnerRigid)
@@ -346,7 +374,7 @@ namespace hj
 	void PlayerScript::ActionMouseLBTN()
 	{
 		if (mHand)
-			{
+		{
 			mHand->Attack();
 		}
 	}
@@ -382,7 +410,7 @@ namespace hj
 			mDashDir = Vector3(mousePos.x, mousePos.y, 0.f) - bodyPos;
 			mDashDir.Normalize();
 
-			mDashUI->DicreaseCurCount();
+			mDashUI->DecreaseCurCount();
 			mCurDashCanCount -= 1;
 		}
 	}

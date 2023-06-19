@@ -11,24 +11,30 @@ namespace hj::object::item
 		End,
 	};
 
-    class Item :
-        public GameObject
+    enum class eItemClass
+    {
+        Common,
+        UnCommon,
+        Rare,
+        Legendary,
+    };
+
+    class Item
     {          
     public:
         Item() = delete;
-        Item(eItemType type);
+        Item(eItemType type, eItemClass eClass);
         virtual ~Item();
 
-        virtual void Initialize() = 0;
-        virtual void Update() = 0;
-        virtual void FixedUpdate() = 0;
-        virtual void Render() = 0;
-
         void SetItemType(eItemType type) { mType = type; }
+        void SetItemClass(eItemClass eClass) { mClass = eClass; }
 
     protected:
         eItemType mType;
+        eItemClass mClass;
 		std::string mItemName;
         std::string mItemDescription;
+
+        bool mbIsSpawned;
     };
 }
