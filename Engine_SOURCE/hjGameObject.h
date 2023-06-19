@@ -125,7 +125,7 @@ namespace hj
 		void SetNotActiveByRoom() { mState = eState::NotActiveByRoom; }
 		void Pause() { mState = eState::Paused; }
 		void Activate() { mState = eState::Active; }
-		void Death() { mState = eState::Dead; }
+		virtual void Death() { mState = eState::Dead; }
 		eState GetState() { return mState; }
 
 		bool IsDontDestroy() { return mbDontDestroy; }

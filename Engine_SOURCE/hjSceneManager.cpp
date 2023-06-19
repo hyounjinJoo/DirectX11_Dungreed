@@ -65,6 +65,12 @@ namespace hj
 		}
 	}
 
+	void SceneManager::RemoveDeadObjects()
+	{
+		if (mActiveScene)
+			mActiveScene->RemoveDeadObjects();
+	}
+
 	void SceneManager::CreateScene(eSceneType type, Scene* scene)
 	{
 		if (mScenes.size() >= static_cast<UINT>(eSceneType::End) && mScenes[static_cast<UINT>(type)])

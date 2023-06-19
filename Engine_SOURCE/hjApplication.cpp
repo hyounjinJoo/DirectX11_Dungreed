@@ -65,9 +65,9 @@ namespace hj
         //graphicDevice->Present();
     }
     
-	void Application::Destroy()
+	void Application::RemoveDeadObjects()
 	{
-
+        SceneManager::RemoveDeadObjects();
 	}
 
 	// Running main engine loop
@@ -76,7 +76,6 @@ namespace hj
         Update();
         FixedUpdate();
         Render();
-        Destroy();
         if (SceneManager::IsNeedToLoadScene())
             SceneManager::LoadScene();
     }

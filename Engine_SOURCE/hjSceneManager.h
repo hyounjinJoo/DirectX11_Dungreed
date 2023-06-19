@@ -13,6 +13,7 @@ namespace hj
 		static void Render();
 		static void Destroy();
 		static void Release();
+		static void RemoveDeadObjects();
 
 		static void CreateScene(eSceneType type, Scene* scene);
 		static void LoadScene();

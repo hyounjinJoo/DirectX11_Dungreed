@@ -17,6 +17,7 @@ namespace hj
 		virtual void FixedUpdate();
 		virtual void Render();
 		virtual void Destroy();
+		virtual void RemoveDeadObjects();
 
 		virtual void OnEnter();
 		virtual void OnExit();

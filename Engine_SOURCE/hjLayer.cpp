@@ -107,6 +107,31 @@ namespace hj
 		}
 	}
 
+	void Layer::RemoveDeadObjects()
+	{
+		if (mGameObjects.empty())
+			return;
+
+		GameObject::eState objectState;
+
+		for (GameObjectIter iter = mGameObjects.begin()
+			; iter != mGameObjects.end()
+			; )
+		{
+			objectState = (*iter)->GetState();
+			if (GameObject::eState::Dead == objectState)
+			{
+				GameObject* obj = *iter;
+				iter = mGameObjects.erase(iter);
+				delete obj;
+
+				continue;
+			}
+
+			++iter;
+		}
+	}
+
 	void Layer::AddGameObject(GameObject* gameObject)
 	{
 		if (gameObject == nullptr)

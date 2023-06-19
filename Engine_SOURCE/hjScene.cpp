@@ -58,6 +58,14 @@ namespace hj
 		}
 	}
 
+	void Scene::RemoveDeadObjects()
+	{
+		for (Layer& layer : mLayers)
+		{
+			layer.RemoveDeadObjects();
+		}
+	}
+
 	void Scene::OnEnter()
 	{
 	}

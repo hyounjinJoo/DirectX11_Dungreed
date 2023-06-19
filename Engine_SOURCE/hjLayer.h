@@ -15,6 +15,7 @@ namespace hj
 		virtual void FixedUpdate();
 		virtual void Render();
 		virtual void Destroy();
+		virtual void RemoveDeadObjects();
 
 		void AddGameObject(GameObject* gameObject);
 		const std::vector<GameObject*>& GetGameObejcts() { return mGameObjects; }
