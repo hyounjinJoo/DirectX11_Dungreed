@@ -18,7 +18,7 @@ namespace hj
 		, mAccelation(Vector2::Zero)
 	{
 		mLimitVelocity.x = 600.f;
-		mLimitVelocity.y = 10000.f;
+		mLimitVelocity.y = 1500.f;
 		mbGround = false;
 		mGravity = Vector2(0.0f, 3000.0f);
 	}
@@ -97,7 +97,10 @@ namespace hj
 			sideVelocity *= mLimitVelocity.x;
 		}
 		mVelocity = gravity + sideVelocity;
-
+		if (std::fabsf(mVelocity.y) > std::fabsf(mLimitVelocity.y))
+		{
+			mVelocity.y = mVelocity.y > 0.f ? mLimitVelocity.y : -mLimitVelocity.y;
+		}
 		//마찰력 조건 ( 적용된 힘이 없고, 속도가 0 이 아닐 떄)
 		if(mbOnFriction)
 		{
