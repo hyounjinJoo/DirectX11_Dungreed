@@ -9,14 +9,16 @@ namespace hj
 {
 	ArmRotatorScript::ArmRotatorScript()
 		: mbUsingMouseRotation(false)
-		, mMinDistanceX(-20.f)
-		, mMaxDistanceX(50.f)
-		, mMinDistanceY(50.f)
-		, mMaxDistanceY(30.f)
+		, mMinDistanceX(-10.f)
+		, mMaxDistanceX(35.f)
+		, mMinDistanceY(10.f)
+		, mMaxDistanceY(45.f)
+		, mManualDistance(0.f)
 		, mOffsetAngle(20.f)
 		, mbInverseX(false)
+		, mbUseManualDistance(false)
 		, mBody(nullptr)
-		, mGrappedObject(nullptr)
+		, mHand(nullptr)
 	{
 		SetName(WIDE("ArmRotatorScript"));
 	}
@@ -50,13 +52,20 @@ namespace hj
 		Script::Render();
 	}
 
+	void ArmRotatorScript::SetArmRotatorFactor(float offsetDegree, bool useManualDist, float manualDist)
+	{
+		SetOffsetAngle(offsetDegree);
+		SetUseManualDistance(useManualDist);
+		SetManualDistance(manualDist);
+	}
+
 	void ArmRotatorScript::InverseArmAxis(Axis axis)
 	{
 	}
 
 	void ArmRotatorScript::RotateArm(const Vector2& targetWorldPos)
 	{
-		if (!mGrappedObject)
+		if (!mHand)
 			return;
 
 		Vector3 armPos = GetOwner()->GetWorldPosition();
@@ -76,7 +85,8 @@ namespace hj
 		angle = (cross.z < 0.f) ? 360.f - angle : angle;
 
 		float alpha = 0.f;
-		float newRot = 0.f;
+		float signFactor = 1.f;
+
 		if ((angle >= 0.0f && angle <= 90.0f) || (angle >= 270.0f))
 		{
 			if (angle <= 90.f)
@@ -89,10 +99,6 @@ namespace hj
 				alpha = (angle - 270.f) / 180.f;
 				angle += mOffsetAngle;
 			}
-			distanceFromCenterX = std::lerp(mMaxDistanceX, mMinDistanceX, alpha);
-			distanceFromCenterY = std::lerp(mMaxDistanceY, mMinDistanceY, alpha);
-
-			newRot = DegreeToRadian(angle);
 		}
 		else if ((angle > 90.f))
 		{
@@ -106,15 +112,24 @@ namespace hj
 				alpha = (270.f - angle) / 180.f;
 				angle = 540.f - angle + mOffsetAngle;
 			}
-			distanceFromCenterX = -std::lerp(mMaxDistanceX, mMinDistanceX, alpha);
-			distanceFromCenterY = std::lerp(mMaxDistanceY, mMinDistanceY, alpha);
-			newRot = DegreeToRadian(angle);
+			signFactor = -1.f;
 		}
-		
-		Vector2 newPos = Vector2(distanceFromCenterX, distanceFromCenterY);
-		newPos.Rotate(angle);
 
-		mGrappedObject->SetPosition(newPos);
-		GetOwner()->SetRotationZ(newRot);
+		Vector2 handNextPos;
+		distanceFromCenterX = std::lerp(mMaxDistanceX, mMinDistanceX, alpha) * signFactor;
+
+		if (!mbUseManualDistance)
+		{
+			distanceFromCenterY = std::lerp(mMaxDistanceY, mMinDistanceY, alpha);
+		}
+
+		handNextPos = Vector2(distanceFromCenterX, distanceFromCenterY);
+
+		float newShoulderRot = 0.f;
+		newShoulderRot = DegreeToRadian(angle);
+		handNextPos.Rotate(angle);
+
+		mHand->SetPositionXY(handNextPos);
+		GetOwner()->SetRotationZ(newShoulderRot);
 	}
 }

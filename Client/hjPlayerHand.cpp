@@ -71,7 +71,18 @@ namespace hj
 			return;
 
 		mHandOwner = player;
-		mHandOwnerTR = player->GetTransform();
+		mHandOwnerTR = player->GetCenter()->GetTransform();
+
+		
+		std::vector<Script*> scripts = player->GetCenter()->GetScripts();
+
+		for (auto script : scripts)
+		{
+			if (dynamic_cast<ArmRotatorScript*>(script))
+			{
+				mRotatorScript = dynamic_cast<ArmRotatorScript*>(script);
+	}
+		}
 	}
 
 	void PlayerHand::InverseHandPosZ(bool inverse)

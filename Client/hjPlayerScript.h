@@ -47,6 +47,8 @@ namespace hj
 
 		void DamageWarningActivate();
 
+		void SetHand(PlayerHand* hand) { mHand = hand; }
+
 	private:
 		void CreateDamageWarningObject();
 		void HandleDamageWarningObject();
@@ -122,6 +124,8 @@ namespace hj
 
 		class PlayerDashUI* mDashUI;
 
+
+		class PlayerHand* mHand;
 		Actor* mDashAttackColliderActor;
 	};
 }

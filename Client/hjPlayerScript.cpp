@@ -17,6 +17,7 @@
 #include "hjMonster.h"
 #include "hjPlayerDashUI.h"
 #include "hjActor.h"
+#include "hjPlayerHand.h"
 #include "hjAttackScript.h"
 
 extern hj::Application application;
@@ -344,20 +345,9 @@ namespace hj
 
 	void PlayerScript::ActionMouseLBTN()
 	{
-		Player* player = dynamic_cast<Player*>(GetOwner());
-
-		if (!player)
-			return;
-
-		std::vector<Script*> scripts = player->GetCenter()->GetScripts();
-
-		for (auto script : scripts)
-		{
-			if (dynamic_cast<ArmRotatorScript*>(script))
+		if (mHand)
 			{
-				ArmRotatorScript* rotatorScript = dynamic_cast<ArmRotatorScript*>(script);
-				rotatorScript->InverseArmAxis(Axis::X);
-			}
+			mHand->Attack();
 		}
 	}
 

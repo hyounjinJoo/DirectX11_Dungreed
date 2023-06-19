@@ -22,21 +22,40 @@ namespace hj
 		void FixedUpdate() override;
 		void Render() override;
 
+	public:
 		void SetBody(class GameObject* body) { mBody = body; }
-		void SetTarget(class GameObject* target) { mGrappedObject = target; }
+		void SetTarget(class GameObject* target) { mHand = target; }
 
 		void SetUsingMouseRotation(bool use) { mbUsingMouseRotation = use; }
-		void SetOffsetAngle(bool degree) { mOffsetAngle = degree; }
+		void SetOffsetAngle(float degree) { mOffsetAngle = degree; }
+		void SetUseManualDistance(bool use) { mbUseManualDistance = use; }
+		void SetManualDistance(float dist) { mManualDistance = dist; }
+		void SetMinDistance(const Vector2& vector) { mMinDistanceX = vector.x; mMinDistanceY = vector.y; }
+		void SetMaxDistance(const Vector2& vector) { mMaxDistanceX = vector.x; mMaxDistanceY = vector.y; }
+		void SetDistanceInfo(const Vector2& minDistance, const Vector2& maxDistance)
+		{
+			mMinDistanceX = minDistance.x; mMinDistanceY = minDistance.y;
+			mMaxDistanceX = maxDistance.x; mMaxDistanceY = maxDistance.y;
+		}
+
+		void SetArmRotatorFactor(float offsetDegree, bool useManualDist, float manualDist);
+
 		void InverseArmAxis(Axis axis);
-	
+
+	public:
+		float GetOffsetAngle() { return mOffsetAngle; }
+
 	private:
 		void RotateArm(const math::Vector2& targetPos);
+
 	private:
 		class GameObject* mBody;
-		class GameObject* mGrappedObject;
+		class GameObject* mHand;
 		bool mbUsingMouseRotation;
 		bool mbInverseX;
+		bool mbUseManualDistance;
 
+		float mManualDistance;
 		float mOffsetAngle;
 		float mMinDistanceX;
 		float mMaxDistanceX;

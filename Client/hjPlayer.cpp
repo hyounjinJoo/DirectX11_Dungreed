@@ -77,6 +77,7 @@ namespace hj
 		mDashAttackColliderActor->AddComponent<AttackScript>()->SetPlayer(this);
 
 		mPlayerScript->SetDashAttackActor(mDashAttackColliderActor);
+		mPlayerScript->SetHand(mLeftHand);
 
 
 		ChangeColliderSize();
