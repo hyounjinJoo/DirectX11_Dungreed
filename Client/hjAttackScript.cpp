@@ -3,13 +3,15 @@
 #include "hjPlayer.h"
 #include "hjActor.h"
 #include "hjMonster.h"
+#include <random>
 
 namespace hj
 {
 	AttackScript::AttackScript()
 		: mOwnerPlayer(nullptr)
 		, mPlayerScript(nullptr)
-		, mDashDamage(0.f)
+		, mMinDamage(1)
+		, mMaxDamage(1)
 		, mbDamageOn(false)
 	{
 	}
@@ -41,7 +43,12 @@ namespace hj
 			Actor* monster = monsterBody->GetOwnerActor();
 			if (monster && false == IsExistDamagedObjectInSet(monster))
 			{
-				monster->Damaged(mDashDamage);
+				std::random_device rd;
+				std::mt19937 randomSeed(rd());
+
+				std::uniform_int_distribution<int> damageRange(mMinDamage, mMaxDamage);
+
+				monster->Damaged(damageRange(randomSeed));
 				AddDamagedObject(monster);
 			}
 		}
@@ -52,12 +59,19 @@ namespace hj
 		if (ownerPlayer)
 		{
 			mOwnerPlayer = ownerPlayer;
-			mDashDamage = ownerPlayer->GetDashDamage();
+			int damage = ownerPlayer->GetDashDamage();
+			mMaxDamage = mMinDamage = damage;
 			if (ownerPlayer->GetPlayerScript())
 			{
 				mPlayerScript = ownerPlayer->GetPlayerScript();
 			}
 		}
+	}
+
+	void AttackScript::SetDamageRange(int minDamage, int maxDamage)
+	{
+		mMinDamage = minDamage;
+		mMaxDamage = maxDamage;
 	}
 
 	void AttackScript::AddDamagedObject(Actor* damagedObject)

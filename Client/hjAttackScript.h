@@ -22,16 +22,18 @@ namespace hj
 		void SetPlayer(Player* ownerPlayer);
 		void SetDamageOn(bool damageOn) { mbDamageOn = damageOn; }
 
+		void SetDamageRange(int minDamage, int maxDamage);
 	private:
 		Player* mOwnerPlayer;
 		PlayerScript* mPlayerScript;
-		float mDashDamage;
 		bool mbDamageOn;
 
 
 #pragma region Damage처리를 위한 함수 및 Variables
 	private:
 		std::set<Actor*> mDamagedObjects;
+		int mMinDamage;
+		int mMaxDamage;
 
 	public:
 		void ClearDamagedObjects();
@@ -39,8 +41,7 @@ namespace hj
 	private:
 		void AddDamagedObject(Actor* damagedObject);
 		void DeleteDamagedObject(Actor* damagedObject);
-		bool IsExistDamagedObjectInSet(Actor* damagedObject);
-		
+		bool IsExistDamagedObjectInSet(Actor* damagedObject);		
 #pragma endregion
 	};
 }

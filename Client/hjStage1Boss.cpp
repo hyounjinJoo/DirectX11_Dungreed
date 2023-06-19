@@ -26,7 +26,7 @@ namespace hj
 {
 #define Bellial_Horn_X_Size_Ratio 0.10714f
 #define Bellial_Horn_Y_Size_Ratio 0.11718f
-#define Bellial_Max_HP 200.f
+#define Bellial_Max_HP 200
 
 	Stage1Boss::Stage1Boss()
 		: mMaximumHP(Bellial_Max_HP)
@@ -323,7 +323,7 @@ namespace hj
 		
 	}
 
-	void Stage1Boss::Damaged(float damage)
+	void Stage1Boss::Damaged(int damage)
 	{
 		if (Boss1State::StartReady == mBossState || Boss1State::Dead == mBossState || Boss1State::End == mBossState)
 			return;
@@ -535,7 +535,7 @@ namespace hj
 	void Stage1Boss::ProcessEndAll()
 	{	
 		Death();
-		}
+	}
 
 	void Stage1Boss::PatternSwordAttack()
 	{
@@ -942,7 +942,7 @@ namespace hj
 		delete parser;
 	}
 
-	void Stage1Boss::ProcessDamaged(float damage)
+	void Stage1Boss::ProcessDamaged(int damage)
 	{
 		mCurrentHP -= damage;
 
@@ -987,7 +987,7 @@ namespace hj
 		}
 
 		if (mDamageBody)
-	{
+		{
 			mDamageBody->Death();
 		}
 

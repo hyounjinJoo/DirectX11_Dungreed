@@ -355,7 +355,6 @@ namespace hj
 			std::random_device rd;
 			std::mt19937 randomSeed(rd());
 
-
 			std::uniform_real_distribution<float> patternRange(-mRadius, mRadius);
 			std::uniform_real_distribution<float> thresholdRange(1.f, 3.f);
 

@@ -59,18 +59,17 @@ namespace hj
 		void CalcOffsetManualY(const std::wstring& spriteSheetName, float offsetY);
 		void SetOffsetManual(const std::wstring& spriteSheetName, int index, const Vector2& offset);
 
-		virtual void Damaged(float damage) {};
+		virtual void Damaged(int damage) {};
 
 	protected:
-		virtual void ProcessDamaged(float damage) {};
+		virtual void ProcessDamaged(int damage) {};
 
 	private:
 		void SafeDeleteSprites();
 
-	private:
+	protected:
 		math::Vector2 mCanvasSize;
 		std::vector<SpritesInfo> mSprites;
-
 
 	protected:
 		RoomBase* mOwnerRoom;

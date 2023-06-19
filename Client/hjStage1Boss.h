@@ -45,9 +45,11 @@ namespace hj
 		virtual void Render() override;
 
 		virtual void Death();
+
+	public:
 		Vector3 GetBodyPos() { return mDamageBody->GetWorldPosition(); }
 		void EndDead() { ChangeBoss1State(Boss1State::End); }
-		virtual void Damaged(float damage) override;
+		virtual void Damaged(int damage) override;
 		// 본인 몸 외에 나머지를 어떻게 처리할 것인가?
 		// 
 		// 3. 피격 시 빨갛게 표현
@@ -59,9 +61,7 @@ namespace hj
 		void SpawnEffect();
 
 		void CreateBodyAnimation();
-		virtual void ProcessDamaged(float damage) override;
-		// 4. 사망시 DieFX를 사용하여 랜덤 위치에 표현 후 보스 위치에서 동심원으로 점점 반지름이 커진 위치로 효과가 생성된다.
-		virtual void Dead();
+		virtual void ProcessDamaged(int damage) override;
 		// 5. DieFX가 끝나면 턱, 연결부 뼈가 생성되어 떨어진다. 
 		void CreateJaws();
 		//std::vector<GameObject*> m
@@ -103,8 +103,8 @@ namespace hj
 		// 2. 파티클
 		std::vector<Boss1BackgroundSmallEffect*> mSmallBackgrounds;
 
-		float mCurrentHP;
-		float mMaximumHP;
+		int mCurrentHP;
+		int mMaximumHP;
 		Actor* mDamageBody;
 		class Collider2D* mDamageCollider;
 

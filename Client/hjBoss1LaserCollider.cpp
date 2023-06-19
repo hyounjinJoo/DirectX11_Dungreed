@@ -93,7 +93,7 @@ namespace hj
 		if (nullptr == player)
 			return;
 
-		float test = 10.f;
+		int test = 10;
 		player->Damaged(test);
 		GetOwner()->Pause();
 	}
