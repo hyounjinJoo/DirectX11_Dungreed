@@ -719,6 +719,12 @@ namespace hj::renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_FX", material);
 
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Opaque);
+		MTRL_INSERT("MTRL_FX_OPAQUE", material);
+
 		// Sprite/Weapon/Legendary/DemonSword
 		texture = TEX_FIND("Weapon_Legendary_DemonSword_00");
 		shader = SHADER_FIND("Shader_Sprite");
@@ -737,7 +743,7 @@ namespace hj::renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_UI_HUD_RedWarningOnHit", material);
 
-		//HP Red Warning UI
+		//PlayerHUD UI_Shader_Sprite
 		texture = TEX_FIND("03_UI_00_HUD_PlayerHUD"); 
 		shader = SHADER_FIND("Shader_Sprite");
 		material = MTRL_NEW();
@@ -745,6 +751,13 @@ namespace hj::renderer
 		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_UI_HUD_PlayerHUD", material);
+
+		shader = SHADER_FIND("Shader_UI");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_UI_HUD_PlayerHUD_USE_UIShader", material);
 
 		// HPBar
 		texture = TEX_FIND("HPBarTexture");
