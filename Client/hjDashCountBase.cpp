@@ -57,7 +57,7 @@ namespace hj
 
 		float frameDuration = 1.f;
 		LoadAnimInfoFromFile(eFrameAddMethod::FRAME_ADD, eTextureSlot::T0, path, searchWstr, animWstr, frameDuration, false, 0, false);
-		this->CreateAnimation(eTextureSlot::T0, true);
+		this->InsertAnimationToAnimator(eTextureSlot::T0, true);
 
 
 		
@@ -78,7 +78,7 @@ namespace hj
 
 		float frameDuration = 1.f;
 		mDashCount->LoadAnimInfoFromFile(eFrameAddMethod::FRAME_ADD, eTextureSlot::T0, path, searchWstr, animWstr, frameDuration, false, 0, false);
-		mDashCount->CreateAnimation(eTextureSlot::T0, true);
+		mDashCount->InsertAnimationToAnimator(eTextureSlot::T0, true);
 
 		mDashCount->GetComponent<Animator>()->Play(animWstr);
 	}

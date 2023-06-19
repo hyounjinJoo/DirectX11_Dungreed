@@ -166,7 +166,7 @@ namespace hj
 
 		float frameDuration = 1.f;
 		mDashBaseUIRightEnd->LoadAnimInfoFromFile(eFrameAddMethod::FRAME_ADD, eTextureSlot::T0, path, searchWstr, animWstr, frameDuration, false, 0, false);
-		mDashBaseUIRightEnd->CreateAnimation(eTextureSlot::T0, true);
+		mDashBaseUIRightEnd->InsertAnimationToAnimator(eTextureSlot::T0, true);
 
 		animator->Play(animWstr);
 	}

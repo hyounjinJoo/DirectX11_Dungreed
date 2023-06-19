@@ -72,7 +72,7 @@ namespace hj
 		float frameDuration = 0.5f / 3.f;
 
 		LoadAnimInfoFromFile(eFrameAddMethod::FRAME_ADD, eTextureSlot::T0, path, searchWstr, animWstr, frameDuration, true, 0, false);
-		Actor::CreateAnimation(eTextureSlot::T0, true);
+		Actor::InsertAnimationToAnimator(eTextureSlot::T0, true);
 
 		Animator* animator = GetComponent<Animator>();
 		animator->GetCompleteEvent(animWstr) = std::bind(&Boss1SwordCreateDestroyFx::FxEnd, this);		

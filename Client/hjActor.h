@@ -49,9 +49,9 @@ namespace hj
 		std::shared_ptr<Texture> CheckHasMaterialAndTexture(const graphics::eTextureSlot& slot);
 		virtual void LoadAnimInfoFromFile(const eFrameAddMethod& addMethod, const eTextureSlot& slot, const std::wstring& metaDataFilePath,
 										const std::wstring& wstrForCreateAnim, const std::wstring& createdAnimNameWstr,
-										float frameDuration, bool bUseCount, int startCount, bool bReversePlay);
+										float frameDuration, bool bUseCount = false, int startCount = 0, bool bReversePlay = false);
 
-		virtual void CreateAnimation(const eTextureSlot& slot, bool bScaleSetCanvasSize);
+		virtual void InsertAnimationToAnimator(const eTextureSlot& slot, bool bScaleSetCanvasSize = true);
 		void CalcOffsetAuto(const std::wstring& spriteSheetName);
 		void CalcOffsetAutoY(const std::wstring& spriteSheetName);
 		void CalcOffsetAutoX(const std::wstring& spriteSheetName);

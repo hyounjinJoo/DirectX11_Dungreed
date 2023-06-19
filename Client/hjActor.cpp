@@ -8,7 +8,8 @@
 namespace hj
 {
 	Actor::Actor()
-		: mOwnerRoom(nullptr)
+		: GameObject()
+		, mOwnerRoom(nullptr)
 		, mOwnerActor(nullptr)
 	{
 	}
@@ -217,10 +218,13 @@ namespace hj
 		delete parser;
 	}
 
-	void Actor::CreateAnimation(const eTextureSlot& slot, bool bScaleSetCanvasSize)
+	void Actor::InsertAnimationToAnimator(const eTextureSlot& slot, bool bScaleSetCanvasSize)
 	{
 		Animator* animator = GetComponent<Animator>();
-		assert(animator);
+		if (!animator)
+		{
+			animator = AddComponent<Animator>();
+		}
 
 		std::shared_ptr<Texture> texture = CheckHasMaterialAndTexture(slot);
 
@@ -267,7 +271,7 @@ namespace hj
 			}
 		}
 	}
-					
+
 	void Actor::CalcOffsetAutoY(const std::wstring& spriteSheetName)
 	{
 		for (SpritesInfo iter : mSprites)

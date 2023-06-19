@@ -72,7 +72,7 @@ namespace hj
 
 		LoadAnimInfoFromFile(eFrameAddMethod::FRAME_ADD_OFFSET_TRIM_OFFSET, eTextureSlot::T0, path, searchWstr, animWstr, frameDuration, true, 0, false);
 		
-		Actor::CreateAnimation(eTextureSlot::T0, true);
+		InsertAnimationToAnimator(eTextureSlot::T0, true);
 
 		Animator* animator = GetComponent<Animator>();
 		animator->Play(animWstr, false);
