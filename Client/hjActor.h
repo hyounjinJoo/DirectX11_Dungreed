@@ -53,7 +53,11 @@ namespace hj
 
 		virtual void CreateAnimation(const eTextureSlot& slot, bool bScaleSetCanvasSize);
 		void CalcOffsetAuto(const std::wstring& spriteSheetName);
+		void CalcOffsetAutoY(const std::wstring& spriteSheetName);
 		void CalcOffsetAutoX(const std::wstring& spriteSheetName);
+		void CalcOffsetManualX(const std::wstring& spriteSheetName, float offsetX);
+		void CalcOffsetManualY(const std::wstring& spriteSheetName, float offsetY);
+		void SetOffsetManual(const std::wstring& spriteSheetName, int index, const Vector2& offset);
 
 		virtual void Damaged(float damage) {};
 

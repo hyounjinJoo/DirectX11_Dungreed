@@ -267,6 +267,27 @@ namespace hj
 			}
 		}
 	}
+					
+	void Actor::CalcOffsetAutoY(const std::wstring& spriteSheetName)
+	{
+		for (SpritesInfo iter : mSprites)
+		{
+			if (iter.spritesName == spriteSheetName)
+			{
+				for (auto& spriteFrame : iter.spriteSheet)
+				{
+					if (spriteFrame.size.y != mCanvasSize.y)
+					{
+						spriteFrame.offset.y = -(mCanvasSize.y - spriteFrame.size.y) / 2.f;
+					}
+					else
+					{
+						spriteFrame.offset.y = 0.f;
+					}
+				}
+			}
+		}
+	}
 
 	void Actor::CalcOffsetAutoX(const std::wstring& spriteSheetName)
 	{
@@ -288,6 +309,63 @@ namespace hj
 			}
 		}
 	}
+
+	void Actor::CalcOffsetManualX(const std::wstring& spriteSheetName, float offsetX)
+	{
+		for (SpritesInfo iter : mSprites)
+		{
+			if (iter.spritesName == spriteSheetName)
+			{
+				for (auto& spriteFrame : iter.spriteSheet)
+				{
+					if (spriteFrame.size.x != mCanvasSize.x)
+					{
+						spriteFrame.offset.y = (static_cast<float>(offsetX) - 1.f) * -(mCanvasSize.x - spriteFrame.size.x) / 2.f;
+					}
+					else
+						spriteFrame.offset.y = 0.f;
+				}
+			}
+		}
+	}
+
+	void Actor::CalcOffsetManualY(const std::wstring& spriteSheetName, float offsetY)
+	{
+		for (SpritesInfo iter : mSprites)
+		{
+			if (iter.spritesName == spriteSheetName)
+			{
+				for (auto& spriteFrame : iter.spriteSheet)
+				{
+					if (spriteFrame.size.y != mCanvasSize.y)
+					{
+						spriteFrame.offset.y = (static_cast<float>(offsetY) - 1.f) * -(mCanvasSize.y - spriteFrame.size.y) / 2.f;
+					}
+					else
+						spriteFrame.offset.y = 0.f;
+				}
+			}
+		}
+	}
+
+	void Actor::SetOffsetManual(const std::wstring& spriteSheetName, int index, const Vector2& offset)
+	{
+		for (SpritesInfo iter : mSprites)
+		{
+			if (iter.spritesName == spriteSheetName)
+			{
+				size_t Size = iter.spriteSheet.size();
+
+				if (index >= Size)
+				{
+					return;
+				}
+
+				iter.spriteSheet[index].offset = offset;
+			}
+		}
+	}
+
 
 	void Actor::PauseAnimation()
 	{
