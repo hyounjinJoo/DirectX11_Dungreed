@@ -595,6 +595,13 @@ namespace hj::renderer
 	
 	#pragma endregion
 #pragma endregion
+#pragma region 02_Weapon
+		MAIN_FOLDER("02_Weapon");
+		LOAD_TEX("02_Weapon_Common", "01_Weapon_Common.png");
+		LOAD_TEX("02_Weapon_UnCommon", "02_Weapon_UnCommon.png");
+		LOAD_TEX("02_Weapon_Rare", "03_Weapon_Rare.png");
+		LOAD_TEX("02_Weapon_Legendary", "04_Weapon_Legendary.png");
+#pragma endregion
 #pragma region 03_UI
 		MAIN_FOLDER("03_UI");
 		SUB_FOLDER(1, "00_HUD");
@@ -653,6 +660,38 @@ namespace hj::renderer
 		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Sprite", material);
+
+		// Weapon_Common
+		texture = TEX_FIND("02_Weapon_Common");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Weapon_Common", material);
+
+		// Weapon_UnCommon
+		texture = TEX_FIND("02_Weapon_UnCommon");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Weapon_UnCommon", material);
+
+		// Weapon_Rare
+		texture = TEX_FIND("02_Weapon_Rare");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Weapon_Rare", material);
+
+		// Weapon_Legendary
+		texture = TEX_FIND("02_Weapon_Legendary");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Weapon_Legendary", material);
 
 		// Sprite/Char/Adventurer
 		texture = TEX_FIND("00_Player");
