@@ -25,6 +25,10 @@ namespace hj
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
+
+        virtual void Death() override;
+
+    public:
 		void ShotLaser();
         void ResetLaser();
         bool IsLaserEnd();

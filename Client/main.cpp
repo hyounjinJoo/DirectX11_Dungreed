@@ -99,6 +99,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Run();
             editor.Run();
             application.Present();
+
+            application.RemoveDeadObjects();
         }
     }
 

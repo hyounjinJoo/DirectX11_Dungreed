@@ -26,6 +26,8 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		virtual void Death() override;
+
 		virtual GameObject* Clone() const override;
 
 	public:

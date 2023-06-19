@@ -36,6 +36,23 @@ namespace hj
 		return new Actor(*this);
 	}
 
+	void Actor::Death()
+	{
+		if (mOwnerActor)
+		{
+			mOwnerActor = nullptr;
+		}
+
+		SafeDeleteSprites();
+
+		if (mOwnerRoom)
+		{
+			mOwnerRoom->DelistFromManagedGameObjects(this);
+		}
+
+		GameObject::Death();
+	}
+
 	void Actor::SetOwnerRoom(RoomBase* room)
 	{
 		if (!room)

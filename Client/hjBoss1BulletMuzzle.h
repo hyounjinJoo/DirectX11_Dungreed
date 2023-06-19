@@ -22,6 +22,8 @@ namespace hj
 		virtual void Update() override;
 		virtual void FixedUpdate() override;
 
+		virtual void Death() override;
+
 	public:
 		void ChangeMuzzleState(MuzzleState state);
 		MuzzleState GetMuzzleState() { return mMuzzleState; }

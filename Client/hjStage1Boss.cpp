@@ -534,23 +534,8 @@ namespace hj
 
 	void Stage1Boss::ProcessEndAll()
 	{	
-		if (mLeftHand)
-		{
-			mLeftHand->Pause();
+		Death();
 		}
-
-		if (mRightHand)
-		{
-			mRightHand->Pause();
-		}
-
-		for (auto sword : mSwords)
-		{
-			sword->PauseAll();
-		}
-
-		Pause();
-	}
 
 	void Stage1Boss::PatternSwordAttack()
 	{
@@ -969,9 +954,44 @@ namespace hj
 		mDamagedEffectTimer = 0.1f;
 	}
 
-	void Stage1Boss::Dead()
+	void Stage1Boss::Death()
 	{
+		if (mLeftHand)
+		{
+			mLeftHand->Death();
+		}
 
+		if (mRightHand)
+		{
+			mRightHand->Death();
+		}
+
+		for (auto sword : mSwords)
+		{
+			sword->Death();
+		}
+		
+		if (mBulletMuzzle)
+		{
+			mBulletMuzzle->Death();
+		}
+
+		if(mBackground)
+		{
+			mBackground->Death();
+		}
+
+		for (auto smallBackground : mSmallBackgrounds)
+		{
+			smallBackground->Death();
+		}
+
+		if (mDamageBody)
+	{
+			mDamageBody->Death();
+		}
+
+		Actor::Death();
 	}
 
 	void Stage1Boss::CreateJaws()

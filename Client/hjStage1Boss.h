@@ -44,6 +44,7 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		virtual void Death();
 		Vector3 GetBodyPos() { return mDamageBody->GetWorldPosition(); }
 		void EndDead() { ChangeBoss1State(Boss1State::End); }
 		virtual void Damaged(float damage) override;

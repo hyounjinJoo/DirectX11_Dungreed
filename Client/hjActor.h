@@ -33,6 +33,9 @@ namespace hj
 
 		virtual GameObject* Clone();
 
+		virtual void Death() override;
+	public:
+
 		virtual void SetOwnerRoom(RoomBase* room);
 		RoomBase* GetOwnerRoom();
 

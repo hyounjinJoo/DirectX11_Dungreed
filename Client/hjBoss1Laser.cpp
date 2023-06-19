@@ -114,6 +114,19 @@ namespace hj
 		GameObject::Render();
 	}
 
+	void Boss1Laser::Death()
+	{
+		if (mLaserCollider)
+		{
+			mLaserCollider->Death();
+		}
+			
+		for (auto laserPart : mLaserParts)
+		{
+			laserPart->Death();
+		}
+	}
+
 	void Boss1Laser::ShotLaser()
 	{
 		for (Boss1LaserPart* part : mLaserParts)

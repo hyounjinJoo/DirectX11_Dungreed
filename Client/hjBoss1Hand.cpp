@@ -85,6 +85,15 @@ namespace hj
 		GameObject::Render();
 	}
 	
+	void Boss1Hand::Death()
+	{
+		mOwner = nullptr;
+
+		mLaser->Death();
+
+		Actor::Death();
+	}
+
 	void Boss1Hand::SetOwner(Stage1Boss* owner)
 	{
 		if (!owner)

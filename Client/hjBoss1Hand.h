@@ -33,6 +33,8 @@ namespace hj
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
+		virtual void Death() override;
+
 	public:
 		void SetOwner(Stage1Boss* owner);
 		void ChangeHandState(Boss1HandState nextState);
@@ -60,7 +62,6 @@ namespace hj
 		Boss1HandType mHandType;
 		Boss1HandState mHandState;
 		class Boss1Laser* mLaser;
-		GameObject* mAttackEffect;
 		bool mbAttackStart;
 
 		float mMoveTimer = 0.f;

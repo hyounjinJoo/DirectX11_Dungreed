@@ -70,6 +70,16 @@ namespace hj
 		GameObject::FixedUpdate();
 	}
 
+	void Boss1BulletMuzzle::Death()
+	{
+		for (auto bullet : mBullets)
+		{
+			bullet->Death();
+		}
+
+		Actor::Death();
+	}
+
 	void Boss1BulletMuzzle::ChangeMuzzleState(MuzzleState nextState)
 	{
 		if (mMuzzleState == nextState)

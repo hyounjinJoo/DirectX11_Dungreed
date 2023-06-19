@@ -219,6 +219,41 @@ namespace hj
 		GameObject::Render();
 	}
 
+	void Boss1Sword::Death()
+	{
+		if (mPlayer)
+		{
+			mPlayer = nullptr;
+		}
+
+		if (mChargeEffectObj)
+		{
+			mChargeEffectObj->Death();
+		}
+
+		if (mHitEffectObj)
+		{
+			mHitEffectObj->Death();
+		}
+
+		if (mCreateDestroyFx)
+		{
+			mCreateDestroyFx->Death();
+		}
+
+		if (mSwordMoveCollider)
+		{
+			mSwordMoveCollider->Death();
+		}
+
+		if (mSwordAttackCollider)
+		{
+			mSwordAttackCollider->Death();
+		}
+
+		Actor::Death();
+	}
+
 	GameObject* Boss1Sword::Clone() const
 	{
 		return new Boss1Sword(*this);
