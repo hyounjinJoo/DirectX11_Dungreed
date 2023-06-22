@@ -4,7 +4,6 @@
 #include "hjAnimator.h"
 #include "hjInput.h"
 #include "hjSpriteRenderer.h"
-#include "hjCameraScript.h"
 
 namespace hj
 {
@@ -64,19 +63,6 @@ namespace hj
 		if (mAttackScript)
 		{
 			mAttackScript->SetDamageOn(true);
-		}
-
-		Camera* camera = renderer::mainCamera;
-		GameObject* cameraObj = camera->GetOwner();
-		std::vector<Script*> scripts = cameraObj->GetScripts();
-
-		for (auto iter : scripts)
-		{
-			if (dynamic_cast<CameraScript*>(iter))
-			{
-				CameraScript* script = static_cast<CameraScript*>(iter);
-				script->Shake();
-			}
 		}
 	}
 

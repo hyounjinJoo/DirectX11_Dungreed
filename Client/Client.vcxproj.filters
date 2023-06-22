@@ -260,6 +260,24 @@
     <Filter Include="Contents\GameObject\BaseObject\UI\ProgressBar">
       <UniqueIdentifier>{1aa93eb9-2845-4e81-a673-f8241b2c709b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Ground\Skeleton">
+      <UniqueIdentifier>{81aa3a16-c5aa-4eb5-8feb-901fb0bb74ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Ground\Skeleton\Sword">
+      <UniqueIdentifier>{0e1e4f9b-f903-4de6-8a22-5bd5457c8b75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Monster\Ground\Skeleton\Bow">
+      <UniqueIdentifier>{abf37137-1858-4d3f-b1e1-f1d04f6ea960}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow">
+      <UniqueIdentifier>{bb2a16bc-0072-4aef-b8c2-037d617441d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow">
+      <UniqueIdentifier>{3ba8a4d0-0300-4f4b-8318-fcee9ae0203f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow\Effect">
+      <UniqueIdentifier>{45417564-9b20-487e-b317-78b7a0b03ff4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjEditor.h">
@@ -526,6 +544,21 @@
     <ClInclude Include="hjPlayerLifeBarWaveUI.h">
       <Filter>Contents\GameObject\Play\Player\HUD\LifeBarUI</Filter>
     </ClInclude>
+    <ClInclude Include="hjMonsterSpawner.h">
+      <Filter>Contents\GameObject\Play\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="hjSkeletonBase.h">
+      <Filter>Contents\GameObject\Play\Monster\Ground\Skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="hjOakBow.h">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow</Filter>
+    </ClInclude>
+    <ClInclude Include="hjArrow.h">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="hjArrowFx.h">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -790,6 +823,21 @@
     </ClCompile>
     <ClCompile Include="hjPlayerLifeBarWaveUI.cpp">
       <Filter>Contents\GameObject\Play\Player\HUD\LifeBarUI</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMonsterSpawner.cpp">
+      <Filter>Contents\GameObject\Play\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="hjSkeletonBase.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Ground\Skeleton</Filter>
+    </ClCompile>
+    <ClCompile Include="hjOakBow.cpp">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow</Filter>
+    </ClCompile>
+    <ClCompile Include="hjArrow.cpp">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="hjArrowFx.cpp">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

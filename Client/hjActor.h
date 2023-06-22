@@ -42,7 +42,7 @@ namespace hj
 		virtual void PauseAnimation();
 
 		Actor* GetOwnerActor();
-		void SetOwnerActor(Actor* owner) { mOwnerActor = owner; }
+		virtual void SetOwnerActor(Actor* owner) { mOwnerActor = owner; }
 
 	public:
 		void SetNameAndCreateSpriteRenderer(const std::wstring& name, const std::wstring& mtrlName, const std::wstring& meshName);

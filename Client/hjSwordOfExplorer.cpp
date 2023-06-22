@@ -3,6 +3,10 @@
 #include "hjCollider2D.h"
 #include "hjSwingFx.h"
 #include "hjObject.h"
+#include "hjPlayerHand.h"
+#include "hjArmRotatorScript.h"
+#include "hjTime.h"
+#include "hjCameraScript.h"
 
 namespace hj::object::item::weapon
 {
@@ -27,6 +31,7 @@ namespace hj::object::item::weapon
 
 		mWeaponInfo.mSecondMinDistance = Vector2(25.f, -40.f);
 		mWeaponInfo.mSecondMaxDistance = Vector2(2.f, 25.f);
+		mWeaponInfo.mbUseOriginAngle = false;
 
 		SetNameAndCreateSpriteRenderer(GetName(),
 			WIDE("MTRL_Weapon_Common"), WIDE("Mesh_Rect"));
@@ -55,6 +60,14 @@ namespace hj::object::item::weapon
 	
 	void SwordOfExplorer::Update()
 	{
+		if (mAttackCoolTimer > 0.f)
+		{
+			mAttackCoolTimer -= Time::FixedDeltaTime();
+
+			if (mAttackCoolTimer < 0.f)
+				mAttackCoolTimer = 0.f;
+		}
+
 		Actor::Update();
 	}
 	
@@ -70,7 +83,81 @@ namespace hj::object::item::weapon
 
 	void SwordOfExplorer::Attack()
 	{
+		if (mAttackCoolTimer > 0.f)
+		{
+			return;
+		}
+
+		mAttackCoolTimer = 1.f / mWeaponInfo.mAttackPerSec;
+
+		Camera* camera = renderer::mainCamera;
+		GameObject* cameraObj = camera->GetOwner();
+		std::vector<Script*> scripts = cameraObj->GetScripts();
+
+		for (auto iter : scripts)
+		{
+			if (dynamic_cast<CameraScript*>(iter))
+			{
+				CameraScript* script = static_cast<CameraScript*>(iter);
+				script->Shake();
+			}
+		}
+
 		mAttackFx->PlayFx();
+
+		PlayerHand* playerHand = reinterpret_cast<PlayerHand*>(mHand);
+
+		if (!playerHand)
+		{
+			return;
+		}
+
+		if (mWeaponInfo.mbIsNeedToRotX)
+		{
+			float nextRotX = playerHand->GetRotationX();
+			nextRotX -= XM_PI;
+			while (nextRotX < 0.f)
+			{
+				nextRotX += XM_2PI;
+			}
+
+			playerHand->SetRotationX(nextRotX);
+
+			nextRotX = playerHand->GetHandOwnerTR()->GetRotationX();
+			nextRotX -= XM_PI;
+			while (nextRotX < 0.f)
+			{
+				nextRotX += XM_2PI;
+			}
+
+			playerHand->GetHandOwnerTR()->SetRotationX(nextRotX);
+		}
+
+		ArmRotatorScript* rotatorScript = playerHand->GetRotatorScript();
+
+		if (!rotatorScript)
+			return;
+
+		float firstOffsetAngle = mWeaponInfo.mFirstOffsetAngle;
+		float secondOffsetAngle = mWeaponInfo.mSecondOffsetAngle;
+
+		float rotatorOffsetAngle = rotatorScript->GetOffsetAngle();
+		if (firstOffsetAngle == rotatorOffsetAngle)
+		{
+			rotatorScript->SetOffsetAngle(secondOffsetAngle);
+
+			Vector2 nextMinDistance = mWeaponInfo.mSecondMinDistance;
+			Vector2 nextMaxDistance = mWeaponInfo.mSecondMaxDistance;
+			rotatorScript->SetDistanceInfo(nextMinDistance, nextMaxDistance);
+		}
+		else
+		{
+			rotatorScript->SetOffsetAngle(firstOffsetAngle);
+
+			Vector2 nextMinDistance = mWeaponInfo.mFirstMinDistance;
+			Vector2 nextMaxDistance = mWeaponInfo.mFirstMaxDistance;
+			rotatorScript->SetDistanceInfo(nextMinDistance, nextMaxDistance);
+		}
 	}
 
 	void SwordOfExplorer::CreateAnimation()
@@ -98,6 +185,16 @@ namespace hj::object::item::weapon
 		}
 
 		return result;
+	}
+
+	void SwordOfExplorer::SetOwnerActor(Actor* owner)
+	{
+		Actor::SetOwnerActor(owner);
+
+		if (mAttackFx)
+		{
+			mAttackFx->SetOwnerActor(owner);
+		}
 	}
 
 }

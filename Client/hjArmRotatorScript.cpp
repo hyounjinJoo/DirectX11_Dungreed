@@ -19,6 +19,8 @@ namespace hj
 		, mbUseManualDistance(false)
 		, mBody(nullptr)
 		, mHand(nullptr)
+		, mbUseOriginAngle(false)
+		, mbNotAllowMinusHandPosX(false)
 	{
 		SetName(WIDE("ArmRotatorScript"));
 	}
@@ -52,11 +54,14 @@ namespace hj
 		Script::Render();
 	}
 
-	void ArmRotatorScript::SetArmRotatorFactor(float offsetDegree, bool useManualDist, float manualDist)
+	void ArmRotatorScript::SetArmRotatorFactor(float offsetDegree, bool useManualDist,
+		float manualDist, bool useOriginAngle, bool notAllowMinusHandPosX)
 	{
 		SetOffsetAngle(offsetDegree);
 		SetUseManualDistance(useManualDist);
 		SetManualDistance(manualDist);
+		SetUseOriginAngle(useOriginAngle);
+		SetNotAllowMinusHandPosX(notAllowMinusHandPosX);
 	}
 
 	void ArmRotatorScript::InverseArmAxis(Axis axis)
@@ -84,6 +89,7 @@ namespace hj
 
 		angle = (cross.z < 0.f) ? 360.f - angle : angle;
 
+		float originAngle = angle;
 		float alpha = 0.f;
 		float signFactor = 1.f;
 
@@ -128,8 +134,44 @@ namespace hj
 		float newShoulderRot = 0.f;
 		newShoulderRot = DegreeToRadian(angle);
 		handNextPos.Rotate(angle);
-
+		if (mbNotAllowMinusHandPosX)
+		{
+			if (handNextPos.x < 0.f)
+			{
+				handNextPos.x *= -1.f;
+			}
+		}
 		mHand->SetPositionXY(handNextPos);
+		
+		if (mbUseOriginAngle)
+		{
+			if (0.f <= originAngle && originAngle < 90.f)
+			{
+				signFactor = 1.f;
+			}
+			else if (90.f <= originAngle && originAngle < 270.f)
+			{
+				signFactor = -1.f;
+			}
+			else if (270.f <= originAngle && originAngle < 360.f)
+			{
+				signFactor = 1.f;
+			}
+
+			newShoulderRot = DegreeToRadian(originAngle * signFactor);
+			while (newShoulderRot < 0.f)
+			{
+				newShoulderRot += XM_2PI;
+			}
+			while (newShoulderRot > XM_2PI)
+			{
+				newShoulderRot -= XM_2PI;
+			}
+		}
+		
 		GetOwner()->SetRotationZ(newShoulderRot);
+		GetOwner()->GetTransform()->FixedUpdate();
+		mHand->GetTransform()->FixedUpdate();
+		mHand->GetWeaponTR()->FixedUpdate();
 	}
 }

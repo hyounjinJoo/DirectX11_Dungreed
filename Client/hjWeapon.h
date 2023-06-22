@@ -2,6 +2,7 @@
 #include "hjItem.h"
 #include "hjTexture.h"
 
+class Actor;
 namespace hj::object::item::weapon
 {
 	enum class eWeaponType
@@ -28,10 +29,14 @@ namespace hj::object::item::weapon
         Vector2 mFirstMaxDistance;
 		Vector2 mSecondMinDistance;
 		Vector2 mSecondMaxDistance;
+        bool mbIsNeedToRotX;
+        bool mbUseOriginAngle;
+        bool mbNotAllowMinusHandPosX;
 #pragma endregion
 
         weaponInfo()
-            : mMinAttack(1)
+            : mWeaponID(UINT_MAX)
+            , mMinAttack(1)
             , mMaxAttack(1)
             , mAttackPerSec(1)
             , mWeaponType(eWeaponType::None)
@@ -43,6 +48,9 @@ namespace hj::object::item::weapon
 			, mFirstMaxDistance(Vector2::Zero)
 			, mSecondMinDistance(Vector2::Zero)
 			, mSecondMaxDistance(Vector2::Zero)
+            , mbIsNeedToRotX(true)
+            , mbUseOriginAngle(false)
+            , mbNotAllowMinusHandPosX(false)
         {
         }
     };
@@ -55,7 +63,7 @@ namespace hj::object::item::weapon
         Weapon(eWeaponType type, eItemClass eClass);
         virtual ~Weapon();
 
-        virtual void Attack() = 0;
+        virtual void Attack() {};
 
     public:
         float GetFirstOffsetAngle() { return mWeaponInfo.mFirstOffsetAngle; }
@@ -65,10 +73,29 @@ namespace hj::object::item::weapon
 		Vector2 GetFirstMaxDistance() { return mWeaponInfo.mFirstMaxDistance; }
 		Vector2 GetSecondMinDistance() { return mWeaponInfo.mSecondMinDistance; }
 		Vector2 GetSecondMaxDistance() { return mWeaponInfo.mSecondMaxDistance; }
+        bool GetIsNeedToRotX() { return mWeaponInfo.mbIsNeedToRotX; }
+        bool GetIsUseManualDistance() { return mWeaponInfo.mbUseManualDistance; }
+        float GetManualDistance() { return mWeaponInfo.mManualDistance; }
+        eWeaponType GetWeaponType() { return mWeaponInfo.mWeaponType; }
+        bool GetIsUseOriginAngle() { return mWeaponInfo.mbUseOriginAngle; }
+        bool GetIsNotAllowMinusHandPosX() { return mWeaponInfo.mbNotAllowMinusHandPosX; }
 
         const weaponInfo& GetWeaponInfo() { return mWeaponInfo; }
+
+        void SetHand(Actor* hand)
+        {
+            if (hand)
+            {
+                mHand = hand;
+            }
+        }
+
     protected:
         weaponInfo mWeaponInfo;
+        Actor* mHand;
+
+    protected:
+		float mAttackCoolTimer;
 
     public:
         static UINT mID;

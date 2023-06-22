@@ -8,11 +8,12 @@
 #include "hjArmRotatorScript.h"
 #include "hjSwordOfExplorer.h"
 #include "hjActor.h"
+#include "hjOakBow.h"
 
 namespace hj
 {
 	PlayerHand::PlayerHand()
-		: GameObject()
+		: Actor()
 		, mWeapon(nullptr)
 		, mHandOwner(nullptr)
 		, mHandOwnerTR(nullptr)
@@ -43,6 +44,12 @@ namespace hj
 		mWeapon->GetTransform()->SetParent(this->GetTransform());
 		mWeapon->SetPositionY(24.f);
 		mWeapon->SetPositionZ(0.1f);
+		//mWeapon = object::Instantiate<object::item::weapon::OakBow>(eLayerType::PlayerHas);
+		//mWeapon->GetTransform()->SetParent(this->GetTransform());
+		//mWeapon->SetPositionX(-7.f);
+		//mWeapon->SetPositionZ(0.1f);
+
+		dynamic_cast<object::item::weapon::Weapon*>(mWeapon)->SetHand(this);
 	}
 
 	PlayerHand::~PlayerHand()
@@ -78,7 +85,7 @@ namespace hj
 		mHandOwner = player;
 		mHandOwnerTR = player->GetCenter()->GetTransform();
 
-		dynamic_cast<object::item::weapon::SwordOfExplorer*>(mWeapon)->GetFxActor()->SetOwnerActor(mHandOwner);
+		mWeapon->SetOwnerActor(owner);
 
 		std::vector<Script*> scripts = player->GetCenter()->GetScripts();
 
@@ -87,6 +94,16 @@ namespace hj
 			if (dynamic_cast<ArmRotatorScript*>(script))
 			{
 				mRotatorScript = dynamic_cast<ArmRotatorScript*>(script);
+				object::item::weapon::Weapon* weaponPtr = dynamic_cast<object::item::weapon::Weapon*>(mWeapon);
+				if (weaponPtr)
+				{
+					mRotatorScript->SetArmRotatorFactor(weaponPtr->GetOffsetAngle().x, weaponPtr->GetIsUseManualDistance()
+						, weaponPtr->GetIsUseManualDistance(), weaponPtr->GetIsUseOriginAngle(), weaponPtr->GetIsNotAllowMinusHandPosX());
+
+					Vector2 MinDistance = weaponPtr->GetFirstMinDistance();
+					Vector2 MaxDistance = weaponPtr->GetFirstMaxDistance();
+					mRotatorScript->SetDistanceInfo(MinDistance, MaxDistance);
+				}
 			}
 		}
 	}
@@ -111,55 +128,13 @@ namespace hj
 
 	void PlayerHand::Attack()
 	{
-		float nextRotX = GetRotationX();
-		nextRotX -= XM_PI;
-		while (nextRotX < 0.f)
-		{
-			nextRotX += XM_2PI;
-		}
-		
-		SetRotationX(nextRotX);
-		
-		nextRotX = mHandOwnerTR->GetRotationX();
-		nextRotX -= XM_PI;
-		while (nextRotX < 0.f)
-		{
-			nextRotX += XM_2PI;
-		}
-		
-		mHandOwnerTR->SetRotationX(nextRotX);
-
 		if (mWeapon)
 		{
 			object::item::weapon::Weapon* weaponPtr = dynamic_cast<object::item::weapon::Weapon*>(mWeapon);
-
+			
 			if (weaponPtr)
 			{
 				weaponPtr->Attack();
-
-				if (mRotatorScript)
-				{
-					float firstOffsetAngle = weaponPtr->GetFirstOffsetAngle();
-					float secondOffsetAngle = weaponPtr->GetSecondOffsetAngle();
-
-					float rotatorOffsetAngle = mRotatorScript->GetOffsetAngle();
-					if (firstOffsetAngle == rotatorOffsetAngle)
-					{
-						mRotatorScript->SetOffsetAngle(secondOffsetAngle);
-
-						Vector2 nextMinDistance = weaponPtr->GetSecondMinDistance();
-						Vector2 nextMaxDistance = weaponPtr->GetSecondMaxDistance();
-						mRotatorScript->SetDistanceInfo(nextMinDistance, nextMaxDistance);
-					}
-					else
-					{
-						mRotatorScript->SetOffsetAngle(firstOffsetAngle);
-
-						Vector2 nextMinDistance = weaponPtr->GetFirstMinDistance();
-						Vector2 nextMaxDistance = weaponPtr->GetFirstMaxDistance();
-						mRotatorScript->SetDistanceInfo(nextMinDistance, nextMaxDistance);
-					}
-				}
 			}
 		}
 	}

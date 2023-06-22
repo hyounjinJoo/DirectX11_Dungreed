@@ -20,6 +20,8 @@ namespace hj::object::item::weapon
         virtual void Attack() final;
         Actor* GetFxActor();
 
+        virtual void SetOwnerActor(Actor* owner) override;
+
     private:
         void CreateAnimation();
 

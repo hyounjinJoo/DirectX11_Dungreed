@@ -151,8 +151,8 @@ namespace hj
 			mGameObjects.push_back(mBoss);
 
 			BossSpawner* spawner = object::Instantiate<BossSpawner>(eLayerType::ForeGround
-				, Vector3(-50.f, -350, 0.f));
-			spawner->SetScale(Vector3(50.f, 50.f, 1.f));
+				, DoorL->GetPosition() + Vector3(280.f, 0.f, 0.f));
+			spawner->SetScale(Vector3(160.f, 320.f, 1.f));
 			spawner->GetTransform()->FixedUpdate();
 			spawner->SetName(WIDE("Spawner-Boss1"));
 			spawner->SetOwnerRoom(this);

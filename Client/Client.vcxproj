@@ -136,6 +136,8 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjActor.h" />
+    <ClInclude Include="hjArrow.h" />
+    <ClInclude Include="hjArrowFx.h" />
     <ClInclude Include="hjBoss1BackgroundEffect.h" />
     <ClInclude Include="hjBoss1BackgroundSmallEffect.h" />
     <ClInclude Include="hjBoss1Bullet.h" />
@@ -163,6 +165,8 @@
     <ClInclude Include="hjLinearMoveScript.h" />
     <ClInclude Include="hjMainLogo.h" />
     <ClInclude Include="hjMonster.h" />
+    <ClInclude Include="hjMonsterSpawner.h" />
+    <ClInclude Include="hjOakBow.h" />
     <ClInclude Include="hjPlayer.h" />
     <ClInclude Include="hjFxPlayerDust.h" />
     <ClInclude Include="hjAttackScript.h" />
@@ -180,6 +184,7 @@
     <ClInclude Include="hjRoomPassThrough.h" />
     <ClInclude Include="hjRoomRectFloor.h" />
     <ClInclude Include="hjBossSpawner.h" />
+    <ClInclude Include="hjSkeletonBase.h" />
     <ClInclude Include="hjStage1Boss.h" />
     <ClInclude Include="hjBoss1Hand.h" />
     <ClInclude Include="hjBoss1Parts.h" />
@@ -224,6 +229,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjActor.cpp" />
+    <ClCompile Include="hjArrow.cpp" />
+    <ClCompile Include="hjArrowFx.cpp" />
     <ClCompile Include="hjBoss1BackgroundEffect.cpp" />
     <ClCompile Include="hjBoss1BackgroundSmallEffect.cpp" />
     <ClCompile Include="hjBoss1Bullet.cpp" />
@@ -251,6 +258,8 @@
     <ClCompile Include="hjLinearMoveScript.cpp" />
     <ClCompile Include="hjMainLogo.cpp" />
     <ClCompile Include="hjMonster.cpp" />
+    <ClCompile Include="hjMonsterSpawner.cpp" />
+    <ClCompile Include="hjOakBow.cpp" />
     <ClCompile Include="hjPlayer.cpp" />
     <ClCompile Include="hjFxPlayerDust.cpp" />
     <ClCompile Include="hjAttackScript.cpp" />
@@ -268,6 +277,7 @@
     <ClCompile Include="hjRoomPassThrough.cpp" />
     <ClCompile Include="hjRoomRectFloor.cpp" />
     <ClCompile Include="hjBossSpawner.cpp" />
+    <ClCompile Include="hjSkeletonBase.cpp" />
     <ClCompile Include="hjStage1Boss.cpp" />
     <ClCompile Include="hjBoss1Hand.cpp" />
     <ClCompile Include="hjBoss1Parts.cpp" />

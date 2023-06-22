@@ -1,9 +1,10 @@
 #pragma once
-#include "hjGameObject.h"
+#include "hjActor.h"
 namespace hj
 {
+	class ArmRotatorScript;
 	class PlayerHand :
-		public GameObject
+		public Actor
 	{
 		enum class handState
 		{
@@ -26,7 +27,26 @@ namespace hj
 		void InverseHandPosZ(bool inverse);
 
 		Transform* GetWeaponTR();
+		Transform* GetHandOwnerTR()
+		{
+			if (mHandOwnerTR)
+			{
+				return mHandOwnerTR;
+			}
+
+			return nullptr;
+		}
 		
+		ArmRotatorScript* GetRotatorScript()
+		{
+			if (mRotatorScript)
+			{
+				return mRotatorScript;
+			}
+
+			return nullptr;
+		}
+
 	public:
 		void Attack();
 
@@ -40,7 +60,7 @@ namespace hj
 		Transform* mHandTransform;
 		handState mHandState;
 		class Animator* mAnimator;
-		class ArmRotatorScript* mRotatorScript;
+		ArmRotatorScript* mRotatorScript;
 	};
 }
 

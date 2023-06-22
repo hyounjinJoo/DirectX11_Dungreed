@@ -25,13 +25,13 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="BigPaintBrush" x="0" y="296" w="36" h="104" pX="0.5" pY="0.5"/>
     <sprite n="BrokenLumber" x="260" y="32" w="16" h="36" pX="0.5" pY="1"/>
     <sprite n="Dagger/Dagger" x="16" y="0" w="56" h="24" pX="0.5" pY="1"/>
-    <sprite n="DaimyoOakBow/OakBow" x="404" y="72" w="28" h="52" pX="0.5" pY="0.5"/>
-    <sprite n="DaimyoOakBow/OakBow0" x="404" y="72" w="28" h="52" pX="0.5" pY="0.5"/>
-    <sprite n="DaimyoOakBow/OakBow1" x="0" y="124" w="56" h="52" pX="0.5" pY="0.5"/>
-    <sprite n="DaimyoOakBow/OakBow2" x="56" y="124" w="60" h="52" pX="0.5" pY="0.5"/>
-    <sprite n="DaimyoOakBow/OakBow3" x="116" y="72" w="56" h="44" pX="0.5" pY="0.5"/>
-    <sprite n="DaimyoOakBow/OakBow4" x="116" y="124" w="36" h="52" pX="0.5" pY="0.5"/>
-    <sprite n="DaimyoOakBow/OakBow5" x="404" y="72" w="28" h="52" pX="0.5" pY="0.5"/>
+    <sprite n="DaimyoOakBow/OakBowIdle" x="404" y="72" w="28" h="52" pX="0.5" pY="1"/>
+    <sprite n="DaimyoOakBow/OakBowAttack0" x="404" y="72" w="28" h="52" pX="0.5" pY="1"/>
+    <sprite n="DaimyoOakBow/OakBowAttack1" x="0" y="124" w="56" h="52" pX="0.5" pY="1"/>
+    <sprite n="DaimyoOakBow/OakBowAttack2" x="56" y="124" w="60" h="52" pX="0.5" pY="1"/>
+    <sprite n="DaimyoOakBow/OakBowAttack3" x="116" y="72" w="56" h="44" pX="0.5" pY="1"/>
+    <sprite n="DaimyoOakBow/OakBowAttack4" x="116" y="124" w="36" h="52" pX="0.5" pY="1"/>
+    <sprite n="DaimyoOakBow/OakBowAttack5" x="404" y="72" w="28" h="52" pX="0.5" pY="1"/>
     <sprite n="DrumStick_1" x="172" y="196" w="36" h="88" pX="0.5" pY="1"/>
     <sprite n="DrumStick_2" x="304" y="124" w="32" h="64" pX="0.5" pY="1"/>
     <sprite n="DrumStickBone" x="252" y="124" w="24" h="60" pX="0.5" pY="1"/>

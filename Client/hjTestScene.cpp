@@ -272,12 +272,12 @@ namespace hj
 			RoomBase* roomBoss1 = object::Instantiate<Stage1BossRoom>(eLayerType::ForeGround);
 			roomBoss1->SettingFadeObject();
 			roomBoss1->SettingDoorOwner();
-			//roomBoss1->Pause();
+			roomBoss1->Pause();
 
 			roomLTRB->ConnectDoor(DoorPlaced::R, roomBoss1->GetDoor(DoorPlaced::L));
 			roomBoss1->ConnectDoor(DoorPlaced::L, roomLTRB->GetDoor(DoorPlaced::R));
 
-			roomBoss1->Activate();
+			startRoom->Activate();
 		}
 
 	

@@ -1,4 +1,5 @@
 #include "hjWeapon.h"
+#include "hjActor.h"
 
 namespace hj::object::item::weapon
 {
@@ -7,6 +8,7 @@ namespace hj::object::item::weapon
 	Weapon::Weapon(eWeaponType type, eItemClass eClass)
 		: Item(eItemType::Weapon, eClass)
 		, mWeaponInfo{}
+		, mAttackCoolTimer(0.f)
 	{
 		mWeaponInfo.mWeaponID = mID++;
 		mWeaponInfo.mWeaponType = type;
