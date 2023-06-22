@@ -568,6 +568,10 @@ namespace hj::renderer
 
 		#pragma region 02_Monster
 		MAIN_FOLDER("00_Character\\02_Monster");
+			#pragma region Normal
+				SUB_FOLDER(1, "00_Normal");
+				LOAD_TEX("01_Stage_01", "Stage01.png");
+			#pragma endregion
 			#pragma region Boss
 				SUB_FOLDER(1, "01_Boss");
 				SUB_FOLDER(2, "00_Skul");
@@ -701,6 +705,14 @@ namespace hj::renderer
 		material->SetTexture(eTextureSlot::T0, texture);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		MTRL_INSERT("MTRL_Char_Adventurer", material);
+
+		texture = TEX_FIND("01_Stage_01");
+		shader = SHADER_FIND("Shader_Sprite");
+		material = MTRL_NEW();
+		material->SetShader(shader);
+		material->SetTexture(eTextureSlot::T0, texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		MTRL_INSERT("MTRL_Stage1", material);
 
 		texture = TEX_FIND("02_Monster_Boss_Bellial");
 		shader = SHADER_FIND("Shader_Sprite");
