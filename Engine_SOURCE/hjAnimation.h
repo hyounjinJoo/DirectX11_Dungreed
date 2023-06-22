@@ -201,6 +201,8 @@ namespace hj
         }
 
         void ChangePlayDuration(float duration);
+        void ChangePlayDuration(UINT index, float duration);
+        float GetTotalPlayTime();
         const Vector2& GetCanvasSize() { return mCanvasSize; }
 		float GetCanvasSizeX() { return mCanvasSize.x; }
         float GetCanvasSizeY() { return mCanvasSize.y; }

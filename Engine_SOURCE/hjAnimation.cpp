@@ -200,6 +200,36 @@ namespace hj
 		}
 	}
 
+	void Animation::ChangePlayDuration(UINT index, float duration)
+	{
+		if (mSpriteSheet.empty())
+			return;
+
+		size_t sheetSize = mSpriteSheet.size();
+		if (index >= sheetSize)
+		{
+			return;
+		}
+
+		mSpriteSheet[index].duration = duration;
+	}
+
+	float Animation::GetTotalPlayTime()
+	{
+		if (mSpriteSheet.empty())
+			return 0.f;
+
+		float result = 0.f;
+
+		size_t sheetSize = mSpriteSheet.size();
+		for (size_t iter = 0; iter < sheetSize; ++iter)
+		{
+			result += mSpriteSheet[iter].duration;
+		}
+
+		return result;
+	}
+
 	hj::math::Vector2 Animation::GetCurrentSpriteSize()
 	{
 		Vector2 spriteSize = Vector2::Zero;
