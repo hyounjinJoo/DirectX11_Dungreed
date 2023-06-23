@@ -31,6 +31,7 @@ namespace hj
 		bool DelistFromManagedGameObjects(GameObject* object);
 		bool AddObjectToManagedGameObjects(GameObject* object);
 
+		bool CheckHasMonster();
 	protected:
 		std::vector<RoomDoor*> mDoors;
 		std::vector<GameObject*> mGameObjects;

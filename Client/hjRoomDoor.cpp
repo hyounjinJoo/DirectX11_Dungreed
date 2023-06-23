@@ -6,6 +6,8 @@
 #include "hjDoorScript.h"
 #include "hjRoomBase.h"
 #include "hjPlayerScript.h"
+#include "hjObject.h"
+#include "hjStele.h"
 
 namespace hj
 {
@@ -20,6 +22,7 @@ namespace hj
 		, mbExitStart(false)
 		, mbFadeInComplete(false)
 		, mbFadeOutComplete(false)
+		, mStele(nullptr)
 	{
 		mDoorCollider = AddComponent<Collider2D>();
 		AddComponent<DoorScript>();
@@ -168,19 +171,23 @@ namespace hj
 			{
 			case DoorPlaced::L:
 				exitPos.x = RIGHT + OFFSET + mTargetPlayer->GetWorldScaleX() * 0.5f;
+				exitPos.x += 120.f;
 				exitPos.y = BOTTOM + enteringHeight + mTargetPlayer->GetWorldScaleY() * 0.5f;
 				break;
 			case DoorPlaced::R:
 				exitPos.x = LEFT - OFFSET - mTargetPlayer->GetWorldScaleX() * 0.5f;
+				exitPos.x -= 120.f;
 				exitPos.y = BOTTOM + enteringHeight + mTargetPlayer->GetWorldScaleY() * 0.5f;
 				break;
 			case DoorPlaced::T:
 				exitPos.x = mExitDoor->GetWorldPositionX() - enteringPos;
 				exitPos.y = BOTTOM - OFFSET - mTargetPlayer->GetWorldScaleY() * 0.5f;
+				exitPos.y -= 100.f;
 				break;
 			case DoorPlaced::B:
-				exitPos.x = mExitDoor->GetWorldPositionX() - enteringPos;
-				exitPos.y = TOP + OFFSET + mTargetPlayer->GetWorldScaleY() * 0.5f;
+				exitPos.x = mExitDoor->GetWorldPositionX() - enteringPos;				
+				exitPos.y = TOP + OFFSET + mTargetPlayer->GetWorldScaleY() * 0.5f;				
+				exitPos.y += 100.f;
 				break;
 			case hj::DoorPlaced::End:
 			default:
@@ -222,6 +229,35 @@ namespace hj
 			return;
 
 		mOwnerRoom = ownerRoom;
+
+		mStele = object::Instantiate<Stele>(eLayerType::ForeGround);
+		mStele->SetOwnerRoom(mOwnerRoom);
+
+		switch (mDoorPlaced)
+		{
+		case hj::DoorPlaced::L:
+			mStele->SetPositionXY(GetPositionXY() + Vector2(mStele->GetScaleY(), 0.f));
+			mStele->ChangeDirType(eDirType::Vertical);
+			break;
+		case hj::DoorPlaced::T:
+			mStele->SetPositionXY(GetPositionXY() - Vector2(0.f, mStele->GetScaleY() * 0.5f));
+			mStele->ChangeDirType(eDirType::Horizon);
+			break;
+		case hj::DoorPlaced::R:
+			mStele->SetPositionXY(GetPositionXY() - Vector2(mStele->GetScaleY(), 0.f));
+			mStele->ChangeDirType(eDirType::Vertical);
+			break;
+		case hj::DoorPlaced::B:
+			mStele->SetPositionXY(GetPositionXY() + Vector2(0.f, mStele->GetScaleY() * 0.5f));
+			mStele->ChangeDirType(eDirType::Horizon);
+			break;
+		case hj::DoorPlaced::End:
+			break;
+		default:
+			break;
+		}
+
+		mStele->Pause();
 	}
 
 	RoomBase* RoomDoor::GetOwnerRoom()
@@ -234,6 +270,29 @@ namespace hj
 		}
 
 		return ownerRoom;
+	}
+
+	void RoomDoor::OpenStele()
+	{
+		if (!mStele)
+		{
+			return;
+		}
+
+		mStele->ChangeSteleState(eSteleState::Opened);
+	}
+
+	void RoomDoor::CloseStele()
+	{
+		if (!mStele)
+		{
+			return;
+		}
+
+		eSteleState state = mStele->GetSteleState();
+		
+		if(eSteleState::Closed!=state && eSteleState::Idle != state)
+			mStele->ChangeSteleState(eSteleState::Closed);
 	}
 
 }

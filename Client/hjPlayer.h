@@ -57,7 +57,7 @@ namespace hj
         int currentExp = 0;
         int needToLevelUpExp = 10;
 
-        int currentHP = 64;
+        int currentHP = 128;
         int maxHP = 128;
         
         int minBodyAttackDamage = 8;
@@ -132,6 +132,9 @@ namespace hj
         void SetMaxDashCount(int value);
 #pragma endregion StatusSetter
 
+        float mGoToTitleTimer = 0.f;
+        float mTitleLimitTime = 3.f;
+        bool mbIsDamaged = true;
     private:
         GameObject* mCenterObj;
         class PlayerHand* mLeftHand;

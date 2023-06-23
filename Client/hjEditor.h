@@ -28,5 +28,7 @@ namespace hj
 		std::vector<gui::Widget*> mWidgets;
 		std::vector<EditorObject*> mEditorObjects;
 		std::vector<DebugObject*> mDebugObjects;
+
+		bool mbRender = false;
 	};
 }

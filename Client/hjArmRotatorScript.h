@@ -24,9 +24,10 @@ namespace hj
 
 	public:
 		void SetBody(class GameObject* body) { mBody = body; }
-		void SetTarget(class PlayerHand* target) { mHand = target; }
+		void SetTarget(class Hand* target) { mHand = target; }
 
 		void SetUsingMouseRotation(bool use) { mbUsingMouseRotation = use; }
+		void SetUsingManualRotation(bool use) { mbUsingManualRotation = use; }
 		void SetOffsetAngle(float degree) { mOffsetAngle = degree; }
 		void SetUseManualDistance(bool use) { mbUseManualDistance = use; }
 		void SetManualDistance(float dist) { mManualDistance = dist; }
@@ -43,6 +44,7 @@ namespace hj
 		void SetArmRotatorFactor(float offsetDegree, bool useManualDist, float manualDist, bool useOriginAngle, bool notAllowMinusHandPosX);
 
 		void InverseArmAxis(Axis axis);
+		void SetManualTargetPosition(const Vector2& position) { mManualTargetPosition = position; }
 
 	public:
 		float GetOffsetAngle() { return mOffsetAngle; }
@@ -52,8 +54,10 @@ namespace hj
 
 	private:
 		class GameObject* mBody;
-		class PlayerHand* mHand;
+		class Hand* mHand;
 		bool mbUsingMouseRotation;
+		bool mbUsingManualRotation;
+		Vector2 mManualTargetPosition;
 		bool mbInverseX;
 		bool mbUseManualDistance;
 		bool mbUseOriginAngle;

@@ -10,6 +10,9 @@
 #include "hjArmRotatorScript.h"
 #include "hjActor.h"
 #include "hjAttackScript.h"
+#include "hjAudioListener.h"
+#include "hjTime.h"
+#include "hjTestScene.h"
 
 namespace hj
 {
@@ -111,10 +114,25 @@ namespace hj
 	{
 		GameObject::Update();
 
+		if (Input::GetKeyDown(eKeyCode::N_6))
+		{
+			mbIsDamaged = !mbIsDamaged;
+		}
+
 	}
 
 	void Player::FixedUpdate()
 	{
+		if (mState == ePlayerState::Die)
+		{
+			mGoToTitleTimer += Time::FixedDeltaTime();
+
+			if (mGoToTitleTimer > mTitleLimitTime)
+			{
+				SceneManager::NeedToLoad(eSceneType::Title);
+			}
+		}
+
 		GameObject::FixedUpdate();
 
 		FlipBasedOnMousePos();
@@ -153,7 +171,10 @@ namespace hj
 
 	void Player::Damaged(int damage)
 	{
-		SubtractCurrentHP(damage);
+		if (mbIsDamaged)
+		{
+			SubtractCurrentHP(damage);
+		}
 		mPlayerScript->DamageWarningActivate();
 		mPlayerScript->UpdateHPBarUI();
 
@@ -219,6 +240,11 @@ namespace hj
 
 	void Player::FlipBasedOnMousePos()
 	{
+		if (mState == ePlayerState::Die)
+		{
+			return;
+		}
+
 		float posX = mPlayerScript->GetOwnerScreenPos().x;
 		float mouseScreenPosX = Input::GetMousePosition().x;
 
@@ -340,6 +366,16 @@ namespace hj
 	void Player::Die()
 	{
 		mAnimator->Play(mCostume[static_cast<UINT>(mCurrentCostume)]->costumeDieAnim);
+
+		mPlayerScript->ActiveInput(false);
+		if (mCenterObj)
+		{
+			ArmRotatorScript* rotator = mCenterObj->GetScript<ArmRotatorScript>();
+			if (rotator)
+			{
+				rotator->SetUsingMouseRotation(false);
+			}
+		}
 	}
 
 	void Player::ChangeColliderSize()

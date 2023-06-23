@@ -26,5 +26,6 @@ namespace hj::object::item::weapon
         void CreateAnimation();
 
         SwingFx* mAttackFx;
+        GameObject* mAttackSoundObj;
     };
 }

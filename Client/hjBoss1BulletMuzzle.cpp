@@ -2,6 +2,9 @@
 #include "hjTime.h"
 #include "hjObject.h"
 #include "hjBoss1Bullet.h"
+#include "hjAudioClip.h"
+#include "hjResources.h"
+#include "hjAudioSource.h"
 
 namespace hj
 {
@@ -25,6 +28,13 @@ namespace hj
 		}
 
 		Pause();
+
+		mAttackSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
+		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("BelialBullet"), WIDE("BelialBullet.mp3"));
+		AudioSource* audioSrc = mAttackSoundObj->AddComponent<AudioSource>();
+		clip->SetLoop(false);
+		audioSrc->SetClip(clip);
+
 	}
 	
 	Boss1BulletMuzzle::~Boss1BulletMuzzle()
@@ -32,6 +42,11 @@ namespace hj
 		for (GameObject* iter : mBullets)
 		{
 			iter = nullptr;
+		}
+
+		if (mAttackSoundObj)
+		{
+			mAttackSoundObj->Death();
 		}
 	}
 
@@ -128,6 +143,7 @@ namespace hj
 
 	void Boss1BulletMuzzle::Shot()
 	{
+		mAttackSoundObj->GetComponent<AudioSource>()->Play();
 		static const Vector2 initialDirection = Vector2::Down;
 
 		// 불릿 위치 설정

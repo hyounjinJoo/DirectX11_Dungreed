@@ -16,6 +16,7 @@ namespace hj
 	{
 		SetNameAndCreateSpriteRenderer(WIDE("PlayerHBBarWave"), WIDE("MTRL_UI_HUD_PlayerHUD"), WIDE("Mesh_Rect"));
 		CheckHasMaterialAndTexture(eTextureSlot::T0);
+		AddComponent<Animator>();
 
 		std::wstring path = WIDE("03_UI/01_HUD/PlayerHUD.xml");
 		std::wstring searchWstr;

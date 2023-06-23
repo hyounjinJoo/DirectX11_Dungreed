@@ -9,20 +9,16 @@
 #include "hjSwordOfExplorer.h"
 #include "hjActor.h"
 #include "hjOakBow.h"
+#include "hjInput.h"
 
 namespace hj
 {
 	PlayerHand::PlayerHand()
-		: Actor()
-		, mWeapon(nullptr)
-		, mHandOwner(nullptr)
-		, mHandOwnerTR(nullptr)
-		, mHandTransform(nullptr)
-		, mHandState(handState::Normal)
+		: Hand()
+		, mWeaponMelee(nullptr)
+		, mWeaponRanged(nullptr)
 	{
 		SetName(WIDE("Player Hand Obj"));
-		AddComponent<Collider2D>();
-		SetScaleXY(Vector2(12.f, 12.f));
 
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
 		std::shared_ptr<Material> material = MTRL_FIND_STR("MTRL_Char_Adventurer");
@@ -30,8 +26,7 @@ namespace hj
 		sr->SetMaterial(material);
 		sr->SetMesh(mesh);
 
-		mAnimator = AddComponent<Animator>();
-		if (material && mAnimator)
+		if (material)
 		{
 			std::shared_ptr<Texture> texture = material->GetTexture(eTextureSlot::T0);
 			if (texture)
@@ -40,15 +35,18 @@ namespace hj
 			}
 		}
 
-		mWeapon = object::Instantiate<object::item::weapon::SwordOfExplorer>(eLayerType::PlayerHas);
-		mWeapon->GetTransform()->SetParent(this->GetTransform());
-		mWeapon->SetPositionY(24.f);
-		mWeapon->SetPositionZ(0.1f);
-		//mWeapon = object::Instantiate<object::item::weapon::OakBow>(eLayerType::PlayerHas);
-		//mWeapon->GetTransform()->SetParent(this->GetTransform());
-		//mWeapon->SetPositionX(-7.f);
-		//mWeapon->SetPositionZ(0.1f);
+		mWeaponMelee = object::Instantiate<object::item::weapon::SwordOfExplorer>(eLayerType::PlayerHas);
+		mWeaponMelee->GetTransform()->SetParent(this->GetTransform());
+		mWeaponMelee->SetPositionY(24.f);
+		mWeaponMelee->SetPositionZ(0.1f);
+		
+		mWeaponRanged = object::Instantiate<object::item::weapon::OakBow>(eLayerType::PlayerHas);
+		mWeaponRanged->GetTransform()->SetParent(this->GetTransform());
+		mWeaponRanged->SetPositionX(-7.f);
+		mWeaponRanged->SetPositionZ(0.1f);
+		mWeaponRanged->SetNotActiveByRoom();
 
+		mWeapon = mWeaponMelee;
 		dynamic_cast<object::item::weapon::Weapon*>(mWeapon)->SetHand(this);
 	}
 
@@ -56,36 +54,46 @@ namespace hj
 	{
 	}
 
-	void PlayerHand::Initialize()
-	{
-		GameObject::Initialize();
-	}
-
-	void PlayerHand::Update()
-	{
-		GameObject::Update();
-	}
-
 	void PlayerHand::FixedUpdate()
 	{
-		GameObject::FixedUpdate();
+		Hand::FixedUpdate();
+
+		if (Input::GetKeyDown(eKeyCode::N_1))
+		{
+			if (mWeapon != mWeaponMelee)
+			{
+				mWeapon = mWeaponMelee;
+				mWeapon->Activate();
+				mWeaponRanged->SetNotActiveByRoom();
+				ResetMeleeWeaponInfo();
+				InitRotatorScript(); 
+				GetTransform()->FixedUpdate(); 
+
+			}
+		}
+		else if (Input::GetKeyDown(eKeyCode::N_2))
+		{
+			if (mWeapon != mWeaponRanged)
+			{
+				mWeapon = mWeaponRanged;
+				mWeapon->Activate();
+				mWeaponMelee->SetNotActiveByRoom();
+				InitRotatorScript();
+			}
+		}
 	}
 
-	void PlayerHand::Render()
+	void PlayerHand::SetHandOwner(Actor* owner)
 	{
-		GameObject::Render();
-	}
-
-	void PlayerHand::SetHandOwner(Player* owner)
-	{
-		Player* player = owner;
+		Player* player = dynamic_cast<Player*>(owner);
 		if (!player)
 			return;
 
 		mHandOwner = player;
 		mHandOwnerTR = player->GetCenter()->GetTransform();
 
-		mWeapon->SetOwnerActor(owner);
+		mWeaponMelee->SetOwnerActor(owner);
+		mWeaponRanged->SetOwnerActor(owner);
 
 		std::vector<Script*> scripts = player->GetCenter()->GetScripts();
 
@@ -94,36 +102,10 @@ namespace hj
 			if (dynamic_cast<ArmRotatorScript*>(script))
 			{
 				mRotatorScript = dynamic_cast<ArmRotatorScript*>(script);
-				object::item::weapon::Weapon* weaponPtr = dynamic_cast<object::item::weapon::Weapon*>(mWeapon);
-				if (weaponPtr)
-				{
-					mRotatorScript->SetArmRotatorFactor(weaponPtr->GetOffsetAngle().x, weaponPtr->GetIsUseManualDistance()
-						, weaponPtr->GetIsUseManualDistance(), weaponPtr->GetIsUseOriginAngle(), weaponPtr->GetIsNotAllowMinusHandPosX());
 
-					Vector2 MinDistance = weaponPtr->GetFirstMinDistance();
-					Vector2 MaxDistance = weaponPtr->GetFirstMaxDistance();
-					mRotatorScript->SetDistanceInfo(MinDistance, MaxDistance);
-				}
+				InitRotatorScript();
 			}
 		}
-	}
-
-	void PlayerHand::InverseHandPosZ(bool inverse)
-	{
-		//float pos = GetPositionZ();
-		//
-		//if (inverse) pos *= -1.f;
-		//else pos *= -1.f;
-		//
-		//SetPositionZ(pos);
-	}
-
-	Transform* PlayerHand::GetWeaponTR()
-	{
-		if (mWeapon)
-			return mWeapon->GetTransform();
-		else
-			return nullptr;
 	}
 
 	void PlayerHand::Attack()
@@ -193,6 +175,38 @@ namespace hj
 		mAnimator->Create(WIDE("charHand6"), texture, charHand6, canvasSize, false);
 		mAnimator->Create(WIDE("charHand7"), texture, charHand7, canvasSize, false);
 		mAnimator->Play(WIDE("charHand5"), true);
+	}
+
+	void PlayerHand::ResetMeleeWeaponInfo()
+	{
+		SetPosition(Vector3(mHandOwner->GetScaleX() * 0.5f, 0.f, 1.f));
+		SetHandOwner(mHandOwner);
+		SetRotationX(0.f);
+		SetRotationY(0.f);
+		SetRotationZ(0.f);
+		GetHandOwnerTR()->SetRotationX(0.f);
+		GetHandOwnerTR()->SetRotationY(0.f);
+		GetHandOwnerTR()->SetRotationZ(0.f);
+
+		float firstOffsetAngle = 0.f;
+		Vector2 nextMinDistance;
+		Vector2 nextMaxDistance;
+
+
+		object::item::weapon::Weapon* weaponPtr = dynamic_cast<object::item::weapon::Weapon*>(mWeapon);
+		if (weaponPtr)
+		{
+			firstOffsetAngle = weaponPtr->GetFirstOffsetAngle();
+			nextMinDistance = weaponPtr->GetFirstMinDistance();
+			nextMaxDistance = weaponPtr->GetFirstMaxDistance();
+
+		}
+
+		mRotatorScript->SetOffsetAngle(firstOffsetAngle);		
+		mRotatorScript->SetDistanceInfo(nextMinDistance, nextMaxDistance);
+
+		mWeaponMelee->SetPositionY(24.f);
+		mWeaponMelee->SetPositionZ(0.1f);
 	}
 
 }

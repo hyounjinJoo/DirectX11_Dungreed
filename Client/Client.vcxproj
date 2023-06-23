@@ -150,6 +150,7 @@
     <ClInclude Include="hjBoss1SwordCreateDestroyFx.h" />
     <ClInclude Include="hjBoss1SwordStuckCollider.h" />
     <ClInclude Include="hjBossDeathParticleSystem.h" />
+    <ClInclude Include="hjBossLifeBarUI.h" />
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjDashCountBase.h" />
     <ClInclude Include="hjDebugObject.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="hjFadeObject.h" />
     <ClInclude Include="hjFadeScript.h" />
     <ClInclude Include="hjGridScript.h" />
+    <ClInclude Include="hjHand.h" />
     <ClInclude Include="hjItem.h" />
     <ClInclude Include="hjLayerObject.h" />
     <ClInclude Include="hjLinearMoveScript.h" />
@@ -184,7 +186,9 @@
     <ClInclude Include="hjRoomPassThrough.h" />
     <ClInclude Include="hjRoomRectFloor.h" />
     <ClInclude Include="hjBossSpawner.h" />
+    <ClInclude Include="hjRustyGreatSword.h" />
     <ClInclude Include="hjSkeletonBase.h" />
+    <ClInclude Include="hjSkeletonHand.h" />
     <ClInclude Include="hjStage1Boss.h" />
     <ClInclude Include="hjBoss1Hand.h" />
     <ClInclude Include="hjBoss1Parts.h" />
@@ -205,6 +209,7 @@
     <ClInclude Include="hjStage1StartTR.h" />
     <ClInclude Include="hjStage1StartTR2.h" />
     <ClInclude Include="hjStage1StartTRB.h" />
+    <ClInclude Include="hjStele.h" />
     <ClInclude Include="hjSwingFx.h" />
     <ClInclude Include="hjSwordOfExplorer.h" />
     <ClInclude Include="hjTitleBird.h" />
@@ -225,6 +230,7 @@
     <ClInclude Include="hjWeapon.h" />
     <ClInclude Include="hjWidget.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="hjRustyShortSword.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +249,7 @@
     <ClCompile Include="hjBoss1SwordCreateDestroyFx.cpp" />
     <ClCompile Include="hjBoss1SwordStuckCollider.cpp" />
     <ClCompile Include="hjBossDeathParticleSystem.cpp" />
+    <ClCompile Include="hjBossLifeBarUI.cpp" />
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjDashCountBase.cpp" />
     <ClCompile Include="hjDebugObject.cpp" />
@@ -253,6 +260,7 @@
     <ClCompile Include="hjFadeObject.cpp" />
     <ClCompile Include="hjFadeScript.cpp" />
     <ClCompile Include="hjGridScript.cpp" />
+    <ClCompile Include="hjHand.cpp" />
     <ClCompile Include="hjItem.cpp" />
     <ClCompile Include="hjLayerObject.cpp" />
     <ClCompile Include="hjLinearMoveScript.cpp" />
@@ -277,7 +285,9 @@
     <ClCompile Include="hjRoomPassThrough.cpp" />
     <ClCompile Include="hjRoomRectFloor.cpp" />
     <ClCompile Include="hjBossSpawner.cpp" />
+    <ClCompile Include="hjRustyGreatSword.cpp" />
     <ClCompile Include="hjSkeletonBase.cpp" />
+    <ClCompile Include="hjSkeletonHand.cpp" />
     <ClCompile Include="hjStage1Boss.cpp" />
     <ClCompile Include="hjBoss1Hand.cpp" />
     <ClCompile Include="hjBoss1Parts.cpp" />
@@ -298,6 +308,7 @@
     <ClCompile Include="hjStage1StartTR.cpp" />
     <ClCompile Include="hjStage1StartTR2.cpp" />
     <ClCompile Include="hjStage1StartTRB.cpp" />
+    <ClCompile Include="hjStele.cpp" />
     <ClCompile Include="hjSwingFx.cpp" />
     <ClCompile Include="hjSwordOfExplorer.cpp" />
     <ClCompile Include="hjTitleBird.cpp" />
@@ -318,6 +329,7 @@
     <ClCompile Include="hjWeapon.cpp" />
     <ClCompile Include="hjWidget.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="hjRustyShortSword.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico" />

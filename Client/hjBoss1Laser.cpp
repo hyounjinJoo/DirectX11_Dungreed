@@ -6,6 +6,8 @@
 #include "hjXmlParser.h"
 #include "hjCollider2D.h"
 #include "hjBoss1LaserCollider.h"
+#include "hjAudioClip.h"
+#include "hjAudioSource.h"
 
 namespace hj
 {
@@ -74,6 +76,12 @@ namespace hj
 			mLaserCollider->GetTransform()->SetParent(this->GetTransform());
 			mLaserCollider->GetTransform()->FixedUpdate();
 		}
+
+		mAttackSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
+		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("laser"), WIDE("laser.mp3"));
+		AudioSource* audioSrc = mAttackSoundObj->AddComponent<AudioSource>();
+		clip->SetLoop(false);
+		audioSrc->SetClip(clip);
 	}
 
 	Boss1Laser::~Boss1Laser()
@@ -84,6 +92,11 @@ namespace hj
 		}
 
 		mLaserCollider = nullptr;
+
+		if (mAttackSoundObj)
+		{
+			mAttackSoundObj->Death();
+		}
 	}
 
 	void Boss1Laser::Initialize()
@@ -134,6 +147,7 @@ namespace hj
 			part->Play(true);
 		}
 
+		mAttackSoundObj->GetComponent<AudioSource>()->Play();
 		mLaserCollider->Activate();
 	}
 

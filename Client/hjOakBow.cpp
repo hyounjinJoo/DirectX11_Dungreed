@@ -3,6 +3,9 @@
 #include "hjObject.h"
 #include "hjTime.h"
 #include "hjPlayerHand.h"
+#include "hjAudioClip.h"
+#include "hjResources.h"
+#include "hjAudioSource.h"
 
 namespace hj::object::item::weapon
 {
@@ -15,8 +18,8 @@ namespace hj::object::item::weapon
 
 		mItemName = std::string("떡갈나무 활");
 		mItemDescription = std::string("단단해서 때리는 데 쓸 수도 있을 것 같다.");
-		mWeaponInfo.mMinAttack = 20;
-		mWeaponInfo.mMaxAttack = 35;
+		mWeaponInfo.mMinAttack = 10;
+		mWeaponInfo.mMaxAttack = 15;
 		mWeaponInfo.mAttackPerSec = 1.72f;
 		mWeaponInfo.mbUseManualDistance = true;
 		mWeaponInfo.mManualDistance = 0.f;
@@ -40,10 +43,20 @@ namespace hj::object::item::weapon
 		{
 			CreateAnimation();
 		}
+
+		mAttackSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
+		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("BowShot"), WIDE("bow_shot.mp3"));
+		AudioSource* audioSrc = mAttackSoundObj->AddComponent<AudioSource>();
+		clip->SetLoop(false);
+		audioSrc->SetClip(clip);
 	}
 
 	OakBow::~OakBow()
 	{
+		if (mAttackSoundObj)
+		{
+			mAttackSoundObj->Death();
+		}
 	}
 	
 	void OakBow::Attack()
@@ -100,9 +113,25 @@ namespace hj::object::item::weapon
 
 	void OakBow::Shot()
 	{
-		Arrow* arrow = object::Instantiate<Arrow>(eLayerType::PlayerAttack_ForeGround);
+		eLayerType bowLayerType = GetLayerType();
+		eLayerType arrowLayerType = eLayerType::End;
+		switch (bowLayerType)
+		{
+		case hj::enums::eLayerType::MonsterHas:
+			arrowLayerType = eLayerType::MonsterAttack_ForeGround;
+			break;
+		case hj::enums::eLayerType::PlayerHas:
+			arrowLayerType = eLayerType::PlayerAttack_ForeGround;
+			break;
+		default:
+			break;
+		}
+
+		Arrow* arrow = object::Instantiate<Arrow>(arrowLayerType);
+
 		if (arrow)
 		{
+			mAttackSoundObj->GetComponent<AudioSource>()->Play();
 			arrow->SetPositionXY(GetWorldPositionXY());
 			float radian = GetWorldRotationZ();
 			radian -= (XM_PI * 0.5f);

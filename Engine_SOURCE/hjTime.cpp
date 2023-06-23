@@ -27,7 +27,7 @@ namespace hj
 
     void Time::Update()
     {
-        static const float targetFrameRate = 144.f;
+        static const float targetFrameRate = 60.f;
         static const float targetDeltaTime = 1.f / targetFrameRate;
         static const float targetFixedFPS = 1.f / targetDeltaTime;
         HWND activeWindow = GetFocus();
@@ -42,7 +42,6 @@ namespace hj
 
             // 현재 DeltaTime 계산
             mActualDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
-			
             // FixedTime 보정을 위한 FPS 비율 계산
             float FPS = 1.f / mActualDeltaTime;
             float FPSRatio = targetFixedFPS / FPS;

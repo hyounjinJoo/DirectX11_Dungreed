@@ -39,6 +39,12 @@ namespace hj
 
 			if (order != eComponentType::Script)
 			{
+				if (mComponents[(UINT)order])
+				{
+					delete comp;
+					return (T*)(mComponents[(UINT)order]);
+				}
+
 				mComponents[(UINT)order] = comp;
 				mComponents[(UINT)order]->SetOwner(this);
 			}

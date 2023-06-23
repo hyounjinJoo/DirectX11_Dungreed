@@ -21,6 +21,10 @@
 #include "hjInput.h"
 #include "hjCameraScript.h"
 #include "hjCamera.h"
+#include "hjBossLifeBarUI.h"
+#include "hjAudioClip.h"
+#include "hjAudioSource.h"
+#include "hjTestScene.h"
 
 namespace hj
 {
@@ -37,6 +41,7 @@ namespace hj
 		, mRightHand(nullptr)
 		, mBodyAnimator(nullptr)
 		, mbAttackExecuted(false)
+		, mLifeBarUI(nullptr)
 	{
 		SetName(WIDE("Boss_Bellial"));
 		
@@ -182,10 +187,31 @@ namespace hj
 				mCameraScript = static_cast<CameraScript*>(iter);
 			}
 		}
+
+		mSoundLaugh = object::Instantiate<GameObject>(eLayerType::UI);
+		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Laugh"), WIDE("beliallaugh_rev.mp3"));
+		mLaughSrc = mSoundLaugh->AddComponent<AudioSource>();
+		clip->SetLoop(false);
+		mLaughSrc->SetClip(clip);
+
+		mDefeatSound = object::Instantiate<GameObject>(eLayerType::UI);
+		clip = Resources::Load<AudioClip>(WIDE("Defeat"), WIDE("bossDefeat.mp3"));
+		mDefeatSrc = mDefeatSound->AddComponent<AudioSource>();
+		clip->SetLoop(false);
+		mDefeatSrc->SetClip(clip);
+
 	}
 	
 	Stage1Boss::~Stage1Boss()
 	{
+		if (mDefeatSound)
+		{
+			mDefeatSound->Death();
+		}
+		if (mSoundLaugh)
+		{
+			mSoundLaugh->Death();
+		}
 	}
 
 	void Stage1Boss::Initialize()
@@ -231,6 +257,7 @@ namespace hj
 		mBackground->Activate();
 		for (auto iter : mSmallBackgrounds)
 		{
+			iter->SetOwnerRoom(mOwnerRoom);
 			iter->Activate();
 		}
 
@@ -275,8 +302,19 @@ namespace hj
 			else
 			{
 				mSpawnBossTimer = 0.f;
+				if (mLaughSrc)
+				{
+					mLaughSrc->Play();
+				}
 				mCameraScript->FollowPlayer(true);
 				mCameraScript->ResetCameraScale();
+				mLifeBarUI = object::Instantiate<BossLifeBarUI>(eLayerType::UI);
+
+				if (mLifeBarUI)
+				{
+					mLifeBarUI->SetMaxHPValue(static_cast<float>(mMaximumHP));
+					mLifeBarUI->SetCurrentHPValue(static_cast<float>(mCurrentHP));
+				}
 				ChangeBoss1State(Boss1State::Attack);
 			}
 		}
@@ -486,6 +524,12 @@ namespace hj
 
 	void Stage1Boss::ProcessDead()
 	{
+		TestScene* scene = dynamic_cast<TestScene*>(SceneManager::GetActiveScene());
+		if (scene)
+		{
+			scene->StopBgm();
+		}
+
 		// Body Animation ¸ØÃß±â
 		this->PauseAnimation();
 		
@@ -530,6 +574,11 @@ namespace hj
 		}
 
 		mCameraScript->SetMoveLinearPos(GetPositionXY(), 2.f);
+
+		if (mDefeatSrc)
+		{
+			mDefeatSrc->Play();
+		}
 	}
 
 	void Stage1Boss::ProcessEndAll()
@@ -951,6 +1000,11 @@ namespace hj
 			mParticle->Activate();
 		}
 
+		if (mLifeBarUI)
+		{
+			mLifeBarUI->SetCurrentHPValue(static_cast<float>(mCurrentHP));
+		}
+
 		mDamagedEffectTimer = 0.1f;
 	}
 
@@ -989,6 +1043,11 @@ namespace hj
 		if (mDamageBody)
 		{
 			mDamageBody->Death();
+		}
+
+		if (mLifeBarUI)
+		{
+			mLifeBarUI->Death();
 		}
 
 		Actor::Death();

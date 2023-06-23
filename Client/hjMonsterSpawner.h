@@ -23,6 +23,7 @@ namespace hj
 
 	private:
 		class Monster* mMonster;
+		class Actor* mSpawnSoundObj;
 		bool mbSpawned;
 	};
 }

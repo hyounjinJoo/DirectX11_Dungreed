@@ -48,7 +48,9 @@ namespace hj
 		void DamageWarningActivate();
 
 		void SetHand(PlayerHand* hand) { mHand = hand; }
+		void ActiveInput(bool active) { mbActiveInput = active; }
 
+		bool GetIsActiveInput() { return mbActiveInput; }
 	private:
 		void CreateDamageWarningObject();
 		void HandleDamageWarningObject();
@@ -134,5 +136,7 @@ namespace hj
 		Actor* mDashAttackColliderActor;
 
 		class PlayerLifeBarUI* mLifeBarUI;
+
+		bool mbActiveInput;
 	};
 }

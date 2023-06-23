@@ -132,6 +132,10 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -153,12 +157,19 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>copy "$(SolutionDir)fmodL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmodstudioL.dll" "$(SolutionDir)\x64\Debug\"
+copy "$(SolutionDir)fmod.dll" "$(SolutionDir)\x64\Release\"
+copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\External\CMarkUp\Include\Markup.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="hjAnimation.h" />
     <ClInclude Include="hjAnimator.h" />
+    <ClInclude Include="hjAudioSource.h" />
     <ClInclude Include="hjBaseRenderer.h" />
     <ClInclude Include="hjCamera.h" />
     <ClInclude Include="hjCollider.h" />
@@ -205,6 +216,9 @@
     <ClInclude Include="hjTransform.h" />
     <ClInclude Include="hjXmlParser.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="hjAudioClip.h" />
+    <ClInclude Include="hjAudioListener.h" />
+    <ClInclude Include="hjFmod.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\External\CMarkUp\Include\Markup.cpp">
@@ -213,6 +227,7 @@
     </ClCompile>
     <ClCompile Include="hjAnimation.cpp" />
     <ClCompile Include="hjAnimator.cpp" />
+    <ClCompile Include="hjAudioSource.cpp" />
     <ClCompile Include="hjBaseRenderer.cpp" />
     <ClCompile Include="hjCamera.cpp" />
     <ClCompile Include="hjCollider.cpp" />
@@ -258,6 +273,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="hjAudioClip.cpp" />
+    <ClCompile Include="hjAudioListener.cpp" />
+    <ClCompile Include="hjFmod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hjMath.inl" />

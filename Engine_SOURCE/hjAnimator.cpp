@@ -245,7 +245,12 @@ namespace hj
 			events->mEndEvent();
 
 		mActiveAnimation = FindAnimation(name);
-		mActiveAnimation->Reset();
+		
+		if (mActiveAnimation)
+			mActiveAnimation->Reset();
+		else
+			return;
+
 		mbLoop = loop;
 
 		events = FindEvents(mActiveAnimation->AnimationName());
