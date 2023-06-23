@@ -48,6 +48,8 @@
 #include "hjStage1StartRB.h"
 #include "hjStage1StartLT.h"
 #include "hjStage1Boss.h"
+#include "hjAudioClip.h"
+#include "hjAudioSource.h"
 
 extern hj::Application application;
 namespace hj
@@ -287,6 +289,8 @@ namespace hj
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack_ForeGround, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::MonsterAttack_NotForeGround, true);
 
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::ForeGround, true);
+
 		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::MonsterAttack_ForeGround, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::PlayerAttack_ForeGround, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::ForeGround, eLayerType::MonsterHas, true);
@@ -294,6 +298,14 @@ namespace hj
 		CollisionManager::CollisionLayerCheck(eLayerType::PlayerAttack_ForeGround, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::PlayerAttack_NotForeGround, eLayerType::Monster, true);
 
+#pragma region Sound
+		mTestSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
+		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Field"), WIDE("1.JailField.mp3"));
+		AudioSource* audioSrc = mTestSoundObj->AddComponent<AudioSource>();
+		clip->SetLoop(true);
+		audioSrc->SetClip(clip);
+		audioSrc->Play();
+#pragma endregion
 		Scene::Initialize();
 	}
 
@@ -385,9 +397,34 @@ namespace hj
 
 	void TestScene::OnExit()
 	{
+		mTestSoundObj->GetComponent<AudioSource>()->Stop();
 		Scene::OnExit();
 	}
 
+	void TestScene::PlayBossBgm()
+	{
+		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Boss"), WIDE("1.JailBoss.mp3"));
+		AudioSource* audioSrc = mTestSoundObj->GetComponent<AudioSource>();
+		clip->SetLoop(true);
+		audioSrc->Stop();
+		audioSrc->SetClip(clip);
+		audioSrc->Play();
+	}
 
+	void TestScene::PlayFieldBgm()
+	{
+		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Field"), WIDE("1.JailField.mp3"));
+		AudioSource* audioSrc = mTestSoundObj->GetComponent<AudioSource>();
+		clip->SetLoop(true);
+		audioSrc->Stop();
+		audioSrc->SetClip(clip);
+		audioSrc->Play();
+	}
+
+	void TestScene::StopBgm()
+	{
+		AudioSource* audioSrc = mTestSoundObj->GetComponent<AudioSource>();
+		audioSrc->Stop();
+	}
 
 }

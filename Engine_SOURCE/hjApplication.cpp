@@ -6,6 +6,7 @@
 #include "hjSceneManager.h"
 #include "hjResources.h"
 #include "hjCollisionManager.h"
+#include "hjFmod.h"
 
 namespace hj
 {
@@ -27,7 +28,8 @@ namespace hj
     void Application::Initialize()
     {
         Time::Initialize();
-        Input::Initialize();
+		Input::Initialize();
+		Fmod::Initialize();
         CollisionManager::Initialize();
         renderer::Initialize();
         SceneManager::Initialize();
@@ -87,7 +89,8 @@ namespace hj
 
     void Application::Release()
     {
-        Resources::deleteTest();
+		Resources::deleteTest();
+		Fmod::Release();
     }
         
     void Application::SetWindow(HWND hwnd, UINT width, UINT height)

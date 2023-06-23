@@ -125,7 +125,7 @@ namespace hj
 			mGameObjects.push_back(passThrough);
 
 			RoomDoor* DoorL = object::Instantiate<RoomDoor>(eLayerType::ForeGround
-				, Vector3(-920.f, -480.f, 0.f));
+				, Vector3(-860.f, -480.f, 0.f));
 			DoorL->GetTransform()->FixedUpdate();
 			DoorL->SetDoorPlaced(DoorPlaced::L);
 			DoorL->SetName(WIDE("LeftDoor"));
@@ -134,7 +134,7 @@ namespace hj
 			mGameObjects.push_back(DoorL);
 
 			RoomDoor* DoorR = object::Instantiate<RoomDoor>(eLayerType::ForeGround
-				, Vector3(920.f, -480.f, 0.f));
+				, Vector3(860.f, -480.f, 0.f));
 			DoorR->GetTransform()->FixedUpdate();
 			DoorR->SetDoorPlaced(DoorPlaced::R);
 			DoorR->SetName(WIDE("RightDoor"));

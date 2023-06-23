@@ -139,6 +139,12 @@
     <Filter Include="Resource\Shader\CS\Particle\ParticleAnimation">
       <UniqueIdentifier>{0a69d279-a3e7-4f3e-823d-f3d2d8196dd2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Audio">
+      <UniqueIdentifier>{668cbcb2-7ce8-4734-a0da-4389f38ff94a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Audio">
+      <UniqueIdentifier>{9a0e88bb-5a3c-4e74-8787-af450af0ea73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjMath.cpp">
@@ -273,6 +279,18 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="hjParticleAnimShader.cpp">
       <Filter>Resource\Shader\CS\Particle\ParticleAnimation</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAudioListener.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFmod.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAudioSource.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAudioClip.cpp">
+      <Filter>Resource\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -423,6 +441,18 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="hjParticleAnimShader.h">
       <Filter>Resource\Shader\CS\Particle\ParticleAnimation</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAudioListener.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFmod.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAudioSource.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAudioClip.h">
+      <Filter>Resource\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,8 @@
 #include "hjRoomDoor.h"
 #include "hjScene.h"
 #include "hjSceneManager.h"
+#include "hjMonsterSpawner.h"
+#include "hjSkeletonBase.h"
 
 namespace hj
 {
@@ -95,15 +97,41 @@ namespace hj
 			passThrough->SetScale(Vector3(tileSize * 2.f, platformSize, 1.f));
 			mGameObjects.push_back(passThrough);
 
+			passThrough->GetTransform()->FixedUpdate();
+			MonsterSpawner* spawner = object::Instantiate<MonsterSpawner>(eLayerType::ForeGround, passThrough->GetPosition() + Vector3(0.f, 100.f, 0.f));
+			spawner->SetOwnerRoom(this);
+
+			SkeletonBase* skelBase = object::Instantiate<SkeletonBase>(eLayerType::MonsterHas);
+			spawner->SetSpawnMonster(skelBase);
+			skelBase->SetType(eSkeletonType::Sword);
+
+
 			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
 				, Vector3((tileSize * -2.5f), MapB + (tileSize * 5.f) - (platformSize * 0.5f), 0.f));
 			passThrough->SetScale(Vector3(tileSize * 2.f, platformSize, 1.f));
 			mGameObjects.push_back(passThrough);
 
+			passThrough->GetTransform()->FixedUpdate();
+			spawner = object::Instantiate<MonsterSpawner>(eLayerType::ForeGround, passThrough->GetPosition() + Vector3(0.f, 100.f, 0.f));
+			spawner->SetOwnerRoom(this);
+
+			skelBase = object::Instantiate<SkeletonBase>(eLayerType::MonsterHas);
+			spawner->SetSpawnMonster(skelBase);
+			skelBase->SetType(eSkeletonType::Sword);
+
 			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
 				, Vector3((tileSize * -5.5f), MapT - (tileSize * 4.f) - (platformSize * 0.5f), 0.f));
 			passThrough->SetScale(Vector3(tileSize * 4.f, platformSize, 1.f));
 			mGameObjects.push_back(passThrough);
+
+
+			passThrough->GetTransform()->FixedUpdate();
+			spawner = object::Instantiate<MonsterSpawner>(eLayerType::ForeGround, passThrough->GetPosition() + Vector3(0.f, 100.f, 0.f));
+			spawner->SetOwnerRoom(this);
+
+			skelBase = object::Instantiate<SkeletonBase>(eLayerType::MonsterHas);
+			spawner->SetSpawnMonster(skelBase);
+			skelBase->SetType(eSkeletonType::Bow);
 
 			passThrough = object::Instantiate<RoomPassThrough>(eLayerType::ForeGround
 				, Vector3(tileSize * 6.5f, MapB + (tileSize * 2.f) - (platformSize * 0.5f), 0.f));

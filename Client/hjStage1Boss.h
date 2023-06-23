@@ -132,5 +132,14 @@ namespace hj
 		Boss1Parts* mBossDeadPartRightSmall;
 
 		class CameraScript* mCameraScript;
+
+		class BossLifeBarUI* mLifeBarUI;
+
+
+		GameObject* mSoundLaugh;
+		GameObject* mDefeatSound;
+
+		class AudioSource* mLaughSrc;
+		class AudioSource* mDefeatSrc;
 	};
 }

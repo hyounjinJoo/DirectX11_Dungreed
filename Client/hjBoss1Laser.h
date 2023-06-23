@@ -42,6 +42,8 @@ namespace hj
     private:
         Boss1LaserCollider* mLaserCollider;
         std::vector<Boss1LaserPart*> mLaserParts;
+
+		GameObject* mAttackSoundObj;
     };
 
     class Boss1LaserPart :

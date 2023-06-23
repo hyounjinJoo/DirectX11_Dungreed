@@ -9,6 +9,7 @@
 #include "hjScene.h"
 #include "hjSceneManager.h"
 #include "hjMonsterSpawner.h"
+#include "hjSkeletonBase.h"
 
 namespace hj
 {
@@ -87,9 +88,6 @@ namespace hj
 
 			mDoors[static_cast<UINT>(DoorPlaced::R)] = DoorR;
 			mGameObjects.push_back(DoorR);
-
-			MonsterSpawner* test = object::Instantiate<MonsterSpawner>(eLayerType::ForeGround, Vector3((MapL + MapR) * 0.5f, 0.f, 0.f));
-			mGameObjects.push_back(test);
 		}
 	}
 

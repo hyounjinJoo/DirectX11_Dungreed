@@ -24,6 +24,9 @@
 #include "hjTitleGameStart.h"
 #include "hjTitleOption.h"
 #include "hjTitleExit.h"
+#include "hjAudioListener.h"
+#include "hjAudioClip.h"
+#include "hjAudioSource.h"
 
 extern hj::Application application;
 
@@ -67,6 +70,7 @@ namespace hj
 			{
 				Camera* mainCamera = renderer::mainCamera;
 				mainCamera->GetOwner()->SetPositionXY(Vector2(0.f, 0.f));
+				mainCamera->GetOwner()->AddComponent<AudioListener>();
 			}
 		}
 	#pragma region Layer Object
@@ -237,8 +241,15 @@ namespace hj
 #pragma region UI
 			MainLogo* mainLogo = object::Instantiate<MainLogo>(eLayerType::UI);
 			TitleGameStart* startButton = object::Instantiate<TitleGameStart>(eLayerType::UI);
-			TitleOption* optionButton = object::Instantiate<TitleOption>(eLayerType::UI);
 			TitleExit* exitButton = object::Instantiate<TitleExit>(eLayerType::UI);
+#pragma endregion
+#pragma region Sound
+			mTitleSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
+			std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Title"), WIDE("title.mp3"));
+			AudioSource* audioSrc = mTitleSoundObj->AddComponent<AudioSource>();
+			clip->SetLoop(true);
+			audioSrc->SetClip(clip);
+			audioSrc->Play();
 #pragma endregion
 		Scene::Initialize();
 	}
@@ -267,6 +278,8 @@ namespace hj
 
 	void TitleScene::OnExit()
 	{
+		mTitleSoundObj->GetComponent<AudioSource>()->Stop();
+
 		Scene::OnExit();
 	}
 }

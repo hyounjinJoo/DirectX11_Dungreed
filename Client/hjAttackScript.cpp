@@ -41,15 +41,31 @@ namespace hj
 		if (monsterBody)
 		{
 			Actor* monster = monsterBody->GetOwnerActor();
-			if (monster && false == IsExistDamagedObjectInSet(monster))
+			if (false == IsExistDamagedObjectInSet(monster))
 			{
-				std::random_device rd;
-				std::mt19937 randomSeed(rd());
+				if(monster)
+				{
+					std::random_device rd;
+					std::mt19937 randomSeed(rd());
 
-				std::uniform_int_distribution<int> damageRange(mMinDamage, mMaxDamage);
+					std::uniform_int_distribution<int> damageRange(mMinDamage, mMaxDamage);
 
-				monster->Damaged(damageRange(randomSeed));
-				AddDamagedObject(monster);
+					monster->Damaged(damageRange(randomSeed));
+					AddDamagedObject(monster);
+				}
+				else
+				{
+					if (false == IsExistDamagedObjectInSet(monsterBody))
+					{
+						std::random_device rd;
+						std::mt19937 randomSeed(rd());
+
+						std::uniform_int_distribution<int> damageRange(mMinDamage, mMaxDamage);
+
+						monsterBody->Damaged(damageRange(randomSeed));
+						AddDamagedObject(monsterBody);
+					}
+				}
 			}
 		}
 	}

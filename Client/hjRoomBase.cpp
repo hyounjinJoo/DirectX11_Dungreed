@@ -5,6 +5,7 @@
 #include "hjFadeObject.h"
 #include "hjRenderer.h"
 #include "hjCameraScript.h"
+#include "hjMonster.h"
 
 namespace hj
 {
@@ -37,7 +38,32 @@ namespace hj
 	}
 	void RoomBase::Update()
 	{
+		if (eState::Active != GetState())
+			return;
+
 		GameObject::Update();
+
+		bool isExistMonster = CheckHasMonster();
+		if (!isExistMonster)
+		{
+			size_t Size = mDoors.size();
+
+			for (size_t iter = 0; iter < Size; ++iter)
+			{
+				if(mDoors[iter])
+					mDoors[iter]->OpenStele();
+			}
+		}
+		else
+		{
+			size_t Size = mDoors.size();
+
+			for (size_t iter = 0; iter < Size; ++iter)
+			{
+				if (mDoors[iter])
+					mDoors[iter]->CloseStele();
+			}
+		}
 	}
 	void RoomBase::FixedUpdate()
 	{
@@ -226,6 +252,20 @@ namespace hj
 		mGameObjects.push_back(object);
 
 		return true;
+	}
+
+	bool RoomBase::CheckHasMonster()
+	{
+		UINT Size = static_cast<UINT>(mGameObjects.size());
+		for (UINT iter = 0; iter < Size; ++iter)
+		{
+			if (dynamic_cast<GameObject*>(mGameObjects[iter]) && dynamic_cast<Monster*>(mGameObjects[iter]))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

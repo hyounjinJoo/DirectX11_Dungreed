@@ -263,12 +263,6 @@
     <Filter Include="Contents\GameObject\Play\Monster\Ground\Skeleton">
       <UniqueIdentifier>{81aa3a16-c5aa-4eb5-8feb-901fb0bb74ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Play\Monster\Ground\Skeleton\Sword">
-      <UniqueIdentifier>{0e1e4f9b-f903-4de6-8a22-5bd5457c8b75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Play\Monster\Ground\Skeleton\Bow">
-      <UniqueIdentifier>{abf37137-1858-4d3f-b1e1-f1d04f6ea960}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow">
       <UniqueIdentifier>{bb2a16bc-0072-4aef-b8c2-037d617441d9}</UniqueIdentifier>
     </Filter>
@@ -277,6 +271,21 @@
     </Filter>
     <Filter Include="Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow\Effect">
       <UniqueIdentifier>{45417564-9b20-487e-b317-78b7a0b03ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BaseObject\Hand">
+      <UniqueIdentifier>{bafdd392-22e1-4dd0-89c2-a3e55960cdb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\05. Monster">
+      <UniqueIdentifier>{958a8812-df6b-493e-83d5-6a39c58121c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\05. Monster\RustyShortSword">
+      <UniqueIdentifier>{8e4a32e3-e1f3-4d29-ad3e-ce2a9dba8115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Item\Weapon\Melee\05. Monster\RustyGreadSword">
+      <UniqueIdentifier>{8a1d5cb5-0a32-4758-9b7f-3054b334b8b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Play\Player\HUD\BossLifeBarUI">
+      <UniqueIdentifier>{f798b5fe-828e-498d-a061-a7d77069eb51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -559,6 +568,22 @@
     <ClInclude Include="hjArrowFx.h">
       <Filter>Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="hjSkeletonHand.h">
+      <Filter>Contents\GameObject\Play\Monster\Ground\Skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="hjHand.h">
+      <Filter>Contents\GameObject\BaseObject\Hand</Filter>
+    </ClInclude>
+    <ClInclude Include="hjRustyShortSword.h">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Melee\05. Monster\RustyShortSword</Filter>
+    </ClInclude>
+    <ClInclude Include="hjRustyGreatSword.h">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Melee\05. Monster\RustyGreadSword</Filter>
+    </ClInclude>
+    <ClInclude Include="hjStele.h" />
+    <ClInclude Include="hjBossLifeBarUI.h">
+      <Filter>Contents\GameObject\Play\Player\HUD\BossLifeBarUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Dungreed.ico">
@@ -838,6 +863,22 @@
     </ClCompile>
     <ClCompile Include="hjArrowFx.cpp">
       <Filter>Contents\GameObject\Play\Item\Weapon\Ranged\01. Common\OakBow\Arrow\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjSkeletonHand.cpp">
+      <Filter>Contents\GameObject\Play\Monster\Ground\Skeleton</Filter>
+    </ClCompile>
+    <ClCompile Include="hjHand.cpp">
+      <Filter>Contents\GameObject\BaseObject\Hand</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRustyShortSword.cpp">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Melee\05. Monster\RustyShortSword</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRustyGreatSword.cpp">
+      <Filter>Contents\GameObject\Play\Item\Weapon\Melee\05. Monster\RustyGreadSword</Filter>
+    </ClCompile>
+    <ClCompile Include="hjStele.cpp" />
+    <ClCompile Include="hjBossLifeBarUI.cpp">
+      <Filter>Contents\GameObject\Play\Player\HUD\BossLifeBarUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

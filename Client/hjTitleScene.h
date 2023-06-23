@@ -20,5 +20,6 @@ namespace hj
 		void OnExit() override;
 
 	private:
+		class GameObject* mTitleSoundObj;
 	};
 }

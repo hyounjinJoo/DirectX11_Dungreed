@@ -20,9 +20,15 @@ namespace hj
 		void OnExit() override;
 		class GameObject* GetFadeObject() { return mFadeObject; }
 
+		void PlayBossBgm();
+		void PlayFieldBgm();
+		void StopBgm();
+
 	private:
 		class GameObject* mObj;
 		GameObject* mFadeObject;
 		std::shared_ptr<graphics::PaintShader> mPaintShader;
+
+		class GameObject* mTestSoundObj;
     };
 }

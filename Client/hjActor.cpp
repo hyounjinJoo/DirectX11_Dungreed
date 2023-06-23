@@ -26,6 +26,7 @@ namespace hj
 	{
 		if (mOwnerRoom)
 		{
+			mOwnerRoom->DelistFromManagedGameObjects(this);
 			mOwnerRoom = nullptr;
 		}
 
@@ -213,6 +214,9 @@ namespace hj
 			spritesInfo.bIsReversePlay = bReversePlay;
 
 			mSprites.push_back(spritesInfo);
+
+			spritesInfo.spriteSheet.clear();
+			spritesInfo.spritesName.clear();
 		}
 
 		delete parser;

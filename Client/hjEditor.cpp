@@ -9,6 +9,7 @@
 #include "hjDebugObject.h"
 #include "hjWidget.h"
 #include "hjEditorObject.h"
+#include "hjInput.h"
 
 
 namespace hj
@@ -58,6 +59,11 @@ namespace hj
 
 	void Editor::Run()
 	{
+		if (Input::GetKeyDown(eKeyCode::N_5))
+		{
+			mbRender = !mbRender;
+		}
+
 		Update();
 		FixedUpdate();
 		Render();
@@ -81,14 +87,18 @@ namespace hj
 	
 	void Editor::Render()
 	{
-		for (EditorObject* obj : mEditorObjects)
+		if (!mbRender)
 		{
-			obj->Render();
-		}
 
-		for (DebugMesh& mesh : renderer::debugMeshes)
-		{
-			DebugRender(mesh);
+			for (EditorObject* obj : mEditorObjects)
+			{
+				obj->Render();
+			}
+
+			for (DebugMesh& mesh : renderer::debugMeshes)
+			{
+				DebugRender(mesh);
+			}
 		}
 		renderer::debugMeshes.clear();
 	}

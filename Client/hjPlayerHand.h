@@ -1,66 +1,30 @@
 #pragma once
-#include "hjActor.h"
+#include "hjHand.h"
 namespace hj
 {
 	class ArmRotatorScript;
 	class PlayerHand :
-		public Actor
+		public Hand
 	{
-		enum class handState
-		{
-			Normal,
-			Inverse,
-			End
-		};
-
 	public:
 		PlayerHand();
 		virtual ~PlayerHand();
 
-		void Initialize() override;
-		void Update() override;
-		void FixedUpdate() override;
-		void Render() override;
+	public:
+		virtual void FixedUpdate() override;
 
 	public:
-		void SetHandOwner(class Player* owner);
-		void InverseHandPosZ(bool inverse);
-
-		Transform* GetWeaponTR();
-		Transform* GetHandOwnerTR()
-		{
-			if (mHandOwnerTR)
-			{
-				return mHandOwnerTR;
-			}
-
-			return nullptr;
-		}
-		
-		ArmRotatorScript* GetRotatorScript()
-		{
-			if (mRotatorScript)
-			{
-				return mRotatorScript;
-			}
-
-			return nullptr;
-		}
-
-	public:
-		void Attack();
+		virtual void SetHandOwner(class Actor* owner) override;
+		virtual void Attack() override;
 
 	private:
 		void CreateAnimation();
 
-	private:
-		class Actor* mWeapon;
-		Player* mHandOwner;
-		Transform* mHandOwnerTR;
-		Transform* mHandTransform;
-		handState mHandState;
-		class Animator* mAnimator;
-		ArmRotatorScript* mRotatorScript;
+		class Actor* mWeaponMelee;
+		class Actor* mWeaponRanged;
+
+		void ResetMeleeWeaponInfo();
+
 	};
 }
 

@@ -50,6 +50,7 @@ namespace hj
 		, mCurDashCanCount(2)
 		, mDashChargeTimer(0.f)
 		, mDashChargeTime(1.f)
+		, mbActiveInput(true)
 	{
 		mDashTrailRenderTimer = 0.1f;
 		mDashTrailCreateInterval = mMaxDashTime / mDashTrailCount;
@@ -264,6 +265,9 @@ namespace hj
 
 	void PlayerScript::HandleMovementInput()
 	{
+		if (!mbActiveInput)
+			return;
+
 		if (!mOwnerRigid)
 			return;
 
@@ -290,7 +294,9 @@ namespace hj
 
 	void PlayerScript::HandleMouseInput()
 	{
-		
+		if (!mbActiveInput)
+			return;
+
 		if (Input::GetKeyDown(mKeyBindings[(UINT)playerKeyAction::MOVE_LBTN]))
 		{
 			ActionMouseLBTN();
@@ -494,6 +500,9 @@ namespace hj
 
 	void PlayerScript::HandleJumpInput()
 	{
+		if (!mbActiveInput)
+			return;
+
 		if (!mOwnerRigid)
 			return;
 

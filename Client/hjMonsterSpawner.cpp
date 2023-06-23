@@ -1,6 +1,10 @@
 #include "hjMonsterSpawner.h"
 #include "hjMonster.h"
 #include "hjAnimator.h"
+#include "hjRoomBase.h"
+#include "hjAudioSource.h"
+#include "hjObject.h"
+#include "hjResources.h"
 
 namespace hj
 {
@@ -14,11 +18,27 @@ namespace hj
 		AddComponent<Animator>();
 
 		CreateAnimation();
+
+		mSpawnSoundObj = object::Instantiate<Actor>(eLayerType::UI);
+		mSpawnSoundObj->GetTransform()->SetParent(this->GetTransform());
+		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("SpawnMonster"), WIDE("SpawnMonster.mp3"));
+		clip->SetLoop(false);
+		mSpawnSoundObj->AddComponent<AudioSource>()->SetClip(clip);
+
 	}
 
 	MonsterSpawner::~MonsterSpawner()
 	{
 		mMonster = nullptr;
+		if (mOwnerRoom)
+		{
+			mOwnerRoom->DelistFromManagedGameObjects(this);
+		}
+
+		if (mSpawnSoundObj)
+		{
+			mSpawnSoundObj->Death();
+		}
 	}
 
 	void MonsterSpawner::Initialize()
@@ -33,7 +53,11 @@ namespace hj
 	{
 		mMonster = monster;
 		mMonster->SetPositionXY(GetPositionXY());
-		mMonster->SetNotActiveByRoom();
+		mMonster->Pause();
+		if (mOwnerRoom)
+		{
+			mMonster->SetOwnerRoom(mOwnerRoom);
+		}
 	}
 
 	void MonsterSpawner::SpawnMonster()
@@ -46,7 +70,13 @@ namespace hj
 		if (mMonster)
 		{
 			mMonster->Initialize();
+			mMonster->Activate();
 			mbSpawned = true;
+			if (mSpawnSoundObj && mSpawnSoundObj->GetComponent<AudioSource>() && mSpawnSoundObj->GetComponent<AudioSource>()->GetClip())
+			{
+				AudioSource* source = mSpawnSoundObj->GetComponent<AudioSource>();
+				source->Play();
+			}
 		}
 
 		Death();

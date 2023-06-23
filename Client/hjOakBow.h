@@ -22,5 +22,6 @@ namespace hj::object::item::weapon
 		void CreateAnimation();
 
 		float mAttackCoolTime;
+		GameObject* mAttackSoundObj;
 	};
 }

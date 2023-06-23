@@ -47,6 +47,26 @@ namespace hj
 		void SetEntryStart(bool start) { mbEntryStart = start; }
 		void SetExitStart(bool start) { mbExitStart = start; }
 
+	public:
+		void OpenStele();
+		void CloseStele();
+		void DeRegistStele()
+		{
+			if (mStele)
+			{
+				mStele = nullptr;
+			}
+		}
+		class Stele* GetStele()
+		{
+			if (mStele)
+			{
+				return mStele;
+			}
+
+			return nullptr;
+		}
+
 	private:
 		class Player* mTargetPlayer;
 		RoomBase* mOwnerRoom;
@@ -57,6 +77,8 @@ namespace hj
 		Vector2 mExitPos;
 		bool mbEntryStart;
 		bool mbExitStart;
+
+		class Stele* mStele;
 
 		bool mbFadeOutComplete;
 		bool mbFadeInComplete;

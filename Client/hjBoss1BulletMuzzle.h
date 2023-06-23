@@ -48,5 +48,6 @@ namespace hj
 		UINT mNextShotBulletIndex;
 
 		float mRotateDir;
+		GameObject* mAttackSoundObj;
 	};
 }

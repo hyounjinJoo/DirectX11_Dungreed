@@ -1,7 +1,7 @@
 #include "hjArmRotatorScript.h"
 #include "hjMath.h"
 #include "hjInput.h"
-#include "hjPlayerHand.h"
+#include "hjHand.h"
 #include "hjAnimator.h"
 #include "hjPlayer.h"
 
@@ -9,6 +9,7 @@ namespace hj
 {
 	ArmRotatorScript::ArmRotatorScript()
 		: mbUsingMouseRotation(false)
+		, mbUsingManualRotation(false)
 		, mMinDistanceX(-10.f)
 		, mMaxDistanceX(35.f)
 		, mMinDistanceY(10.f)
@@ -47,6 +48,13 @@ namespace hj
 		{
 			RotateArm(Input::GetMouseWorldPosition());
 		}
+		else
+		{
+			if (mbUsingManualRotation)
+			{
+				RotateArm(mManualTargetPosition);
+			}
+		}
 	}
 
 	void ArmRotatorScript::Render()
@@ -70,7 +78,7 @@ namespace hj
 
 	void ArmRotatorScript::RotateArm(const Vector2& targetWorldPos)
 	{
-		if (!mHand)
+		if (!mHand || !GetOwner() || !mBody)
 			return;
 
 		Vector3 armPos = GetOwner()->GetWorldPosition();
@@ -171,7 +179,9 @@ namespace hj
 		
 		GetOwner()->SetRotationZ(newShoulderRot);
 		GetOwner()->GetTransform()->FixedUpdate();
-		mHand->GetTransform()->FixedUpdate();
-		mHand->GetWeaponTR()->FixedUpdate();
+		
+		mHand->GetTransform()->FixedUpdate();		
+		if(mHand->GetWeaponTR())
+			mHand->GetWeaponTR()->FixedUpdate();
 	}
 }

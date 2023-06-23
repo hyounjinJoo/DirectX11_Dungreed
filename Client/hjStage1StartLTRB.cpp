@@ -8,6 +8,8 @@
 #include "hjRoomDoor.h"
 #include "hjScene.h"
 #include "hjSceneManager.h"
+#include "hjMonsterSpawner.h"
+#include "hjSkeletonBase.h"
 
 namespace hj
 {
@@ -109,6 +111,14 @@ namespace hj
 				, Vector3((tileSize * 3.f), MapB + (tileSize * 2.f) - (platformSize * 0.5f), 0.f));
 			passThrough->SetScale(Vector3(tileSize * 4.f, platformSize, 1.f));
 			mGameObjects.push_back(passThrough);
+
+			passThrough->GetTransform()->FixedUpdate();
+			MonsterSpawner* spawner = object::Instantiate<MonsterSpawner>(eLayerType::ForeGround, passThrough->GetPosition() + Vector3(0.f, 100.f, 0.f));
+			spawner->SetOwnerRoom(this);
+
+			SkeletonBase* skelBase = object::Instantiate<SkeletonBase>(eLayerType::MonsterHas);
+			spawner->SetSpawnMonster(skelBase);
+			skelBase->SetType(eSkeletonType::GreatSword);
 
 			RoomDoor* DoorL = object::Instantiate<RoomDoor>(eLayerType::ForeGround
 				, Vector3(MapL, MapB + (tileSize * 4.f), 0.f));
