@@ -6,6 +6,9 @@
 #include "hjSceneManager.h"
 #include "hjPlayer.h"
 #include <random>
+#include "hjApplication.h"
+
+extern hj::Application application;
 
 namespace hj
 {
@@ -165,18 +168,22 @@ namespace hj
 	void CameraScript::UpdateShakedCameraPos()
 	{
 		if (mShakeTimer <= 0.f)
-			return;
-
-		mShakeTimer -= Time::ActualDeltaTime() * mDicreaseShakeFactor;
-
-		Vector2 shakeMove = CalcRandomShakeValue();
-		Vector2 shakedPos = mOriginPos + shakeMove;
-		GetOwner()->SetPositionXY(shakedPos);
-
-		if (mShakeTimer <= 0.f)
 		{
-			mShakeTimer = 0.f;
-			GetOwner()->SetPositionXY(mOriginPos);
+			return;
+		}
+		else if(application.IsFocused())
+		{
+			mShakeTimer -= Time::ActualDeltaTime() * mDicreaseShakeFactor;
+
+			Vector2 shakeMove = CalcRandomShakeValue();
+			Vector2 shakedPos = mOriginPos + shakeMove;
+			GetOwner()->SetPositionXY(shakedPos);
+
+			if (mShakeTimer <= 0.f)
+			{
+				mShakeTimer = 0.f;
+				GetOwner()->SetPositionXY(mOriginPos);
+			}
 		}
 	}
 

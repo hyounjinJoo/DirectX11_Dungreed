@@ -35,7 +35,13 @@ namespace hj
 		UINT GetHeight() { return mHeight; }
 		math::Vector2 GetWindowSize() { return math::Vector2(static_cast<float>(mWidth), static_cast<float>(mHeight)); }
 		math::Vector2 GetResolutionRatio();
+		bool IsFocused() { return mbIsFocusedWindow; }
 #pragma endregion;
+
+#pragma region Private Method
+	private:
+		void UpdateFocusInfo();
+#pragma endregion Private Method
 
 #pragma region MemberVariable
 	private:
@@ -46,6 +52,8 @@ namespace hj
 		HDC		mHdc;
 		UINT	mHeight;
 		UINT	mWidth;
+
+		bool	mbIsFocusedWindow;
 #pragma endregion
 
 	};

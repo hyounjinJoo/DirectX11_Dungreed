@@ -17,6 +17,7 @@ namespace hj
         , mHdc(nullptr)
         , mHeight(1600)
         , mWidth(900)
+        , mbIsFocusedWindow(false)
     {
     }
 
@@ -38,6 +39,7 @@ namespace hj
     // 게임 로직 캐릭터 이동 등등의 CPU Update
     void Application::Update()
     {
+        UpdateFocusInfo();
         Time::Update();
         Input::Update();
 		CollisionManager::Update();
@@ -128,4 +130,9 @@ namespace hj
         return Vector2(mWidth / width, mHeight / height);
 	}
 
+    void Application::UpdateFocusInfo()
+    {
+        HWND currentActiveWindow = GetFocus();
+        mbIsFocusedWindow = (mHwnd == currentActiveWindow) ? true : false;
+    }
 }

@@ -30,11 +30,10 @@ namespace hj
         static const float targetFrameRate = 60.f;
         static const float targetDeltaTime = 1.f / targetFrameRate;
         static const float targetFixedFPS = 1.f / targetDeltaTime;
-        HWND activeWindow = GetFocus();
-        //if (!mbStopDeltaTimeUpdate)
-		//{
-		//if (activeWindow == application.GetHwnd())
-		//{
+        
+        static bool isFocused = application.IsFocused();
+		if (isFocused)
+		{
             QueryPerformanceCounter(&mCurFrequency);
 
             float differenceInFrequancy
@@ -63,14 +62,13 @@ namespace hj
             else
             {
                 mAccTime += mActualDeltaTime; 
-            }
-		//}
-		//else
-		//{
-		//    mActualDeltaTime = 0.f;
-		//    mFixedDeltaTime = 0.f;
-		//}
-		//}
+			}
+		}
+		else
+		{
+			mActualDeltaTime = 0.f;
+			mFixedDeltaTime = 0.f;
+		}
     }
 
     void Time::Render(HDC hdc)
