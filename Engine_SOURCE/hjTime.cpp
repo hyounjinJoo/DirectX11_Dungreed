@@ -31,7 +31,9 @@ namespace hj
         static const float targetDeltaTime = 1.f / targetFrameRate;
         static const float targetFixedFPS = 1.f / targetDeltaTime;
         
-        static bool isFocused = application.IsFocused();
+        static bool isFocused = false;
+        isFocused = application.IsFocused();
+
 		if (isFocused)
 		{
             QueryPerformanceCounter(&mCurFrequency);
