@@ -8,6 +8,7 @@
 #include "hjAudioClip.h"
 #include "hjResources.h"
 #include "hjAudioSource.h"
+#include "hjSpriteRenderer.h"
 
 namespace hj
 {
@@ -143,9 +144,16 @@ namespace hj
 		animWstr = WIDE("Opened");
 		LoadAnimInfoFromFile(eFrameAddMethod::FRAME_ADD_OFFSET, eTextureSlot::T0, path, searchWstr, animWstr, frameDuration);
 
+		searchWstr = WIDE("None/Stele");
+		animWstr = WIDE("None");
+		LoadAnimInfoFromFile(eFrameAddMethod::FRAME_ADD_OFFSET, eTextureSlot::T0, path, searchWstr, animWstr, frameDuration);
+
 		Actor::InsertAnimationToAnimator(eTextureSlot::T0);
 
 		animator->GetCompleteEvent(WIDE("Opened")) = std::bind(&Stele::Opened, this);
 		animator->GetCompleteEvent(WIDE("Closed")) = std::bind(&Stele::Closed, this);
+
+		animator->Play(WIDE("None"));
+
 	}
 }

@@ -1,6 +1,7 @@
 #include "hjMonster.h"
 #include "hjSceneManager.h"
 #include "hjPlayer.h"
+#include "hjRoomBase.h"
 
 namespace hj
 {
@@ -42,6 +43,7 @@ namespace hj
 
 		if (0 > mMonsterStatus.currentHP)
 		{
+			mOwnerRoom->DecreaseMonster();
 			mbIsDeadMonster = true;
 		}
 	}

@@ -31,12 +31,20 @@ namespace hj
 		bool DelistFromManagedGameObjects(GameObject* object);
 		bool AddObjectToManagedGameObjects(GameObject* object);
 
-		bool CheckHasMonster();
+		void IncreaseMonster();
+		void DecreaseMonster();
+
+	private:
+		void CloseDoors();
+		void OpenDoors();
+
 	protected:
 		std::vector<RoomDoor*> mDoors;
 		std::vector<GameObject*> mGameObjects;
 
 		Vector4 mMapLTRBlimit;
+		UINT mCountMonster;
+		bool mbIsClosed;
 	};
 }
 

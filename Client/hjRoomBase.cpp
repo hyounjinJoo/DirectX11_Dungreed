@@ -11,6 +11,8 @@ namespace hj
 {
 	RoomBase::RoomBase()
 		: mMapLTRBlimit(Vector4(-800.f, 450.f, 800.f, -450.f))
+		, mCountMonster(0)
+		, mbIsClosed(false)
 	{
 		mDoors.resize(static_cast<UINT>(DoorPlaced::End));
 	}
@@ -42,28 +44,6 @@ namespace hj
 			return;
 
 		GameObject::Update();
-
-		bool isExistMonster = CheckHasMonster();
-		if (!isExistMonster)
-		{
-			size_t Size = mDoors.size();
-
-			for (size_t iter = 0; iter < Size; ++iter)
-			{
-				if(mDoors[iter])
-					mDoors[iter]->OpenStele();
-			}
-		}
-		else
-		{
-			size_t Size = mDoors.size();
-
-			for (size_t iter = 0; iter < Size; ++iter)
-			{
-				if (mDoors[iter])
-					mDoors[iter]->CloseStele();
-			}
-		}
 	}
 	void RoomBase::FixedUpdate()
 	{
@@ -254,18 +234,48 @@ namespace hj
 		return true;
 	}
 
-	bool RoomBase::CheckHasMonster()
+	void RoomBase::IncreaseMonster()
 	{
-		UINT Size = static_cast<UINT>(mGameObjects.size());
-		for (UINT iter = 0; iter < Size; ++iter)
+		++mCountMonster;
+		if (false == mbIsClosed)
 		{
-			if (dynamic_cast<GameObject*>(mGameObjects[iter]) && dynamic_cast<Monster*>(mGameObjects[iter]))
-			{
-				return true;
-			}
+			CloseDoors();
 		}
+	}
 
-		return false;
+	void RoomBase::DecreaseMonster()
+	{
+		--mCountMonster;
+		if ((0 == mCountMonster) && mbIsClosed)
+		{
+			OpenDoors();
+		}
+	}
+
+	void RoomBase::CloseDoors()
+	{
+		mbIsClosed = true;
+
+		size_t Size = mDoors.size();
+
+		for (size_t iter = 0; iter < Size; ++iter)
+		{
+			if (mDoors[iter])
+				mDoors[iter]->CloseStele();
+		}
+	}
+
+	void RoomBase::OpenDoors()
+	{
+		mbIsClosed = false;
+
+		size_t Size = mDoors.size();
+
+		for (size_t iter = 0; iter < Size; ++iter)
+		{
+			if (mDoors[iter])
+				mDoors[iter]->OpenStele();
+		}
 	}
 
 }

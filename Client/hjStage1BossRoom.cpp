@@ -231,6 +231,8 @@ namespace hj
 	{
 		if (mBoss && !mbBossSpawned)
 		{
+			IncreaseMonster();
+
 			mBoss->Initialize();
 		}
 	}

@@ -69,6 +69,8 @@ namespace hj
 
 		if (mMonster)
 		{
+			mOwnerRoom->IncreaseMonster();
+
 			mMonster->Initialize();
 			mMonster->Activate();
 			mbSpawned = true;
