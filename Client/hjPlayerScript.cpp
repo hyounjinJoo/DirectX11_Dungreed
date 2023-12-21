@@ -20,6 +20,8 @@
 #include "hjPlayerHand.h"
 #include "hjAttackScript.h"
 #include "hjPlayerLifeBarUI.h"
+#include "hjAudioClip.h"
+#include "hjAudioSource.h"
 
 extern hj::Application application;
 namespace hj
@@ -50,6 +52,7 @@ namespace hj
 		, mCurDashCanCount(2)
 		, mDashChargeTimer(0.f)
 		, mDashChargeTime(1.f)
+		, mDashSoundObj(nullptr)
 		, mbActiveInput(true)
 	{
 		mDashTrailRenderTimer = 0.1f;
@@ -63,6 +66,10 @@ namespace hj
 
 	PlayerScript::~PlayerScript()
 	{
+		if (mDashSoundObj)
+		{
+			mDashSoundObj->Death();
+		}
 	}
 
 	void PlayerScript::Initialize()
@@ -406,6 +413,7 @@ namespace hj
 		// Dash 중이지 않은 경우에만 동작시켜준다.
 		if (!mbDash)
 		{
+			mDashSoundObj->GetComponent<AudioSource>()->Play();
 			mDashStartedTime = Time::AccTime();
 			mLastDashTrailTime = mDashStartedTime;
 			mbDash = true;
@@ -707,6 +715,15 @@ namespace hj
 			{
 				iter = mDashTrailObj.erase(iter);
 			}
+		}
+
+		if (!mDashSoundObj)
+		{
+			mDashSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
+			std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("Dash"), WIDE("dash.mp3"));
+			AudioSource* audioSrc = mDashSoundObj->AddComponent<AudioSource>();
+			clip->SetLoop(false);
+			audioSrc->SetClip(clip);
 		}
 
 		for (int index = 0; index < mDashTrailCount; ++index)

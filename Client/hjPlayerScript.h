@@ -113,6 +113,7 @@ namespace hj
 		float mDashTrailRenderTimer;
 		float mLastDashTrailTime;
 		std::vector<class FxPlayerTrail*> mDashTrailObj;
+		GameObject* mDashSoundObj;
 
 		Vector2 mJumpForce;
 		float mJumpRatio;
