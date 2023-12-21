@@ -77,8 +77,10 @@ namespace hj
 			{
 				mWeapon = mWeaponRanged;
 				mWeapon->Activate();
-				mWeaponMelee->SetNotActiveByRoom();
+				mWeaponMelee->SetNotActiveByRoom(); 
+				ResetMeleeWeaponInfo();
 				InitRotatorScript();
+				GetTransform()->FixedUpdate();
 			}
 		}
 	}
