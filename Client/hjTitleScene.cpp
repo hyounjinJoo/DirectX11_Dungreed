@@ -70,7 +70,9 @@ namespace hj
 			{
 				Camera* mainCamera = renderer::mainCamera;
 				mainCamera->GetOwner()->SetPositionXY(Vector2(0.f, 0.f));
-				mainCamera->GetOwner()->AddComponent<AudioListener>();
+
+				//3D 오디오 활성화 필요 시 주석 제거
+				//mainCamera->GetOwner()->AddComponent<AudioListener>();
 			}
 		}
 	#pragma region Layer Object
