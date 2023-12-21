@@ -1,6 +1,6 @@
 #include "hjBoss1Sword.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjAnimator.h"
 #include "hjXmlParser.h"
 #include "hjObject.h"

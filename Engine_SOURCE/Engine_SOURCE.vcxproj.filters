@@ -174,9 +174,6 @@
     <ClCompile Include="hjComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="hjResources.cpp">
-      <Filter>Resource\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="hjMaterial.cpp">
       <Filter>Resource\Material</Filter>
     </ClCompile>
@@ -292,6 +289,9 @@
     <ClCompile Include="hjAudioClip.cpp">
       <Filter>Resource\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="hjResourceManager.cpp">
+      <Filter>Resource\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hjMath.h">
@@ -332,9 +332,6 @@
     </ClInclude>
     <ClInclude Include="hjComponent.h">
       <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="hjResources.h">
-      <Filter>Resource\Manager</Filter>
     </ClInclude>
     <ClInclude Include="hjMaterial.h">
       <Filter>Resource\Material</Filter>
@@ -453,6 +450,9 @@
     </ClInclude>
     <ClInclude Include="hjAudioClip.h">
       <Filter>Resource\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="hjResourceManager.h">
+      <Filter>Resource\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

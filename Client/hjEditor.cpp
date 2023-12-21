@@ -2,7 +2,7 @@
 
 #include "hjObject.h"
 #include "hjMeshRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjMesh.h"
 #include "hjMaterial.h"
 #include "hjGridScript.h"

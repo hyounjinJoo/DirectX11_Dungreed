@@ -1,7 +1,7 @@
 #include "hjFxPlayerDust.h"
 #include "hjPlayer.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjMaterial.h"
 #include "hjTexture.h"
 #include "hjAnimator.h"

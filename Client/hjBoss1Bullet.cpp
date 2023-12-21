@@ -3,7 +3,7 @@
 #include "hjXmlParser.h"
 #include "hjAnimation.h"
 #include "hjAnimator.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjTime.h"
 #include "hjCollider2D.h"
 #include "hjBoss1BulletColliderScript.h"

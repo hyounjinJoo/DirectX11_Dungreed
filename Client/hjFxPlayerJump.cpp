@@ -1,6 +1,6 @@
 #include "hjFxPlayerJump.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjMaterial.h"
 #include "hjMesh.h"
 #include "hjTexture.h"

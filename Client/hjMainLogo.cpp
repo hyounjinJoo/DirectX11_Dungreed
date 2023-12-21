@@ -1,6 +1,6 @@
 #include "hjMainLogo.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjCollider2D.h"
 #include "hjXmlParser.h"
 

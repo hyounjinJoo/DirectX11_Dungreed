@@ -6,22 +6,22 @@ namespace hj
 {
 // 사용 시 반드시 ;(semi-colon)을 붙여서 사용할 것.
 #define SHADER_NEW() std::make_shared<Shader>()
-#define SHADER_INSERT(shaderKey, sharedPtrShader) Resources::Insert<Shader>(WIDE(shaderKey), sharedPtrShader)
-#define SHADER_FIND(shaderKey) Resources::Find<Shader>(WIDE(shaderKey))
+#define SHADER_INSERT(shaderKey, sharedPtrShader) ResourceManager::Insert<Shader>(WIDE(shaderKey), sharedPtrShader)
+#define SHADER_FIND(shaderKey) ResourceManager::Find<Shader>(WIDE(shaderKey))
 
-#define TEX_FIND(texKey) Resources::Find<Texture>(WIDE(texKey))
+#define TEX_FIND(texKey) ResourceManager::Find<Texture>(WIDE(texKey))
 
 #define MTRL_NEW() std::make_shared<Material>()
-#define MTRL_INSERT(materialKey, sharedPtrMTRL) Resources::Insert<Material>(WIDE(materialKey), sharedPtrMTRL)
-#define MTRL_FIND_STR(materialKeyStr) Resources::Find<Material>(WIDE(materialKeyStr))
-#define MTRL_FIND_WSTR(materialKeyWStr) Resources::Find<Material>(materialKeyWStr)
+#define MTRL_INSERT(materialKey, sharedPtrMTRL) ResourceManager::Insert<Material>(WIDE(materialKey), sharedPtrMTRL)
+#define MTRL_FIND_STR(materialKeyStr) ResourceManager::Find<Material>(WIDE(materialKeyStr))
+#define MTRL_FIND_WSTR(materialKeyWStr) ResourceManager::Find<Material>(materialKeyWStr)
 
 #define MESH_NEW() std::make_shared<Mesh>()
-#define MESH_INSERT(meshKey, sharedPtrMesh) Resources::Insert<Mesh>(WIDE(meshKey), sharedPtrMesh)
-#define MESH_FIND_STR(meshKeyStr) Resources::Find<Mesh>(WIDE(meshKeyStr))
-#define MESH_FIND_WSTR(meshKeyWStr) Resources::Find<Mesh>(meshKeyWStr)
+#define MESH_INSERT(meshKey, sharedPtrMesh) ResourceManager::Insert<Mesh>(WIDE(meshKey), sharedPtrMesh)
+#define MESH_FIND_STR(meshKeyStr) ResourceManager::Find<Mesh>(WIDE(meshKeyStr))
+#define MESH_FIND_WSTR(meshKeyWStr) ResourceManager::Find<Mesh>(meshKeyWStr)
 
-	class Resources
+	class ResourceManager
 	{
 	public:
 		template <typename T>
@@ -42,7 +42,7 @@ namespace hj
 		static std::shared_ptr<T> Load(const std::wstring& key, const std::wstring& path)
 		{
 			// 키값으로 탐색
-			std::shared_ptr<T> resource = Resources::Find<T>(key);
+			std::shared_ptr<T> resource = ResourceManager::Find<T>(key);
 			if (nullptr != resource)
 			{
 				// 해당키로 이미 로딩된게 있으면 해당 리소스를 반환
@@ -76,8 +76,8 @@ namespace hj
 		}
 
 	private:
-		Resources() = delete;
-		~Resources() = delete;
+		ResourceManager() = delete;
+		~ResourceManager() = delete;
 	
 	private:
 		static std::map<std::wstring, std::shared_ptr<Resource>> mResources;

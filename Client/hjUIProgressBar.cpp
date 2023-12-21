@@ -1,5 +1,5 @@
 #include "hjUIProgressBar.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjSpriteRenderer.h"
 #include "hjAnimator.h"
 

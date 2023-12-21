@@ -1,7 +1,7 @@
 #include "hjUIButton.h"
 #include "hjCollider2D.h"
 #include "hjInput.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 
 namespace hj
 {

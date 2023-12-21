@@ -1,6 +1,6 @@
 #include "hjStage1BossRoom.h"
 #include "hjMap.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjCameraScript.h"
 #include "hjObject.h"
 #include "hjRoomNotPass.h"
@@ -19,7 +19,7 @@ namespace hj
 		, mBoss(nullptr)
 		, mbBossSpawned(false)
 	{
-		std::shared_ptr<Map> mapData = Resources::Find<Map>(WIDE("MAP_01_BossRoom"));
+		std::shared_ptr<Map> mapData = ResourceManager::Find<Map>(WIDE("MAP_01_BossRoom"));
 		if (mapData)
 		{
 			UINT layerCount = mapData->GetLayerCount();

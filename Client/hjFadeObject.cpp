@@ -1,7 +1,7 @@
 #include "hjFadeObject.h"
 #include "hjFadeScript.h"
 #include "hjMeshRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjApplication.h"
 
 extern hj::Application application;

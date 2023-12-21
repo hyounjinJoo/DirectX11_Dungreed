@@ -3,7 +3,7 @@
 #include "hjObject.h"
 #include "hjBoss1Bullet.h"
 #include "hjAudioClip.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjAudioSource.h"
 
 namespace hj
@@ -30,7 +30,7 @@ namespace hj
 		Pause();
 
 		mAttackSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
-		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("BelialBullet"), WIDE("BelialBullet.mp3"));
+		std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("BelialBullet"), WIDE("BelialBullet.mp3"));
 		AudioSource* audioSrc = mAttackSoundObj->AddComponent<AudioSource>();
 		clip->SetLoop(false);
 		audioSrc->SetClip(clip);

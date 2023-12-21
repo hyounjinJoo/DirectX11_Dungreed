@@ -1,5 +1,5 @@
 #include "hjTitleOption.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjMaterial.h"
 #include "hjSpriteRenderer.h"
 #include "hjXmlParser.h"

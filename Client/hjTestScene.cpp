@@ -2,7 +2,7 @@
 #include "hjTransform.h"
 #include "hjMeshRenderer.h"
 #include "hjRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjTexture.h"
 #include "hjPlayerScript.h"
 #include "hjCamera.h"
@@ -300,7 +300,7 @@ namespace hj
 
 #pragma region Sound
 		mTestSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
-		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Field"), WIDE("1.JailField.mp3"));
+		std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("Field"), WIDE("1.JailField.mp3"));
 		AudioSource* audioSrc = mTestSoundObj->AddComponent<AudioSource>();
 		clip->SetLoop(true);
 		audioSrc->SetClip(clip);
@@ -403,7 +403,7 @@ namespace hj
 
 	void TestScene::PlayBossBgm()
 	{
-		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Boss"), WIDE("1.JailBoss.mp3"));
+		std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("Boss"), WIDE("1.JailBoss.mp3"));
 		AudioSource* audioSrc = mTestSoundObj->GetComponent<AudioSource>();
 		clip->SetLoop(true);
 		audioSrc->Stop();
@@ -413,7 +413,7 @@ namespace hj
 
 	void TestScene::PlayFieldBgm()
 	{
-		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Field"), WIDE("1.JailField.mp3"));
+		std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("Field"), WIDE("1.JailField.mp3"));
 		AudioSource* audioSrc = mTestSoundObj->GetComponent<AudioSource>();
 		clip->SetLoop(true);
 		audioSrc->Stop();

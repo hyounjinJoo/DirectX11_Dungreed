@@ -1,5 +1,5 @@
 #include "hjBossDeathParticleSystem.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjXmlParser.h"
 #include "hjAnimation.h"
 #include "hjTime.h"
@@ -47,7 +47,7 @@ namespace hj
 
 	void BossDeathParticleSystem::Initialize()
 	{
-		mAnimCS = Resources::Find<ParticleAnimShader>(L"Shader_ParticleAnimCS");
+		mAnimCS = ResourceManager::Find<ParticleAnimShader>(L"Shader_ParticleAnimCS");
 
 		std::shared_ptr<Mesh> point = MESH_FIND_STR("Mesh_Point");
 		SetMesh(point);

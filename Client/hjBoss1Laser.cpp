@@ -1,6 +1,6 @@
 #include "hjBoss1Laser.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjAnimator.h"
 #include "hjObject.h"
 #include "hjXmlParser.h"
@@ -78,7 +78,7 @@ namespace hj
 		}
 
 		mAttackSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
-		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("laser"), WIDE("laser.mp3"));
+		std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("laser"), WIDE("laser.mp3"));
 		AudioSource* audioSrc = mAttackSoundObj->AddComponent<AudioSource>();
 		clip->SetLoop(false);
 		audioSrc->SetClip(clip);

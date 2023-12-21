@@ -1,6 +1,6 @@
 #include "hjUIBase.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjMesh.h"
 
 namespace hj

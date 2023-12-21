@@ -2,7 +2,7 @@
 #include "hjMap.h"
 #include "hjXmlParser.h"
 #include "hjTexture.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 
 namespace hj
 {

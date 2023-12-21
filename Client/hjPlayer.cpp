@@ -1,7 +1,7 @@
 #include "hjPlayer.h"
 #include "hjPlayerHand.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjRigidBody.h"
 #include "hjPlayerScript.h"
 #include "hjInput.h"

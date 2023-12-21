@@ -199,7 +199,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClInclude Include="hjPrefab.h" />
     <ClInclude Include="hjRenderer.h" />
     <ClInclude Include="hjResource.h" />
-    <ClInclude Include="hjResources.h" />
+    <ClInclude Include="hjResourceManager.h" />
     <ClInclude Include="hjRigidBody.h" />
     <ClInclude Include="hjScene.h" />
     <ClInclude Include="hjSceneManager.h" />
@@ -253,7 +253,7 @@ copy "$(SolutionDir)fmodstudio.dll" "$(SolutionDir)\x64\Release\"</Command>
     <ClCompile Include="hjPrefab.cpp" />
     <ClCompile Include="hjRenderer.cpp" />
     <ClCompile Include="hjResource.cpp" />
-    <ClCompile Include="hjResources.cpp" />
+    <ClCompile Include="hjResourceManager.cpp" />
     <ClCompile Include="hjRigidBody.cpp" />
     <ClCompile Include="hjScene.cpp" />
     <ClCompile Include="hjSceneManager.cpp" />

@@ -1,6 +1,6 @@
 #include "hjTitleBird.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjMaterial.h"
 #include "hjTransform.h"
 #include "hjApplication.h"

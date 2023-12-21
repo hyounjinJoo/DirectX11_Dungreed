@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "hjTileMap.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjGameObject.h"
 
 namespace hj

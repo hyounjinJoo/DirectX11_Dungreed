@@ -1,6 +1,6 @@
 #include "hjBoss1BackgroundEffect.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjAnimator.h"
 #include "hjXmlParser.h"
 

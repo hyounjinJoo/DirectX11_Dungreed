@@ -6,7 +6,7 @@
 #include "hjObject.h"
 #include "hjRoomNotPass.h"
 #include "hjAudioClip.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjAudioSource.h"
 #include "hjSpriteRenderer.h"
 
@@ -23,7 +23,7 @@ namespace hj
 		mRoomNotPass->SetNotActiveByRoom();
 
 		mSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
-		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Door"), WIDE("stoneDoor.ogg"));
+		std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("Door"), WIDE("stoneDoor.ogg"));
 		AudioSource* audioSrc = mSoundObj->AddComponent<AudioSource>();
 		clip->SetLoop(false);
 		audioSrc->SetClip(clip);

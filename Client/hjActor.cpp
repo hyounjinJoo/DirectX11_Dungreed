@@ -1,7 +1,7 @@
 #include "hjActor.h"
 #include "hjRoomBase.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjXmlParser.h"
 #include "hjAnimator.h"
 

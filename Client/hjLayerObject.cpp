@@ -1,6 +1,6 @@
 #include "hjLayerObject.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjTime.h"
 
 namespace hj

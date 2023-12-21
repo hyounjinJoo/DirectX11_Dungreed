@@ -2,7 +2,7 @@
 #include "hjTransform.h"
 #include "hjMeshRenderer.h"
 #include "hjRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjTexture.h"
 #include "hjPlayerScript.h"
 #include "hjCamera.h"
@@ -245,7 +245,7 @@ namespace hj
 #pragma endregion
 #pragma region Sound
 			mTitleSoundObj = object::Instantiate<GameObject>(eLayerType::UI);
-			std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Title"), WIDE("title.mp3"));
+			std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("Title"), WIDE("title.mp3"));
 			AudioSource* audioSrc = mTitleSoundObj->AddComponent<AudioSource>();
 			clip->SetLoop(true);
 			audioSrc->SetClip(clip);

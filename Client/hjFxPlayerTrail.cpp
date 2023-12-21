@@ -1,7 +1,7 @@
 #include "hjFxPlayerTrail.h"
 #include "hjTime.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjAnimator.h"
 #include "hjPlayer.h"
 

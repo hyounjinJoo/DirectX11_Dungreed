@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "hjParticleSystem.h"
 #include "hjMesh.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjMaterial.h"
 #include "hjStructuredBuffer.h"
 #include "hjTransform.h"
@@ -55,16 +55,16 @@ namespace hj
 
 	void ParticleSystem::Initialize()
 	{
-		mCS = Resources::Find<ParticleShader>(L"Shader_ParticleCS");
+		mCS = ResourceManager::Find<ParticleShader>(L"Shader_ParticleCS");
 
-		std::shared_ptr<Mesh> point = Resources::Find<Mesh>(L"Mesh_Point");
+		std::shared_ptr<Mesh> point = ResourceManager::Find<Mesh>(L"Mesh_Point");
 		SetMesh(point);
 
 		// Material ¼¼ÆÃ
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"MTRL_Particle");
+		std::shared_ptr<Material> material = ResourceManager::Find<Material>(L"MTRL_Particle");
 		SetMaterial(material);
 
-		std::shared_ptr<Texture> tex = Resources::Find<Texture>(L"CartoonSmoke");
+		std::shared_ptr<Texture> tex = ResourceManager::Find<Texture>(L"CartoonSmoke");
 		material->SetTexture(eTextureSlot::T0, tex);
 
 		Particle particles[1] = {};

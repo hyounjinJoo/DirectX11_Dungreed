@@ -4,7 +4,7 @@
 #include "hjTime.h"
 #include "hjInput.h"
 #include "hjSceneManager.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjCollisionManager.h"
 #include "hjFmod.h"
 
@@ -91,7 +91,7 @@ namespace hj
 
     void Application::Release()
     {
-		Resources::deleteTest();
+		ResourceManager::deleteTest();
 		Fmod::Release();
     }
         

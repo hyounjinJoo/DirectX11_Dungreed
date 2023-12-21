@@ -3,7 +3,7 @@
 #include "hjCollider2D.h"
 #include "hjObject.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjItem.h"
 #include "hjArmRotatorScript.h"
 #include "hjSwordOfExplorer.h"

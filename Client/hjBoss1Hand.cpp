@@ -3,7 +3,7 @@
 #include "hjSpriteRenderer.h"
 #include "hjAnimation.h"
 #include "hjAnimator.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjXmlParser.h"
 #include "hjBoss1Laser.h"
 #include "hjObject.h"

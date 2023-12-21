@@ -12,7 +12,7 @@
 #include "hjObject.h"
 #include "hjFxPlayerTrail.h"
 #include "hjFxPlayerJump.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjCameraScript.h"
 #include "hjMonster.h"
 #include "hjPlayerDashUI.h"

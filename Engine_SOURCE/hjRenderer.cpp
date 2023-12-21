@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "hjRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjMaterial.h"
 #include "hjSceneManager.h"
 #include "hjApplication.h"
@@ -481,7 +481,7 @@ namespace hj::renderer
 		// Paint Shader(Compute Shader)
 		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
-		Resources::Insert<PaintShader>(WIDE("Shader_Paint"), paintShader);
+		ResourceManager::Insert<PaintShader>(WIDE("Shader_Paint"), paintShader);
 
 		// TileMap Shader
 		shader = SHADER_NEW();
@@ -507,7 +507,7 @@ namespace hj::renderer
 		
 		std::shared_ptr<ParticleShader> particleCS = std::make_shared<ParticleShader>();
 		particleCS->Create(L"ParticleCS.hlsl", "main");
-		Resources::Insert<ParticleShader>(L"Shader_ParticleCS", particleCS);
+		ResourceManager::Insert<ParticleShader>(L"Shader_ParticleCS", particleCS);
 
 		// ParticleSystem Shader
 		shader = SHADER_NEW();
@@ -523,7 +523,7 @@ namespace hj::renderer
 		
 		std::shared_ptr<ParticleAnimShader> animParticleCS = std::make_shared<ParticleAnimShader>();
 		animParticleCS->Create(L"ParticleAnimCS.hlsl", "main");
-		Resources::Insert<ParticleAnimShader>(L"Shader_ParticleAnimCS", animParticleCS);
+		ResourceManager::Insert<ParticleAnimShader>(L"Shader_ParticleAnimCS", animParticleCS);
 	}
 
 
@@ -535,7 +535,7 @@ namespace hj::renderer
 
 // must type ;(semicolon) where Macro call end.
 #define LOAD_TEX(texName, fileName) \
-			Resources::Load<Texture>(WIDE(texName), \
+			ResourceManager::Load<Texture>(WIDE(texName), \
 			(mainFolderPath.empty() ? L"" : mainFolderPath + WIDE("\\")) \
 			+(subFolderPath1.empty() ? L"" : subFolderPath1 + WIDE("\\"))\
 			+(subFolderPath2.empty() ? L"" : subFolderPath2 + WIDE("\\"))\
@@ -636,7 +636,7 @@ namespace hj::renderer
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
 			| D3D11_BIND_UNORDERED_ACCESS);
-		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
+		ResourceManager::Insert<Texture>(L"PaintTexture", uavTexture);
 	}
 
 	void LoadMaterial()
@@ -883,81 +883,81 @@ namespace hj::renderer
 	{
 		std::shared_ptr<Map> map = std::make_shared<Map>();
 		map->Load(WIDE("TileMap\\00_Town.xml")); 
-		Resources::Insert<Map>(WIDE("MAP_00_Town"), map);
+		ResourceManager::Insert<Map>(WIDE("MAP_00_Town"), map);
 
 		map = std::make_shared<Map>();
 		map->Load(WIDE("TileMap\\01_BossRoom.xml"));
-		Resources::Insert<Map>(WIDE("MAP_01_BossRoom"), map);
+		ResourceManager::Insert<Map>(WIDE("MAP_01_BossRoom"), map);
 
 		map = std::make_shared<Map>();
 		map->Load(WIDE("TileMap\\01_N_LR.xml"));
-		Resources::Insert<Map>(WIDE("MAP_01_LR2"), map);
+		ResourceManager::Insert<Map>(WIDE("MAP_01_LR2"), map);
 
 #pragma region Start Room
 		{
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_B.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_B"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_B"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_L.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_L"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_L"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_LB.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_LB"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_LB"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_LR.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_LR"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_LR"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_LRB.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_LRB"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_LRB"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_LT.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_LT"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_LT"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_LTB.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_LTB"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_LTB"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_LTR.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_LTR"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_LTR"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_LTRB.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_LTRB"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_LTRB"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_R.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_R"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_R"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_RB.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_RB"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_RB"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_T.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_T"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_T"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_TB.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_TB"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_TB"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_TR.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_TR"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_TR"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_TR2.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_TR2"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_TR2"), map);
 
 			map = std::make_shared<Map>();
 			map->Load(WIDE("TileMap\\01_S_TRB.xml"));
-			Resources::Insert<Map>(WIDE("MAP_01_S_TRB"), map);
+			ResourceManager::Insert<Map>(WIDE("MAP_01_S_TRB"), map);
 		}
 #pragma endregion
 	}

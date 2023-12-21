@@ -1,6 +1,6 @@
 #include "hjStage1StartLT.h"
 #include "hjMap.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjCameraScript.h"
 #include "hjObject.h"
 #include "hjRoomNotPass.h"
@@ -15,7 +15,7 @@ namespace hj
 {
 	Stage1StartLT::Stage1StartLT()
 	{
-		std::shared_ptr<Map> mapData = Resources::Find<Map>(WIDE("MAP_01_S_LT"));
+		std::shared_ptr<Map> mapData = ResourceManager::Find<Map>(WIDE("MAP_01_S_LT"));
 		if (mapData)
 		{
 			UINT layerCount = mapData->GetLayerCount();

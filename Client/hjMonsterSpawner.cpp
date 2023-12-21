@@ -4,7 +4,7 @@
 #include "hjRoomBase.h"
 #include "hjAudioSource.h"
 #include "hjObject.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 
 namespace hj
 {
@@ -21,7 +21,7 @@ namespace hj
 
 		mSpawnSoundObj = object::Instantiate<Actor>(eLayerType::UI);
 		mSpawnSoundObj->GetTransform()->SetParent(this->GetTransform());
-		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("SpawnMonster"), WIDE("SpawnMonster.mp3"));
+		std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("SpawnMonster"), WIDE("SpawnMonster.mp3"));
 		clip->SetLoop(false);
 		mSpawnSoundObj->AddComponent<AudioSource>()->SetClip(clip);
 

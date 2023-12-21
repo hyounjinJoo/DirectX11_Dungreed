@@ -1,6 +1,6 @@
 #include "hjStage1Boss.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjAnimator.h"
 #include "hjCollider2D.h"
 #include "hjObject.h"
@@ -189,13 +189,13 @@ namespace hj
 		}
 
 		mSoundLaugh = object::Instantiate<GameObject>(eLayerType::UI);
-		std::shared_ptr<AudioClip> clip = Resources::Load<AudioClip>(WIDE("Laugh"), WIDE("beliallaugh_rev.mp3"));
+		std::shared_ptr<AudioClip> clip = ResourceManager::Load<AudioClip>(WIDE("Laugh"), WIDE("beliallaugh_rev.mp3"));
 		mLaughSrc = mSoundLaugh->AddComponent<AudioSource>();
 		clip->SetLoop(false);
 		mLaughSrc->SetClip(clip);
 
 		mDefeatSound = object::Instantiate<GameObject>(eLayerType::UI);
-		clip = Resources::Load<AudioClip>(WIDE("Defeat"), WIDE("bossDefeat.mp3"));
+		clip = ResourceManager::Load<AudioClip>(WIDE("Defeat"), WIDE("bossDefeat.mp3"));
 		mDefeatSrc = mDefeatSound->AddComponent<AudioSource>();
 		clip->SetLoop(false);
 		mDefeatSrc->SetClip(clip);

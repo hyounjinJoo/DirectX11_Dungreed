@@ -1,6 +1,6 @@
 #include "hjBoss1SwordCreateDestroyFx.h"
 #include "hjSpriteRenderer.h"
-#include "hjResources.h"
+#include "hjResourceManager.h"
 #include "hjAnimator.h"
 
 namespace hj
