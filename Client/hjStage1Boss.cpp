@@ -25,6 +25,7 @@
 #include "hjAudioClip.h"
 #include "hjAudioSource.h"
 #include "hjTestScene.h"
+#include "hjRoomBase.h"
 
 namespace hj
 {
@@ -584,6 +585,7 @@ namespace hj
 	void Stage1Boss::ProcessEndAll()
 	{	
 		Death();
+		mOwnerRoom->DecreaseMonster();
 	}
 
 	void Stage1Boss::PatternSwordAttack()
