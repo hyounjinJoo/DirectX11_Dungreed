@@ -26,7 +26,7 @@ namespace hj
 		std::filesystem::path parentPath = std::filesystem::current_path().parent_path();
 		std::wstring fullPath = parentPath.wstring() + L"\\..\\Resources\\Audio\\" + path;
 
-		std::string cPath(fullPath.begin(), fullPath.end());
+		std::string cPath(WideStringToString(fullPath));
 		if (!Fmod::CreateSound(cPath, &mSound))
 			return S_FALSE;
 
