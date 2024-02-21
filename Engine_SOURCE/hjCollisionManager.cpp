@@ -438,45 +438,49 @@ namespace hj
 		Matrix finalRight = Matrix::CreateScale(rightScale);
 		finalRight *= rightMat;
 
-		Axis[0] = Vector3::Transform(arrLocalPos[1], finalLeft);		// Left 우상단 축으로 확장
-		Axis[1] = Vector3::Transform(arrLocalPos[3], finalLeft);		// Left 좌상단 축으로 확장
-		Axis[2] = Vector3::Transform(arrLocalPos[1], finalRight);		// Right 우상단 축으로 확장
-		Axis[3] = Vector3::Transform(arrLocalPos[3], finalRight);		// Right 좌상단 축으로 확장
+		Axis[0] = Vector3::Transform(arrLocalPos[1], finalLeft);	// Left 우상단으로 확장
+		Axis[1] = Vector3::Transform(arrLocalPos[3], finalLeft);	// Left 좌하단으로 확장
+		Axis[2] = Vector3::Transform(arrLocalPos[1], finalRight);	// Right 우상단으로 확장
+		Axis[3] = Vector3::Transform(arrLocalPos[3], finalRight);	// Right 좌하단으로 확장
 
-		Axis[0] -= Vector3::Transform(arrLocalPos[0], finalLeft);		// Left 좌상단 만큼을 빼서 원점기준으로 이동
-		Axis[1] -= Vector3::Transform(arrLocalPos[0], finalLeft);		// Left 좌상단 만큼을 빼서 원점기준으로 이동
-		Axis[2] -= Vector3::Transform(arrLocalPos[0], finalRight);	// Right 좌상단 만큼을 빼서 원점기준으로 이동
-		Axis[3] -= Vector3::Transform(arrLocalPos[0], finalRight);	// Right 좌상단 만큼을 빼서 원점기준으로 이동
+		Axis[0] -= Vector3::Transform(arrLocalPos[0], finalLeft);	// Left의 가로변 길이
+		Axis[1] -= Vector3::Transform(arrLocalPos[0], finalLeft);	// Left의 세로변 길이
+		Axis[2] -= Vector3::Transform(arrLocalPos[0], finalRight);	// Right의 가로변 길이
+		Axis[3] -= Vector3::Transform(arrLocalPos[0], finalRight);	// Right의 세로변 길이
 
-
-		// 2D 계산이기 때문에 Z 축을 0으로 제한
+		// 2D 계산이기 때문에 Z값을 0으로 제한
 		for (size_t i = 0; i < 4; ++i)
 		{
 			Axis[i].z = 0.f;
 		}
 
-		// 각 트랜스폼의 원점간 거리 계산(월드 기준)
-		Vector3 vc = leftTr->GetWorldPosition() - rightTr->GetWorldPosition();
-		vc.z = 0.f;
+		// 두 OBB의 원점거리 벡터
+		Vector3 BetweenCenterVector = leftTr->GetWorldPosition() - rightTr->GetWorldPosition();
+		BetweenCenterVector.z = 0.f;
 
-		Vector3 centerDir = vc;
-
+		Vector3 projAxis = Vector3::Zero;
+		float projDist = 0.f;
+		float projCenter = 0.f;
 		for (size_t i = 0; i < 4; ++i)
 		{
-			Vector3 vA = Axis[i];
+			// 투영 기준 축 설정 및 투영 거리 초기화
+			projAxis = Axis[i];
+			projDist = 0.f;
 
-			float projDist = 0.f;
 			for (size_t j = 0; j < 4; ++j)
-			{
-				projDist += fabsf(Axis[j].Dot(vA) / 2.f);
+			{	
+				// 각 변의 반을 축에 투영시켜 전부 더한 거리
+				projDist += fabsf(projAxis.Dot(Axis[j] * 0.5f));
 			}
+			projCenter = fabsf(projAxis.Dot(BetweenCenterVector));
 
-			if (projDist < fabsf(centerDir.Dot(vA)))
+			// 분리축 존재 여부 검사, 하나라도 존재한다면 충돌 중이지 않은 상태
+			if (projDist < projCenter)
 			{
 				return false;
 			}
 		}
-
+		// 여기까지 도달한다면 분리축이 존재하지 않으므로 충돌 중인 상태
 		return true;
 	}
 
