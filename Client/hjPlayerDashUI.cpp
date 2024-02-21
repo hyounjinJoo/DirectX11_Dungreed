@@ -108,6 +108,8 @@ namespace hj
 				}
 			}
 		}
+
+		mCurrentDashCanCount = mDashBaseMaxCount;
 	}
 
 	void PlayerDashUI::DecreaseCurCount()

@@ -16,6 +16,8 @@ namespace hj
 		MOVE_LBTN,
 		MOVE_RBTN,
 		MOVE_SECONDJUMP,
+		INCREASE_DASH,
+		DECREASE_DASH,
 
 		END,
 	};

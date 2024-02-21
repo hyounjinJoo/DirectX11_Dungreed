@@ -317,6 +317,19 @@ namespace hj
 
 	void PlayerScript::HandleOtherInput()
 	{
+		if (Input::GetKeyDown(mKeyBindings[(UINT)playerKeyAction::INCREASE_DASH]))
+		{
+			++mMaxDashCount;
+			mCurDashCanCount = mMaxDashCount; 
+			mDashUI->SetMaxDashCount(mMaxDashCount);
+		}
+
+		if (Input::GetKeyDown(mKeyBindings[(UINT)playerKeyAction::DECREASE_DASH]))
+		{
+			--mMaxDashCount;
+			mCurDashCanCount = mMaxDashCount;
+			mDashUI->SetMaxDashCount(mMaxDashCount);
+		}
 	}
 
 	void PlayerScript::HandleTestInput()
@@ -769,6 +782,15 @@ namespace hj
 		mKeyBindings.push_back(key);
 
 		key = eKeyCode::SPACE;
+
+		mKeyBindings.push_back(key);
+
+		// Increase Decrease Dash Key Button
+		key = eKeyCode::N_3;
+
+		mKeyBindings.push_back(key);
+
+		key = eKeyCode::N_4;
 
 		mKeyBindings.push_back(key);
 		
